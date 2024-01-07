@@ -1,4 +1,4 @@
 User-agent: *
-Disallow: https://verewygt.github.io/perkroulette/privacy/
+Disallow: https://astofernest.github.io/perkroulette/privacy/
 
-Sitemap: https://verewygt.github.io/sitemap.xml
+Sitemap: https://astofernest.github.io/perkroulette/sitemap.xml
