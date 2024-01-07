@@ -17,7 +17,7 @@
 			"character": "Perk ensinável de O Canibal"
 		},
 		{
-			"perk_name": "Beast of Prey",
+			"perk_name": "Beasta da Caça",
 			"character": "Perk ensinável de A Caçadora"
 		},
 		{
@@ -25,27 +25,27 @@
 			"character": "Perk ensinável Geral"
 		},
 		{
-			"perk_name": "Blood Echo",
+			"perk_name": "Eco Sanguíneo",
 			"character": "Perk ensinável de O Oni"
 		},
 		{
-			"perk_name": "Blood Warden",
+			"perk_name": "Guardião Sanguinário",
 			"character": "Perk ensinável de O Pesadelo"
 		},
 		{
-			"perk_name": "Bloodhound",
+			"perk_name": "Cão de Caça",
 			"character": "Perk ensinável de O Espectro"
 		},
 		{
-			"perk_name": "Brutal Strength",
+			"perk_name": "Força Brutal",
 			"character": "Perk ensinável de O Caçador"
 		},
 		{
-			"perk_name": "Corrupt Intervention",
+			"perk_name": "Intervenção Corrompida",
 			"character": "Perk ensinável de A Praga"
 		},
 		{
-			"perk_name": "Coulrophobia",
+			"perk_name": "Coulrofobia",
 			"character": "Perk ensinável de O Palhaço"
 		},
 		{
@@ -53,107 +53,107 @@
 			"character": "Perk ensinável de Os Gêmeos"
 		},
 		{
-			"perk_name": "Claustrophobia",
-			"character": "Perk ensinável Geral (O Demogorgon)"
+			"perk_name": "Limite Cruel",
+			"character": "Perk ensinável de O Demogorgon"
 		},
 		{
-			"perk_name": "Dark Devotion",
+			"perk_name": "Devoção Sombria",
 			"character": "Perk ensinável de A Praga"
 		},
 		{
-			"perk_name": "Dead Man's Switch",
+			"perk_name": "Garantia do Morto",
 			"character": "Perk ensinável de O Mercenário"
 		},
 		{
-			"perk_name": "Deathbound",
+			"perk_name": "Letalidade",
 			"character": "Perk ensinável de O Carrasco"
 		},
 		{
-			"perk_name": "Deerstalker",
+			"perk_name": "Caçador de Cervos",
 			"character": "Perk ensinável Geral"
 		},
 		{
-			"perk_name": "Discordance",
+			"perk_name": "Discordância",
 			"character": "Perk ensinável de A Legião"
 		},
 		{
-			"perk_name": "Distressing",
+			"perk_name": "Angustiante",
 			"character": "Perk ensinável Geral"
 		},
 		{
-			"perk_name": "Dragon's Grip",
+			"perk_name": "Garra do Dragão",
 			"character": "Perk ensinável de O Flagelo"
 		},
 		{
-			"perk_name": "Dying Light",
+			"perk_name": "Perdendo a Esperança",
 			"character": "Perk ensinável de O Vulto"
 		},
 		{
-			"perk_name": "Enduring",
+			"perk_name": "Resistência",
 			"character": "Perk ensinável de O Caipira"
 		},
 		{
-			"perk_name": "Fire Up",
+			"perk_name": "Motivação",
 			"character": "Perk ensinável de O Pesadelo"
 		},
 		{
-			"perk_name": "Forced Penance",
+			"perk_name": "Penitência Forçada",
 			"character": "Perk ensinável de O Carrasco"
 		},
 		{
-			"perk_name": "Franklin's Demise",
+			"perk_name": "A Morte de Franklin",
 			"character": "Perk ensinável de O Canibal"
 		},
 		{
-			"perk_name": "Furtive Chase",
+			"perk_name": "Perseguição Furtiva",
 			"character": "Perk ensinável de O Ghost Face"
 		},
 		{
-			"perk_name": "Gearhead",
+			"perk_name": "Coroa Dentada",
 			"character": "Perk ensinável de O Mercenário"
 		},
 		{
-			"perk_name": "Hangman's Trick",
+			"perk_name": "Gancho do Tormento: Truque do Carrasco",
 			"character": "Perk ensinável de A Porca"
 		},
 		{
-			"perk_name": "Hex: Blood Favour",
+			"perk_name": "Feitiço: Graça do Sangue",
 			"character": "Perk ensinável de O Flagelo"
 		},
 		{
-			"perk_name": "Hex: Devour Hope",
+			"perk_name": "Feitiço: Devorar Esperança",
 			"character": "Perk ensinável de A Bruxa"
 		},
 		{
-			"perk_name": "Hex: Haunted Ground",
+			"perk_name": "Feitiço: Terreno Assombrado",
 			"character": "Perk ensinável de O Espírito"
 		},
 		{
-			"perk_name": "Hex: Huntress Lullaby",
+			"perk_name": "Feitiço: Canção de Ninar da Caçadora",
 			"character": "Perk ensinável de A Caçadora"
 		},
 		{
-			"perk_name": "Hex: No One Escapes Death",
+			"perk_name": "Feitiço: Ninguém Escapa da Morte",
 			"character": "Perk ensinável Geral"
 		},
 		{
-			"perk_name": "Hex: Retribution",
+			"perk_name": "Feitiço: Retribuição",
 			"character": "Perk ensinável de O Mercenário"
 		},
 		{
-			"perk_name": "Hex: Ruin",
+			"perk_name": "Feitiço: Arruinar",
 			"character": "Perk ensinável de A Bruxa"
 		},
 		{
-			"perk_name": "Hex: The Third Seal",
+			"perk_name": "Feitiço: Terceiro Selo",
 			"character": "Perk ensinável de A Bruxa"
 		},
 		{
-			"perk_name": "Hex: Thrill of the Hunt",
+			"perk_name": "Feitiço: Emoção da Caçada",
 			"character": "Perk ensinável Geral"
 		},
 		{
-			"perk_name": "Hex: Undying",
+			"perk_name": "Feitiço: Undying",
 			"character": "Perk ensinável de O Flagelo"
 		},
 		{
@@ -313,7 +313,7 @@
 			"character": "Perk ensinável de O Oni"
 		},
 		{
-			"perk_name": "Hex: Crowd Control",
+			"perk_name": "Feitiço: Crowd Control",
 			"character": "Perk ensinável de O Trapaça"
 		},
 		{
@@ -341,7 +341,7 @@
 			"character": "Perk ensinável de O Cenobita"
 		},
 		{
-			"perk_name": "Hex: Plaything",
+			"perk_name": "Feitiço: Plaything",
 			"character": "Perk ensinável de O Cenobita"
 		},
 		{
@@ -357,7 +357,7 @@
 			"character": "Perk ensinável de A Artista"
 		},
 		{
-			"perk_name": "Hex: Pentimento",
+			"perk_name": "Feitiço: Pentimento",
 			"character": "Perk ensinável de A Artista"
 		},
 		{
@@ -405,7 +405,7 @@
 			"character": "Perk ensinável de O Cavaleiro"
 		},
 		{
-			"perk_name": "Hex: Face the Darkness",
+			"perk_name": "Feitiço: Face the Darkness",
 			"character": "Perk ensinável de O Cavaleiro"
 		},
 		{
@@ -449,7 +449,7 @@
 			"character": "Perk ensinável de O Xenomorfo"
 		},
 		{
-			"perk_name": "Hex: Two Can Play",
+			"perk_name": "Feitiço: Two Can Play",
 			"character": "Perk ensinável de O Cara Legal"
 		},
 		{
