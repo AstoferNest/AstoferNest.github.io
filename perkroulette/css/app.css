@@ -676,14 +676,14 @@ label[for="surv"], label[for="kill"] {
     padding: 5px 5px 5px 35px;
     line-height: 25px;
     border-radius: 3px;
-    font-weight: 500;
+    font-weight: 400;
     color: #fff;
     transition: background-color 0.2s;
     border: 1px solid rgba(34, 34, 34, 0.75);
     background-image: url(img/icns/check-inactive.png);
     background-repeat: no-repeat;
     background-position: 10px center;
-    background-size: 30px;
+    background-size: 20px;
 }
 
 label[for="surv"]:hover, label[for="kill"]:hover {
