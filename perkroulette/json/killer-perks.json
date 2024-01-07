@@ -1,8 +1,8 @@
 {
 	"perks": [
 		{
-			"perk_name": "A Nurse's Calling",
-			"character": "The Nurse Teachable Perk"
+			"perk_name": "Chamado da Enfermeira",
+			"character": "Perk ensinável de A Enfermeira"
 		},
 		{
 			"perk_name": "Agitação",
@@ -18,7 +18,7 @@
 		},
 		{
 			"perk_name": "Beast of Prey",
-			"character": "The Huntress Teachable Perk"
+			"character": "Perk ensinável de A Caçadora"
 		},
 		{
 			"perk_name": "Murmúrio Amargo",
@@ -26,243 +26,243 @@
 		},
 		{
 			"perk_name": "Blood Echo",
-			"character": "The Oni Teachable Perk"
+			"character": "Perk ensinável de O Oni"
 		},
 		{
 			"perk_name": "Blood Warden",
-			"character": "The Nightmare Teachable Perk"
+			"character": "Perk ensinável de O Pesadelo"
 		},
 		{
 			"perk_name": "Bloodhound",
-			"character": "The Wraith Teachable Perk"
+			"character": "Perk ensinável de O Espectro"
 		},
 		{
 			"perk_name": "Brutal Strength",
-			"character": "The Trapper Teachable Perk"
+			"character": "Perk ensinável de O Caçador"
 		},
 		{
 			"perk_name": "Corrupt Intervention",
-			"character": "The Plague Teachable Perk"
+			"character": "Perk ensinável de A Praga"
 		},
 		{
 			"perk_name": "Coulrophobia",
-			"character": "The Clown Teachable Perk"
+			"character": "Perk ensinável de O Palhaço"
 		},
 		{
 			"perk_name": "Coup de Grâce",
-			"character": "The Twins Teachable Perk"
+			"character": "Perk ensinável de Os Gêmeos"
 		},
 		{
 			"perk_name": "Claustrophobia",
-			"character": "All Characters (The Demogorgon)"
+			"character": "Perk ensinável Geral (O Demogorgon)"
 		},
 		{
 			"perk_name": "Dark Devotion",
-			"character": "The Plague Teachable Perk"
+			"character": "Perk ensinável de A Praga"
 		},
 		{
 			"perk_name": "Dead Man's Switch",
-			"character": "The Deathslinger Teachable Perk"
+			"character": "Perk ensinável de O Mercenário"
 		},
 		{
 			"perk_name": "Deathbound",
-			"character": "The Executioner Teachable Perk"
+			"character": "Perk ensinável de O Carrasco"
 		},
 		{
 			"perk_name": "Deerstalker",
-			"character": "All Characters"
+			"character": "Perk ensinável Geral"
 		},
 		{
 			"perk_name": "Discordance",
-			"character": "The Legion Teachable Perk"
+			"character": "Perk ensinável de A Legião"
 		},
 		{
 			"perk_name": "Distressing",
-			"character": "All Characters"
+			"character": "Perk ensinável Geral"
 		},
 		{
 			"perk_name": "Dragon's Grip",
-			"character": "The Blight Teachable Perk"
+			"character": "Perk ensinável de O Flagelo"
 		},
 		{
 			"perk_name": "Dying Light",
-			"character": "The Shape Teachable Perk"
+			"character": "Perk ensinável de O Vulto"
 		},
 		{
 			"perk_name": "Enduring",
-			"character": "The Hillbilly Teachable Perk"
+			"character": "Perk ensinável de O Caipira"
 		},
 		{
 			"perk_name": "Fire Up",
-			"character": "The Nightmare Teachable Perk"
+			"character": "Perk ensinável de O Pesadelo"
 		},
 		{
 			"perk_name": "Forced Penance",
-			"character": "The Executioner Teachable Perk"
+			"character": "Perk ensinável de O Carrasco"
 		},
 		{
 			"perk_name": "Franklin's Demise",
-			"character": "The Cannibal Teachable Perk"
+			"character": "Perk ensinável de O Canibal"
 		},
 		{
 			"perk_name": "Furtive Chase",
-			"character": "The Ghost Face Teachable Perk"
+			"character": "Perk ensinável de O Ghost Face"
 		},
 		{
 			"perk_name": "Gearhead",
-			"character": "The Deathslinger Teachable Perk"
+			"character": "Perk ensinável de O Mercenário"
 		},
 		{
 			"perk_name": "Hangman's Trick",
-			"character": "The Pig Teachable Perk"
+			"character": "Perk ensinável de A Porca"
 		},
 		{
 			"perk_name": "Hex: Blood Favour",
-			"character": "The Blight Teachable Perk"
+			"character": "Perk ensinável de O Flagelo"
 		},
 		{
 			"perk_name": "Hex: Devour Hope",
-			"character": "The Hag Teachable Perk"
+			"character": "Perk ensinável de A Bruxa"
 		},
 		{
 			"perk_name": "Hex: Haunted Ground",
-			"character": "The Spirit Teachable Perk"
+			"character": "Perk ensinável de O Espírito"
 		},
 		{
 			"perk_name": "Hex: Huntress Lullaby",
-			"character": "The Huntress Teachable Perk"
+			"character": "Perk ensinável de A Caçadora"
 		},
 		{
 			"perk_name": "Hex: No One Escapes Death",
-			"character": "All Characters"
+			"character": "Perk ensinável Geral"
 		},
 		{
 			"perk_name": "Hex: Retribution",
-			"character": "The Deathslinger Teachable Perk"
+			"character": "Perk ensinável de O Mercenário"
 		},
 		{
 			"perk_name": "Hex: Ruin",
-			"character": "The Hag Teachable Perk"
+			"character": "Perk ensinável de A Bruxa"
 		},
 		{
 			"perk_name": "Hex: The Third Seal",
-			"character": "The Hag Teachable Perk"
+			"character": "Perk ensinável de A Bruxa"
 		},
 		{
 			"perk_name": "Hex: Thrill of the Hunt",
-			"character": "All Characters"
+			"character": "Perk ensinável Geral"
 		},
 		{
 			"perk_name": "Hex: Undying",
-			"character": "The Blight Teachable Perk"
+			"character": "Perk ensinável de O Flagelo"
 		},
 		{
 			"perk_name": "Hoarder",
-			"character": "The Twins Teachable Perk"
+			"character": "Perk ensinável de Os Gêmeos"
 		},
 		{
 			"perk_name": "I'm All Ears",
-			"character": "The Ghost Face Teachable Perk"
+			"character": "Perk ensinável de O Ghost Face"
 		},
 		{
 			"perk_name": "Infectious Fright",
-			"character": "The Plague Teachable Perk"
+			"character": "Perk ensinável de A Praga"
 		},
 		{
 			"perk_name": "Insidious",
-			"character": "All Characters"
+			"character": "Perk ensinável Geral"
 		},
 		{
 			"perk_name": "Iron Grasp",
-			"character": "All Characters"
+			"character": "Perk ensinável Geral"
 		},
 		{
 			"perk_name": "Iron Maiden",
-			"character": "The Legion Teachable Perk"
+			"character": "Perk ensinável de A Legião"
 		},
 		{
 			"perk_name": "Knock Out",
-			"character": "The Cannibal Teachable Perk"
+			"character": "Perk ensinável de O Canibal"
 		},
 		{
 			"perk_name": "Lightborn",
-			"character": "The Hillbilly Teachable Perk"
+			"character": "Perk ensinável de O Caipira"
 		},
 		{
 			"perk_name": "Mad Grit",
-			"character": "The Legion Teachable Perk"
+			"character": "Perk ensinável de A Legião"
 		},
 		{
 			"perk_name": "Make Your Choice",
-			"character": "The Pig Teachable Perk"
+			"character": "Perk ensinável de A Porca"
 		},
 		{
 			"perk_name": "Fearmonger",
-			"character": "All Characters (The Demogorgon)"
+			"character": "Perk ensinável Geral (O Demogorgon)"
 		},
 		{
 			"perk_name": "Monitor & Abuse",
-			"character": "The Doctor Teachable Perk"
+			"character": "Perk ensinável de O Doutor"
 		},
 		{
 			"perk_name": "Monstrous Shrine",
-			"character": "All Characters"
+			"character": "Perk ensinável Geral"
 		},
 		{
 			"perk_name": "Nemesis",
-			"character": "The Oni Teachable Perk"
+			"character": "Perk ensinável de O Oni"
 		},
 		{
 			"perk_name": "Oppression",
-			"character": "The Twins Teachable Perk"
+			"character": "Perk ensinável de Os Gêmeos"
 		},
 		{
 			"perk_name": "Overcharge",
-			"character": "The Doctor Teachable Perk"
+			"character": "Perk ensinável de O Doutor"
 		},
 		{
 			"perk_name": "Overwhelming Presence",
-			"character": "The Doctor Teachable Perk"
+			"character": "Perk ensinável de O Doutor"
 		},
 		{
 			"perk_name": "Play with Your Food",
-			"character": "The Shape Teachable Perk"
+			"character": "Perk ensinável de O Vulto"
 		},
 		{
 			"perk_name": "Pop Goes the Weasel",
-			"character": "The Clown Teachable Perk"
+			"character": "Perk ensinável de O Palhaço"
 		},
 		{
 			"perk_name": "Predator",
-			"character": "The Wraith Teachable Perk"
+			"character": "Perk ensinável de O Espectro"
 		},
 		{
 			"perk_name": "Rancor",
-			"character": "The Spirit Teachable Perk"
+			"character": "Perk ensinável de O Espírito"
 		},
 		{
 			"perk_name": "Remember Me",
-			"character": "The Nightmare Teachable Perk"
+			"character": "Perk ensinável de O Pesadelo"
 		},
 		{
 			"perk_name": "Save the Best for Last",
-			"character": "The Shape Teachable Perk"
+			"character": "Perk ensinável de O Vulto"
 		},
 		{
 			"perk_name": "Shadowborn",
-			"character": "The Wraith Teachable Perk"
+			"character": "Perk ensinável de O Espectro"
 		},
 		{
 			"perk_name": "Sloppy Butcher",
-			"character": "All Characters"
+			"character": "Perk ensinável Geral"
 		},
 		{
 			"perk_name": "Spies from the Shadows",
-			"character": "All Characters"
+			"character": "Perk ensinável Geral"
 		},
 		{
 			"perk_name": "Spirit Fury",
-			"character": "The Spirit Teachable Perk"
+			"character": "Perk ensinável de O Espírito"
 		},
 		{
 			"perk_name": "Stridor",
@@ -270,15 +270,15 @@
 		},
 		{
 			"perk_name": "Jolt",
-			"character": "All Characters (The Demogorgon)"
+			"character": "Perk ensinável Geral (O Demogorgon)"
 		},
 		{
 			"perk_name": "Surveillance",
-			"character": "The Pig Teachable Perk"
+			"character": "Perk ensinável de A Porca"
 		},
 		{
 			"perk_name": "Territorial Imperative",
-			"character": "The Huntress Teachable Perk"
+			"character": "Perk ensinável de A Caçadora"
 		},
 		{
 			"perk_name": "Thanatophobia",
@@ -286,179 +286,179 @@
 		},
 		{
 			"perk_name": "Thrilling Tremors",
-			"character": "The Ghost Face Teachable Perk"
+			"character": "Perk ensinável de O Ghost Face"
 		},
 		{
 			"perk_name": "Tinkerer",
-			"character": "The Hillbilly Teachable Perk"
+			"character": "Perk ensinável de O Caipira"
 		},
 		{
 			"perk_name": "Trail of Torment",
-			"character": "The Executioner Teachable Perk"
+			"character": "Perk ensinável de O Carrasco"
 		},
 		{
 			"perk_name": "Unnerving Presence",
-			"character": "The Trapper Teachable Perk"
+			"character": "Perk ensinável de O Caçador"
 		},
 		{
 			"perk_name": "Unrelenting",
-			"character": "All Characters"
+			"character": "Perk ensinável Geral"
 		},
 		{
 			"perk_name": "Whispers",
-			"character": "All Characters"
+			"character": "Perk ensinável Geral"
 		},
 		{
 			"perk_name": "Zanshin Tactics",
-			"character": "The Oni Teachable Perk"
+			"character": "Perk ensinável de O Oni"
 		},
 		{
 			"perk_name": "Hex: Crowd Control",
-			"character": "The Trickster Teachable Perk"
+			"character": "Perk ensinável de O Trapaça"
 		},
 		{
 			"perk_name": "No Way Out",
-			"character": "The Trickster Teachable Perk"
+			"character": "Perk ensinável de O Trapaça"
 		},
 		{
 			"perk_name": "Starstruck",
-			"character": "The Trickster Teachable Perk"
+			"character": "Perk ensinável de O Trapaça"
 		},
 		{
 			"perk_name": "Lethal Pursuer",
-			"character": "The Nemesis Teachable Perk"
+			"character": "Perk ensinável de O Nemesis"
 		},
 		{
 			"perk_name": "Hysteria",
-			"character": "The Nemesis Teachable Perk"
+			"character": "Perk ensinável de O Nemesis"
 		},
 		{
 			"perk_name": "Eruption",
-			"character": "The Nemesis Teachable Perk"
+			"character": "Perk ensinável de O Nemesis"
 		},
 		{
 			"perk_name": "Deadlock",
-			"character": "The Cenobite Teachable Perk"
+			"character": "Perk ensinável de O Cenobita"
 		},
 		{
 			"perk_name": "Hex: Plaything",
-			"character": "The Cenobite Teachable Perk"
+			"character": "Perk ensinável de O Cenobita"
 		},
 		{
 			"perk_name": "Scourge Hook: Gift of Pain",
-			"character": "The Cenobite Teachable Perk"
+			"character": "Perk ensinável de O Cenobita"
 		},
 		{
 			"perk_name": "Grim Embrace",
-			"character": "The Artist Teachable Perk"
+			"character": "Perk ensinável de A Artista"
 		},
 		{
 			"perk_name": "Scourge Hook: Pain Resonance",
-			"character": "The Artist Teachable Perk"
+			"character": "Perk ensinável de A Artista"
 		},
 		{
 			"perk_name": "Hex: Pentimento",
-			"character": "The Artist Teachable Perk"
+			"character": "Perk ensinável de A Artista"
 		},
 		{
 			"perk_name": "Scourge Hook: Floods of Rage",
-			"character": "The Onryō's Teachable Perk"
+			"character": "Perk ensinável de A Onryō"
 		},
 		{
 			"perk_name": "Call of Brine",
-			"character": "The Onryō's Teachable Perk"
+			"character": "Perk ensinável de A Onryō"
 		},
 		{
 			"perk_name": "Merciless Storm",
-			"character": "The Onryō's Teachable Perk"
+			"character": "Perk ensinável de A Onryō"
 		},
 		{
 			"perk_name": "Dissolution",
-			"character": "The Dredge Teachable Perk"
+			"character": "Perk ensinável de A Draga"
 		},
 		{
 			"perk_name": "Darkness Revealed",
-			"character": "The Dredge Teachable Perk"
+			"character": "Perk ensinável de A Draga"
 		},
 		{
 			"perk_name": "Septic Touch",
-			"character": "The Dredge Teachable Perk"
+			"character": "Perk ensinável de A Draga"
 		},
 		{
 			"perk_name": "Shattered Hope",
-			"character": "All Characters"
+			"character": "Perk ensinável Geral"
 		},
 		{
 			"perk_name": "Superior Anatomy",
-			"character": "The Mastermind Teachable Perk"
+			"character": "Perk ensinável de O Vilão"
 		},
 		{
 			"perk_name": "Awakened Awareness",
-			"character": "The Mastermind Teachable Perk"
+			"character": "Perk ensinável de O Vilão"
 		},
 		{
 			"perk_name": "Terminus",
-			"character": "The Mastermind Teachable Perk"
+			"character": "Perk ensinável de O Vilão"
 		},
 		{
 			"perk_name": "Nowhere to Hide",
-			"character": "The Knight Teachable Perk"
+			"character": "Perk ensinável de O Cavaleiro"
 		},
 		{
 			"perk_name": "Hex: Face the Darkness",
-			"character": "The Knight Teachable Perk"
+			"character": "Perk ensinável de O Cavaleiro"
 		},
 		{
 			"perk_name": "Hubris",
-			"character": "The Knight Teachable Perk"
+			"character": "Perk ensinável de O Cavaleiro"
 		},
 		{
 			"perk_name": "Game Afoot",
-			"character": "The Skull Merchant Teachable Perk"
+			"character": "Perk ensinável de A Negociante de Crânios"
 		},
 		{
 			"perk_name": "Leverage",
-			"character": "The Skull Merchant Teachable Perk"
+			"character": "Perk ensinável de A Negociante de Crânios"
 		},
 		{
 			"perk_name": "THWACK!",
-			"character": "The Skull Merchant Teachable Perk"
+			"character": "Perk ensinável de A Negociante de Crânios"
 		},
 		{
 			"perk_name": "Forced Hesitation",
-			"character": "The Singularity Teachable Perk"
+			"character": "Perk ensinável de A Singularidade"
 		},
 		{
 			"perk_name": "Genetic Limits",
-			"character": "The Singularity Teachable Perk"
+			"character": "Perk ensinável de A Singularidade"
 		},
 		{
 			"perk_name": "Machine Learning",
-			"character": "The Singularity Teachable Perk"
+			"character": "Perk ensinável de A Singularidade"
 		},
 		{
 			"perk_name": "Alien Instinct",
-			"character": "The Xenomorph Teachable Perk"
+			"character": "Perk ensinável de O Xenomorfo"
 		},
 		{
 			"perk_name": "Rapid Brutality",
-			"character": "The Xenomorph Teachable Perk"
+			"character": "Perk ensinável de O Xenomorfo"
 		},
 		{
 			"perk_name": "Ultimate Weapon",
-			"character": "The Xenomorph Teachable Perk"
+			"character": "Perk ensinável de O Xenomorfo"
 		},
 		{
 			"perk_name": "Hex: Two Can Play",
-			"character": "The Good Guy Teachable Perk"
+			"character": "Perk ensinável de O Cara Legal"
 		},
 		{
 			"perk_name": "Friends 'til the End",
-			"character": "The Good Guy Teachable Perk"
+			"character": "Perk ensinável de O Cara Legal"
 		},
 		{
 			"perk_name": "Batteries Included",
-			"character": "The Good Guy Teachable Perk"
+			"character": "Perk ensinável de O Cara Legal"
 		}
 	]
 }
