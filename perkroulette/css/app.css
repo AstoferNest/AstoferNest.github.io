@@ -718,7 +718,7 @@ label[for="surv"]:hover, label[for="kill"]:hover {
     border: none;
     padding: 8px 8px 8px 35px;
     margin: 0;
-    width: calc(85%)/*calc(100% - 35px - 8px)*/;
+    width: calc(87%)/*calc(100% - 35px - 8px)*/;
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
     border-radius: 3px;
