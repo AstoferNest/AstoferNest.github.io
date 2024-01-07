@@ -673,10 +673,11 @@ body#perkroulette-app .configuration>.perks {
 label[for="surv"], label[for="kill"] {
     display: inline-block;
     width: calc(50% - 44px);
-    padding: 5px 15px 5px 35px;
+    padding: 5px 5px 5px 35px;
     line-height: 25px;
     border-radius: 3px;
     font-weight: 200;
+    font-size: 20px;
     color: #fff;
     transition: background-color 0.2s;
     border: 1px solid rgba(34, 34, 34, 0.75);
