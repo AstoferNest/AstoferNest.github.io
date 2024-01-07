@@ -5,33 +5,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Perk Roulette for OBS, etc. | Dead by Daylight Randomizer</title>
-    <meta name="description" content="Randomize perks directly in OBS, XSplit or any other streaming software.">
+    <title>Roleta de Perks para OBS, etc. | Dead by Daylight Randomizador</title>
+    <meta name="description" content="Randomizar perks diretamente no OBS, XSplit ou qualquer outro software de streaming.">
 
     <link rel="shortcut icon" href="/perkroulette/css/img/favicon.png">
 
-    <meta property="st:section" content="Randomize perks directly in OBS, XSplit or any other streaming software.">
-    <meta name="twitter:title" content="Perk Roulette for OBS, etc. | Dead by Daylight Randomizer">
-    <meta name="twitter:description" content="Randomize perks directly in OBS, XSplit or any other streaming software.">
+    <meta property="st:section" content="Randomizar perks diretamente no OBS, XSplit ou qualquer outro software de streaming.">
+    <meta name="twitter:title" content="Roleta de Perks para OBS, etc. | Dead by Daylight Randomizador">
+    <meta name="twitter:description" content="Randomizar perks diretamente no OBS, XSplit ou qualquer outro software de streaming.">
 
     <link rel="stylesheet" href="/perkroulette/css/app.css" media="all" id="appcss">
     <script src="/perkroulette/js/app/streaming-mode.js" type="text/javascript"></script>
-
-    <meta name="google-site-verification" content="bWB7m6flbE9J8xvgVjozLnzaBwDFCiOd6Fx80WeT1P4" />
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script src="/perkroulette/js/analytics/ga-optout.js" type="text/javascript"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NFNN5RN6TG"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-
-        gtag('js', new Date());
-        gtag('config', 'G-NFNN5RN6TG');
-        gtag('consent', 'default', { 'analytics_storage': 'denied' });
-        gtag('set', { 'restricted_data_processing': true });
-    </script>
-    <!-- Google Analytics End -->
 
 </head>
 
@@ -43,7 +27,7 @@
                 <div class="logo">
                     <a class="logo-link" href="/perkroulette/" target="_self">
                         <p id="subtext">Dead by Daylight</p>
-                        <p id="main-text">Perk Roulette</p>
+                        <p id="main-text">Roleta de Perks</p>
                     </a>
                 </div>
                 <nav class="navigation">
@@ -52,7 +36,7 @@
                             <a class="nav-link" href="/perkroulette/">Perks</a>
                         </li>
                         <li class="nav-element">
-                            <a class="nav-link current" href="/perkroulette/streaming-mode">Streaming mode</a>
+                            <a class="nav-link current" href="/perkroulette/streaming-mode">Modo Streaming</a>
                         </li>
                     </ul>
                 </nav>
@@ -74,21 +58,21 @@
                         <input onclick="loadPerks()" type="radio" name="teams" id="surv" checked>
                         <input onclick="loadPerks()" type="radio" name="teams" id="kill">
                         <div class="label_container">
-                            <label for="surv" onclick="loadPerks()">Survivor</label>
-                            <label for="kill" onclick="loadPerks()">Killer</label>
+                            <label for="surv" onclick="loadPerks()">Sobreviventes</label>
+                            <label for="kill" onclick="loadPerks()">Assassinos</label>
                         </div>
                     </div>
 
                     <div class="perks">
-                        <h3>Perk Management</h3>
+                        <h3>Gerenciamento de Perks</h3>
                         <form id="search-input-wrapper" name="search-input-wrapper">
                             <input type="text" id="search-input" onkeyup="filter()"
-                                placeholder="Search for perk or character" title="Search for perk or character">
+                                placeholder="Pesquisar por Perk ou Personagem" title="Pesquisar por Perk ou Personagem">
                             <input type="reset" value="" onclick="resetFilter()" id="search-clear" class="hidden">
                         </form>
                         <div class="selection-wrapper">
-                            <button class="selection-button" onclick="selAll()">Select all</button>
-                            <button class="selection-button" onclick="selNone()">Select none</button>
+                            <button class="selection-button" onclick="selAll()">Selecionar Todos</button>
+                            <button class="selection-button" onclick="selNone()">Desselecionar Todos</button>
                         </div>
                         <div class="generated-list" id="perk-list"></div>
                     </div>
@@ -97,46 +81,46 @@
                         <h3>Appearance</h3>
                         <form>
                             <div class="label-gr">
-                                <label for="bg-color">Background Color</label>
+                                <label for="bg-color">Cor de Fundo</label>
                                 <input type="text" name="bg-color" value="transparent">
                             </div>
                             <div class="label-gr">
-                                <label for="perk-name-color">Perk Name Color</label>
+                                <label for="perk-name-color">Cor do Nome do Perk</label>
                                 <input type="text" name="perk-name-color" value="ffffff">
                             </div>
                             <div class="label-gr">
-                                <label for="char-color">Character Color</label>
+                                <label for="char-color">Cor do Personagem</label>
                                 <input type="text" name="char-color" value="ff8800">
                             </div>
                             <div class="label-gr-wide">
-                                <label for="bg-url">Perk Image URL</label>
+                                <label for="bg-url">Url dos Perks</label>
                                 <input type="url" name="bg-url" value="Default">
                             </div>
                         </form>
                     </div>
 
-                    <button id="apply" type="button" name="apply" onclick="applyChanges()">Apply Changes</button>
+                    <button id="apply" type="button" name="apply" onclick="applyChanges()">Aplicar Mudanças</button>
                 </div>
             </div>
 
             <div class="main-content-area">
                 <noscript>
                     <div class="noscriptmsg">
-                        This site doesn't work properly with JavaScript disabled. Please make the entity happy by
-                        enabling it in your browser.
-                        <a href="https://www.enable-javascript.com/" target="_blank">Show me how</a>
+                        Esse site não funciona corretamente com JavaScript desativado. Por favor faça a entidade feliz
+                        ativando-os no seu navegador.
+                        <a href="https://www.enable-javascript.com/" target="_blank">Mostre-me como</a>
                     </div>
                 </noscript>
 
 
 
                 <div class="sub-menu">
-                    <h1 class="site-title">Streaming mode</h1>
+                    <h1 class="site-title">Modo Streaming</h1>
 
                     <div class="info">
                         <input type="radio" name="tut-toggle" id="hide-tut">
                         <input type="radio" name="tut-toggle" id="show-tut">
-                        <label for="show-tut">How to add</label>
+                        <label for="show-tut">Como Adicionar</label>
                         <div class="tutorial-panel">
                             <label for="hide-tut"></label>
                             <h2 class="site-subtitle">How do I add the generator to my streaming software?</h2>
@@ -161,25 +145,25 @@
                     </div>
                 </div>
 
-                <h2 class="site-subtitle">Preview</h2>
+                <h2 class="site-subtitle">Pré-Visualizar</h2>
                 <div class="preview-container">
                     <iframe id="embed-preview" src="/perkroulette/streaming-mode/embed/?type=surv" width="100%"
                         height="100%"></iframe>
                 </div>
 
 
-                <h2 class="site-subtitle">Streaming Software Link</h2>
+                <h2 class="site-subtitle">Link para o Software Streaming </h2>
                 <div class="link-field">
                     <input id="link-input" type="text" name="stream-software-url"
-                        value="https://verewygt.github.io/perkroulette/streaming-mode/embed/?type=surv">
-                    <input id="link-copy-btn" type="button" value="Copy URL" onclick="copyToClipboard()">
+                        value="https://astofernest.github.io/perkroulette/streaming-mode/embed/?type=surv">
+                    <input id="link-copy-btn" type="button" value="Copiar URL" onclick="copyToClipboard()">
                 </div>
             </div>
         </div>
 
         <section id="sidebar">
             <div class="sidebar-column" id="c1">
-                <h2 class="sidebar-title">About</h2>
+                <h2 class="sidebar-title">Sobre</h2>
 
                 <h3 class="sidebar-title">This website</h3>
                 <p class="sidebar-text"><span>Do you already have all perks unlocked? Do you need a new challenge? Want
