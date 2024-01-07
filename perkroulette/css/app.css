@@ -676,7 +676,7 @@ label[for="surv"], label[for="kill"] {
     padding: 5px 5px 5px 35px;
     line-height: 25px;
     border-radius: 3px;
-    font-weight: 500;
+    font-weight: 300;
     color: #fff;
     transition: background-color 0.2s;
     border: 1px solid rgba(34, 34, 34, 0.75);
