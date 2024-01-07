@@ -1,7 +1,7 @@
 var perk_json;
 
 function applyChanges() {
-    var link = "https://verewygt.github.io/perkroulette/streaming-mode/embed/";
+    var link = "https://astofernest.github.io/perkroulette/streaming-mode/embed/";
 
     if (document.querySelector("input#surv").checked) {
         link += "?type=surv";
@@ -66,7 +66,7 @@ function loadPerks() {
 
     for (var i = 0; i < perk_json.perks.length; i++) {
         var pn = perk_json.perks[i].perk_name;
-        var pc = perk_json.perks[i].character.replace(/ Teachable Perk/gi, '');
+        var pc = perk_json.perks[i].character.replace(/ Perk Ensinável/gi, '');
 
         var newLabel = document.createElement('label');
         newLabel.id = 'element-' + i;
