@@ -683,7 +683,7 @@ label[for="surv"], label[for="kill"] {
     background-image: url(img/icns/check-inactive.png);
     background-repeat: no-repeat;
     background-position: 10px center;
-    background-size: 20px;
+    background-size: 30px;
 }
 
 label[for="surv"]:hover, label[for="kill"]:hover {
