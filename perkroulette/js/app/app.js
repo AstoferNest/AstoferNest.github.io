@@ -28,7 +28,7 @@ function loadContent() {
 
     for (var i = 0; i < perk_json.perks.length; i++) {
         var pn = perk_json.perks[i].perk_name;
-        var pc = perk_json.perks[i].character.replace(/ Teachable Perk/gi, '');
+        var pc = perk_json.perks[i].character.replace(/Perk ensinável de /gi, '');
 
         var newLabel = document.createElement('label');
         newLabel.id = 'element-' + i;
