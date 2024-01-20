@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .image-container {
+            position: relative;
+            height: 180px;
+            width: 180px;
+            border-radius: 180px;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            max-width: 100%;
+        }
+
+        .image-container img.background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .image-container img.top-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+            -webkit-mask-repeat: no-repeat no-repeat;
+            mask-repeat: no-repeat no-repeat;
+            opacity: 0.5; /* Ajuste o valor conforme necessário (0 completamente transparente, 1 completamente opaco) */
+        }
+
+        .timer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+    	    font-family: "Oswald", sans-serif;
+    	    font-size: 40px;
+    	    color: black;
+    	    -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+    	    -webkit-text-stroke-width: 2px;
+    	    -webkit-text-stroke-color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="image-container">
+        <img class="background-image" src="perk.png" />
+        <img class="top-image" src="perk2.png" />
+        <div class="timer" id="timer">00</div>
+    </div>
+
+    <script>
+        // Timer functionality
+        document.addEventListener("DOMContentLoaded", function () {
+            const totalTimeInSeconds = 60;
+            let currentTime = totalTimeInSeconds;
+
+            const timerElement = document.getElementById("timer");
+            const topImage = document.querySelector('.top-image');
+
+            const interval = setInterval(function () {
+                const minutes = Math.floor(currentTime / 60);
+                const seconds = currentTime % 60;
+
+                const formattedTime = `${String(seconds).padStart(2, "0")}`;
+                timerElement.textContent = formattedTime;
+
+                const progress = (totalTimeInSeconds - currentTime) / totalTimeInSeconds * 100;
+                topImage.style.maskImage = `conic-gradient(transparent ${progress}%, black ${progress}% 360deg)`;
+
+                if (currentTime <= 0) {
+                    clearInterval(interval);
+                } else {
+                    currentTime--;
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
