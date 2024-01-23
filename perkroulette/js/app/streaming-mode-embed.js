@@ -60,7 +60,7 @@ function pickRandomPerk() {
     customColors();
     loadPerks();
 
-    if (url_vars.get("type").substring(6, 13) == "exclude") {
+     if (url_vars.has("exclude")) {
         var perk_blacklist = url_vars.get("exclude").split(",").map(Number);
     } else {
         perk_blacklist = [];
