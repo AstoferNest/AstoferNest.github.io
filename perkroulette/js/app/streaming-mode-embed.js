@@ -35,14 +35,14 @@ function customColors() {
 }
 
 function loadPerks() {
-    if (url_vars.get("type") == "surv") {
+    if (url_vars.get("type").substring(0, 4) == "surv") {
         var request = new XMLHttpRequest();
         request.open("GET", "/perkroulette/json/survivor-perks.json", false);
         request.send(null);
         perk_json = JSON.parse(request.responseText);
         active_type = "surv";
 
-    } else if (url_vars.get("type") == "kill") {
+    } else if (url_vars.get("type").substring(0, 4) == "kill") {
         var request = new XMLHttpRequest();
         request.open("GET", "/perkroulette/json/killer-perks.json", false);
         request.send(null);
@@ -61,7 +61,7 @@ function pickRandomPerk() {
     loadPerks();
 
     if (url_vars.has("exclude")) {
-        var perk_blacklist = url_vars.get("exclude=").split(",").map(Number);
+        var perk_blacklist = url_vars.get("exclude").split(",").map(Number);
     } else {
         perk_blacklist = [];
     }
