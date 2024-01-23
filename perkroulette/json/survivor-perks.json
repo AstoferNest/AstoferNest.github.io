@@ -524,6 +524,18 @@
 		{
 			"perk_name": "Armadilha Química",
 			"character": "Perk ensinável de Ellen Ripley"
+		},
+		{
+			"perk_name": "Campeão da Luz",
+			"character": "Perk ensinável de Alan Wake"
+		},
+		{
+			"perk_name": "Bênção: Iluminação",
+			"character": "Perk ensinável de Alan Wake"
+		},
+		{
+			"perk_name": "Prazo Final",
+			"character": "Perk ensinável de Alan Wake"
 		}
 	]
 }
