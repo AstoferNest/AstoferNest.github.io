@@ -536,6 +536,18 @@
 		{
 			"perk_name": "Prazo Final",
 			"character": "Perk ensinável de Alan Wake"
+		},
+		{
+			"perk_name": "Força nas sombras",
+			"character": "Perk ensinável de Sable Ward"
+		},
+		{
+			"perk_name": "Envocação: Aranhas Tecelãs",
+			"character": "Perk ensinável de Sable Ward"
+		},
+		{
+			"perk_name": "Perversidade",
+			"character": "Perk ensinável de Sable Ward"
 		}
 	]
 }
