@@ -459,6 +459,18 @@
 		{
 			"perk_name": "Pilhas Inclusas",
 			"character": "Perk ensinável de O Cara Legal"
-		}
+		},
+		{
+			"perk_name": "Imprevisto",
+			"character": "Perk ensinável de O Desconhecido"
+		},
+		{
+			"perk_name": "Invalidação",
+			"character": "Perk ensinável de O Desconhecido"
+		},
+		{
+			"perk_name": "Liberto",
+			"character": "Perk ensinável de O Desconhecido"
+		},
 	]
 }
