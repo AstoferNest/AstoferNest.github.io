@@ -471,6 +471,18 @@
 		{
 			"perk_name": "Liberto",
 			"character": "Perk ensinável de O Desconhecido"
+		},
+		{
+			"perk_name": "Arrogância Sombria",
+			"character": "Perk ensinável de O Lich"
+		},
+		{
+			"perk_name": "Sintonia Tecida",
+			"character": "Perk ensinável de O Lich"
+		},
+		{
+			"perk_name": "Toque Mórbido",
+			"character": "Perk ensinável de O Lich"
 		}
 	]
 }
