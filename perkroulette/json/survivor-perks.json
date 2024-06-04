@@ -548,6 +548,18 @@
 		{
 			"perk_name": "Perversidade",
 			"character": "Perk ensinável de Sable Ward"
+		},
+		{
+			"perk_name": "Ilusão Espelhada",
+			"character": "Perk ensinável de Aestri Yazar e Baermar Uraz"
+		},
+		{
+			"perk_name": "Inspiração de Bardo",
+			"character": "Perk ensinável de Aestri Yazar e Baermar Uraz"
+		},
+		{
+			"perk_name": "Visão Estática",
+			"character": "Perk ensinável de Aestri Yazar e Baermar Uraz"
 		}
 	]
 }
