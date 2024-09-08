@@ -560,6 +560,30 @@
 		{
 			"perk_name": "Visão Estática",
 			"character": "Perk ensinável de Aestri Yazar e Baermar Uraz"
+		},
+		{
+			"perk_name": "Enrijecido",
+			"character": "Perk ensinável de Lara Croft"
+		},
+		{
+			"perk_name": "Especialista",
+			"character": "Perk ensinável de Lara Croft"
+		},
+		{
+			"perk_name": "Finesse",
+			"character": "Perk ensinável de Lara Croft"
+		},
+		{
+			"perk_name": "Exultação",
+			"character": "Perk ensinável de Lara Croft"
+		},
+		{
+			"perk_name": "Momento de Glória",
+			"character": "Perk ensinável de Lara Croft"
+		},
+		{
+			"perk_name": "Olhos de Belmont",
+			"character": "Perk ensinável de Lara Croft"
 		}
 	]
 }
