@@ -584,6 +584,18 @@
 		{
 			"perk_name": "Olhos de Belmont",
 			"character": "Perk ensinável de Trevor Belmont"
+		},
+		{
+			"perk_name": "Suportar o Fardo",
+			"character": "Perk ensinável de Taurie Kane"
+		},
+		{
+			"perk_name": "Invocação: Corvos Traiçoeiros",
+			"character": "Perk ensinável de Taurie Kane"
+		},
+		{
+			"perk_name": "Corte Limpo",
+			"character": "Perk ensinável de Taurie Kane"
 		}
 	]
 }
