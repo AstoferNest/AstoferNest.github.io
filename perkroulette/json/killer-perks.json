@@ -495,6 +495,18 @@
 		{
 			"perk_name": "Feitiço: Destino Miserável",
 			"character": "Perk ensinável de O Senhor das Trevas"
+		},
+		{
+			"perk_name": "Sem Piedade",
+			"character": "Perk ensinável de A Mestra da Matilha"
+		},
+		{
+			"perk_name": "Trovão Estrondoso",
+			"character": "Perk ensinável de A Mestra da Matilha"
+		},
+		{
+			"perk_name": "Gancho do Tormento: Bússola Danificada",
+			"character": "Perk ensinável de A Mestra da Matilha"
 		}
 	]
 }
