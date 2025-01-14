@@ -483,6 +483,18 @@
 		{
 			"perk_name": "Toque Mórbido",
 			"character": "Perk ensinável de O Lich"
+		},
+		{
+			"perk_name": "Domínio",
+			"character": "Perk ensinável de O Senhor das Trevas"
+		},
+		{
+			"perk_name": "Ganância Humana",
+			"character": "Perk ensinável de O Senhor das Trevas"
+		},
+		{
+			"perk_name": "Feitiço: Destino Miserável",
+			"character": "Perk ensinável de O Senhor das Trevas"
 		}
 	]
 }
