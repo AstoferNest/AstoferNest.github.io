@@ -1013,7 +1013,7 @@ body#streaming-mode-embed {
 
 body#streaming-mode-embed .perks-hgrid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+/*     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */
     gap: 20px;
     position: absolute;
     left: 0;
