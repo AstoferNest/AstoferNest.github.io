@@ -1,0 +1,638 @@
+{
+	"perks": [
+		{
+			"perk_name": "Ás na manga",
+			"character": "Perk ensinável de Ace Visconti"
+		},
+		{
+			"perk_name": "Adrenalina",
+			"character": "Perk ensinável de Meg Thomas"
+		},
+		{
+			"perk_name": "Cuidados",
+			"character": "Perk ensinável de Jeff Johansen"
+		},
+		{
+			"perk_name": "Alerta",
+			"character": "Perk ensinável de Feng Min"
+		},
+		{
+			"perk_name": "Custe o que Custar",
+			"character": "Perk ensinável de Yui Kimura"
+		},
+		{
+			"perk_name": "Avaliação",
+			"character": "Perk ensinável de Élodie Rakoto"
+		},
+		{
+			"perk_name": "Autodidata",
+			"character": "Perk ensinável de Adam Francis"
+		},
+		{
+			"perk_name": "Babá",
+			"character": "Perk ensinável de Steve Harrington"
+		},
+		{
+			"perk_name": "Queda Equilibrada",
+			"character": "Perk ensinável de Nea Karlsson"
+		},
+		{
+			"perk_name": "Melhor Juntos",
+			"character": "Perk ensinável de Nancy Wheeler"
+		},
+		{
+			"perk_name": "Pacto de Sangue",
+			"character": "Perk ensinável de Cheryl Mason"
+		},
+		{
+			"perk_name": "Superação",
+			"character": "Perk ensinável de Kate Denson"
+		},
+		{
+			"perk_name": "Vínculo",
+			"character": "Perk ensinável de Dwight Fairfield"
+		},
+		{
+			"perk_name": "Tempo Precioso",
+			"character": "Perk ensinável de Willian 'Bill' Overbeck"
+		},
+		{
+			"perk_name": "Conhecimento Botânico",
+			"character": "Perk ensinável de Claudette Morel"
+		},
+		{
+			"perk_name": "Quebrar",
+			"character": "Perk ensinável de Jeff Johansen"
+		},
+		{
+			"perk_name": "Fuga",
+			"character": "Perk ensinável de Yui Kimura"
+		},
+		{
+			"perk_name": "Apertando os Cintos",
+			"character": "Perk ensinável de Ash Williams"
+		},
+		{
+			"perk_name": "Construído para Durar",
+			"character": "Perk ensinável de Felix Richter"
+		},
+		{
+			"perk_name": "Espírito Calmo",
+			"character": "Perk ensinável de Jake Park"
+		},
+		{
+			"perk_name": "Camaradagem",
+			"character": "Perk ensinável de Steve Harrington"
+		},
+		{
+			"perk_name": "Dance Comigo",
+			"character": "Perk ensinável de Kate Denson"
+		},
+		{
+			"perk_name": "Sentido Obscuro",
+			"character": "Perk ensinável Geral"
+		},
+		{
+			"perk_name": "Duro na Queda",
+			"character": "Perk ensinável de David King"
+		},
+		{
+			"perk_name": "Artimanha",
+			"character": "Perk ensinável de Élodie Rakoto"
+		},
+		{
+			"perk_name": "Ataque Decisivo",
+			"character": "Perk ensinável de Laurie Strode"
+		},
+		{
+			"perk_name": "Déjà Vu",
+			"character": "Perk ensinável Geral"
+		},
+		{
+			"perk_name": "Libertação",
+			"character": "Perk ensinável de Adam Francis"
+		},
+		{
+			"perk_name": "Medidas Desesperadas",
+			"character": "Perk ensinável de Felix Richter"
+		},
+		{
+			"perk_name": "Intuição de Detetive",
+			"character": "Perk ensinável de David Tapp"
+		},
+		{
+			"perk_name": "Distorção",
+			"character": "Perk ensinável de Jeff Johansen"
+		},
+		{
+			"perk_name": "Distração",
+			"character": "Perk ensinável de Adam Francis"
+		},
+		{
+			"perk_name": "Empatia",
+			"character": "Perk ensinável de Claudette Morel"
+		},
+		{
+			"perk_name": "Ideia Fixa",
+			"character": "Perk ensinável de Nancy Wheeler"
+		},
+		{
+			"perk_name": "Bate e Volta",
+			"character": "Perk ensinável de Ash Williams"
+		},
+		{
+			"perk_name": "Pelo Povo",
+			"character": "Perk ensinável de Zarina Kassir"
+		},
+		{
+			"perk_name": "De Cabeça",
+			"character": "Perk ensinável de Jane Romero"
+		},
+		{
+			"perk_name": "Esperança",
+			"character": "Perk ensinável Geral"
+		},
+		{
+			"perk_name": "Força Interior",
+			"character": "Perk ensinável de Nancy Wheeler"
+		},
+		{
+			"perk_name": "Vontade de Ferro",
+			"character": "Perk ensinável de Jake Park"
+		},
+		{
+			"perk_name": "Parentesco",
+			"character": "Perk ensinável Geral"
+		},
+		{
+			"perk_name": "Líder",
+			"character": "Perk ensinável de Dwight Fairfield"
+		},
+		{
+			"perk_name": "Deixado para Trás",
+			"character": "Perk ensinável de Willian 'Bill' Overbeck"
+		},
+		{
+			"perk_name": "Peso Leve",
+			"character": "Perk ensinável Geral"
+		},
+		{
+			"perk_name": "Agilidade",
+			"character": "Perk ensinável de Feng Min"
+		},
+		{
+			"perk_name": "Golpe de Sorte",
+			"character": "Perk ensinável de Yui Kimura"
+		},
+		{
+			"perk_name": "Fervor Humano",
+			"character": "Perk ensinável de Ash Williams"
+		},
+		{
+			"perk_name": "Sem Incômodos",
+			"character": "Perk ensinável de David King"
+		},
+		{
+			"perk_name": "Ninguém Fica Para Trás",
+			"character": "Perk ensinável Geral"
+		},
+		{
+			"perk_name": "Objeto de Obsessão",
+			"character": "Perk ensinável de Laurie Strode"
+		},
+		{
+			"perk_name": "Extraoficialmente",
+			"character": "Perk ensinável de Zarina Kassir"
+		},
+		{
+			"perk_name": "Mão Aberta",
+			"character": "Perk ensinável de Ace Visconti"
+		},
+		{
+			"perk_name": "Farmácia",
+			"character": "Perk ensinável de Quentin Smith"
+		},
+		{
+			"perk_name": "Instinto do Saqueador",
+			"character": "Perk ensinável Geral"
+		},
+		{
+			"perk_name": "Firmeza",
+			"character": "Perk ensinável de Jane Romero"
+		},
+		{
+			"perk_name": "Disputa de Forças",
+			"character": "Perk ensinável de Élodie Rakoto"
+		},
+		{
+			"perk_name": "Premonição",
+			"character": "Perk ensinável de Dwight Fairfield"
+		},
+		{
+			"perk_name": "Prove-se",
+			"character": "Perk ensinável de Dwight Fairfield"
+		},
+		{
+			"perk_name": "Rápida e Silenciosa",
+			"character": "Perk ensinável de Meg Thomas"
+		},
+		{
+			"perk_name": "Alarme Falso",
+			"character": "Perk ensinável de Zarina Kassir"
+		},
+		{
+			"perk_name": "Aliança Reprimida",
+			"character": "Perk ensinável de Cheryl Mason"
+		},
+		{
+			"perk_name": "Resiliência",
+			"character": "Perk ensinável Geral"
+		},
+		{
+			"perk_name": "Sabotador",
+			"character": "Perk ensinável de Jake Park"
+		},
+		{
+			"perk_name": "Segundo Fôlego",
+			"character": "Perk ensinável de Steve Harrington"
+		},
+		{
+			"perk_name": "Auto-Cura",
+			"character": "Perk ensinável de Claudette Morel"
+		},
+		{
+			"perk_name": "Carne Escorregadia",
+			"character": "Perk ensinável Geral"
+		},
+		{
+			"perk_name": "Pequena Caça",
+			"character": "Perk ensinável Geral"
+		},
+		{
+			"perk_name": "Sobrevivente Único",
+			"character": "Perk ensinável de Laurie Strode"
+		},
+		{
+			"perk_name": "Solidariedade",
+			"character": "Perk ensinável de Jane Romero"
+		},
+		{
+			"perk_name": "Proteção de Alma",
+			"character": "Perk ensinável de Cheryl Mason"
+		},
+		{
+			"perk_name": "Frio na Espinha",
+			"character": "Perk ensinável Geral"
+		},
+		{
+			"perk_name": "Arrancada Explosiva",
+			"character": "Perk ensinável de Meg Thomas"
+		},
+		{
+			"perk_name": "Tocaia",
+			"character": "Perk ensinável de David Tapp"
+		},
+		{
+			"perk_name": "Conhecimento Urbano",
+			"character": "Perk ensinável de Nea Karlsson"
+		},
+		{
+			"perk_name": "Técnico",
+			"character": "Perk ensinável de Feng Min"
+		},
+		{
+			"perk_name": "Tenacidade",
+			"character": "Perk ensinável de David Tapp"
+		},
+		{
+			"perk_name": "Isso Não Está Acontecendo",
+			"character": "Perk ensinável Geral"
+		},
+		{
+			"perk_name": "Inquebrável",
+			"character": "Perk ensinável de Willian 'Bill' Overbeck"
+		},
+		{
+			"perk_name": "Aumentar as Apostas",
+			"character": "Perk ensinável de Ace Visconti"
+		},
+		{
+			"perk_name": "Evasão Urbana",
+			"character": "Perk ensinável de Nea Karlsson"
+		},
+		{
+			"perk_name": "Vigília",
+			"character": "Perk ensinável de Quentin Smith"
+		},
+		{
+			"perk_name": "Visionário",
+			"character": "Perk ensinável de Felix Richter"
+		},
+		{
+			"perk_name": "Acorde!",
+			"character": "Perk ensinável de Quentin Smith"
+		},
+		{
+			"perk_name": "Conseguiremos",
+			"character": "Perk ensinável Geral"
+		},
+		{
+			"perk_name": "Vamos Viver para Sempre",
+			"character": "Perk ensinável de David King"
+		},
+		{
+			"perk_name": "Janelas de Oportunidades",
+			"perk_color": "green",
+			"character": "Perk ensinável de Kate Denson"
+		},
+		{
+			"perk_name": "Fama Acelerada",
+			"character": "Perk ensinável de Yun-Jin Lee"
+		},
+		{
+			"perk_name": "Autopreservação",
+			"character": "Perk ensinável de Yun-Jin Lee"
+		},
+		{
+			"perk_name": "Hit de Sucesso",
+			"character": "Perk ensinável de Yun-Jin Lee"
+		},
+		{
+			"perk_name": "Contraforça",
+			"character": "Perk ensinável de Jill Valentine"
+		},
+		{
+			"perk_name": "Ressurgimento",
+			"character": "Perk ensinável de Jill Valentine"
+		},
+		{
+			"perk_name": "Mina Explosiva",
+			"character": "Perk ensinável de Jill Valentine"
+		},
+		{
+			"perk_name": "Matar no Peito",
+			"character": "Perk ensinável de Leon Scott Kennedy"
+		},
+		{
+			"perk_name": "Granada de Luz",
+			"character": "Perk ensinável de Leon Scott Kennedy"
+		},
+		{
+			"perk_name": "Espírito de Recruta",
+			"character": "Perk ensinável de Leon Scott Kennedy"
+		},
+		{
+			"perk_name": "Clarividência",
+			"character": "Perk ensinável de Mikaela Reid"
+		},
+		{
+			"perk_name": "Bênção: Círculo Curativo",
+			"character": "Perk ensinável de Mikaela Reid"
+		},
+		{
+			"perk_name": "Bênção: Passo Sombrio",
+			"character": "Perk ensinável de Mikaela Reid"
+		},
+		{
+			"perk_name": "Superar",
+			"character": "Perk ensinável de Jonah Vasquez"
+		},
+		{
+			"perk_name": "Ação Corretiva",
+			"character": "Perk ensinável de Jonah Vasquez"
+		},
+		{
+			"perk_name": "Bênção: Exponencial",
+			"character": "Perk ensinável de Jonah Vasquez"
+		},
+		{
+			"perk_name": "Orientação Paterna",
+			"character": "Perk ensinável de Yoichi Asakawa"
+		},
+		{
+			"perk_name": "Ligação Empática",
+			"character": "Perk ensinável de Yoichi Asakawa"
+		},
+		{
+			"perk_name": "Bênção: Teoria das Trevas",
+			"character": "Perk ensinável de Yoichi Asakawa"
+		},
+		{
+			"perk_name": "Foco Interno",
+			"character": "Perk ensinável de Haddie Kaur"
+		},
+		{
+			"perk_name": "Manifesto Residual",
+			"character": "Perk ensinável de Haddie Kaur"
+		},
+		{
+			"perk_name": "Zeloso ao Extremo",
+			"character": "Perk ensinável de Haddie Kaur"
+		},
+		{
+			"perk_name": "Escuta",
+			"character": "Perk ensinável de Ada Wong"
+		},
+		{
+			"perk_name": "Cura Reativa",
+			"character": "Perk ensinável de Ada Wong"
+		},
+		{
+			"perk_name": "Discrição",
+			"character": "Perk ensinável de Ada Wong"
+		},
+		{
+			"perk_name": "Novinho em Folha",
+			"character": "Perk ensinável de Rebecca Chambers"
+		},
+		{
+			"perk_name": "Reconforto",
+			"character": "Perk ensinável de Rebecca Chambers"
+		},
+		{
+			"perk_name": "Hiperfoco",
+			"character": "Perk ensinável de Rebecca Chambers"
+		},
+		{
+			"perk_name": "Energia Potencial",
+			"character": "Perk ensinável de Vittorio Toscano"
+		},
+		{
+			"perk_name": "Sabedoria da Névoa",
+			"character": "Perk ensinável de Vittorio Toscano"
+		},
+		{
+			"perk_name": "Gambito Rápido",
+			"character": "Perk ensinável de Vittorio Toscano"
+		},
+		{
+			"perk_name": "Sem Restições",
+			"character": "Perk ensinável de Thalita Lyra"
+		},
+		{
+			"perk_name": "Competição Amigável",
+			"character": "Perk ensinável de Thalita Lyra"
+		},
+		{
+			"perk_name": "Trabalho em Equipe: Poder de Dois",
+			"character": "Perk ensinável de Thalita Lyra"
+		},
+		{
+			"perk_name": "Jogador Tático",
+			"character": "Perk ensinável de Renato Lyra"
+		},
+		{
+			"perk_name": "Disparada Sangrenta",
+			"character": "Perk ensinável de Renato Lyra"
+		},
+		{
+			"perk_name": "Trabalho em Equipe: Furtividade Coletiva",
+			"character": "Perk ensinável de Renato Lyra"
+		},
+		{
+			"perk_name": "Feito para Isso",
+			"character": "Perk ensinável de Gabriel Soma"
+		},
+		{
+			"perk_name": "Sucateiro",
+			"character": "Perk ensinável de Gabriel Soma"
+		},
+		{
+			"perk_name": "Solução de Problemas",
+			"character": "Perk ensinável de Gabriel Soma"
+		},
+		{
+			"perk_name": "Dramaturgia",
+			"character": "Perk ensinável de Nicolas Cage"
+		},
+		{
+			"perk_name": "Reviravolta",
+			"character": "Perk ensinável de Nicolas Cage"
+		},
+		{
+			"perk_name": "Parceiro de Cena",
+			"character": "Perk ensinável de Nicolas Cage"
+		},
+		{
+			"perk_name": "Estrela da Sorte",
+			"character": "Perk ensinável de Ellen Ripley"
+		},
+		{
+			"perk_name": "Pés Leves",
+			"character": "Perk ensinável de Ellen Ripley"
+		},
+		{
+			"perk_name": "Armadilha Química",
+			"character": "Perk ensinável de Ellen Ripley"
+		},
+		{
+			"perk_name": "Campeão da Luz",
+			"character": "Perk ensinável de Alan Wake"
+		},
+		{
+			"perk_name": "Bênção: Iluminação",
+			"character": "Perk ensinável de Alan Wake"
+		},
+		{
+			"perk_name": "Prazo Final",
+			"character": "Perk ensinável de Alan Wake"
+		},
+		{
+			"perk_name": "Força nas sombras",
+			"character": "Perk ensinável de Sable Ward"
+		},
+		{
+			"perk_name": "Invocação: Aranhas Tecelãs",
+			"character": "Perk ensinável de Sable Ward"
+		},
+		{
+			"perk_name": "Perversidade",
+			"character": "Perk ensinável de Sable Ward"
+		},
+		{
+			"perk_name": "Ilusão Espelhada",
+			"character": "Perk ensinável de Aestri Yazar e Baermar Uraz"
+		},
+		{
+			"perk_name": "Inspiração de Bardo",
+			"character": "Perk ensinável de Aestri Yazar e Baermar Uraz"
+		},
+		{
+			"perk_name": "Visão Estática",
+			"character": "Perk ensinável de Aestri Yazar e Baermar Uraz"
+		},
+		{
+			"perk_name": "Enrijecido",
+			"character": "Perk ensinável de Lara Croft"
+		},
+		{
+			"perk_name": "Especialista",
+			"character": "Perk ensinável de Lara Croft"
+		},
+		{
+			"perk_name": "Finesse",
+			"character": "Perk ensinável de Lara Croft"
+		},
+		{
+			"perk_name": "Exultação",
+			"character": "Perk ensinável de Trevor Belmont"
+		},
+		{
+			"perk_name": "Momento de Glória",
+			"character": "Perk ensinável de Trevor Belmont"
+		},
+		{
+			"perk_name": "Olhos de Belmont",
+			"character": "Perk ensinável de Trevor Belmont"
+		},
+		{
+			"perk_name": "Suportar o Fardo",
+			"character": "Perk ensinável de Taurie Kane"
+		},
+		{
+			"perk_name": "Invocação: Corvos Traiçoeiros",
+			"character": "Perk ensinável de Taurie Kane"
+		},
+		{
+			"perk_name": "Corte Limpo",
+			"character": "Perk ensinável de Taurie Kane"
+		},
+		{
+			"perk_name": "Resposta Rápida",
+			"character": "Perk ensinável de Orela Rose"
+		},
+		{
+			"perk_name": "Dever de Cuidar",
+			"character": "Perk ensinável de Orela Rose"
+		},
+		{
+			"perk_name": "Não Faça Mal",
+			"character": "Perk ensinável de Orela Rose"
+		},
+		{
+			"perk_name": "Ingenuidade Apocalíptica",
+			"character": "Perk ensinável de Rick Grimes"
+		},
+		{
+			"perk_name": "Vem Me Pegar!",
+			"character": "Perk ensinável de Rick Grimes"
+		},
+		{
+			"perk_name": "Trabalho em Equipe: Fortalecimento",
+			"character": "Perk ensinável de Rick Grimes"
+		},
+		{
+			"perk_name": "Convicção",
+			"character": "Perk ensinável de Michonne Grimes"
+		},
+		{
+			"perk_name": "Embate Derradeiro",
+			"character": "Perk ensinável de Michonne Grimes"
+		},
+		{
+			"perk_name": "Trabalho em Equipe: Dê o Troco",
+			"character": "Perk ensinável de Michonne Grimes"
+		}
+		
+	]
+}

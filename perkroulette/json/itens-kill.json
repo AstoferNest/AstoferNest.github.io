@@ -1,0 +1,246 @@
+{
+  "O Canibal": [
+    {
+      "nome": "Motosserra do Bubba",
+      "complementos": ["Óleo Vegetal", "Vela de Ignição", "Lixa de Motosserra", "Limitador de Velocidade", "Silenciador Caseiro", "Marcas de Faca", "Chili", "Bomba de Pressão", "Barra de Guia Longa", "Lubrificante", "Correntes Sujas", "Corrente Terrível", "As Marcas da Besta", "A Graxa", "Corrente Enferrujada", "Chili Premiado", "Chassi Leve", "Ancinho de Profundidade", "Guia de Aprimoramento de Carburador", "Carne Iridescente"]
+    }
+  ],    
+  "A Artista": [
+    {
+      "nome": "Pássaros do Tormento",
+      "complementos": ["Pinturas a Óleo", "Piche Espesso", "Obituário Vibrante", "Milho Choclo", "Tecido Aveludado", "Desenho Automático", "Corvo em Natureza-Morta", "Carniça Apodrecida", "Agonia Indefinida", "Ó Angústia, Ó Amante", "Sino de Prata", "Pedaço de Carvão", "Ninho Espinhoso", "A Tinta Mais Escura", "Sapatinho de Matias", "Ovo de Tinta", "Mãos Decepadas", "Língua Decepada", "Pluma Iridescente", "Jardim da Putrefação"]
+    }
+  ],
+  "Os Gêmeos": [
+    {
+      "nome": "Vínculo de Sangue",
+      "complementos": ["Unha de Criancinha", "Leite Azedo", "Estatueta de Gato", "Espada de Brinquedo", "Olho de Gato", "Luva de Madeleine", "Dente de Leite", "Capuz Preto Ensanguentado", "Candelabro Cerimonial", "Chorume do Esgoto", "Chocalho Pesado", "Cachecol de Madeleine", "Biscoito Dormido", "Agulha Enferrujada", "Soldado Victor", "Pião de Madeira", "Gota de Perfume", "Ensopado da Floresta", "Pingente Iridescente", "Pano do Silêncio"]
+    }
+  ],
+  "O Caçador": [
+    {
+      "nome": "Armadilha de Urso",
+      "complementos": ["Óleo de Urso", "Mandíbulas Acolchoadas", "Luvas do Caçador", "Coberta Improvisada", "Tijolo de Cera", "Mandíbulas Serrilhadas", "Mandíbulas Alongadas","Kit de 4 Molas Espirais", "Borras de Café", "Mola Secundária", "Mochila de Caçador", "Mandíbulas Enferrujadas", "Garrafa de Alcatrão", "Ferramentas de Fixação", "Saco do Caçador", "Pedra de Amolar", "Mola Oleosa", "Armadilha de Tensão", "Pedra Iridescente", "Mola Ensanguentada"]
+    }
+  ],
+  "A Negociante de Crânios": [
+    {
+      "nome": "Olhos no Céu",
+      "complementos": ["Melhoria de Alta Corrente", "Holofote de Alta Potência", "Alto-Falante Ultrassônico", "Adi Valente Número 1", "Supercarga", "Modo de Economia de Energia", "Microfone Remoto Estéreo", "Iluminação Ajustável", "Alto-falantes Shotgun", "Vidro Moído", "Processo de Mira Vital", "Parafuso-Solto", "Melhoria de Infravermelho", "Gerador de Ruído Marrom", "Protótipo de Rotor", "Predição de Movimento Avançada", "Leitura Geográfica", "Estroboscópios Randomizados", "Manuscrito Não Publicado Iridescente", "Baterias Expiradas"]
+    }
+  ],
+  "O Cara Legal": [
+    {
+      "nome": "A Brincadeira Acabou",
+      "complementos": ["Olhos de Boneco", "Luz Estroboscópica", "Caixa do Cara Legal", "Bisturi Minúsculo", "Spray Capilar e Vela", "Furadeira Elétrica", "Faca de Entalhe Elétrica", "Corda de Pular", "Chave de Fenda Automática", "Venendo de Rato", "Tênis de Corrida", "TV Portátil", "Travesseiro de Seda", "Régua", "Sacola Plástica", "Pilha de Pregos", "Navalha Reta", "Fragmentos de Espelho", "Capacete", "Amuleto Iridescente"]
+    }
+  ],
+  "O Vilão": [
+    {
+      "nome": "Salto Virulento",
+      "complementos": ["Walkie-Talkie de Ombro do R.P.D", "Tentáculo de Uroboros", "Medalhão de Unicórnio", "Joia de Besouro", "Megafone", "Medalhão de Leão", "Manivela Solta", "Luvas de Couro", "Cálice (Ouro)", "Ovo (Ouro)", "Medalhão de Donzela", "Erva Vermelha", "Dispositivo de Videoconferência", "Cofre Portátil", "Óculos de Sol Potente", "Vírus Uroboros", "Manche de Helicóptero", "Erva Verde", "Frasco de Uroboros Iridescente", "Foto do Laboratório"]
+    }
+  ],
+  "A Singularidade": [
+    {
+      "nome": "Instanciação Quântica",
+      "complementos": ["Água Pesada", "Lavagem Nutricional", "Ferramenta de Diagnóstico (Reparo)", "Chaves de Segurança Quebrada", "Sensor Ultrassônico", "Restos Cremados", "Luva de Beisebol Infantil", "Gel Criogênico", "Braço Androide", "Tanque de Oxigênio Gasto", "Spray de Hiperestesia", "Gerador de Hologramas", "Gel de Nanomáquinas", "Fios Vivos", "Manifesto da Tripulação", "Foto da Família Soma", "Fibras de Plantas Desconhecidas", "Ferramenta de Diagnóstico (Construção)", "Formulário de Requisição Negado", "Estilhaço de Cristal Iridescente"]
+    }
+  ],
+  "O Caipira": [
+    {
+      "nome": "Motosserra",
+      "complementos": ["Filtro de Ar Abandonado", "Contrapeso", "Botas de Biqueira de Aço", "Bomba de Pressão Quebrada", "Óleo de Motor sem Marca", "Parafuso de Marcha Lenta", "Ingestão Obstruída", "Estojo Térmico", "Acelerador Lubrificado", "Motor Rústico", "Correntes Sujas", "Correntes com Baixo Recuo", "Botas do Papai", "A Combinação dos Thompson", "Silenciador de Ponta", "Pantufas Nojentas", "Correntes LO PRO", "Botas Pontiagudas", "Marcas Iridescentes", "Carburador Tunado"]
+    }
+  ],
+  "O Xenomorfo": [
+    {
+      "nome": "Perseguição Oculta",
+      "complementos": ["Relógio da Ripley", "Rações de Cereais", "Pássaro Bebedor", "Ovomorfo", "Mapa Estelar da Lambert", "Fone da Tripulação", "Entranhas do Ash", "Boné do Brett", "Bastão de Luz", "Pele Fundida", "Machadinha Multiuso", "Faixa do Parker", "Capacete do Kane", "Capacete de Emergência", "Teclado Simiótico","Pino de Autodestruição", "Caixa de Transporte", "Arma de Arpão","Sangue Ácido", "Aguilhão Improvisado"]
+    }
+  ],
+  "O Lich": [
+    {
+      "nome": "Vil da Escuridão",
+      "complementos": ["Pena de Corvo", "Luva do Trapaça", "Bola de Cristal", "Bandana Esfarrapada", "Poção de Velocidade", "Olho de Vidro", "Lanterna da Revelação", "Anel de Telecinese", "Anel de Armazenamento de Feitiços", "Pérola do Poder", "Manto Élfico", "Chifre Ornamentado", "Cajado do Apodrecimento", "Botas da Velocidade", "Mochila de Carga", "Manto de Olhos", "Manto da Invisibilidade", "Adaga de Dente de Dragão", "Livro Vil da Escuridão Iridescente", "Espada Vorpal"]
+    }
+  ],
+  "A Caçadora": [
+    {
+      "nome": "Machadinha de Caça",
+      "complementos": ["Toxina de Amanita", "Pedra Áspera", "Pano Amarelado", "Cabo Enfaixado", "Trança de Grama de Maná", "Lâmina Pesada", "Laço de Couro", "Ferradura Brilhante", "Cabo de Carvalho", "Raiz de Rosa", "Mistura Venenosa", "Lâmina Enferrujada", "Luvas de Camurça", "Lenço de Flores", "Raposa de Madeira", "Mistura Brilhante", "Lâmina Contaminada", "Cinto de Infantaria", "Lâmina Iridescente", "Grevas de Soldado"]
+    }
+  ],
+  "O Vulto": [
+    {
+      "nome": "Maldade Encarnada",
+      "complementos": ["Flor Memorial", "Fio Loiro", "Brincos Cafonas", "Bilhete do Namorado", "Fragmento Reflexivo", "Fragmento de Vidro", "Escova de Cabelo", "Coelho Morto", "Bijuteria", "Memorial de J.MYERS", "Laço de Cabelo", "Diário de Judith", "Caixa de Bijuterias", "Caco de Espelho", "Pedaço de Lápide", "Mecha de Cabelo", "Espelho de Maquiagem", "Espelho Arranhado", "Tufo de Cabelo Perfumado", "Lápide de Judith"]
+    }
+  ],
+  "O Espectro": [
+    {
+      "nome": "Sino da Lamentação",
+      "complementos": ["The Ghost - Fuligem", "O Cão de Caça - Fuligem", "A Serpente - Fuligem", "A Besta - Fuligem", "Badalo de Ossos", "Vendaval - Lama", "Teletransporte - Lama", "Guerreiro Cego - Lama", "Caçada Rápida - Lama", "Vendaval - Branco", "Teletransporte - Branco", "Guerreiro Cego - Branco", "Dança das Sombras - Branco", "Caçada Rápida - Branco", "Vendaval - Sangue", "Onisciente - Sangue", "Dança das Sombras - Sangue", "Caçada Rápida - Sangue", "Badalo Obsoleto", "Onisciente - Espírito"]
+    }
+  ],
+  "A Enfermeira": [
+    {
+      "nome": "Ultimo Suspiro de Spencer",
+      "complementos": ["Pente Fino Branco", "Flanela Xadrez", "Colher de Metal", "Cavalo de Madeira", "Tesouro do Garoto Catatônico", "Relógio de Bolso", "Lembrança do Homem Mau", "Cinto Escuro", "Bracelete Sem Brilho", "Suspiro Ansioso", "Respiração Ofegante", "Respiração Espasmódica", "Respiração Atáxica", "Arfada Frágil", "Último Suspiro do Homem Mau", "Úlimo Suspiro de Kavanagh", "Último Suspiro de Jenner", "Último Sopro de Campbell", "Marcador de Página Rasgado", "Caixa de Fósforo"]
+    }
+  ],
+  "A Onryō": [
+    {
+      "nome": "Dilúvio do Medo",
+      "complementos": ["Placa da Cabana", "Jornal Velho", "Espelho da Mãe", "Cópia da Fita", "Relógi9o de Reiko", "Rede de Pesca de Yoichi", "Punhado de Cabelo", "Pedra de Poço", "Pano Encharcado", "Água de Poço", "Unhas Ensanguentadas", "Pente da Mãe", "Desenho do Anel", "Cata-Vento Frágil", "Videocassete", "Telefone", "Painel de Edição de Fitas", "Foto Distorcida", "Fita Iridescente", "Controle Remoto"]
+    }
+  ],
+  "O Mercenário": [
+    {
+      "nome": "O Redentor",
+      "complementos": ["Óleo de Cobra", "Trapo de Polimento com Cuspe", "Corrente Instável", "Cinturão de Munição Modificado", "Tabaco de Mascar", "Prego Enferrujado", "Folhas Venenosas de Carvalho", "Esmaga-Queixo", "Distintivo de Xerife", "Lata de Óleo", "Galhos de Espinheira-da-Virgínia", "Dente de Ouro de Bayshore", "Chaves do Carcereiro", "Cartaz de Procura-se", "Uísque Gold Creek", "Corrente de Prisioneiro", "Charuto de Bayshore", "Arame Farpado", "Moeda Iridescente", "Ferro de Hellshire"]
+    }
+  ],
+  "O Palhaço": [
+    {
+      "nome": "Tônico da Peça Final",
+      "complementos": ["Pena de Tordo", "Luvas de Desfile sem Dedos", "Garrafa Comemorativa", "Fita Pornô", "Rolha de Garrafa Grossa", "Pena de Estorninho", "Lata de Querosene", "Jarra de Solvente", "Garrafa de Refrigerante Grudenta", "Palmilhas Fedidas", "Garrafas de Clorofórmio", "Frasco de Alvejante", "Espírito de Galhada", "Éter 15 Porcento", "Kit de Maquiagem Berrante", "Garrafa de Gin Barata", "Caixa de Charutos", "Dedo Mindinho da Ruiva", "Dedo do Meio Tatuado"]
+    }
+  ],
+  "A Legião": [
+    {
+      "nome": "Fúria Bestial",
+      "complementos": ["Régua Arranhada", "Pulseira da Amizade", "Pin Smiley", "Lista de Travessuras", "Régua Entalhada", "Pílulas para Não Dormir", "Pin Smiley Destruído", "Fita de Coletânea da Julie", "Esboço de Mural", "Óculos de Sol Estiloso", "Pin da Legião", "Livro de Esboços Roubado", "Fita de Coletânea do Joey", "Fita de Coletânea da Susie", "Lâmina Imunda", "Fita de Coletânea do Frank", "Estudo de Punhaladas", "Amigos para Sempre", "Fita de Coletânea Fumegante", "Bóton Iridescente"]
+    }
+  ],
+  "O Animatrônico": [
+    {
+      "nome": "Medo de Fazbear",
+      "complementos": ["Propaganda de Precisa-se de Ajuda", "Prato de Papel Engordurado", "Pizza Estragada", "Menu do Restaurante", "Telefone do Escritório", "Serrpentina de Papel", "Insígnia de Segurança", "Cortina Rasgada", "Chapéu de Festa", "Homem Roxo Desenhado", "Gancho de Foxy", "Cordas da Guitarra da Bonnie", "Chapéu de Freddy", "Babador da Chica", "CPU ENDO", "Cartaz: Comemore!", "Bolsa de Espólios", "Acessar Painel", "Resquíscio Iridescente", "Moeda-Faz"]
+    }
+  ],
+  "O Trapaça": [
+    {
+      "nome": "Topo das Paradas",
+      "complementos": ["Lâminas dos Velhos Tempos", "Fios Infernais", "Bolsa dos Segredos", "Acordes de Matar", "Tequila Pedraluna", "Single Na Mira", "Sapatos do Coração Enjaulado", "Lâmina da Sorte", "Autógrafo do Ji-Woon", "Relógio da Espera", "Pulseira de Estripador", "Matança Melódica", "Latinha de Fizz-Spin", "Echerpe Ensanguentada", "Álbum À Beira do Renascimento", "Single em Pedaços", "Lâminas Retráteis", "Abotoadura de Diamante", "Fotografia Iridescente", "Compilação Agonia da Morte"]
+    }
+  ],
+  "A Praga": [
+    {
+      "nome": "Purgação do Mal",
+      "complementos": ["Selo de Calcário", "Incenso de Olíbano", "Fragmento da Tabuleta de Oração", "Bálsamo de Cura", "Selo de Hematita", "Poção Emética", "Maçã Abençoada", "Extrato Potente", "Amuleto Profilático", "Óleo de Massagem", "Unguento Incensado", "Maçã Cinzenta", "Emético Infectado", "Amuleto do Exorcismo", "Tabuleta de Adoração", "Emético Maléfico", "Dedo Decepado", "Amuleto do Devoto", "Selo Iridescente", "Incenso Negro"]
+    }
+  ],
+  "A Draga": [
+    {
+      "nome": "Reino da Escuridão",
+      "complementos": ["Tábua", "Comprimidos de Cafeína", "Capuz de Seguidor", "Almofariz", "Telha Caída", "Purificador de Ar", "Crânio de Mau Pensador", "Cartas Queimadas", "Calendário da Haddie", "Travesseiro Destruído", "Pedra da Preocupação", "Escritura Ottomarianas", "Capacete de Guerra", "Boneca Quebrada", "Microfone de Lapela", "Lâmina de Aragem", "Gravador de Campo", "Chave de Embarcação", "Tábua Iridescente", "Faca Sacrificial"]
+    }
+  ],
+  "O Senhor das Trevas": [
+    {
+      "nome": "Transformação Vampírica",
+      "complementos": ["Garra de Cérbero", "Engrenagem da Torre do Relógio", "Diadema de Rubi", "Chapéu do Viajante", "Medalhão do Lobo Branco", "Cálice de Sangue", "Colar de Moonstone", "Botas Aladas", "Bilhete Mágico", "Óculos de Sol", "Relógio de bolso", "Pena de Sílfide", "Força do Eco", "Boneca Assassina", "Presa de Warg", "Lápis-Lazúli", "Cubo de Zoe", "Cabelo de Medusa", "Escudo do Alucard", "Anel do Vlad Iridescente"]
+    }
+  ],
+  "O Oni": [
+    {
+      "nome": "Ira dos Yamaoka",
+      "complementos": ["Unha do Pé Escurecida", "Sakazuki Rachada", "Luminária de Papel", "Corda Apodrecida", "Saihai Lascado", "Maedate Polido", "Leão de Tinta", "Faixa Ensanguentada", "Espada Infantil de Madeira", "Wakizashi Despedaçada", "Talismã Kanai-Anzen", "Sashimono Yamaoka", "Máscara de Madeira de Oni", "Coque Escalpelado", "Tenugui Encharcado de Lágrimas", "Presa de Leão", "Muleta de Akito", "Casco Lascado", "Luva Ensanguentada de Renjiro", "Brasão Iridescente de Família"]
+    }
+  ],
+  "O Nemesis": [
+    {
+      "nome": "Vírus T",
+      "complementos": ["Seringa Danificada", "Pulseira de Visitante", "Manual de Combate da S.T.A.R.S", "Intestino do Brian", "Sangue do Marvin", "Pulseira de Administrador", "Olho do Mikhail", "Injeção de Adrenalina", "Coração de Zumbi", "Vinhas da Planta 43", "Língua de Liker", "Injeção de Serotonina", "Cruor d Tirano", "Amostra de Vírus T", "Tinteiro Seco", "Sanduíche da Jill", "Parasita NE-A", "Moeda de Recuperação Quebrada", "Distintivo S.T.A.R.S. Quebrado", "Distintivo da Umbrella Iridescente"]
+    }
+  ],
+  "A Porca": [
+    {
+      "nome": "Batismo do Jigsaw",
+      "complementos": ["Seringa Quebrada", "Lâminas Interligadas", "Cinta de Combate", "Arquivo Médico de John", "Testamento", "Máscara Facial", "Lâminas Utilitárias", "Graxa de Oficina", "Arame Farpado", "Toxina de Lenta Liberação", "Espinhos Metálicos Enferrujados", "Esboço de Projeto do Jigsaw", "Conjunto de Regras Número 2", "Bols de Engrenagens", "Segredo de Amanda", "Esboço do Jigsaw", "Cronômetro Modificado", "Caixote de Engrenagens", "Fita de Vídeo", "Carta de Amanda"]
+    }
+  ],
+  "A Bruxa": [
+    {
+      "nome": "Catalisador Escurecido",
+      "complementos": ["Água do Pântano", "Mosca Morta", "Colar de Corda", "Casca de Ovo Cintilante", "Água Ensanguentada", "Salix Caprea", "Meia Casca de Ovo", "Colar Cipreste", "Asas de Libélula", "Ovo de Tartaruga Quebrado", "Lama Ensanguentada", "Grinalda de Salgueiro", "Colar de Orquídeas do Pântano", "Cigarra Seca", "Orelha Desfigurada", "Mão com Cicatrizes", "Coração de Vovó", "Algemas Enferrujadas", "Trapo Hortelã", "Sapato Ensopado"]
+    }
+  ],
+  "O Cenobita": [
+    {
+      "nome": "Evocação da Dor",
+      "complementos": ["Vela Ardente", "Tira de Couro", "Prego Entortado", "Grilos Enérgicos", "Órgãos Liquefeitos", "Televisão Piscante", "Refeição Estragada", "Rato Empalado", "Luvas Contorcidas", "Sangue de Larry", "Restos de Larry", "Pilar da Tortura", "Fatia de Frank", "Coração de Frank", "Lente Preta Engordurada", "Fio Perfurante", "Dor Primordial", "Dente do Tagarela", "Presa do Engenheiro", "Configuração do Lamento Iridescente"]
+    }
+  ],
+  "O Cavaleiro": [
+    {
+      "nome": "Guardia Compagnia",
+      "complementos": ["Tabardo Esfarrapado", "Pão Seco", "Mapa do Reino", "Hidromel Saqueado", "Lâmina Tratada", "Grilhões de Aço Frio", "Convocação de Guerra", "Carne Seca de Cavalo", "Cabeça de Machado de Batalha", "Tocha da Vigia da Cidade", "Suporte Afiado", "Máscara de Ferro Lúgubre", "Cabo Quebrado", "Alicate de Serralheiro", "Sinos do Carcereiro", "Pederneira de Aço", "Martelo de Ferreiro", "Emplastro Curativo", "Estandarte da Companhia Iridescente", "Contrato do Cavaleiro"]
+    }
+  ],
+  "O Flagelo": [
+    {
+      "nome": "Corrupção Podre",
+      "complementos": ["Monóculo Lascado", "Dedaleira", "Comprimido de Placebo", "Composto Sete", "Rato Podre", "Pó de Pústula", "Notas Rasgadas", "Espinho de Cancro", "Bile da Praga", "Tônico de Rosa", "Sais do Umbral", "Frasco de Adrenalina", "Corvo Podre", "Composto Vinte Um", "Produto Químico da Alma", "Pedra da Invocação", "Diário de Vigo", "Anel do Alquimista", "Etiqueta de Laboratório Iridescente", "Composto Trinta e Três"]
+    }
+  ],
+  "O Ghoul": [
+    {
+      "nome": "Terror de um olho só",
+      "complementos": ["Taiyaki", "O Ovo de Cabra Negra", "Carteira de Kaneki", "Avental de Anteiku", "Lenço Ensanguentado", "Guarda-Chuva de Hinami", "Fones de Ouvido do Hide", "Corrente Quebrada", "Bolsa do Kaneki", "Óculos da Rize", "Manto da Árvore Aogiri", "Luva do Mado", "Lirio-Aranha Vermelha", "Gravata de Amon", "Crachá de CCG", "Centopéia de Cabela Vermelha", "Café Fresco", "Aparato de Tortura", "Tapa-olho Iridescente", "Máscara de Yamori"]
+    }
+  ],
+  "O Espírito": [
+    {
+      "nome": "Assombração dos Yamaoka",
+      "complementos": ["Zõri", "Tsuru", "Pente de Bambu Presenteado", "Amuleto Shiawase", "Talismã de Kaiun", "Relógio Quebrado da Rin", "Fita de Cabelo Branca", "Boné Enlameado da Gincana", "Bonsai Juniperus", "Óculos Maternos", "Uchiwa", "Senko Hanabi", "Katana Tsuba", "Flauta Enferrujada", "Wakizashi Saya", "Furin", "Flor de Cerejeira Seca", "Amuleto Yakuyoke", "Xícara de Chá Kintsugi", "Anel de Mãe e Filha"]
+    }
+  ],
+  "A Mestra da Matilha": [
+    {
+      "nome": "Cheiro de Sangue",
+      "complementos": ["Piche Pegajoso", "Osso de Criatura", "Livro de Treinamento", "Coco Verde", "Pargo Defumado", "Malaguetas", "Luneta", "Corda Entrelaçada", "Cevada", "Sino de Treinamento", "Mapa Inacabado", "Coleira com Rebites", "Carne Gordurosa", "Cantil", "Peitoral de Couro", "Lata de Pólvora", "Espicha", "Carranca do Navio", "Romance Rasgado", "Manivela Iridescente"]
+    }
+  ],
+  "O Pesadelo": [
+    {
+      "nome": "Demônio dos Sonhos",
+      "complementos": ["Desenho de Criança", "Camisa de Lã", "Bloco de Ovelha", "Ancinho de Jardim", "Vestido Verde", "Rascunho da Nancy", "Protótipo de Garras", "Corda Resistente", "Bloco de Gato", "Vestido Azul", "Obra-Prima de Nancy", "Diluidor de Tinta", "Corda de Pular", "Bloco de Unicórnio", "Frasco de Comprimido", "Foto da Turma", "Corrente de Balanço", "Bloco Z", "Pincel Vermelho", "Caixa Negra"]
+    }
+  ],
+  "O Desconhecido": [
+    {
+      "nome": "VDX",
+      "complementos": ["Tentativa de Esboço", "Pé de Coelho", "Olho Perfurado", "Foto Borrada", "Último Registro Conhecido", "Mochila Rasgada", "Mapa da Vítima", "Dispositivo de Origem Sigilosa", "Caderno de Teorias", "Relógio de Hipnose", "Pôster de Film Trash", "Molde de Pegada", "Matéria de Capa", "Caixa de Desaparecimento", "Máscara Caseira", "Frasco de Soro", "Cartucho de Jogo Obscuro", "Caixa de Leite Descartada", "Relatorrio da OSS Iridescente", "Capturado pela Escuridão"]
+    }
+  ],
+  "O Demogorgon": [
+    {
+      "nome": "Do Abismo",
+      "complementos": ["Fígado de Rato", "Coração Negro", "Cauda de Rato", "Abóbora Podre", "Óculos da Barb", "Vísceras de Miauzinha", "Tripa Verde Apodrecida", "Teias Viscosas", "Cobertura Pegajosa", "Vinhas Espinhosas", "Refrigerante da Eleven", "Pulmão de Cervo", "Isqueiro de Latão", "Cogumelo Violeta", "Resina do Mundo Invertido", "Ovo Desconhecido", "Cogumelo Vermelho", "Apito de Salva-Vidas", "Musgo Vermelho", "Líquen Leproso"]
+    }
+  ],
+  "O Carrasco": [
+    {
+      "nome": "Ritos de Julgamento",
+      "complementos": ["Tira Preta", "Borboleta Morta", "Anel de Cobre", "Anel de Chumbo", "Tecido de Onça", "Fita Esquecida", "Caixa de Música da Cinderela", "Cabeça de Lança", "Boneca de Cera", "Pé de Manequim", "Pintura de Homem em Chamas", "Fotografia da Seita de Valtiel", "Dia de Neblina, Restos de Julgamento", "Chapa do Opressor", "Ovo Escarlate", "Ovo Cor de Ferrugem", "Livro Cerimonial Carmesim", "Livro das Memórias Perdidas", "Selo Iridescente de Metatron", "Cálice de Obsidiana"]
+    }
+  ],
+  "O Médico": [
+    {
+      "nome": "Faíscas de Carter",
+      "complementos": ["Eletrodo Mofado", "Cavaleiro de Bordo", "Ordem - Classe I", "Calma - Classe I", "Eletrodo Polido", "Restrição - Classe II", "Ordem - Classe II", "Disciplina - Classe II", "Calma - Classe II", "Fita Estragada", "Fita de Entrevista", "Eletrodo de Estímulo Elevado", "Restrição - Classe III", "Disciplina - Classe III", "Restrição - Anotações do Carter", "Ordem - Anotações do Carter", "Disciplina - Anotações do Carter", "Calma - Anotações do Carter", "Rei Iridescente", "Rainha Iridescente"]
+    }
+  ],
+  "O Ghost Face": [
+    {
+      "nome": "Mortalha da Noite",
+      "complementos": ["Perfume Barato", "Fósforos do Walleyes", "Compilação de Manchetes", "A Boa Filadélfia", "Tiras Afiveláveis", "Mapa Marcado", "Lente Teleobjetiva", "Diário de Olsen", "Agenda de Olsen", "Perfume Duradouro", "Clipe de Cinto para Faca", "Carteira de Olsen", "Caneta Mordida", "Bainha de Couro para Faca", "Rotina Detalhada da Vítima", "Monóculo de Visão Noturna", "Carteira de Motorista", "Bainha de Faca para Perna", "Câmera de Segurança Externa", "Ghost Face Flagrado na Fita"]
+    }
+  ]
+}
+
+
+
+

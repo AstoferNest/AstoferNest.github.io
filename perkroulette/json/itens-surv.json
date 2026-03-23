@@ -1,0 +1,102 @@
+{
+  "Chaves": [
+    {
+      "nome": "Chave Quebrada",
+      "complementos": ["Pingente da Amizade","Apito Estridente","Enfeite Trançado","Aliança de Casamento Única","Âmbar Sangrento"]
+    },
+    {
+      "nome": "Chave Comum",
+      "complementos": ["Pingente da Amizade","Apito Estridente","Enfeite Trançado","Aliança de Casamento Única","Âmbar Sangrento"]
+    },
+    {
+      "nome": "Chave-Mestra",
+      "complementos": ["Pingente da Amizade","Apito Estridente","Enfeite Trançado","Aliança de Casamento Única","Âmbar Sangrento"]
+    }
+  ],
+  "Lanternas":[
+    {
+      "nome": "Lanterna",
+      "complementos": ["Bateria", "Cabo de Couro","Lentes Largas", "Lâmpada", "Apoio Emborrachado", "Bateria Pesada", "Filamento de Amperagem Baixa", "Lente de Foco", "Óptica RIT", "Bateria de Longa Duração", "Lâmpada de Halogênio", "Lente de Safira Superior", "Lâmpada Esquisita"]
+    },
+    {
+      "nome": "Lanterna Esportiva",
+      "complementos": ["Bateria", "Cabo de Couro","Lentes Largas", "Lâmpada", "Apoio Emborrachado", "Bateria Pesada", "Filamento de Amperagem Baixa", "Lente de Foco", "Óptica RIT", "Bateria de Longa Duração", "Lâmpada de Halogênio", "Lente de Safira Superior", "Lâmpada Esquisita"]
+    },
+    {
+      "nome": "Lanterna Utilitaria",
+      "complementos": ["Bateria", "Cabo de Couro","Lentes Largas", "Lâmpada", "Apoio Emborrachado", "Bateria Pesada", "Filamento de Amperagem Baixa", "Lente de Foco", "Óptica RIT", "Bateria de Longa Duração", "Lâmpada de Halogênio", "Lente de Safira Superior", "Lâmpada Esquisita"]
+    }
+  ],
+  "Mapas":[
+    {
+      "nome": "Mapa Críptico",
+      "complementos": ["Tinta Brilhante", "Bússola Retorcida","Fita Gasta", "Pederneira Afiada", "Carimbo Carmesim"]
+    },
+    {
+      "nome": "Mapa Rabiscado",
+      "complementos": ["Tinta Brilhante", "Bússola Retorcida","Fita Gasta", "Pederneira Afiada", "Carimbo Carmesim"]
+    },
+    {
+      "nome": "Mapa Anotado",
+      "complementos": ["Tinta Brilhante", "Bússola Retorcida","Fita Gasta", "Pederneira Afiada", "Carimbo Carmesim"]
+    }
+  ],
+  "Kit Médico":[
+    {
+      "nome": "Kit Médico de Acampamento",
+      "complementos": ["Ataduras", "Bandagem Borboleta","Luvas de Borracha", "Esponja", "Linha e Agulha", "Tecido Autoaderente", "Tesouras Médicas", "Rolo de Gaze", "Sutura Cirúrgica", "Agente Hemostático", "Compressa Abdominal", "Compressas de Gel", "Seringa Anti-Hemorrágica"]
+    },
+    {
+      "nome": "Kit de Primeiros Socorros",
+      "complementos": ["Ataduras", "Bandagem Borboleta","Luvas de Borracha", "Esponja", "Linha e Agulha", "Tecido Autoaderente", "Tesouras Médicas", "Rolo de Gaze", "Sutura Cirúrgica", "Agente Hemostático", "Compressa Abdominal", "Compressas de Gel", "Seringa Anti-Hemorrágica"]
+    },
+    {
+      "nome": "Kit Médico Emergencial",
+      "complementos": ["Ataduras", "Bandagem Borboleta","Luvas de Borracha", "Esponja", "Linha e Agulha", "Tecido Autoaderente", "Tesouras Médicas", "Rolo de Gaze", "Sutura Cirúrgica", "Agente Hemostático", "Compressa Abdominal", "Compressas de Gel", "Seringa Anti-Hemorrágica"]
+    },
+    {
+      "nome": "Kit Médico de Guarda-Florestal",
+      "complementos": ["Ataduras", "Bandagem Borboleta","Luvas de Borracha", "Esponja", "Linha e Agulha", "Tecido Autoaderente", "Tesouras Médicas", "Rolo de Gaze", "Sutura Cirúrgica", "Agente Hemostático", "Compressa Abdominal", "Compressas de Gel", "Seringa Anti-Hemorrágica"]
+    }
+  ],
+  "Caixa de Ferramenta":[
+    {
+      "nome": "Ferramentas Gastas",
+      "complementos": ["Instruções", "Pano Limpo","Sucata", "Alicate de Mola", "Bobina de Arame", "Fio de Corte", "Luvas de Proteção", "Soquete Móvel", "Chave Inglesa", "Serrote", "Peça Nova em Folha"]        
+    } ,
+    {
+      "nome": "Caixa de Ferramentas",
+      "complementos": ["Instruções", "Pano Limpo","Sucata", "Alicate de Mola", "Bobina de Arame", "Fio de Corte", "Luvas de Proteção", "Soquete Móvel", "Chave Inglesa", "Serrote", "Peça Nova em Folha"]        
+    } ,
+    {
+      "nome": "Caixa de Ferramentas Espaçosa",
+      "complementos": ["Instruções", "Pano Limpo","Sucata", "Alicate de Mola", "Bobina de Arame", "Fio de Corte", "Luvas de Proteção", "Soquete Móvel", "Chave Inglesa", "Serrote", "Peça Nova em Folha"]        
+    } ,
+    {
+      "nome": "Caixa de Ferramentas de Mecânico",
+      "complementos": ["Instruções", "Pano Limpo","Sucata", "Alicate de Mola", "Bobina de Arame", "Fio de Corte", "Luvas de Proteção", "Soquete Móvel", "Chave Inglesa", "Serrote", "Peça Nova em Folha"]        
+    } ,
+    {
+      "nome": "Caixa de Ferramentas de Engenheiro",
+      "complementos": ["Instruções", "Pano Limpo","Sucata", "Alicate de Mola", "Bobina de Arame", "Fio de Corte", "Luvas de Proteção", "Soquete Móvel", "Chave Inglesa", "Serrote", "Peça Nova em Folha"]        
+    } ,
+    {
+      "nome": "Caixa de Ferramentas do Alex",
+      "complementos": ["Instruções", "Pano Limpo","Sucata", "Alicate de Mola", "Bobina de Arame", "Fio de Corte", "Luvas de Proteção", "Soquete Móvel", "Chave Inglesa", "Serrote", "Peça Nova em Folha"]        
+    } 
+  ],
+  "Frasco de Névoa":[
+    {
+      "nome": "Frasco de Névoa de Aprendiz",
+      "complementos": ["Pedra Vulcânica", "Composto Reativo","Seiva Oleosa", "Fórmula de Cogumelos", "Extrato Potente"]           
+    },  
+    {
+      "nome": "Frasco de Névoa de Artesão",
+      "complementos": ["Pedra Vulcânica", "Composto Reativo","Seiva Oleosa", "Fórmula de Cogumelos", "Extrato Potente"]           
+    },  
+    {
+      "nome": "Frasco de Névoa de Vigo",
+      "complementos": ["Pedra Vulcânica", "Composto Reativo","Seiva Oleosa", "Fórmula de Cogumelos", "Extrato Potente"]           
+    }  
+  ]
+}
