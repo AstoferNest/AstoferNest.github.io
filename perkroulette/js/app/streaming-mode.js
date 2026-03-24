@@ -5,7 +5,7 @@ var tipo_selecao;
 var personagens = [];
 
 function applyChanges() {
-    var link = "https://astofer.com/DBD/perkroulette/streaming-mode/embed/";
+    var link = "https://astofernest.github.io/perkroulette/streaming-mode/embed/";
 
     if (document.querySelector("input#surv").checked) {
         link += "?type=surv";
@@ -80,8 +80,8 @@ function applyChanges() {
         
         imagem_addon1.title = `${itens['complementos'][0]}`;
         imagem_addon2.title = `${itens['complementos'][1]}`;
-        imagem_addon1.src= `https://astofer.com/DBD/perkroulette/css/img/itens/${tipo_selecao}/complementos/${format(nome_addon_1)}`;
-        imagem_addon2.src= `https://astofer.com/DBD/perkroulette/css/img/itens/${tipo_selecao}/complementos/${format(nome_addon_2)}`;
+        imagem_addon1.src= `https://astofernest.github.io/perkroulette/css/img/itens/${tipo_selecao}/complementos/${format(nome_addon_1)}`;
+        imagem_addon2.src= `https://astofernest.github.io/perkroulette/css/img/itens/${tipo_selecao}/complementos/${format(nome_addon_2)}`;
     } else {
         var request2 = new XMLHttpRequest();
         request2.open("GET", "../json/itens-kill.json", false);
@@ -127,8 +127,8 @@ function applyChanges() {
             
             imagem_addon1.title = `${complemento1}`;
             imagem_addon2.title = `${complemento2}`;
-            imagem_addon1.src= `https://astofer.com/DBD/perkroulette/css/img/itens/${tipo_selecao}/${format(personagem_select)}/${nome_addon_1}`;
-            imagem_addon2.src= `https://astofer.com/DBD/perkroulette/css/img/itens/${tipo_selecao}/${format(personagem_select)}/${nome_addon_2}`; 
+            imagem_addon1.src= `https://astofernest.github.io/perkroulette/css/img/itens/${tipo_selecao}/${format(personagem_select)}/${nome_addon_1}`;
+            imagem_addon2.src= `https://astofernest.github.io/perkroulette/css/img/itens/${tipo_selecao}/${format(personagem_select)}/${nome_addon_2}`; 
           }
         }
         
@@ -207,8 +207,8 @@ function seleciona_personagem(){
     console.log(nome_foto_char)
     const foto_char = document.getElementById("personagem");
     const fundo_foto_char = document.getElementById("fundo");
-    fundo_foto_char.src= `https://astofer.com/DBD/perkroulette/css/img/personagens/fundo_pdbd.png`;
-    foto_char.src = `https://astofer.com/DBD/perkroulette/css/img/personagens/${nome_foto_char}`;
+    fundo_foto_char.src= `https://astofernest.github.io/perkroulette/css/img/personagens/fundo_pdbd.png`;
+    foto_char.src = `https://astofernest.github.io/perkroulette/css/img/personagens/${nome_foto_char}`;
     return personagemEscolhido;
 }
 
