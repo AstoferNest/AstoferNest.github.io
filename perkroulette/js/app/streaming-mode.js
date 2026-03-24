@@ -76,7 +76,7 @@ function applyChanges() {
         const nome_addon_2 = itens['complementos'][1].toLowerCase().replace(/\s+/g, '-') + '.png';
         
         imagem_item.title = `${itens['item']}`;
-        imagem_item.src= `https://astofer.com/DBD/perkroulette/css/img/itens/${tipo_selecao}/${format(nome_item)}`;
+        imagem_item.src= `https://astofernest.github.io/perkroulette/css/img/itens/${tipo_selecao}/${format(nome_item)}`;
         
         imagem_addon1.title = `${itens['complementos'][0]}`;
         imagem_addon2.title = `${itens['complementos'][1]}`;
