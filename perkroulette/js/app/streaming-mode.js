@@ -123,7 +123,7 @@ function applyChanges() {
             
 
             imagem_item.title = `${nome_poder}`;
-            imagem_item.src= `https://astofer.com/DBD/perkroulette/css/img/itens/${tipo_selecao}/poderes/${format(nome_poder)}.png`;
+            imagem_item.src= `https://astofernest.github.io/perkroulette/css/img/itens/${tipo_selecao}/poderes/${format(nome_poder)}.png`;
             
             imagem_addon1.title = `${complemento1}`;
             imagem_addon2.title = `${complemento2}`;
