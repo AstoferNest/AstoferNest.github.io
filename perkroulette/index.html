@@ -5,10 +5,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    
+
     <title>Randomizador de Perks de Assassino e Sobreviventes | Randomizador Dead by Daylight</title>
     <meta name="description"
         content="Curte uma roleta de Perks, esse randomizador gera perks aleatórios para Dead by Daylight.">
-
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a1a2e">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="DBD Perks">
+    <link rel="apple-touch-icon" href="css/img/favicon.png">
     <link rel="shortcut icon" href="css/img/favicon.png">
 
     <meta property="st:section"
@@ -285,6 +293,19 @@
         </div>
 
     </div>
+    <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/DBD/perkroulette/service-worker.js')
+        .then(function(reg) {
+          console.log('Service Worker registrado com sucesso!', reg.scope);
+        })
+        .catch(function(err) {
+          console.log('Falha ao registrar Service Worker:', err);
+        });
+    });
+  }
+</script>
 </body>
 
 </html>
