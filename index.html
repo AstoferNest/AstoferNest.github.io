@@ -6,6 +6,14 @@
     <meta name="robots" content="noindex">
 
     <link rel="shortcut icon" href="perkroulette/css/img/favicon.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a1a2e">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="DBD Perks">
+    <link rel="apple-touch-icon" href="css/img/favicon.png">
+    
 
     <meta http-equiv="refresh" content="0; url=/perkroulette/">
     <script type="text/javascript">
@@ -16,6 +24,22 @@
 
 <body style="font-family: 'Roboto', sans-serif">
     Se você não for redirecionado automaticamente, <a href='/perkroulette/'>Clique Aqui</a>.
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/DBD/perkroulette/service-worker.js')
+        .then(function(reg) {
+          console.log('Service Worker registrado com sucesso!', reg.scope);
+        })
+        .catch(function(err) {
+          console.log('Falha ao registrar Service Worker:', err);
+        });
+    });
+  }
+</script>
+
 </body>
+
+    
 
 </html>
