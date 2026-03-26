@@ -1364,245 +1364,580 @@ button[name="accept-cookies"]:hover, button[name="opt-out"]:hover {
 
 /*------------------------------ RESPONSIVE ---------------------------------*/
 @media only screen and (max-width: 768px) {
+
+    /* ===================== BASE ===================== */
+    * {
+        box-sizing: border-box;
+    }
+
     h1 {
         font-size: 22px;
-        line-height: 22px;
+        line-height: 26px;
     }
 
     h2 {
-        font-size: 18px;
-        line-height: 18px;
-    }
-
-    section#sidebar h2 {
-        font-size: 24px;
-        line-height: 24px;
-        margin-bottom: 10px;
-    }
-
-    section#sidebar h3 {
         font-size: 16px;
-        line-height: 16px;
-        margin-bottom: 5px;
+        line-height: 20px;
     }
 
-    p {
-        font-size: 16px;
+    h3 {
+        font-size: 13px;
     }
 
-    body.perkroulette-app h1.site-title, body.perkroulette-app h2.site-subtitle {
-        margin: 0 0 10px 0;
+    p, p.site-paragraph {
+        font-size: 15px;
+        line-height: 1.5;
     }
 
-    /*--------- HEADER ----------*/
+    body.perkroulette-app h1.site-title,
+    body.perkroulette-app h2.site-subtitle {
+        margin: 0 0 8px 0;
+    }
+
+    /* ===================== HEADER ===================== */
+    header.app-header {
+        height: 55px;
+    }
+
+    div.app {
+        padding-top: 55px;
+    }
+
     .logo {
-        margin: 0 0 0 15px;
+        margin: 0 0 0 12px;
+    }
+
+    .logo img {
+        width: 36px !important;
+        height: 36px !important;
+        margin-right: 6px !important;
     }
 
     p#main-text {
-        font-size: 12px;
-        line-height: 12px;
+        font-size: 14px;
+        line-height: 14px;
     }
 
     p#subtext {
         font-size: 9px;
-        line-height: 12px;
+        line-height: 11px;
     }
 
-    /*--------- NAVIGATION ----------*/
     nav.navigation {
-        margin: 0 8px 0 auto;
+        margin: 0 6px 0 auto;
+    }
+
+    ul.nav-list {
+        padding: 0;
+        margin: 0;
     }
 
     a.nav-link {
-        font-size: 13px;
-        padding: 16px;
-        margin-left: 8px;
+        font-size: 11px;
+        padding: 10px 6px;
+        margin-left: 2px;
     }
 
-    a.nav-link[href="#"] {
-        display: none;
-    }
-
-    /*--------- SUB MENU ----------*/
-    .sub-menu {
-        margin: 0 0 25px 65px;
-    }
-
-    /*--------- CONFIG ----------*/
+    /* ===================== CONFIGURAÇÃO (MENU LATERAL) ===================== */
     .toggle-button {
         z-index: 999;
-        display: unset;
+        display: block;
         position: fixed;
         background: #444;
         border-radius: 100px;
-        box-shadow: 10px 0px 25px rgba(0, 0, 0, 0.5);
-        height: 35px;
-        width: 35px;
-        top: 90px;
-        left: 25px;
-        transition: left 0.1s ease-in-out;
+        box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        height: 40px;
+        width: 40px;
+        top: 63px;
+        left: 15px;
+        transition: left 0.15s ease-in-out;
     }
 
     .toggle-button:hover {
         background: #555;
     }
 
-    input#menu-toggle:checked~.toggle-button {
-        left: calc(100% - 65px);
+    input#menu-toggle:checked ~ .toggle-button {
+        left: calc(100vw - 55px);
     }
 
     label[for="menu-toggle"] {
         display: block;
-        background: url(img/icns/settings.png);
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: 24px;
+        background: url(img/icns/settings.png) no-repeat center / 22px;
         height: 100%;
         width: 100%;
         border-radius: 100px;
-        transition: all 0.1s ease-in-out;
     }
 
-    input#menu-toggle:checked~.toggle-button>label {
-        background: url(img/icns/delete.png);
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: 18px;
+    input#menu-toggle:checked ~ .toggle-button > label {
+        background: url(img/icns/delete.png) no-repeat center / 16px;
     }
 
     .config-wrapper {
         z-index: 998;
-        width: 0px !important;
+        width: 0 !important;
+        position: fixed;
+        top: 55px;
+        bottom: 0;
+        left: 0;
     }
 
     .configuration {
         z-index: 998;
         position: fixed;
-        top: 65px;
-        height: calc(100vh - 65px);
-        width: calc(100vw - 80px);
+        top: 55px;
+        bottom: 0;
+        left: 0;
+        width: calc(100vw - 60px) !important;
+        overflow-y: auto;
         box-shadow: none;
-        transform: translateX(-100%);
-        transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+        transform: translateX(-110%);
+        transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     }
 
-    input#menu-toggle:checked~.configuration {
-        transform: unset;
-        box-shadow: 10px 0px 0px 1000px rgba(0, 0, 0, 0.9);
+    input#menu-toggle:checked ~ .configuration {
+        transform: translateX(0);
+        box-shadow: 5px 0 0 2000px rgba(0, 0, 0, 0.85);
     }
 
-    /*--------- APP ----------*/
-    body#perkroulette-app div.main-content-area, body#streaming-mode div.main-content-area {
-        position: relative;
-        margin: 0 25px;
-        padding: 25px 0;
+    #perk-list {
+        position: static;
+        height: 260px;
+        overflow-y: scroll;
+        margin: 0 15px 80px;
     }
 
-    .perks-hgrid {
+    .selection-button {
+        font-size: 11px;
+        padding: 8px 5px;
+        width: 49%;
+    }
+
+    /* ===================== SUB-MENU ===================== */
+    .sub-menu {
         display: flex;
-        flex-direction: column;
-        margin: 50px 0;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
+        height: auto;
+        margin: 0 0 16px 55px;
+    }
+
+    span.ver {
+        font-size: 11px;
+        flex-grow: 1;
+    }
+
+    .tutorial-panel {
+        padding: 50px 20px 30px;
+        left: 10px;
+        right: 10px;
+        max-width: calc(100vw - 20px);
+        top: 55px;
+    }
+
+    .tutorial-panel h2 {
+        margin-bottom: 12px;
+    }
+
+    /* ===================== PERKS (PÁGINA PRINCIPAL) ===================== */
+    body#perkroulette-app div.main-content-area {
+        margin: 0 16px;
+        padding: 20px 0 120px;
+    }
+
+    body#perkroulette-app h1.site-title {
+        padding-right: 0;
+    }
+
+    /* Grid 2x2 de perks */
+    .perks-hgrid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin: 20px 0 30px;
     }
 
     .perk_wrapper {
         position: relative;
-        display: flex;
-        flex-flow: column;
-        align-items: center;
         width: 100%;
-        padding-right: unset;
-        margin-bottom: 10px;
+        padding-right: 0;
+        margin-bottom: 0;
     }
 
     .perk {
-        flex: 0 0 100px;
-        width: 100px;
-        margin: 0 25px 0 0;
-        height: 0;
-        padding-bottom: 50px;
-        background-size: 100px 100px; /* força o tamanho da imagem */
-        background-repeat: no-repeat; /* evita repetição */
-        background-position: center;  /* centraliza a imagem */
-
+        width: 100%;
+        padding-bottom: 100%;
+        margin-bottom: 10px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
     }
 
     .perk_name_container {
-        height: unset;
+        height: auto;
+        min-height: 32px;
+        position: relative;
     }
 
     .perk_name {
-        font-size: 15px;
-        line-height: 20px;
-        position: unset;
-        bottom: unset;
+        font-size: 13px;
+        line-height: 16px;
+        position: static;
+        word-break: break-word;
     }
 
+    .perk_character {
+        font-size: 11px;
+        line-height: 13px;
+        margin-top: 6px;
+    }
+
+    /* Botão Randomizar fixo */
     .big-main-wrapper {
         margin: 0;
     }
 
     .big-main {
-        z-index: 990;
         position: fixed;
-        font-size: 24px;
-        bottom: 25px;
-        right: 0;
-        left: 0;
-        margin: 0 auto;
+        z-index: 990;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 22px;
+        padding: 14px 20px;
+        width: 240px;
+        white-space: nowrap;
     }
 
     #btn-error-msg {
         position: fixed;
         left: 0;
         right: 0;
-        bottom: 58px;
+        bottom: 76px;
         width: 100%;
         margin: 0;
-        padding: 10px 0;
-        border-radius: unset;
+        padding: 10px;
+        border-radius: 0;
+        font-size: 13px;
     }
 
-    /*--------- SIDEBAR / FOOTER ----------*/
+    /* ===================== STREAMING MODE ===================== */
+    body#streaming-mode div.main-content-area {
+        margin: 0 16px;
+        padding: 16px 0 120px;
+        min-height: unset;
+    }
+
+    body#streaming-mode .config-wrapper {
+        width: 0 !important;
+    }
+
+    body#streaming-mode .configuration {
+        width: calc(100vw - 60px) !important;
+    }
+
+    body#streaming-mode .sub-menu {
+        margin: 0 0 16px 0;
+        flex-wrap: wrap;
+        height: auto;
+        gap: 8px;
+    }
+
+    body#streaming-mode h1.site-title {
+        font-size: 18px;
+        line-height: 22px;
+        flex-grow: 1;
+        margin-bottom: 0;
+    }
+
+    body#streaming-mode label[for="show-tut"] {
+        font-size: 12px;
+        padding: 0 10px;
+        width: auto !important;
+        height: 32px;
+        line-height: 32px;
+    }
+
+    body#streaming-mode h2.site-subtitle {
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    body#streaming-mode div#perk-list {
+        position: static;
+        height: 180px;
+        overflow-y: scroll;
+    }
+
+    /* Preview iframe */
+    .preview-container {
+        padding-bottom: 55%;
+        margin-bottom: 20px;
+        border-radius: 6px;
+    }
+
+    /* Preview personagem — altura automática */
+    .preview-container:nth-of-type(2) {
+        padding-bottom: 0;
+        height: auto;
+        min-height: 180px;
+    }
+
+    /* Personagem e addons */
+    .personagem-container {
+        position: static;
+        transform: none;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .char {
+        align-items: center;
+    }
+
+    #foto-personagem {
+        width: 100px;
+        height: 135px;
+    }
+
+    .imagem-container {
+        width: 100px;
+        height: 135px;
+    }
+
+    .img-base {
+        width: 100px;
+        height: 135px;
+    }
+
+    .img-topo {
+        width: 120px;
+        height: 120px;
+    }
+
+    #tipo-exibido {
+        font-size: 12px;
+        text-align: center;
+        margin-top: 6px;
+        max-width: 100px;
+        word-break: break-word;
+    }
+
+    .item {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+
+    #foto-item {
+        width: 75px;
+        height: 75px;
+        background: none;
+    }
+
+    #imagem-item {
+        width: 75px;
+        height: 75px;
+        margin: 0;
+    }
+
+    .addons {
+        flex-direction: row;
+        gap: 8px;
+        margin-top: 0;
+    }
+
+    #addon-item1, #addon-item2 {
+        width: 36px;
+        height: 36px;
+        background: none;
+    }
+
+    #imagem-addon-1, #imagem-addon-2 {
+        width: 36px;
+        height: 36px;
+        margin: 0;
+    }
+
+    /* Campos de aparência */
+    .appearance > form {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .label-gr {
+        width: calc(50% - 4px);
+        margin-right: 0;
+    }
+
+    .label-gr:nth-child(3n) {
+        margin-right: 0;
+    }
+
+    .label-gr-wide {
+        width: 100%;
+    }
+
+    body#streaming-mode div.appearance > form > div > input {
+        width: 100%;
+        font-size: 13px;
+        margin-bottom: 8px;
+        padding: 8px 10px;
+    }
+
+    body#streaming-mode div.appearance > form > div > label {
+        font-size: 11px;
+    }
+
+    /* Campo de link */
+    .link-field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 16px;
+        width: 100%;
+    }
+
+    input#link-input {
+        width: 100%;
+        border-radius: 5px;
+        border: 2px solid #333;
+        border-right: 2px solid #333;
+        font-size: 12px;
+        padding: 10px 10px 10px 38px;
+        background-size: 14px;
+        background-position: 12px center;
+        background-color: #111;
+    }
+
+    input#link-copy-btn {
+        position: static;
+        width: 100%;
+        border-radius: 5px;
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    /* Botão Aplicar Mudanças — fixo */
+    button#apply {
+        position: fixed !important;
+        bottom: 20px !important;
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%) !important;
+        z-index: 9999;
+        width: 200px;
+        font-size: 14px;
+        padding: 10px 16px;
+        white-space: nowrap;
+    }
+
+    /* ===================== SIDEBAR ===================== */
     section#sidebar {
-        padding: 25px;
+        flex-direction: column;
+        padding: 24px 16px;
+    }
+
+    section#sidebar .sidebar-column {
+        width: 100%;
+    }
+
+    section#sidebar .sidebar-column:first-of-type {
+        margin-right: 0;
+        margin-bottom: 24px;
+    }
+
+    section#sidebar h2 {
+        font-size: 22px;
+        line-height: 26px;
+        margin-bottom: 12px;
+    }
+
+    section#sidebar h3 {
+        font-size: 15px;
+        line-height: 18px;
+        margin-bottom: 6px;
     }
 
     section#sidebar .sidebar-text {
-        margin-bottom: 15px;
+        font-size: 14px;
+        margin-bottom: 14px;
+        line-height: 1.5;
     }
 
+    /* ===================== FOOTER ===================== */
     footer {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         text-align: center;
-        padding: 25px 25px 125px;
+        padding: 20px 16px 110px;
+        gap: 4px;
+    }
+
+    footer .footer-text {
+        margin: 4px 0;
+        font-size: 12px;
     }
 
     footer .footer-links {
-        margin: 36px 0 0 0;
+        margin: 8px 0 0;
+        font-size: 12px;
     }
 
-    /*--------- COOKIES ----------*/
+    /* ===================== COOKIES ===================== */
     .cookie-banner {
         font-size: 12px;
         z-index: 997;
-        bottom: 100px;
-        left: 25px;
-        right: 25px;
-        width: unset;
-        padding: 10px 10px 10px 40px;
-        background-position: 12px center;
+        bottom: 80px;
+        left: 12px;
+        right: 12px;
+        width: auto;
+        padding: 10px 10px 10px 38px;
+        background-position: 10px center;
+        background-size: 16px;
         border-radius: 10px;
+        flex-wrap: wrap;
+        gap: 6px;
     }
 
-    .cookie-banner>p {
+    .cookie-banner > p.text {
         font-size: 12px;
+        flex: 1 1 100%;
     }
 
-    button[name="accept-cookies"], button[name="opt-out"] {
-        font-size: 14px;
-        padding: 10px 15px;
-        margin-left: 15px;
+    button[name="accept-cookies"],
+    button[name="opt-out"] {
+        font-size: 13px;
+        padding: 8px 14px;
+        margin-left: 8px;
     }
-    /*------------------------------ RESPONSIVE END ---------------------------------*/
+
+    /* ===================== PRIVACY POLICY ===================== */
+    body#privacy-policy div.main-content-area {
+        padding: 20px 16px 80px;
+    }
+
+    body#privacy-policy h1.site-title {
+        font-size: 20px;
+        margin-bottom: 16px;
+    }
+
+    body#privacy-policy h2.site-subtitle {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    button#optOutButton {
+        font-size: 14px;
+        padding: 10px 20px;
+        margin: 8px 0;
+    }
+
 }
+/* ===================== RESPONSIVE END ===================== */
