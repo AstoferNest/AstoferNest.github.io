@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="utf-8">
@@ -18,7 +18,68 @@
     <script src="../js/app/streaming-mode.js" type="text/javascript"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+    <style>
+        /* ── Botões de randomizar separados ── */
+        .randomize-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 12px 0;
+            flex-wrap: wrap;
+        }
+        .btn-randomize {
+            flex: 1;
+            min-width: 140px;
+            padding: 10px 14px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            letter-spacing: 0.03em;
+            transition: filter 0.15s, transform 0.1s;
+        }
+        .btn-randomize:hover  { filter: brightness(1.15); transform: translateY(-1px); }
+        .btn-randomize:active { transform: translateY(0); }
+        .btn-randomize.perks  { background: #4e3071; color: #fff; }
+        .btn-randomize.chars  { background: #8b3a3a; color: #fff; }
+        .btn-randomize.both   { background: #2a5c45; color: #fff; width: 100%; flex: unset; }
 
+        /* ── Seção de personagens na sidebar ── */
+        .chars-section { margin-top: 16px; }
+        .chars-section h3 { margin-bottom: 8px; }
+        #char-search-input-wrapper { display: flex; gap: 4px; margin-bottom: 6px; }
+        #char-search-input {
+            flex: 1;
+            padding: 5px 8px;
+            border-radius: 4px;
+            border: 1px solid #555;
+            background: #1e1e1e;
+            color: #eee;
+            font-size: 0.85rem;
+        }
+        #char-search-clear {
+            padding: 5px 8px;
+            border-radius: 4px;
+            border: 1px solid #555;
+            background: #333;
+            color: #eee;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        #char-list { max-height: 220px; overflow-y: auto; }
+        .char-sel-buttons { display: flex; gap: 6px; margin-bottom: 6px; }
+        .char-sel-buttons button {
+            flex: 1;
+            padding: 5px 0;
+            font-size: 0.78rem;
+            border-radius: 4px;
+            border: 1px solid #555;
+            background: #2a2a2a;
+            color: #ddd;
+            cursor: pointer;
+        }
+        .char-sel-buttons button:hover { background: #3a3a3a; }
+    </style>
 </head>
 
 <body class="perkroulette-app" id="streaming-mode" onload="loadPerks()">
@@ -69,6 +130,7 @@
                         </div>
                     </div>
 
+                    <!-- ══ PERKS ══ -->
                     <div class="perks">
                         <h3>Gerenciamento de Perks</h3>
                         <form id="search-input-wrapper" name="search-input-wrapper">
@@ -83,6 +145,22 @@
                         <div class="generated-list" id="perk-list"></div>
                     </div>
 
+                    <!-- ══ PERSONAGENS (novo) ══ -->
+                    <div class="chars-section">
+                        <h3>Gerenciamento de Personagens</h3>
+                        <div id="char-search-input-wrapper">
+                            <input type="text" id="char-search-input" onkeyup="filterChars()"
+                                placeholder="Pesquisar personagem">
+                            <input type="reset" value="✕" onclick="resetCharFilter()" id="char-search-clear" class="hidden">
+                        </div>
+                        <div class="char-sel-buttons">
+                            <button onclick="selAllChars()">Selecionar Todos</button>
+                            <button onclick="selNoneChars()">Desselecionar Todos</button>
+                        </div>
+                        <div class="generated-list" id="char-list"></div>
+                    </div>
+
+                    <!-- ══ APPEARANCE ══ -->
                     <div class="appearance">
                         <h3>Appearance</h3>
                         <form>
@@ -118,8 +196,6 @@
                     </div>
                 </noscript>
 
-
-
                 <div class="sub-menu">
                     <h1 class="site-title">Modo Streaming</h1>
 
@@ -128,7 +204,9 @@
                         <input type="radio" name="tut-toggle" id="show-tut">
                         <div class="separador">
                             <label for="show-tut">Como Adicionar</label>
-                            <label for="show-ren" onclick="applyChanges();" style="margin-top: 5px;"><i class="fa-solid fa-repeat" style="color: #4e3071;"></i></label>
+                            <label for="show-ren" onclick="applyChanges();" style="margin-top: 5px;">
+                                <i class="fa-solid fa-repeat" style="color: #4e3071;"></i>
+                            </label>
                         </div>
                         <div class="tutorial-panel">
                             <label for="hide-tut"></label>
@@ -148,7 +226,7 @@
 
                             <p class="site-paragraph">Tem alguma dúvida? Algo não está funcionando como deveria? Não exite em me mandar uma DM no Twitter (<a class="link" href="https://twitter.com/euastofer"
                                     target="_blank" title="https://twitter.com/euastofer" rel="noreferrer">@euastofer</a>) e eu tentarei corrigir para você!</p>
-                                 <h2 class="site-subtitle">Foi você quem criou esse sistema?</h2>   
+                            <h2 class="site-subtitle">Foi você quem criou esse sistema?</h2>   
                             <p class="site-paragraph">Não, o sistema foi criado por (<a class="link" href="https://twitter.com/verewygt"
                                     target="_blank" title="https://twitter.com/verewygt" rel="noreferrer">@verewygt</a>)
                                 eu apenas traduzi para o Português-BR!</p>
@@ -156,19 +234,32 @@
                     </div>
                 </div>
 
+                <!-- ══ BOTÕES DE RANDOMIZAR (novo) ══ -->
+                <div class="randomize-buttons">
+                    <button class="btn-randomize perks" onclick="randomizarPerks()">
+                        <i class="fa-solid fa-shuffle"></i>&nbsp; Randomizar Perks
+                    </button>
+                    <button class="btn-randomize chars" onclick="randomizarPersonagem()">
+                        <i class="fa-solid fa-user-secret"></i>&nbsp; Randomizar Personagem
+                    </button>
+                    <button class="btn-randomize both" onclick="randomizarPerks(); randomizarPersonagem();">
+                        <i class="fa-solid fa-dice"></i>&nbsp; Randomizar Tudo
+                    </button>
+                </div>
+
                 <h2 class="site-subtitle">Perks</h2>
                 <div class="preview-container">
-                    <iframe id="embed-preview" src="embed/?type=surv" width="100%"
-                        height="100%"></iframe>
+                    <iframe id="embed-preview" src="embed/?type=surv" width="100%" height="100%"></iframe>
                 </div>
+
                 <h2 class="site-subtitle">Personagem e Addons</h2>
                 <div class="preview-container">
                     <div class="personagem-container">
                         <div class="char">
                             <div class="imagem-container">
                                 <div id="foto-personagem">
-                                      <img id="fundo" src="" class="img-base">
-                                      <img id="personagem" src="" class="img-topo">
+                                    <img id="fundo" src="" class="img-base">
+                                    <img id="personagem" src="" class="img-topo">
                                 </div>
                             </div>
                             <div id="tipo-exibido"></div>
@@ -189,8 +280,7 @@
                     </div>
                 </div>
 
-
-                <h2 class="site-subtitle">Link para o Software Streaming </h2>
+                <h2 class="site-subtitle">Link para o Software Streaming</h2>
                 <div class="link-field">
                     <input id="link-input" type="text" name="stream-software-url"
                         value="https://astofernest.github.io/perkroulette/streaming-mode/embed/?type=surv">
@@ -239,8 +329,7 @@
                             rel="noreferrer">Behaviour</a> e foram tirados da <a class="link"
                             href="https://deadbydaylight.gamepedia.com/Dead_by_Daylight_Wiki" target="_blank"
                             title="https://deadbydaylight.gamepedia.com/Dead_by_Daylight_Wiki" rel="noreferrer">Wiki oficial do Dead by
-                            Daylight
-                            </a>.</span></p>
+                            Daylight</a>.</span></p>
 
                 <p class="sidebar-text"><span>Os demais icones foram tirados do site <a class="link" href="https://icons8.com/"
                             target="_blank" title="https://icons8.com/" rel="noreferrer">icons8</a>.</span></p>
