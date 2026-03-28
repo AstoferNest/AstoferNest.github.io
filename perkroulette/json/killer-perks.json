@@ -509,18 +509,6 @@
 			"character": "Perk ensinável de A Mestra da Matilha"
 		},
 		{
-			"perk_name": "Fobia de Fantasma",
-			"character": "Perk ensinável de O Animatrônico"
-		},
-		{
-			"perk_name": "Descontrolado",
-			"character": "Perk ensinável de O Animatrônico"
-		},
-		{
-			"perk_name": "Precisa-se de Ajuda",
-			"character": "Perk ensinável de O Animatrônico"
-		},
-		{
 			"perk_name": "Feitiço: Nada Além da Miséria",
 			"character": "Perk ensinável de O Ghoul"
 		},
@@ -531,6 +519,38 @@
 		{
 			"perk_name": "Ninguém está Livre",
 			"character": "Perk ensinável de O Ghoul"
-		}
+		},
+		{
+			"perk_name": "Fobia de Fantasma",
+			"character": "Perk ensinável de O Animatrônico"
+		},
+		{
+			"perk_name": "Descontrolado",
+			"character": "Perk ensinável de O Animatrônico"
+		},
+		{
+			"perk_name": "Voraz",
+			"character": "Perk ensinável de A Krasue"
+		},
+		{
+			"perk_name": "Olhar Divagante",
+			"character": "Perk ensinável de A Krasue"
+		},
+		{
+			"perk_name": "Feitiço: Abertura da Ruína",
+			"character": "Perk ensinável de A Krasue"
+		},
+		{
+			"perk_name": "Atrasar o Relógio",
+			"character": "Perk ensinável de Número Um"
+		},
+		{
+			"perk_name": "Projeto Secreto",
+			"character": "Perk ensinável de Número Um"
+		},
+		{
+			"perk_name": "Feitiço: Mente Coletiva",
+			"character": "Perk ensinável de Número Um"
+		}		
 	]
 }
