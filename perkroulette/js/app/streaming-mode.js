@@ -196,6 +196,7 @@ function loadPerks() {
     // ← monta lista de personagens na sidebar
     buildCharList();
     applyChanges();
+    randomizarPersonagem();
 }
 
 // ─── Constrói o seletor de personagens ──────────────────────────────────────
