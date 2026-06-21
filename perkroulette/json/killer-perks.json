@@ -551,6 +551,18 @@
 		{
 			"perk_name": "Feitiço: Mente Coletiva",
 			"character": "Perk ensinável de O Número Um"
-		}		
+		},
+		{
+			"perk_name": "Sombra Silenciosa",
+			"character": "Perk ensinável de O Matador"
+		},
+		{
+			"perk_name": "Fúria",
+			"character": "Perk ensinável de O Matador"
+		},
+		{
+			"perk_name": "Feitiço: Morrendo de Medo",
+			"character": "Perk ensinável de O Matador"
+		}			
 	]
 }
