@@ -563,6 +563,18 @@
 		{
 			"perk_name": "Feitiço: Morrendo de Medo",
 			"character": "Perk ensinável de O Matador"
+		},
+		{
+			"perk_name": "Devastação",
+			"character": "Perk ensinável de O Julgamento"
+		},
+		{
+			"perk_name": "Testemunha Celestial",
+			"character": "Perk ensinável de O Julgamento"
+		},
+		{
+			"perk_name": "Feitiço: Sob Seu Controle",
+			"character": "Perk ensinável de O Julgamento"
 		}			
 	]
 }
