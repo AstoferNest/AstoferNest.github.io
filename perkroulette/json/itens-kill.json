@@ -250,6 +250,18 @@
       "nome": "Cobaia Nº 001",
       "complementos": ["Rádio de Meados do Século","Mural de Vitral","Labirinto de Contas","Id do Auxiliar de Enfermagem","Toca-Fitas Destruído","Ponteiros do Relógio","Patins Ensanguentado","Foguete de Pulso Despedaçado","Comunicador Estripado","Óculos de Pizza","Tentáculo de Pescoço","Navalha do Victor","Chapéu de Eletrodo","Certidão de Óbito Falsificada","Skate Quebrado","Restos de Coelho","Coleira de Eletrochoque","Aranha Viúva Negra","Peça de Xadrez","Chip Soteria Iridescente"]
     }
+  ],
+  "O Matador": [
+    {
+      "nome": "Mal Onipresente",
+      "complementos": ["Sapato de Enfermeira","Roda Amassada","Garra de Jardinagem","Agulha de Tricô","Sorriso Sangrento","Saco de Dormir","Língua-de-Sogra","Lixo Tóxico","Café do Legista","Remela","Pedra de Sauna","Fragmentos de Espelho","Dois Pregos","Alumínio Marcado","Saca-Rolhas Desaparecido","Revista Ensanguentada","Fusível Queimado","Distintivo do Delegado","Motor de Barco Iridescente","Dinheiro Sujo"]
+    }
+  ],
+  "O Julgamento": [
+    {
+      "nome": "A Vontade dos Deuses",
+      "complementos": ["Marca de Herege","Desafio de Koenrad","Crânio de Buscador","Apoio para Oração","Telereceptor da Aurora","Marca do Adepto","Grilhões Magnetizados","Crifres de Guerra do Confessor","Chama Imortal","Ícone Alado Sagrado","Vidro Superaquecido","Venda dos Devotos","Tocha Elétrica","Ordem da Inquisição","Olhos de Gerhardt","Detonadores Improvisados","Correntes do Herege","Coroa do Destruidor","Pena de Obsidiana","Espelho dos Criadores"]
+    }
   ]
 }
 
