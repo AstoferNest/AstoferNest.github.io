@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: https://astofernest.github.io/perkroulette/privacy/
-
-Sitemap: https://astofernest.github.io/perkroulette/sitemap.xml
