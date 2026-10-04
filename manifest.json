@@ -1,0 +1,24 @@
+{
+  "name": "Roleta de Perks - Dead by Daylight",
+  "short_name": "DBD Perks",
+  "description": "Randomizador de perks de Assassino e Sobrevivente para Dead by Daylight",
+  "start_url": "/DBD/perkroulette/",
+  "scope": "/DBD/perkroulette/",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#1a1a2e",
+  "orientation": "portrait",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "css/img/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "css/img/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
