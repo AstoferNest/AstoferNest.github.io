@@ -1,0 +1,885 @@
+{
+  "perks": [
+    {
+      "perk_name": "Ás na manga",
+      "character": "Perk ensinável de Ace Visconti",
+      "perk_name_en": "Ace in The Hole"
+    },
+    {
+      "perk_name": "Adrenalina",
+      "character": "Perk ensinável de Meg Thomas",
+      "perk_name_en": "Adrenaline"
+    },
+    {
+      "perk_name": "Cuidados",
+      "character": "Perk ensinável de Jeff Johansen",
+      "perk_name_en": "Aftercare"
+    },
+    {
+      "perk_name": "Alerta",
+      "character": "Perk ensinável de Feng Min",
+      "perk_name_en": "Alert"
+    },
+    {
+      "perk_name": "Custe o que Custar",
+      "character": "Perk ensinável de Yui Kimura",
+      "perk_name_en": "Any Means Necessary"
+    },
+    {
+      "perk_name": "Avaliação",
+      "character": "Perk ensinável de Élodie Rakoto",
+      "perk_name_en": "Appraisal"
+    },
+    {
+      "perk_name": "Autodidata",
+      "character": "Perk ensinável de Adam Francis",
+      "perk_name_en": "Autodidact"
+    },
+    {
+      "perk_name": "Babá",
+      "character": "Perk ensinável de Steve Harrington",
+      "perk_name_en": "Guardian"
+    },
+    {
+      "perk_name": "Queda Equilibrada",
+      "character": "Perk ensinável de Nea Karlsson",
+      "perk_name_en": "Balanced Landing"
+    },
+    {
+      "perk_name": "Melhor Juntos",
+      "character": "Perk ensinável de Nancy Wheeler",
+      "perk_name_en": "Situational Awareness"
+    },
+    {
+      "perk_name": "Pacto de Sangue",
+      "character": "Perk ensinável de Cheryl Mason",
+      "perk_name_en": "Blood Pact"
+    },
+    {
+      "perk_name": "Superação",
+      "character": "Perk ensinável de Kate Denson",
+      "perk_name_en": "Boil Over"
+    },
+    {
+      "perk_name": "Vínculo",
+      "character": "Perk ensinável de Dwight Fairfield",
+      "perk_name_en": "Bond"
+    },
+    {
+      "perk_name": "Tempo Precioso",
+      "character": "Perk ensinável de Willian 'Bill' Overbeck",
+      "perk_name_en": "Borrowed Time"
+    },
+    {
+      "perk_name": "Conhecimento Botânico",
+      "character": "Perk ensinável de Claudette Morel",
+      "perk_name_en": "Botany Knowledge"
+    },
+    {
+      "perk_name": "Quebrar",
+      "character": "Perk ensinável de Jeff Johansen",
+      "perk_name_en": "Breakdown"
+    },
+    {
+      "perk_name": "Fuga",
+      "character": "Perk ensinável de Yui Kimura",
+      "perk_name_en": "Breakout"
+    },
+    {
+      "perk_name": "Apertando os Cintos",
+      "character": "Perk ensinável de Ash Williams",
+      "perk_name_en": "Buckle Up"
+    },
+    {
+      "perk_name": "Construído para Durar",
+      "character": "Perk ensinável de Felix Richter",
+      "perk_name_en": "Built to Last"
+    },
+    {
+      "perk_name": "Espírito Calmo",
+      "character": "Perk ensinável de Jake Park",
+      "perk_name_en": "Calm Spirit"
+    },
+    {
+      "perk_name": "Camaradagem",
+      "character": "Perk ensinável de Steve Harrington",
+      "perk_name_en": "Kinship"
+    },
+    {
+      "perk_name": "Dance Comigo",
+      "character": "Perk ensinável de Kate Denson",
+      "perk_name_en": "Dance With Me"
+    },
+    {
+      "perk_name": "Sentido Obscuro",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "Dark Sense"
+    },
+    {
+      "perk_name": "Duro na Queda",
+      "character": "Perk ensinável de David King",
+      "perk_name_en": "Dead Hard"
+    },
+    {
+      "perk_name": "Artimanha",
+      "character": "Perk ensinável de Élodie Rakoto",
+      "perk_name_en": "Deception"
+    },
+    {
+      "perk_name": "Ataque Decisivo",
+      "character": "Perk ensinável de Laurie Strode",
+      "perk_name_en": "Decisive Strike"
+    },
+    {
+      "perk_name": "Déjà Vu",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "Déjà Vu"
+    },
+    {
+      "perk_name": "Libertação",
+      "character": "Perk ensinável de Adam Francis",
+      "perk_name_en": "Deliverance"
+    },
+    {
+      "perk_name": "Medidas Desesperadas",
+      "character": "Perk ensinável de Felix Richter",
+      "perk_name_en": "Desperate Measures"
+    },
+    {
+      "perk_name": "Intuição de Detetive",
+      "character": "Perk ensinável de David Tapp",
+      "perk_name_en": "Detective's Hunch"
+    },
+    {
+      "perk_name": "Distorção",
+      "character": "Perk ensinável de Jeff Johansen",
+      "perk_name_en": "Distortion"
+    },
+    {
+      "perk_name": "Distração",
+      "character": "Perk ensinável de Adam Francis",
+      "perk_name_en": "Diversion"
+    },
+    {
+      "perk_name": "Empatia",
+      "character": "Perk ensinável de Claudette Morel",
+      "perk_name_en": "Empathy"
+    },
+    {
+      "perk_name": "Ideia Fixa",
+      "character": "Perk ensinável de Nancy Wheeler",
+      "perk_name_en": "Self-Aware"
+    },
+    {
+      "perk_name": "Bate e Volta",
+      "character": "Perk ensinável de Ash Williams",
+      "perk_name_en": "Flip-Flop"
+    },
+    {
+      "perk_name": "Pelo Povo",
+      "character": "Perk ensinável de Zarina Kassir",
+      "perk_name_en": "For the People"
+    },
+    {
+      "perk_name": "De Cabeça",
+      "character": "Perk ensinável de Jane Romero",
+      "perk_name_en": "Head On"
+    },
+    {
+      "perk_name": "Esperança",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "Hope"
+    },
+    {
+      "perk_name": "Força Interior",
+      "character": "Perk ensinável de Nancy Wheeler",
+      "perk_name_en": "Inner Healing"
+    },
+    {
+      "perk_name": "Vontade de Ferro",
+      "character": "Perk ensinável de Jake Park",
+      "perk_name_en": "Iron Will"
+    },
+    {
+      "perk_name": "Parentesco",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "Kindred"
+    },
+    {
+      "perk_name": "Líder",
+      "character": "Perk ensinável de Dwight Fairfield",
+      "perk_name_en": "Leader"
+    },
+    {
+      "perk_name": "Deixado para Trás",
+      "character": "Perk ensinável de Willian 'Bill' Overbeck",
+      "perk_name_en": "Left Behind"
+    },
+    {
+      "perk_name": "Peso Leve",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "Lightweight"
+    },
+    {
+      "perk_name": "Agilidade",
+      "character": "Perk ensinável de Feng Min",
+      "perk_name_en": "Lithe"
+    },
+    {
+      "perk_name": "Golpe de Sorte",
+      "character": "Perk ensinável de Yui Kimura",
+      "perk_name_en": "Lucky Break"
+    },
+    {
+      "perk_name": "Fervor Humano",
+      "character": "Perk ensinável de Ash Williams",
+      "perk_name_en": "Mettle of Man"
+    },
+    {
+      "perk_name": "Sem Incômodos",
+      "character": "Perk ensinável de David King",
+      "perk_name_en": "No Mither"
+    },
+    {
+      "perk_name": "Ninguém Fica Para Trás",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "No One Left Behind"
+    },
+    {
+      "perk_name": "Objeto de Obsessão",
+      "character": "Perk ensinável de Laurie Strode",
+      "perk_name_en": "Object of Obsession"
+    },
+    {
+      "perk_name": "Extraoficialmente",
+      "character": "Perk ensinável de Zarina Kassir",
+      "perk_name_en": "Off the Record"
+    },
+    {
+      "perk_name": "Mão Aberta",
+      "character": "Perk ensinável de Ace Visconti",
+      "perk_name_en": "Open Handed"
+    },
+    {
+      "perk_name": "Farmácia",
+      "character": "Perk ensinável de Quentin Smith",
+      "perk_name_en": "Pharmacy"
+    },
+    {
+      "perk_name": "Instinto do Saqueador",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "Plunderer's Instinct"
+    },
+    {
+      "perk_name": "Firmeza",
+      "character": "Perk ensinável de Jane Romero",
+      "perk_name_en": "Poised"
+    },
+    {
+      "perk_name": "Disputa de Forças",
+      "character": "Perk ensinável de Élodie Rakoto",
+      "perk_name_en": "Power Struggle"
+    },
+    {
+      "perk_name": "Premonição",
+      "character": "Perk ensinável de Dwight Fairfield",
+      "perk_name_en": "Premonition"
+    },
+    {
+      "perk_name": "Prove-se",
+      "character": "Perk ensinável de Dwight Fairfield",
+      "perk_name_en": "Prove Thyself"
+    },
+    {
+      "perk_name": "Rápida e Silenciosa",
+      "character": "Perk ensinável de Meg Thomas",
+      "perk_name_en": "Quick & Quiet"
+    },
+    {
+      "perk_name": "Alarme Falso",
+      "character": "Perk ensinável de Zarina Kassir",
+      "perk_name_en": "Red Herring"
+    },
+    {
+      "perk_name": "Aliança Reprimida",
+      "character": "Perk ensinável de Cheryl Mason",
+      "perk_name_en": "Repressed Alliance"
+    },
+    {
+      "perk_name": "Resiliência",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "Resilience"
+    },
+    {
+      "perk_name": "Sabotador",
+      "character": "Perk ensinável de Jake Park",
+      "perk_name_en": "Saboteur"
+    },
+    {
+      "perk_name": "Segundo Fôlego",
+      "character": "Perk ensinável de Steve Harrington",
+      "perk_name_en": "Renewal"
+    },
+    {
+      "perk_name": "Auto-Cura",
+      "character": "Perk ensinável de Claudette Morel",
+      "perk_name_en": "Self-Care"
+    },
+    {
+      "perk_name": "Carne Escorregadia",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "Slippery Meat"
+    },
+    {
+      "perk_name": "Pequena Caça",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "Small Game"
+    },
+    {
+      "perk_name": "Sobrevivente Único",
+      "character": "Perk ensinável de Laurie Strode",
+      "perk_name_en": "Sole Survivor"
+    },
+    {
+      "perk_name": "Solidariedade",
+      "character": "Perk ensinável de Jane Romero",
+      "perk_name_en": "Solidarity"
+    },
+    {
+      "perk_name": "Proteção de Alma",
+      "character": "Perk ensinável de Cheryl Mason",
+      "perk_name_en": "Soul Guard"
+    },
+    {
+      "perk_name": "Frio na Espinha",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "Spine Chill"
+    },
+    {
+      "perk_name": "Arrancada Explosiva",
+      "character": "Perk ensinável de Meg Thomas",
+      "perk_name_en": "Sprint Burst"
+    },
+    {
+      "perk_name": "Tocaia",
+      "character": "Perk ensinável de David Tapp",
+      "perk_name_en": "Stake Out"
+    },
+    {
+      "perk_name": "Conhecimento Urbano",
+      "character": "Perk ensinável de Nea Karlsson",
+      "perk_name_en": "Streetwise"
+    },
+    {
+      "perk_name": "Técnico",
+      "character": "Perk ensinável de Feng Min",
+      "perk_name_en": "Technician"
+    },
+    {
+      "perk_name": "Tenacidade",
+      "character": "Perk ensinável de David Tapp",
+      "perk_name_en": "Tenacity"
+    },
+    {
+      "perk_name": "Isso Não Está Acontecendo",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "This Is Not Happening"
+    },
+    {
+      "perk_name": "Inquebrável",
+      "character": "Perk ensinável de Willian 'Bill' Overbeck",
+      "perk_name_en": "Unbreakable"
+    },
+    {
+      "perk_name": "Aumentar as Apostas",
+      "character": "Perk ensinável de Ace Visconti",
+      "perk_name_en": "Up The Ante"
+    },
+    {
+      "perk_name": "Evasão Urbana",
+      "character": "Perk ensinável de Nea Karlsson",
+      "perk_name_en": "Urban Evasion"
+    },
+    {
+      "perk_name": "Vigília",
+      "character": "Perk ensinável de Quentin Smith",
+      "perk_name_en": "Vigil"
+    },
+    {
+      "perk_name": "Visionário",
+      "character": "Perk ensinável de Felix Richter",
+      "perk_name_en": "Visionary"
+    },
+    {
+      "perk_name": "Acorde!",
+      "character": "Perk ensinável de Quentin Smith",
+      "perk_name_en": "Wake Up!"
+    },
+    {
+      "perk_name": "Conseguiremos",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "We'll Make It"
+    },
+    {
+      "perk_name": "Vamos Viver para Sempre",
+      "character": "Perk ensinável de David King",
+      "perk_name_en": "We're Gonna Live Forever"
+    },
+    {
+      "perk_name": "Janelas de Oportunidades",
+      "perk_color": "green",
+      "character": "Perk ensinável de Kate Denson",
+      "perk_name_en": "Windows Of Opportunity"
+    },
+    {
+      "perk_name": "Fama Acelerada",
+      "character": "Perk ensinável de Yun-Jin Lee",
+      "perk_name_en": "Fast Track"
+    },
+    {
+      "perk_name": "Autopreservação",
+      "character": "Perk ensinável de Yun-Jin Lee",
+      "perk_name_en": "Self-Preservation"
+    },
+    {
+      "perk_name": "Hit de Sucesso",
+      "character": "Perk ensinável de Yun-Jin Lee",
+      "perk_name_en": "Smash Hit"
+    },
+    {
+      "perk_name": "Contraforça",
+      "character": "Perk ensinável de Jill Valentine",
+      "perk_name_en": "Counterforce"
+    },
+    {
+      "perk_name": "Ressurgimento",
+      "character": "Perk ensinável de Jill Valentine",
+      "perk_name_en": "Resurgence"
+    },
+    {
+      "perk_name": "Mina Explosiva",
+      "character": "Perk ensinável de Jill Valentine",
+      "perk_name_en": "Blast Mine"
+    },
+    {
+      "perk_name": "Matar no Peito",
+      "character": "Perk ensinável de Leon Scott Kennedy",
+      "perk_name_en": "Bite the Bullet"
+    },
+    {
+      "perk_name": "Granada de Luz",
+      "character": "Perk ensinável de Leon Scott Kennedy",
+      "perk_name_en": "Flashbang"
+    },
+    {
+      "perk_name": "Espírito de Recruta",
+      "character": "Perk ensinável de Leon Scott Kennedy",
+      "perk_name_en": "Rookie Spirit"
+    },
+    {
+      "perk_name": "Clarividência",
+      "character": "Perk ensinável de Mikaela Reid",
+      "perk_name_en": "Clairvoyance"
+    },
+    {
+      "perk_name": "Bênção: Círculo Curativo",
+      "character": "Perk ensinável de Mikaela Reid",
+      "perk_name_en": "Boon: Circle of Healing"
+    },
+    {
+      "perk_name": "Bênção: Passo Sombrio",
+      "character": "Perk ensinável de Mikaela Reid",
+      "perk_name_en": "Boon: Shadow Step"
+    },
+    {
+      "perk_name": "Superar",
+      "character": "Perk ensinável de Jonah Vasquez",
+      "perk_name_en": "Overcome"
+    },
+    {
+      "perk_name": "Ação Corretiva",
+      "character": "Perk ensinável de Jonah Vasquez",
+      "perk_name_en": "Corrective Action"
+    },
+    {
+      "perk_name": "Bênção: Exponencial",
+      "character": "Perk ensinável de Jonah Vasquez",
+      "perk_name_en": "Boon: Exponential"
+    },
+    {
+      "perk_name": "Orientação Paterna",
+      "character": "Perk ensinável de Yoichi Asakawa",
+      "perk_name_en": "Parental Guidance"
+    },
+    {
+      "perk_name": "Ligação Empática",
+      "character": "Perk ensinável de Yoichi Asakawa",
+      "perk_name_en": "Empathic Connection"
+    },
+    {
+      "perk_name": "Bênção: Teoria das Trevas",
+      "character": "Perk ensinável de Yoichi Asakawa",
+      "perk_name_en": "Boon: Dark Theory"
+    },
+    {
+      "perk_name": "Foco Interno",
+      "character": "Perk ensinável de Haddie Kaur",
+      "perk_name_en": "Inner Focus"
+    },
+    {
+      "perk_name": "Manifesto Residual",
+      "character": "Perk ensinável de Haddie Kaur",
+      "perk_name_en": "Residual Manifest"
+    },
+    {
+      "perk_name": "Zeloso ao Extremo",
+      "character": "Perk ensinável de Haddie Kaur",
+      "perk_name_en": "Overzealous"
+    },
+    {
+      "perk_name": "Escuta",
+      "character": "Perk ensinável de Ada Wong",
+      "perk_name_en": "Wiretap"
+    },
+    {
+      "perk_name": "Cura Reativa",
+      "character": "Perk ensinável de Ada Wong",
+      "perk_name_en": "Reactive Healing"
+    },
+    {
+      "perk_name": "Discrição",
+      "character": "Perk ensinável de Ada Wong",
+      "perk_name_en": "Low Profile"
+    },
+    {
+      "perk_name": "Novinho em Folha",
+      "character": "Perk ensinável de Rebecca Chambers",
+      "perk_name_en": "Better than New"
+    },
+    {
+      "perk_name": "Reconforto",
+      "character": "Perk ensinável de Rebecca Chambers",
+      "perk_name_en": "Reassurance"
+    },
+    {
+      "perk_name": "Hiperfoco",
+      "character": "Perk ensinável de Rebecca Chambers",
+      "perk_name_en": "Hyperfocus"
+    },
+    {
+      "perk_name": "Energia Potencial",
+      "character": "Perk ensinável de Vittorio Toscano",
+      "perk_name_en": "Potential Energy"
+    },
+    {
+      "perk_name": "Sabedoria da Névoa",
+      "character": "Perk ensinável de Vittorio Toscano",
+      "perk_name_en": "Fogwise"
+    },
+    {
+      "perk_name": "Gambito Rápido",
+      "character": "Perk ensinável de Vittorio Toscano",
+      "perk_name_en": "Quick Gambit"
+    },
+    {
+      "perk_name": "Sem Restições",
+      "character": "Perk ensinável de Thalita Lyra",
+      "perk_name_en": "Cut Loose"
+    },
+    {
+      "perk_name": "Competição Amigável",
+      "character": "Perk ensinável de Thalita Lyra",
+      "perk_name_en": "Friendly Competition"
+    },
+    {
+      "perk_name": "Trabalho em Equipe: Poder de Dois",
+      "character": "Perk ensinável de Thalita Lyra",
+      "perk_name_en": "Teamwork: Power of Two"
+    },
+    {
+      "perk_name": "Jogador Tático",
+      "character": "Perk ensinável de Renato Lyra",
+      "perk_name_en": "Background Player"
+    },
+    {
+      "perk_name": "Disparada Sangrenta",
+      "character": "Perk ensinável de Renato Lyra",
+      "perk_name_en": "Blood Rush"
+    },
+    {
+      "perk_name": "Trabalho em Equipe: Furtividade Coletiva",
+      "character": "Perk ensinável de Renato Lyra",
+      "perk_name_en": "Teamwork: Collective Stealth"
+    },
+    {
+      "perk_name": "Feito para Isso",
+      "character": "Perk ensinável de Gabriel Soma",
+      "perk_name_en": "Made for This"
+    },
+    {
+      "perk_name": "Sucateiro",
+      "character": "Perk ensinável de Gabriel Soma",
+      "perk_name_en": "Scavenger"
+    },
+    {
+      "perk_name": "Solução de Problemas",
+      "character": "Perk ensinável de Gabriel Soma",
+      "perk_name_en": "Troubleshooter"
+    },
+    {
+      "perk_name": "Dramaturgia",
+      "character": "Perk ensinável de Nicolas Cage",
+      "perk_name_en": "Dramaturgy"
+    },
+    {
+      "perk_name": "Reviravolta",
+      "character": "Perk ensinável de Nicolas Cage",
+      "perk_name_en": "Plot Twist"
+    },
+    {
+      "perk_name": "Parceiro de Cena",
+      "character": "Perk ensinável de Nicolas Cage",
+      "perk_name_en": "Scene Partner"
+    },
+    {
+      "perk_name": "Estrela da Sorte",
+      "character": "Perk ensinável de Ellen Ripley",
+      "perk_name_en": "Lucky Star"
+    },
+    {
+      "perk_name": "Pés Leves",
+      "character": "Perk ensinável de Ellen Ripley",
+      "perk_name_en": "Light-Footed"
+    },
+    {
+      "perk_name": "Armadilha Química",
+      "character": "Perk ensinável de Ellen Ripley",
+      "perk_name_en": "Chemical Trap"
+    },
+    {
+      "perk_name": "Campeão da Luz",
+      "character": "Perk ensinável de Alan Wake",
+      "perk_name_en": "Champion of Light"
+    },
+    {
+      "perk_name": "Bênção: Iluminação",
+      "character": "Perk ensinável de Alan Wake",
+      "perk_name_en": "Boon: Illumination"
+    },
+    {
+      "perk_name": "Prazo Final",
+      "character": "Perk ensinável de Alan Wake",
+      "perk_name_en": "Deadline"
+    },
+    {
+      "perk_name": "Força nas sombras",
+      "character": "Perk ensinável de Sable Ward",
+      "perk_name_en": "Strength in Shadows"
+    },
+    {
+      "perk_name": "Invocação: Aranhas Tecelãs",
+      "character": "Perk ensinável de Sable Ward",
+      "perk_name_en": "Invocation: Weaving Spiders"
+    },
+    {
+      "perk_name": "Perversidade",
+      "character": "Perk ensinável de Sable Ward",
+      "perk_name_en": "Wicked"
+    },
+    {
+      "perk_name": "Ilusão Espelhada",
+      "character": "Perk ensinável de Aestri Yazar e Baermar Uraz",
+      "perk_name_en": "Mirrored Illusion"
+    },
+    {
+      "perk_name": "Inspiração de Bardo",
+      "character": "Perk ensinável de Aestri Yazar e Baermar Uraz",
+      "perk_name_en": "Bardic Inspiration"
+    },
+    {
+      "perk_name": "Visão Estática",
+      "character": "Perk ensinável de Aestri Yazar e Baermar Uraz",
+      "perk_name_en": "Still Sight"
+    },
+    {
+      "perk_name": "Enrijecido",
+      "character": "Perk ensinável de Lara Croft",
+      "perk_name_en": "Hardened"
+    },
+    {
+      "perk_name": "Especialista",
+      "character": "Perk ensinável de Lara Croft",
+      "perk_name_en": "Specialist"
+    },
+    {
+      "perk_name": "Finesse",
+      "character": "Perk ensinável de Lara Croft",
+      "perk_name_en": "Finesse"
+    },
+    {
+      "perk_name": "Exultação",
+      "character": "Perk ensinável de Trevor Belmont",
+      "perk_name_en": "Exultation"
+    },
+    {
+      "perk_name": "Momento de Glória",
+      "character": "Perk ensinável de Trevor Belmont",
+      "perk_name_en": "Moment of Glory"
+    },
+    {
+      "perk_name": "Olhos de Belmont",
+      "character": "Perk ensinável de Trevor Belmont",
+      "perk_name_en": "Eyes of Belmont"
+    },
+    {
+      "perk_name": "Suportar o Fardo",
+      "character": "Perk ensinável de Taurie Kane",
+      "perk_name_en": "Shoulder the Burden"
+    },
+    {
+      "perk_name": "Invocação: Corvos Traiçoeiros",
+      "character": "Perk ensinável de Taurie Kane",
+      "perk_name_en": "Invocation: Treacherous Crows"
+    },
+    {
+      "perk_name": "Corte Limpo",
+      "character": "Perk ensinável de Taurie Kane",
+      "perk_name_en": "Clean Break"
+    },
+    {
+      "perk_name": "Resposta Rápida",
+      "character": "Perk ensinável de Orela Rose",
+      "perk_name_en": "Rapid Response"
+    },
+    {
+      "perk_name": "Dever de Cuidar",
+      "character": "Perk ensinável de Orela Rose",
+      "perk_name_en": "Duty of Care"
+    },
+    {
+      "perk_name": "Não Faça Mal",
+      "character": "Perk ensinável de Orela Rose",
+      "perk_name_en": "Do No Harm"
+    },
+    {
+      "perk_name": "Ingenuidade Apocalíptica",
+      "character": "Perk ensinável de Rick Grimes",
+      "perk_name_en": "Apocalyptic Ingenuity"
+    },
+    {
+      "perk_name": "Vem Me Pegar!",
+      "character": "Perk ensinável de Rick Grimes",
+      "perk_name_en": "Come and Get Me!"
+    },
+    {
+      "perk_name": "Trabalho em Equipe: Fortalecimento",
+      "character": "Perk ensinável de Rick Grimes",
+      "perk_name_en": "Teamwork: Toughen Up"
+    },
+    {
+      "perk_name": "Convicção",
+      "character": "Perk ensinável de Michonne Grimes",
+      "perk_name_en": "Conviction"
+    },
+    {
+      "perk_name": "Embate Derradeiro",
+      "character": "Perk ensinável de Michonne Grimes",
+      "perk_name_en": "Last Stand"
+    },
+    {
+      "perk_name": "Trabalho em Equipe: Dê o Troco",
+      "character": "Perk ensinável de Michonne Grimes",
+      "perk_name_en": "Teamwork: Throw Down"
+    },
+    {
+      "perk_name": "Vida Na Estrada",
+      "character": "Perk ensinável de Vee Boonyasak",
+      "perk_name_en": "Road Life"
+    },
+    {
+      "perk_name": "Um-Dois-Três-Quatro!",
+      "character": "Perk ensinável de Vee Boonyasak",
+      "perk_name_en": "One-Two-Three-Four!"
+    },
+    {
+      "perk_name": "Notas Fantasma",
+      "character": "Perk ensinável de Vee Boonyasak",
+      "perk_name_en": "Ghost Notes"
+    },
+    {
+      "perk_name": "Bada Bada Bum",
+      "character": "Perk ensinável de Dustin Henderson",
+      "perk_name_en": "Bada Bada Boom"
+    },
+    {
+      "perk_name": "Mudança de Planos",
+      "character": "Perk ensinável de Dustin Henderson",
+      "perk_name_en": "Change of Plan"
+    },
+    {
+      "perk_name": "Trabalho em Equipe: Circuito Completo",
+      "character": "Perk ensinável de Dustin Henderson",
+      "perk_name_en": "Teamwork: Full Circuit"
+    },
+    {
+      "perk_name": "Percepção Extrassensorial",
+      "character": "Perk ensinável de Onze",
+      "perk_name_en": "Extrasensory Perception"
+    },
+    {
+      "perk_name": "Nós Vemos Você",
+      "character": "Perk ensinável de Onze",
+      "perk_name_en": "We See You"
+    },
+    {
+      "perk_name": "Trabalho em Equipe: Voz Suave",
+      "character": "Perk ensinável de Onze",
+      "perk_name_en": "Teamwork: Soft Spoken"
+    },
+    {
+      "perk_name": "No Fluxo",
+      "character": "Perk ensinável de Kwon Tae-Young",
+      "perk_name_en": "Flow State"
+    },
+    {
+      "perk_name": "Um Lugar para Nós",
+      "character": "Perk ensinável de Kwon Tae-Young",
+      "perk_name_en": "A Place For Us"
+    },
+    {
+      "perk_name": "Cinco Passos À Frente",
+      "character": "Perk ensinável de Kwon Tae-Young",
+      "perk_name_en": "Five Moves Ahead"
+    },
+    {
+      "perk_name": "Acelerando Com Tudo",
+      "character": "Perk ensinável de Shane Wiigwaas",
+      "perk_name_en": "Wide Open Throttle"
+    },
+    {
+      "perk_name": "Dar Uma Mãozinha",
+      "character": "Perk ensinável de Shane Wiigwaas",
+      "perk_name_en": "Lend A Hand"
+    },
+    {
+      "perk_name": "Interrogatório",
+      "character": "Perk ensinável de Shane Wiigwaas",
+      "perk_name_en": "Cross-Examination"
+    },
+    {
+      "perk_name": "Frutos do Seu Trabalho",
+      "character": "Perk ensinável de Aurora Stardotter",
+      "perk_name_en": "Fruits of your Labor"
+    },
+    {
+      "perk_name": "Benção: Inabalável",
+      "character": "Perk ensinável de Aurora Stardotter",
+      "perk_name_en": "Boon: Steadfast"
+    },
+    {
+      "perk_name": "Grito da Salvação",
+      "character": "Perk ensinável de Aurora Stardotter",
+      "perk_name_en": "Salvation's Cry"
+    }
+  ]
+}

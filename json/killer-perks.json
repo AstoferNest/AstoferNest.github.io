@@ -1,0 +1,729 @@
+{
+  "perks": [
+    {
+      "perk_name": "Chamado da Enfermeira",
+      "character": "Perk ensinável de A Enfermeira",
+      "perk_name_en": "A Nurse's Calling"
+    },
+    {
+      "perk_name": "Agitação",
+      "character": "Perk ensinável de O Caçador",
+      "perk_name_en": "Agitation"
+    },
+    {
+      "perk_name": "Enganei Você",
+      "character": "Perk ensinável de O Palhaço",
+      "perk_name_en": "Bamboozle"
+    },
+    {
+      "perk_name": "Churrasco com Chilli",
+      "character": "Perk ensinável de O Canibal",
+      "perk_name_en": "Barbecue & Chilli"
+    },
+    {
+      "perk_name": "Besta da Caça",
+      "character": "Perk ensinável de A Caçadora",
+      "perk_name_en": "Beast of Prey"
+    },
+    {
+      "perk_name": "Murmúrio Amargo",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "Bitter Murmur"
+    },
+    {
+      "perk_name": "Eco Sanguíneo",
+      "character": "Perk ensinável de O Oni",
+      "perk_name_en": "Blood Echo"
+    },
+    {
+      "perk_name": "Guardião Sanguinário",
+      "character": "Perk ensinável de O Pesadelo",
+      "perk_name_en": "Blood Warden"
+    },
+    {
+      "perk_name": "Cão de Caça",
+      "character": "Perk ensinável de O Espectro",
+      "perk_name_en": "Bloodhound"
+    },
+    {
+      "perk_name": "Força Brutal",
+      "character": "Perk ensinável de O Caçador",
+      "perk_name_en": "Brutal Strength"
+    },
+    {
+      "perk_name": "Intervenção Corrompida",
+      "character": "Perk ensinável de A Praga",
+      "perk_name_en": "Corrupt Intervention"
+    },
+    {
+      "perk_name": "Coulrofobia",
+      "character": "Perk ensinável de O Palhaço",
+      "perk_name_en": "Coulrophobia"
+    },
+    {
+      "perk_name": "Coup de Grâce",
+      "character": "Perk ensinável de Os Gêmeos",
+      "perk_name_en": "Coup de Grâce"
+    },
+    {
+      "perk_name": "Limite Cruel",
+      "character": "Perk ensinável de O Demogorgon",
+      "perk_name_en": "Claustrophobia"
+    },
+    {
+      "perk_name": "Devoção Sombria",
+      "character": "Perk ensinável de A Praga",
+      "perk_name_en": "Dark Devotion"
+    },
+    {
+      "perk_name": "Garantia do Morto",
+      "character": "Perk ensinável de O Mercenário",
+      "perk_name_en": "Dead Man's Switch"
+    },
+    {
+      "perk_name": "Letalidade",
+      "character": "Perk ensinável de O Carrasco",
+      "perk_name_en": "Deathbound"
+    },
+    {
+      "perk_name": "Caçador de Cervos",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "Deerstalker"
+    },
+    {
+      "perk_name": "Discordância",
+      "character": "Perk ensinável de A Legião",
+      "perk_name_en": "Discordance"
+    },
+    {
+      "perk_name": "Angustiante",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "Distressing"
+    },
+    {
+      "perk_name": "Garra do Dragão",
+      "character": "Perk ensinável de O Flagelo",
+      "perk_name_en": "Dragon's Grip"
+    },
+    {
+      "perk_name": "Perdendo a Esperança",
+      "character": "Perk ensinável de O Vulto",
+      "perk_name_en": "Dying Light"
+    },
+    {
+      "perk_name": "Resistência",
+      "character": "Perk ensinável de O Caipira",
+      "perk_name_en": "Enduring"
+    },
+    {
+      "perk_name": "Motivação",
+      "character": "Perk ensinável de O Pesadelo",
+      "perk_name_en": "Fire Up"
+    },
+    {
+      "perk_name": "Penitência Forçada",
+      "character": "Perk ensinável de O Carrasco",
+      "perk_name_en": "Forced Penance"
+    },
+    {
+      "perk_name": "A Morte de Franklin",
+      "character": "Perk ensinável de O Canibal",
+      "perk_name_en": "Franklin's Demise"
+    },
+    {
+      "perk_name": "Perseguição Furtiva",
+      "character": "Perk ensinável de O Ghost Face",
+      "perk_name_en": "Furtive Chase"
+    },
+    {
+      "perk_name": "Coroa Dentada",
+      "character": "Perk ensinável de O Mercenário",
+      "perk_name_en": "Gearhead"
+    },
+    {
+      "perk_name": "Gancho do Tormento: Truque do Carrasco",
+      "character": "Perk ensinável de A Porca",
+      "perk_name_en": "Hangman's Trick"
+    },
+    {
+      "perk_name": "Feitiço: Graça do Sangue",
+      "character": "Perk ensinável de O Flagelo",
+      "perk_name_en": "Hex: Blood Favour"
+    },
+    {
+      "perk_name": "Feitiço: Devorar Esperança",
+      "character": "Perk ensinável de A Bruxa",
+      "perk_name_en": "Hex: Devour Hope"
+    },
+    {
+      "perk_name": "Feitiço: Terreno Assombrado",
+      "character": "Perk ensinável de O Espírito",
+      "perk_name_en": "Hex: Haunted Ground"
+    },
+    {
+      "perk_name": "Feitiço: Canção de Ninar da Caçadora",
+      "character": "Perk ensinável de A Caçadora",
+      "perk_name_en": "Hex: Huntress Lullaby"
+    },
+    {
+      "perk_name": "Feitiço: Ninguém Escapa da Morte",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "Hex: No One Escapes Death"
+    },
+    {
+      "perk_name": "Feitiço: Retribuição",
+      "character": "Perk ensinável de O Mercenário",
+      "perk_name_en": "Hex: Retribution"
+    },
+    {
+      "perk_name": "Feitiço: Arruinar",
+      "character": "Perk ensinável de A Bruxa",
+      "perk_name_en": "Hex: Ruin"
+    },
+    {
+      "perk_name": "Feitiço: Terceiro Selo",
+      "character": "Perk ensinável de A Bruxa",
+      "perk_name_en": "Hex: The Third Seal"
+    },
+    {
+      "perk_name": "Feitiço: Emoção da Caçada",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "Hex: Thrill of the Hunt"
+    },
+    {
+      "perk_name": "Feitiço: Imortal",
+      "character": "Perk ensinável de O Flagelo",
+      "perk_name_en": "Hex: Undying"
+    },
+    {
+      "perk_name": "Acumulador",
+      "character": "Perk ensinável de Os Gêmeos",
+      "perk_name_en": "Hoarder"
+    },
+    {
+      "perk_name": "Sou Todo Ouvidos",
+      "character": "Perk ensinável de O Ghost Face",
+      "perk_name_en": "I'm All Ears"
+    },
+    {
+      "perk_name": "Pavor Contagiante",
+      "character": "Perk ensinável de A Praga",
+      "perk_name_en": "Infectious Fright"
+    },
+    {
+      "perk_name": "Insidioso",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "Insidious"
+    },
+    {
+      "perk_name": "Pegada de Ferro",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "Iron Grasp"
+    },
+    {
+      "perk_name": "Dama de Ferro",
+      "character": "Perk ensinável de A Legião",
+      "perk_name_en": "Iron Maiden"
+    },
+    {
+      "perk_name": "Nocaute",
+      "character": "Perk ensinável de O Canibal",
+      "perk_name_en": "Knock Out"
+    },
+    {
+      "perk_name": "Nascido da Luz",
+      "character": "Perk ensinável de O Caipira",
+      "perk_name_en": "Lightborn"
+    },
+    {
+      "perk_name": "Persistência Insana",
+      "character": "Perk ensinável de A Legião",
+      "perk_name_en": "Mad Grit"
+    },
+    {
+      "perk_name": "Faça sua Escolha",
+      "character": "Perk ensinável de A Porca",
+      "perk_name_en": "Make Your Choice"
+    },
+    {
+      "perk_name": "Invasor Mental",
+      "character": "Perk ensinável de O Demogorgon",
+      "perk_name_en": "Fearmonger"
+    },
+    {
+      "perk_name": "Monitore & Abuse",
+      "character": "Perk ensinável de O Médico",
+      "perk_name_en": "Monitor & Abuse"
+    },
+    {
+      "perk_name": "Gancho do Tormento: Santuário Monstruoso",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "Monstrous Shrine"
+    },
+    {
+      "perk_name": "Nemesis",
+      "character": "Perk ensinável de O Oni",
+      "perk_name_en": "Nemesis"
+    },
+    {
+      "perk_name": "Opressão",
+      "character": "Perk ensinável de Os Gêmeos",
+      "perk_name_en": "Oppression"
+    },
+    {
+      "perk_name": "Sobrecarga",
+      "character": "Perk ensinável de O Médico",
+      "perk_name_en": "Overcharge"
+    },
+    {
+      "perk_name": "Presença Esmagadora",
+      "character": "Perk ensinável de O Médico",
+      "perk_name_en": "Overwhelming Presence"
+    },
+    {
+      "perk_name": "Brinque com a sua Comida",
+      "character": "Perk ensinável de O Vulto",
+      "perk_name_en": "Play with Your Food"
+    },
+    {
+      "perk_name": "E Assim Gira o Carrossel",
+      "character": "Perk ensinável de O Palhaço",
+      "perk_name_en": "Pop Goes the Weasel"
+    },
+    {
+      "perk_name": "Predador",
+      "character": "Perk ensinável de O Espectro",
+      "perk_name_en": "Predator"
+    },
+    {
+      "perk_name": "Rancor",
+      "character": "Perk ensinável de O Espírito",
+      "perk_name_en": "Rancor"
+    },
+    {
+      "perk_name": "Lembre-se de Mim",
+      "character": "Perk ensinável de O Pesadelo",
+      "perk_name_en": "Remember Me"
+    },
+    {
+      "perk_name": "Deixe o Melhor para o Final",
+      "character": "Perk ensinável de O Vulto",
+      "perk_name_en": "Save the Best for Last"
+    },
+    {
+      "perk_name": "Nascido das Sombras",
+      "character": "Perk ensinável de O Espectro",
+      "perk_name_en": "Shadowborn"
+    },
+    {
+      "perk_name": "Açougueiro Desleixado",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "Sloppy Butcher"
+    },
+    {
+      "perk_name": "Espiões das Sombras",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "Spies from the Shadows"
+    },
+    {
+      "perk_name": "Fúria Espiritual",
+      "character": "Perk ensinável de O Espírito",
+      "perk_name_en": "Spirit Fury"
+    },
+    {
+      "perk_name": "Estridor",
+      "character": "Perk ensinável de A Enfermeira",
+      "perk_name_en": "Stridor"
+    },
+    {
+      "perk_name": "Pico de Tensão",
+      "character": "Perk ensinável de O Demogorgon",
+      "perk_name_en": "Jolt"
+    },
+    {
+      "perk_name": "Vigilância",
+      "character": "Perk ensinável de A Porca",
+      "perk_name_en": "Surveillance"
+    },
+    {
+      "perk_name": "Instinto Territorial",
+      "character": "Perk ensinável de A Caçadora",
+      "perk_name_en": "Territorial Imperative"
+    },
+    {
+      "perk_name": "Tanatofobia",
+      "character": "Perk ensinável de A Enfermeira",
+      "perk_name_en": "Thanatophobia"
+    },
+    {
+      "perk_name": "Tremores de Terror",
+      "character": "Perk ensinável de O Ghost Face",
+      "perk_name_en": "Thrilling Tremors"
+    },
+    {
+      "perk_name": "Aprimorador",
+      "character": "Perk ensinável de O Caipira",
+      "perk_name_en": "Tinkerer"
+    },
+    {
+      "perk_name": "Trilha do Tormento",
+      "character": "Perk ensinável de O Carrasco",
+      "perk_name_en": "Trail of Torment"
+    },
+    {
+      "perk_name": "Presença Desconcertante",
+      "character": "Perk ensinável de O Caçador",
+      "perk_name_en": "Unnerving Presence"
+    },
+    {
+      "perk_name": "Implácavel",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "Unrelenting"
+    },
+    {
+      "perk_name": "Sussurros",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "Whispers"
+    },
+    {
+      "perk_name": "Táticas Zanshin",
+      "character": "Perk ensinável de O Oni",
+      "perk_name_en": "Zanshin Tactics"
+    },
+    {
+      "perk_name": "Feitiço: Controle da Platéia",
+      "character": "Perk ensinável de O Trapaça",
+      "perk_name_en": "Hex: Crowd Control"
+    },
+    {
+      "perk_name": "Sem Saída",
+      "character": "Perk ensinável de O Trapaça",
+      "perk_name_en": "No Way Out"
+    },
+    {
+      "perk_name": "Deslumbre",
+      "character": "Perk ensinável de O Trapaça",
+      "perk_name_en": "Starstruck"
+    },
+    {
+      "perk_name": "Perseguidor Mortífero",
+      "character": "Perk ensinável de O Nemesis",
+      "perk_name_en": "Lethal Pursuer"
+    },
+    {
+      "perk_name": "Histeria",
+      "character": "Perk ensinável de O Nemesis",
+      "perk_name_en": "Hysteria"
+    },
+    {
+      "perk_name": "Erupção",
+      "character": "Perk ensinável de O Nemesis",
+      "perk_name_en": "Eruption"
+    },
+    {
+      "perk_name": "Impasse",
+      "character": "Perk ensinável de O Cenobita",
+      "perk_name_en": "Deadlock"
+    },
+    {
+      "perk_name": "Feitiço: Brinquedinho",
+      "character": "Perk ensinável de O Cenobita",
+      "perk_name_en": "Hex: Plaything"
+    },
+    {
+      "perk_name": "Gancho do Tormento: Presente da Dor",
+      "character": "Perk ensinável de O Cenobita",
+      "perk_name_en": "Scourge Hook: Gift of Pain"
+    },
+    {
+      "perk_name": "Abraço Sinistro",
+      "character": "Perk ensinável de A Artista",
+      "perk_name_en": "Grim Embrace"
+    },
+    {
+      "perk_name": "Gancho do Tormento: Ressonância da Dor",
+      "character": "Perk ensinável de A Artista",
+      "perk_name_en": "Scourge Hook: Pain Resonance"
+    },
+    {
+      "perk_name": "Feitiço: Pentimento",
+      "character": "Perk ensinável de A Artista",
+      "perk_name_en": "Hex: Pentimento"
+    },
+    {
+      "perk_name": "Gancho do Tormento: Enchente de Fúria",
+      "character": "Perk ensinável de A Onryō",
+      "perk_name_en": "Scourge Hook: Floods of Rage"
+    },
+    {
+      "perk_name": "Chamado do Mar",
+      "character": "Perk ensinável de A Onryō",
+      "perk_name_en": "Call of Brine"
+    },
+    {
+      "perk_name": "Tormenta Implacável",
+      "character": "Perk ensinável de A Onryō",
+      "perk_name_en": "Merciless Storm"
+    },
+    {
+      "perk_name": "Dissolução",
+      "character": "Perk ensinável de A Draga",
+      "perk_name_en": "Dissolution"
+    },
+    {
+      "perk_name": "Escuridão Revelada",
+      "character": "Perk ensinável de A Draga",
+      "perk_name_en": "Darkness Revealed"
+    },
+    {
+      "perk_name": "Toque Séptico",
+      "character": "Perk ensinável de A Draga",
+      "perk_name_en": "Septic Touch"
+    },
+    {
+      "perk_name": "Esperança Despedaçada",
+      "character": "Perk ensinável Geral",
+      "perk_name_en": "Shattered Hope"
+    },
+    {
+      "perk_name": "Anatomia Superior",
+      "character": "Perk ensinável de O Vilão",
+      "perk_name_en": "Superior Anatomy"
+    },
+    {
+      "perk_name": "Percepção Refinada",
+      "character": "Perk ensinável de O Vilão",
+      "perk_name_en": "Awakened Awareness"
+    },
+    {
+      "perk_name": "Terminus",
+      "character": "Perk ensinável de O Vilão",
+      "perk_name_en": "Terminus"
+    },
+    {
+      "perk_name": "Não Há Onde se Esconder",
+      "character": "Perk ensinável de O Cavaleiro",
+      "perk_name_en": "Nowhere to Hide"
+    },
+    {
+      "perk_name": "Feitiço: Enfrentar a Escuridão",
+      "character": "Perk ensinável de O Cavaleiro",
+      "perk_name_en": "Hex: Face the Darkness"
+    },
+    {
+      "perk_name": "Soberba",
+      "character": "Perk ensinável de O Cavaleiro",
+      "perk_name_en": "Hubris"
+    },
+    {
+      "perk_name": "O Jogo Começou",
+      "character": "Perk ensinável de A Negociante de Crânios",
+      "perk_name_en": "Game Afoot"
+    },
+    {
+      "perk_name": "Alavancar",
+      "character": "Perk ensinável de A Negociante de Crânios",
+      "perk_name_en": "Leverage"
+    },
+    {
+      "perk_name": "POF!",
+      "character": "Perk ensinável de A Negociante de Crânios",
+      "perk_name_en": "THWACK!"
+    },
+    {
+      "perk_name": "Hesitação Forçada",
+      "character": "Perk ensinável de A Singularidade",
+      "perk_name_en": "Forced Hesitation"
+    },
+    {
+      "perk_name": "Limites Genéticos",
+      "character": "Perk ensinável de A Singularidade",
+      "perk_name_en": "Genetic Limits"
+    },
+    {
+      "perk_name": "Aprendizado de Máquina",
+      "character": "Perk ensinável de A Singularidade",
+      "perk_name_en": "Machine Learning"
+    },
+    {
+      "perk_name": "Instinto Alienígena",
+      "character": "Perk ensinável de O Xenomorfo",
+      "perk_name_en": "Alien Instinct"
+    },
+    {
+      "perk_name": "Brutalidade Veloz",
+      "character": "Perk ensinável de O Xenomorfo",
+      "perk_name_en": "Rapid Brutality"
+    },
+    {
+      "perk_name": "Arma Suprema",
+      "character": "Perk ensinável de O Xenomorfo",
+      "perk_name_en": "Ultimate Weapon"
+    },
+    {
+      "perk_name": "Feitiço: Dois Podem Jogar",
+      "character": "Perk ensinável de O Cara Legal",
+      "perk_name_en": "Hex: Two Can Play"
+    },
+    {
+      "perk_name": "Amigos Até o Fim",
+      "character": "Perk ensinável de O Cara Legal",
+      "perk_name_en": "Friends 'til the End"
+    },
+    {
+      "perk_name": "Pilhas Inclusas",
+      "character": "Perk ensinável de O Cara Legal",
+      "perk_name_en": "Batteries Included"
+    },
+    {
+      "perk_name": "Liberto",
+      "character": "Perk ensinável de O Desconhecido",
+      "perk_name_en": "Unbound"
+    },
+    {
+      "perk_name": "Invalidação",
+      "character": "Perk ensinável de O Desconhecido",
+      "perk_name_en": "Undone"
+    },
+    {
+      "perk_name": "Imprevisto",
+      "character": "Perk ensinável de O Desconhecido",
+      "perk_name_en": "Unforeseen"
+    },
+    {
+      "perk_name": "Arrogância Sombria",
+      "character": "Perk ensinável de O Lich",
+      "perk_name_en": "Dark Arrogance"
+    },
+    {
+      "perk_name": "Toque Mórbido",
+      "character": "Perk ensinável de O Lich",
+      "perk_name_en": "Languid Touch"
+    },
+    {
+      "perk_name": "Sintonia Tecida",
+      "character": "Perk ensinável de O Lich",
+      "perk_name_en": "Weave Attunement"
+    },
+    {
+      "perk_name": "Domínio",
+      "character": "Perk ensinável de O Senhor das Trevas",
+      "perk_name_en": "Dominance"
+    },
+    {
+      "perk_name": "Feitiço: Destino Miserável",
+      "character": "Perk ensinável de O Senhor das Trevas",
+      "perk_name_en": "Hex: Wretched Fate"
+    },
+    {
+      "perk_name": "Ganância Humana",
+      "character": "Perk ensinável de O Senhor das Trevas",
+      "perk_name_en": "Human Greed"
+    },
+    {
+      "perk_name": "Trovão Estrondoso",
+      "character": "Perk ensinável de A Mestra da Matilha",
+      "perk_name_en": "All Shaking Thunder"
+    },
+    {
+      "perk_name": "Sem Piedade",
+      "character": "Perk ensinável de A Mestra da Matilha",
+      "perk_name_en": "No Quarter"
+    },
+    {
+      "perk_name": "Gancho do Tormento: Bússola Danificada",
+      "character": "Perk ensinável de A Mestra da Matilha",
+      "perk_name_en": "Scourge Hook: Jagged Compass"
+    },
+    {
+      "perk_name": "Ligados para Sempre",
+      "character": "Perk ensinável de O Ghoul",
+      "perk_name_en": "Forever Entwined"
+    },
+    {
+      "perk_name": "Feitiço: Nada Além da Miséria",
+      "character": "Perk ensinável de O Ghoul",
+      "perk_name_en": "Hex: Nothing But Misery"
+    },
+    {
+      "perk_name": "Ninguém está Livre",
+      "character": "Perk ensinável de O Ghoul",
+      "perk_name_en": "None Are Free"
+    },
+    {
+      "perk_name": "Fobia de Fantasma",
+      "character": "Perk ensinável de O Animatrônico",
+      "perk_name_en": "Phantom Fear"
+    },
+    {
+      "perk_name": "Descontrolado",
+      "character": "Perk ensinável de O Animatrônico",
+      "perk_name_en": "Haywire"
+    },
+    {
+      "perk_name": "Precisa-se de Ajuda",
+      "character": "Perk ensinável de O Animatrônico",
+      "perk_name_en": "Help Wanted"
+    },      
+    {
+      "perk_name": "Voraz",
+      "character": "Perk ensinável de A Krasue",
+      "perk_name_en": "Ravenous"
+    },
+    {
+      "perk_name": "Olhar Divagante",
+      "character": "Perk ensinável de A Krasue",
+      "perk_name_en": "Wandering Eye"
+    },
+    {
+      "perk_name": "Feitiço: Abertura da Ruína",
+      "character": "Perk ensinável de A Krasue",
+      "perk_name_en": "Hex: Overture of Doom"
+    },
+    {
+      "perk_name": "Atrasar o Relógio",
+      "character": "Perk ensinável de O Número Um",
+      "perk_name_en": "Turn Back the Clock"
+    },
+    {
+      "perk_name": "Projeto Secreto",
+      "character": "Perk ensinável de O Número Um",
+      "perk_name_en": "Secret Project"
+    },
+    {
+      "perk_name": "Feitiço: Mente Coletiva",
+      "character": "Perk ensinável de O Número Um",
+      "perk_name_en": "Hex: Hive Mind"
+    },
+    {
+      "perk_name": "Sombra Silenciosa",
+      "character": "Perk ensinável de O Matador",
+      "perk_name_en": "Silent Shadow"
+    },
+    {
+      "perk_name": "Fúria",
+      "character": "Perk ensinável de O Matador",
+      "perk_name_en": "Rampage"
+    },
+    {
+      "perk_name": "Feitiço: Morrendo de Medo",
+      "character": "Perk ensinável de O Matador",
+      "perk_name_en": "Hex: Scared to Death"
+    },
+    {
+      "perk_name": "Devastação",
+      "character": "Perk ensinável de O Julgamento",
+      "perk_name_en": "Lay Waste"
+    },
+    {
+      "perk_name": "Testemunha Celestial",
+      "character": "Perk ensinável de O Julgamento",
+      "perk_name_en": "Celestial Witness"
+    },
+    {
+      "perk_name": "Feitiço: Sob Seu Controle",
+      "character": "Perk ensinável de O Julgamento",
+      "perk_name_en": "Hex: Under Your Thumb"
+    }
+  ]
+}
