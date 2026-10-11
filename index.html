@@ -139,6 +139,9 @@
                         <button onclick="copyShareableBuild()" class="px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-xs font-bold rounded border border-neutral-700 text-white flex items-center gap-1.5 transition">
                             <i class="fa-solid fa-share-nodes text-dbd-purple"></i> <span id="btnExportBuild">Exportar</span>
                         </button>
+						<button onclick="shareBuildLink()" class="px-3 py-1.5 bg-dbd-red hover:bg-dbd-redHover text-xs font-bold rounded border border-neutral-700 text-white flex items-center gap-1.5 transition">
+						    <i class="fa-solid fa-link"></i> <span id="btnShareLink">C**ompartilhar Link</span>
+						</button>						
                     </div>
                 </div>
 
@@ -380,5 +383,117 @@
 
     <!-- LÓGICA DA APLICAÇÃO -->
     <script src="js/app/randomizer.js"></script>
+	<script>
+	(function () {
+	    const $ = (id) => document.getElementById(id);
+	
+	    // ---------- Ler build atual da tela ----------
+	    function readSlot(nameId, imgId) {
+	        const img = $(imgId);
+	        const hasImg = img && !img.classList.contains('hidden') && img.getAttribute('src');
+	        if (!hasImg) return null;                       // slot vazio
+	        return [$(nameId).textContent.trim(), img.getAttribute('src')];
+	    }
+	
+	    function collectBuild() {
+	        return {
+	            r: $('displayCharRole').textContent.trim(),
+	            c: readSlot('displayCharName', 'displayCharImg'),
+	            p: [0, 1, 2, 3].map(i => readSlot('perkName' + i, 'perkImg' + i)),
+	            i: readSlot('displayItemName', 'displayItemImg'),
+	            a: [1, 2].map(i => readSlot('displayAddonName' + i, 'displayAddonImg' + i))
+	        };
+	    }
+	
+	    // ---------- Codificar / decodificar (base64 seguro p/ URL) ----------
+	    function encode(obj) {
+	        const bytes = new TextEncoder().encode(JSON.stringify(obj));
+	        let bin = '';
+	        bytes.forEach(b => bin += String.fromCharCode(b));
+	        return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+	    }
+	    function decode(str) {
+	        str = str.replace(/-/g, '+').replace(/_/g, '/');
+	        while (str.length % 4) str += '=';
+	        const bin = atob(str);
+	        const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+	        return JSON.parse(new TextDecoder().decode(bytes));
+	    }
+	
+	    // ---------- Toast ----------
+	    function toast(msg) {
+	        const box = $('toastContainer');
+	        if (!box) return alert(msg);
+	        const el = document.createElement('div');
+	        el.className = 'bg-neutral-900 border border-neutral-700 text-white text-xs font-bold px-4 py-2 rounded-lg shadow-xl';
+	        el.textContent = msg;
+	        box.appendChild(el);
+	        setTimeout(() => el.remove(), 2500);
+	    }
+	
+	    // ---------- Compartilhar ----------
+	    window.shareBuildLink = async function () {
+	        const build = collectBuild();
+	        if (!build.c && build.p.every(p => !p) && !build.i) {
+	            return toast('Gire a roleta antes de compartilhar!');
+	        }
+	        const url = location.origin + location.pathname + '#build=' + encode(build);
+	        try {
+	            await navigator.clipboard.writeText(url);
+	        } catch (e) {
+	            const t = document.createElement('textarea');
+	            t.value = url;
+	            document.body.appendChild(t);
+	            t.select();
+	            document.execCommand('copy');
+	            t.remove();
+	        }
+	        toast('Link da build copiado!');
+	    };
+	
+	    // ---------- Aplicar build recebida pelo link ----------
+	    function setSlot(slot, nameId, imgId, iconEl) {
+	        const img = $(imgId);
+	        if (!slot) return;
+	        $(nameId).textContent = slot[0];
+	        img.src = slot[1];
+	        img.classList.remove('hidden');
+	        if (iconEl) iconEl.classList.add('hidden');
+	    }
+	
+	    function applyBuild(b) {
+	        $('displayCharRole').textContent = b.r || '';
+	        setSlot(b.c, 'displayCharName', 'displayCharImg', $('displayCharIcon'));
+	
+	        b.p.forEach((p, i) => {
+	            setSlot(p, 'perkName' + i, 'perkImg' + i, $('perkIcon' + i));
+	            if (p) $('perkBox' + i).querySelector('.perk-diamond')?.classList.remove('is-empty');
+	        });
+	
+	        setSlot(b.i, 'displayItemName', 'displayItemImg', $('displayItemIcon'));
+	
+	        b.a.forEach((a, k) => {
+	            const n = k + 1;
+	            setSlot(a, 'displayAddonName' + n, 'displayAddonImg' + n,
+	                    $('displayAddon' + n).querySelector('i'));
+	        });
+	    }
+	
+	    function loadFromHash() {
+	        const m = location.hash.match(/^#build=(.+)$/);
+	        if (!m) return;
+	        try {
+	            applyBuild(decode(m[1]));
+	            toast('Build carregada pelo link!');
+	        } catch (e) {
+	            toast('Link de build inválido.');
+	        }
+	    }
+	
+	    // espera o randomizer.js terminar de inicializar
+	    window.addEventListener('load', () => setTimeout(loadFromHash, 300));
+	    window.addEventListener('hashchange', loadFromHash);
+	})();
+	</script>	
 </body>
 </html>
