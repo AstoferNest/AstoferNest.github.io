@@ -67,14 +67,16 @@
         .ov-char { display: flex; flex-direction: column; align-items: center; width: 150px; text-align: center; }
         .ov-char-img {
             width: 150px;
-            height: 150px;
+            height: 180px;
             position: relative;
-            background: var(--char-bg) center / contain no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
-        .ov-char-img img { width: 100%; height: 100%; object-fit: contain; }
+        .ov-char-img img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
         .ov-char-name { font-size: 17px; font-weight: 900; text-transform: uppercase; margin-top: 6px; line-height: 1.1; }
         .ov-role-tag { font-size: 11px; font-weight: 800; letter-spacing: 0.08em; }
 
@@ -85,14 +87,19 @@
             width: 118px;
             height: 118px;
             position: relative;
-            background: var(--perk-purple) center / contain no-repeat;
         }
         .ov-perk-frame img {
             position: absolute;
-            inset: 14%;
-            width: 72%;
-            height: 72%;
+            inset: 0;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
+        }
+        /* ícone da perk dentro do losango (ajuste inset/size para aumentar ou diminuir) */
+        .ov-perk-frame img.ov-icon {
+            inset: 4%;
+            width: 92%;
+            height: 92%;
         }
         .ov-name { font-size: 13px; font-weight: 700; line-height: 1.15; margin-top: 4px; color: #e5e5e5; }
         #stage.nonames .ov-name, #stage.nonames .ov-char-name { display: none; }
@@ -154,11 +161,6 @@
     const IMG_LOCAL = 'css/img/';
     const IMG_REMOTE = 'https://astofernest.github.io/perkroulette/css/img/'; // '' desativa o fallback
 
-    const layers = f => [IMG_LOCAL + f, IMG_REMOTE ? IMG_REMOTE + f : null].filter(Boolean)
-        .map(u => `url("${new URL(u, document.baseURI).href}")`).join(', ');
-    document.documentElement.style.setProperty('--perk-purple', layers('perk_purple.png'));
-    document.documentElement.style.setProperty('--char-bg', layers('personagens/fundo_pdbd.png'));
-
     // ---------- Helpers (mesmos formatos de nome de arquivo do site) ----------
     const fmt = s => s.toString().toLowerCase().normalize('NFD').replace(/ /g, '').replace(/'/g, '').replace(/-/g, '').replace(/:/g, '').replace(/\p{Diacritic}/gu, '');
     const perkSlug = s => s.toString().toLowerCase().normalize('NFD').replace(/ /g, '').replace(/'/g, '').replace(/-/g, '').replace(/&/g, 'and').replace(/!/g, '').replace(/:/g, '').replace(/\p{Diacritic}/gu, '');
@@ -171,7 +173,7 @@
     const imgs = rel => IMG_REMOTE ? [encodeURI(IMG_LOCAL + rel), encodeURI(IMG_REMOTE + rel)] : [encodeURI(IMG_LOCAL + rel)];
 
     // imagem com cadeia de fallback (local -> remoto -> some)
-    const imgTag = rel => `<img src="${imgs(rel)[0]}" data-srcs="${esc(imgs(rel).join('|'))}" data-idx="0" alt="">`;
+    const imgTag = (rel, cls) => `<img ${cls ? `class="${cls}" ` : ''}src="${imgs(rel)[0]}" data-srcs="${esc(imgs(rel).join('|'))}" data-idx="0" alt="">`;
     document.addEventListener('error', e => {
         const el = e.target;
         if (!(el instanceof HTMLImageElement) || !el.dataset.srcs) return;
@@ -241,7 +243,7 @@
 
         stage.innerHTML = `
             <div class="ov-char">
-                <div class="ov-char-img">${imgTag(b.character.rel)}</div>
+                <div class="ov-char-img">${imgTag('personagens/fundo_pdbd.png')}${imgTag(b.character.rel)}</div>
                 <div class="ov-char-name">${esc(b.character.name)}</div>
                 <div class="ov-role-tag">${ROLE.toUpperCase()}</div>
             </div>
@@ -249,7 +251,7 @@
             <div class="ov-perks">
                 ${b.perks.map(p => `
                     <div class="ov-perk">
-                        <div class="ov-perk-frame">${imgTag(p.rel)}</div>
+                        <div class="ov-perk-frame">${imgTag('perk_purple.png')}${imgTag(p.rel, 'ov-icon')}</div>
                         <div class="ov-name">${esc(p.name)}</div>
                     </div>`).join('')}
             </div>
