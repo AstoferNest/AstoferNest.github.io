@@ -1,16 +1,24 @@
 {
   "builds": [
     {
-      "id": "exemplo-apague-depois",
-      "name": "Exemplo - apague depois",
-      "type": "Furtivo",
-      "source": "Minha fonte de exemplo",
-      "url": "https://exemplo.com",
+      "id": "build-para-iniciantes-by-otzdarva",
+      "name": "Build Para Iniciantes - By OTZDARVA",
+      "type": "Informação",
+      "source": "Canal Otzdarva",
+      "url": "https://otzdarva-builds.com/survivors",
       "role": "survivor",
-      "character": "Dwight Fairfield",
-      "perks": ["Dead Hard", "Lithe", "Sprint Burst", "Iron Will"],
-      "item": "",
-      "addons": []
+      "character": "Willian 'Bill' Overbeck",
+      "perks": [
+        "Parentesco",
+        "Premonição",
+        "Déjà Vu",
+        "Sentido Obscuro"
+      ],
+      "item": "Kit Médico de Acampamento",
+      "addons": [
+        "Ataduras",
+        "Luvas de Borracha"
+      ]
     }
   ]
 }
