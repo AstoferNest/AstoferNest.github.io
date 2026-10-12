@@ -701,6 +701,9 @@ function renderSavedBuilds() {
             </div>
             <div class="flex items-center gap-2 pt-1">
                 ${perkIconsHtml}
+                <button onclick="shareSavedBuild(${build.id})" class="ml-auto px-2.5 py-1 bg-neutral-800 hover:bg-neutral-700 text-[10px] font-bold rounded border border-neutral-700 text-white flex items-center gap-1.5 transition" title="Copiar link da build">
+                    <i class="fa-solid fa-link text-dbd-purple"></i> Compartilhar
+                </button>
             </div>
             <button onclick="deleteSavedBuild(${build.id})" class="absolute top-3 right-3 text-neutral-500 hover:text-red-400 text-xs p-1">
                 <i class="fa-solid fa-trash"></i>
