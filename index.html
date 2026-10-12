@@ -468,12 +468,16 @@
 	    }
 	
 	    // ---------- Botão compartilhar ----------
-	    window.shareBuildLink = async function () {
-	        if (!currentRollResult) {
-	            showToast('Gire a roleta antes de compartilhar!', 'error');
+	    async function copyBuildLink(build) {
+	        let code;
+	        try {
+	            code = encodeBuild(build);
+	        } catch (e) {
+	            console.error(e);
+	            showToast('Não foi possível gerar o link desta build.', 'error');
 	            return;
 	        }
-	        const url = location.origin + location.pathname + '#b=' + encodeBuild(currentRollResult);
+	        const url = location.origin + location.pathname + '#b=' + code;
 	        try {
 	            await navigator.clipboard.writeText(url);
 	        } catch (e) {
@@ -485,6 +489,22 @@
 	            t.remove();
 	        }
 	        showToast('Link da build copiado!', 'success');
+	    }
+	
+	    // Botão da aba "Resultado"
+	    window.shareBuildLink = function () {
+	        if (!currentRollResult) {
+	            showToast('Gire a roleta antes de compartilhar!', 'error');
+	            return;
+	        }
+	        copyBuildLink(currentRollResult);
+	    };
+	
+	    // Botão das builds salvas
+	    window.shareSavedBuild = function (id) {
+	        const build = savedBuilds.find(b => b.id === id);
+	        if (!build) return;
+	        copyBuildLink(build);
 	    };
 	
 	    // ---------- Abrir link recebido ----------
