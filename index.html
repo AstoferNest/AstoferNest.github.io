@@ -385,59 +385,95 @@
     <script src="js/app/randomizer.js"></script>
 	<script>
 	(function () {
-	    const $ = (id) => document.getElementById(id);
-	
-	    // ---------- Ler build atual da tela ----------
-	    function readSlot(nameId, imgId) {
-	        const img = $(imgId);
-	        const hasImg = img && !img.classList.contains('hidden') && img.getAttribute('src');
-	        if (!hasImg) return null;                       // slot vazio
-	        return [$(nameId).textContent.trim(), img.getAttribute('src')];
-	    }
-	
-	    function collectBuild() {
-	        return {
-	            r: $('displayCharRole').textContent.trim(),
-	            c: readSlot('displayCharName', 'displayCharImg'),
-	            p: [0, 1, 2, 3].map(i => readSlot('perkName' + i, 'perkImg' + i)),
-	            i: readSlot('displayItemName', 'displayItemImg'),
-	            a: [1, 2].map(i => readSlot('displayAddonName' + i, 'displayAddonImg' + i))
-	        };
-	    }
-	
-	    // ---------- Codificar / decodificar (base64 seguro p/ URL) ----------
-	    function encode(obj) {
-	        const bytes = new TextEncoder().encode(JSON.stringify(obj));
-	        let bin = '';
-	        bytes.forEach(b => bin += String.fromCharCode(b));
-	        return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-	    }
-	    function decode(str) {
-	        str = str.replace(/-/g, '+').replace(/_/g, '/');
-	        while (str.length % 4) str += '=';
-	        const bin = atob(str);
-	        const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
-	        return JSON.parse(new TextDecoder().decode(bytes));
-	    }
-	
-	    // ---------- Toast ----------
-	    function toast(msg) {
-	        const box = $('toastContainer');
-	        if (!box) return alert(msg);
-	        const el = document.createElement('div');
-	        el.className = 'bg-neutral-900 border border-neutral-700 text-white text-xs font-bold px-4 py-2 rounded-lg shadow-xl';
-	        el.textContent = msg;
-	        box.appendChild(el);
-	        setTimeout(() => el.remove(), 2500);
-	    }
-	
-	    // ---------- Compartilhar ----------
-	    window.shareBuildLink = async function () {
-	        const build = collectBuild();
-	        if (!build.c && build.p.every(p => !p) && !build.i) {
-	            return toast('Gire a roleta antes de compartilhar!');
+	    // Hash estável de 4 caracteres (base36) a partir de um texto
+	    function h4(s) {
+	        let h = 0x811c9dc5;
+	        for (let i = 0; i < s.length; i++) {
+	            h ^= s.charCodeAt(i);
+	            h = Math.imul(h, 0x01000193) >>> 0;
 	        }
-	        const url = location.origin + location.pathname + '#build=' + encode(build);
+	        return (h % 1679616).toString(36).padStart(4, '0');
+	    }
+	    const NONE = '----';
+	
+	    // ---------- Gerar código da build ----------
+	    function encodeBuild(r) {
+	        let out = r.role === 'survivor' ? 's' : 'k';
+	        out += h4(r.character.id);
+	        for (let i = 0; i < 4; i++) out += h4(r.perks[i].id);
+	
+	        const item = r.item || {};
+	        const hasItem = item.namePt && item.namePt !== 'Nenhum';
+	        // Killer: o poder já é definido pelo personagem, então não precisa guardar
+	        out += (r.role === 'survivor' && hasItem) ? h4(fmt(item.namePt)) : NONE;
+	
+	        const addons = item.addons || [];
+	        for (let n = 0; n < 2; n++) {
+	            out += addons[n] ? h4(fmt(addons[n].namePt)) : NONE;
+	        }
+	        return out; // sempre 33 caracteres
+	    }
+	
+	    // ---------- Reconstruir build a partir do código ----------
+	    function decodeBuild(code) {
+	        if (code.length !== 33) throw new Error('tamanho inválido');
+	        const role = code[0] === 's' ? 'survivor' : 'killer';
+	        const part = i => code.slice(1 + i * 4, 5 + i * 4);
+	
+	        const chars = role === 'survivor' ? initialData.survivors : initialData.killers;
+	        const perkPool = role === 'survivor' ? initialData.survivorPerks : initialData.killerPerks;
+	
+	        const character = chars.find(c => h4(c.id) === part(0));
+	        if (!character) throw new Error('personagem não encontrado');
+	
+	        const perks = [1, 2, 3, 4].map(i => perkPool.find(p => h4(p.id) === part(i)));
+	        if (perks.some(p => !p)) throw new Error('perk não encontrado');
+	
+	        let item = EMPTY_ITEM;
+	        const addonCodes = [part(6), part(7)];
+	
+	        if (role === 'survivor') {
+	            if (part(5) !== NONE) {
+	                for (const tipo of Object.keys(itemsData.surv)) {
+	                    const found = itemsData.surv[tipo].find(it => h4(fmt(it.nome)) === part(5));
+	                    if (found) {
+	                        item = {
+	                            namePt: found.nome, nameEn: found.nome,
+	                            rel: 'itens/surv/' + fmt(found.nome) + '.png',
+	                            icon: ITEM_TYPE_ICON[tipo] || 'fa-toolbox',
+	                            addons: addonCodes.map(c => found.complementos.find(a => h4(fmt(a)) === c))
+	                                .filter(Boolean)
+	                                .map(a => ({ namePt: a, nameEn: a, rel: 'itens/surv/complementos/' + fmt(a) + '.png' }))
+	                        };
+	                        break;
+	                    }
+	                }
+	            }
+	        } else {
+	            const entry = itemsData.kill[character.namePt.toLowerCase().trim()];
+	            const poder = entry && entry[0];
+	            if (poder) {
+	                item = {
+	                    namePt: poder.nome, nameEn: poder.nome,
+	                    rel: 'itens/kill/poderes/' + fmt(poder.nome) + '.png',
+	                    icon: 'fa-skull',
+	                    addons: addonCodes.map(c => poder.complementos.find(a => h4(fmt(a)) === c))
+	                        .filter(Boolean)
+	                        .map(a => ({ namePt: a, nameEn: a, rel: 'itens/kill/' + fmt(character.namePt) + '/' + fmt(a) + '.png' }))
+	                };
+	            }
+	        }
+	
+	        return { role, character, perks, item, date: new Date().toLocaleDateString() };
+	    }
+	
+	    // ---------- Botão compartilhar ----------
+	    window.shareBuildLink = async function () {
+	        if (!currentRollResult) {
+	            showToast('Gire a roleta antes de compartilhar!', 'error');
+	            return;
+	        }
+	        const url = location.origin + location.pathname + '#b=' + encodeBuild(currentRollResult);
 	        try {
 	            await navigator.clipboard.writeText(url);
 	        } catch (e) {
@@ -448,52 +484,33 @@
 	            document.execCommand('copy');
 	            t.remove();
 	        }
-	        toast('Link da build copiado!');
+	        showToast('Link da build copiado!', 'success');
 	    };
 	
-	    // ---------- Aplicar build recebida pelo link ----------
-	    function setSlot(slot, nameId, imgId, iconEl) {
-	        const img = $(imgId);
-	        if (!slot) return;
-	        $(nameId).textContent = slot[0];
-	        img.src = slot[1];
-	        img.classList.remove('hidden');
-	        if (iconEl) iconEl.classList.add('hidden');
-	    }
-	
-	    function applyBuild(b) {
-	        $('displayCharRole').textContent = b.r || '';
-	        setSlot(b.c, 'displayCharName', 'displayCharImg', $('displayCharIcon'));
-	
-	        b.p.forEach((p, i) => {
-	            setSlot(p, 'perkName' + i, 'perkImg' + i, $('perkIcon' + i));
-	            if (p) $('perkBox' + i).querySelector('.perk-diamond')?.classList.remove('is-empty');
-	        });
-	
-	        setSlot(b.i, 'displayItemName', 'displayItemImg', $('displayItemIcon'));
-	
-	        b.a.forEach((a, k) => {
-	            const n = k + 1;
-	            setSlot(a, 'displayAddonName' + n, 'displayAddonImg' + n,
-	                    $('displayAddon' + n).querySelector('i'));
-	        });
-	    }
-	
-	    function loadFromHash() {
-	        const m = location.hash.match(/^#build=(.+)$/);
+	    // ---------- Abrir link recebido ----------
+	    function applyFromHash() {
+	        const m = location.hash.match(/^#b=([a-z0-9-]+)$/);
 	        if (!m) return;
 	        try {
-	            applyBuild(decode(m[1]));
-	            toast('Build carregada pelo link!');
+	            const result = decodeBuild(m[1]);
+	            currentRollResult = result;
+	            setRole(result.role);
+	            renderResultDisplay(result);
+	            showToast('Build carregada pelo link!', 'success');
 	        } catch (e) {
-	            toast('Link de build inválido.');
+	            console.error(e);
+	            showToast('Link de build inválido ou desatualizado.', 'error');
 	        }
 	    }
 	
-	    // espera o randomizer.js terminar de inicializar
-	    window.addEventListener('load', () => setTimeout(loadFromHash, 300));
-	    window.addEventListener('hashchange', loadFromHash);
+	    // Espera os JSON carregarem antes de aplicar a build
+	    const originalLoadData = window.loadData;
+	    window.loadData = async function () {
+	        await originalLoadData();
+	        applyFromHash();
+	    };
+	    window.addEventListener('hashchange', applyFromHash);
 	})();
-	</script>	
+	</script>
 </body>
 </html>
