@@ -12,6 +12,12 @@ let customEntries = JSON.parse(localStorage.getItem('dbd_custom_entries') || '[]
 let currentRollResult = null;
 let isSpinning = false;
 
+// ====== Builds Destaque / Construtor ======
+let builderRole = 'survivor';
+let featuredBuilds = [];                                   // vindas do servidor (json/builds-destaque.json)
+let featuredDrafts = JSON.parse(localStorage.getItem('dbd_featured_drafts') || '[]'); // rascunho do curador
+let featuredFilter = { type: '', role: '', text: '' };
+
 // ====== Caminhos (se a página ficar fora da raiz do projeto, ajuste BASE, ex.: '../') ======
 const BASE = '';
 const JSON_DIR = BASE + 'json/';
@@ -35,6 +41,9 @@ let itemsData = { surv: {}, kill: {} };
 const EMPTY_ITEM = { namePt: 'Nenhum', nameEn: 'None', addons: [], icon: 'fa-toolbox' };
 const ITEM_TYPE_ICON = { 'Chaves': 'fa-key', 'Lanternas': 'fa-lightbulb', 'Mapas': 'fa-map', 'Kit Médico': 'fa-kit-medical', 'Caixa de Ferramenta': 'fa-toolbox', 'Frasco de Névoa': 'fa-flask' };
 
+// Sugestões de tipos de build (o curador também pode digitar um tipo novo)
+const DEFAULT_BUILD_TYPES = ['Furtivo', 'Gen rush', 'Perseguição', 'Informação', 'Cura', 'Controle de mapa', 'Meta', 'Meme / Troll'];
+
 // ====== Formato dos nomes de arquivo (igual ao app.js / streaming-mode.js do zip) ======
 // itens, addons, poderes e pasta do killer
 const fmt = s => s.toString().toLowerCase().normalize('NFD').replace(/ /g, '').replace(/'/g, '').replace(/-/g, '').replace(/:/g, '').replace(/\p{Diacritic}/gu, '');
@@ -45,6 +54,13 @@ const charPhotoSlug = s => s.toLowerCase().replace(/\s+/g, '-');
 const cleanChar = c => c.replace(/Perk ensinável de /gi, '').trim();
 const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 const shuffle = arr => [...arr].sort(() => 0.5 - Math.random());
+
+// helpers novos
+const $ = id => document.getElementById(id);
+const esc = s => (s == null ? '' : String(s)).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const norm = s => (s || '').toString().toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').trim();
+const nm = o => (currentLang === 'pt' ? o.namePt : o.nameEn);
+const slugId = s => norm(s).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'build';
 
 // rel = caminho relativo a css/img/ ; devolve [local, remoto]
 const imgPaths = rel => IMG_REMOTE ? [encodeURI(IMG_LOCAL + rel), encodeURI(IMG_REMOTE + rel)] : [encodeURI(IMG_LOCAL + rel)];
@@ -71,7 +87,7 @@ function buildPerks(perks, role) {
         return {
             id, ownerId: c.toLowerCase() === GENERAL_NAME ? 'geral' : fmt(c),
             namePt: p.perk_name,
-			nameEn: p.perk_name_en || p.perk_name,
+            nameEn: p.perk_name_en || p.perk_name,
             rel: type + '/iconperks-' + perkSlug(p.perk_name) + '.png',
             icon: role === 'survivor' ? 'fa-shield-halved' : 'fa-skull'
         };
@@ -88,6 +104,19 @@ async function loadData() {
     itemsData.surv = is;
     itemsData.kill = {};
     Object.keys(ik).forEach(k => { itemsData.kill[k.toLowerCase().trim()] = ik[k]; });
+}
+
+// Builds Destaque: arquivo opcional no servidor. Se não existir, a lista fica vazia.
+async function loadFeatured() {
+    try {
+        const r = await fetch(JSON_DIR + 'builds-destaque.json', { cache: 'no-cache' });
+        if (!r.ok) throw new Error('builds-destaque (' + r.status + ')');
+        const d = await r.json();
+        featuredBuilds = (Array.isArray(d) ? d : (d.builds || [])).filter(b => b && b.name && b.character && Array.isArray(b.perks));
+    } catch (e) {
+        console.warn('Builds destaque não carregadas:', e.message);
+        featuredBuilds = [];
+    }
 }
 
 // Sobrevivente: item aleatório + 2 addons. Killer: poder do personagem sorteado + 2 addons dele.
@@ -144,6 +173,8 @@ const i18n = {
     pt: {
         subtitle: "Gerador Inteligente de Loadouts para Dead by Daylight",
         navRandomizer: "Modo Roleta",
+        navFeatured: "Builds Destaque",
+        navBuilder: "Criar Build",
         navPool: "Acervo de Conteúdo",
         navSaved: "Builds Salvas",
         navAdmin: "Cadastro / Admin",
@@ -180,11 +211,44 @@ const i18n = {
         btnAddSubmit: "Cadastrar Elemento",
         txtCustomEntriesTitle: "Itens Cadastrados Localmente",
         lblImportTitle: "Importar Build Compartilhada",
-        lblImportDesc: "Cole o código JSON da build gerada pelo aplicativo abaixo:"
+        lblImportDesc: "Cole o código JSON da build gerada pelo aplicativo abaixo:",
+        // Builds Destaque
+        fTitle: "Builds Destaque",
+        fSub: "Builds recomendadas e selecionadas. Filtre por tipo, veja na roleta ou salve na sua coleção.",
+        fLblType: "Tipo de build",
+        fLblRole: "Lado",
+        fLblSearch: "Buscar",
+        // Construtor
+        bldTitle: "Criar Build Manual",
+        bldSub: "Escolha o personagem, as 4 perks e o item/poder. Depois salve na sua coleção.",
+        bldLblChar: "Personagem",
+        bldLblItem: "Item",
+        bldLblPower: "Poder (definido pelo personagem)",
+        bldLblAddon1: "Add-on 1",
+        bldLblAddon2: "Add-on 2",
+        bldLblName: "Nome da build (opcional)",
+        bldBtnSave: "Salvar Build",
+        bldBtnShow: "Ver na Roleta",
+        bldBtnClear: "Limpar",
+        bldPreviewTitle: "Pré-visualização",
+        // Curador
+        lblCurator: "Modo curador: gerar JSON de Builds Destaque",
+        lblCuratorHint: "Monte a build acima, preencha os dados abaixo e adicione ao rascunho. Quando terminar, baixe o JSON e suba para a pasta json/ do seu servidor/GitHub.",
+        fLblName: "Nome da build",
+        fLblTypeInput: "Tipo",
+        fLblSource: "Fonte (de onde tirou)",
+        fLblUrl: "Link da fonte (opcional)",
+        fBtnAdd: "Adicionar ao rascunho",
+        fLblIncludeServer: "Incluir builds já publicadas no arquivo",
+        fBtnDownload: "Baixar builds-destaque.json",
+        fBtnCopy: "Copiar JSON",
+        fBtnClearDrafts: "Limpar rascunho"
     },
     en: {
         subtitle: "Dead by Daylight Streamer Loadout Generator",
         navRandomizer: "Randomization Mode",
+        navFeatured: "Featured Builds",
+        navBuilder: "Create Build",
         navPool: "Content Pool",
         navSaved: "Saved Builds",
         navAdmin: "Registration / Admin",
@@ -221,7 +285,35 @@ const i18n = {
         btnAddSubmit: "Register Entry",
         txtCustomEntriesTitle: "Locally Registered Entries",
         lblImportTitle: "Import Shared Build",
-        lblImportDesc: "Paste the build JSON code generated by the app below:"
+        lblImportDesc: "Paste the build JSON code generated by the app below:",
+        fTitle: "Featured Builds",
+        fSub: "Recommended, hand-picked builds. Filter by type, view in the roulette or save to your collection.",
+        fLblType: "Build type",
+        fLblRole: "Role",
+        fLblSearch: "Search",
+        bldTitle: "Create Manual Build",
+        bldSub: "Pick the character, 4 perks and item/power. Then save it to your collection.",
+        bldLblChar: "Character",
+        bldLblItem: "Item",
+        bldLblPower: "Power (set by the character)",
+        bldLblAddon1: "Add-on 1",
+        bldLblAddon2: "Add-on 2",
+        bldLblName: "Build name (optional)",
+        bldBtnSave: "Save Build",
+        bldBtnShow: "View in Roulette",
+        bldBtnClear: "Clear",
+        bldPreviewTitle: "Preview",
+        lblCurator: "Curator mode: generate Featured Builds JSON",
+        lblCuratorHint: "Build it above, fill in the data below and add it to the draft. When done, download the JSON and upload it to the json/ folder of your server/GitHub.",
+        fLblName: "Build name",
+        fLblTypeInput: "Type",
+        fLblSource: "Source (where it came from)",
+        fLblUrl: "Source link (optional)",
+        fBtnAdd: "Add to draft",
+        fLblIncludeServer: "Include already published builds in the file",
+        fBtnDownload: "Download builds-destaque.json",
+        fBtnCopy: "Copy JSON",
+        fBtnClearDrafts: "Clear draft"
     }
 };
 
@@ -229,18 +321,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     applyTheme();
     updateLanguageUI();
     renderSavedBuilds();
+    bindFeaturedEvents();
+    renderFeaturedDrafts();
+    renderFeatured();
     try {
         await loadData();
         renderPool();
+        populateBuilder();
     } catch (e) {
         console.error(e);
         document.getElementById('characterPoolContainer').innerHTML =
             '<div class="col-span-full text-xs text-red-400 p-4">Não foi possível carregar os arquivos em <code>' + JSON_DIR + '</code> (' + e.message + '). Abra o site por um servidor (http://), não clicando direto no arquivo, e confira se a pasta json/ está ao lado deste HTML.</div>';
         showToast('Falha ao carregar os JSON.', 'error');
     }
+    await loadFeatured();
+    renderFeatured();
 });
 
-        function handleImageError(imgEl, fallbackFaIcon) {
+function handleImageError(imgEl, fallbackFaIcon) {
     imgEl.classList.add('hidden');
     const parent = imgEl.parentElement;
     let iconEl = parent.querySelector('i');
@@ -258,7 +356,7 @@ function showToast(message, type = 'info') {
         type === 'success' ? 'bg-emerald-900 border-emerald-500' :
         type === 'error' ? 'bg-red-950 border-dbd-red' : 'bg-neutral-900 border-neutral-700'
     }`;
-    toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check text-emerald-400' : type === 'error' ? 'fa-circle-exclamation text-dbd-red' : 'fa-circle-info text-dbd-cyan'}"></i> <span>${message}</span>`;
+    toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check text-emerald-400' : type === 'error' ? 'fa-circle-exclamation text-dbd-red' : 'fa-circle-info text-dbd-cyan'}"></i> <span>${esc(message)}</span>`;
     container.appendChild(toast);
 
     setTimeout(() => {
@@ -276,17 +374,21 @@ function setLanguage(lang) {
     localStorage.setItem('dbd_lang', lang);
     updateLanguageUI();
     renderPool();
-    if(currentRollResult) renderResultDisplay(currentRollResult);
+    renderSavedBuilds();
+    renderFeatured();
+    renderFeaturedDrafts();
+    populateBuilder();
+    if (currentRollResult) renderResultDisplay(currentRollResult);
 }
 
 function updateLanguageUI() {
     const t = i18n[currentLang];
     for (let key in t) {
         const el = document.getElementById(key);
-        if(el) el.innerText = t[key];
+        if (el) el.innerText = t[key];
     }
 
-    if(currentLang === 'pt') {
+    if (currentLang === 'pt') {
         document.getElementById('langPtBtn').className = "px-2.5 py-1 rounded bg-dbd-red text-white font-bold";
         document.getElementById('langEnBtn').className = "px-2.5 py-1 rounded text-neutral-400 hover:text-white font-bold";
     } else {
@@ -303,7 +405,7 @@ function toggleTheme() {
 
 function applyTheme() {
     const icon = document.getElementById('themeIcon');
-    if(currentTheme === 'light') {
+    if (currentTheme === 'light') {
         document.documentElement.classList.remove('dark');
         icon.className = 'fa-solid fa-sun text-sm text-yellow-500';
     } else {
@@ -312,18 +414,25 @@ function applyTheme() {
     }
 }
 
+const TABS = ['main', 'featured', 'builder', 'pool', 'saved'];
+const TAB_BTN_OFF = "px-4 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-2 text-dbd-muted hover:text-white";
+const TAB_BTN_ON = "px-4 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-2 bg-dbd-red text-white shadow";
+
 function switchTab(tab) {
-    ['main', 'pool', 'saved'].forEach(t => {
-        document.getElementById('tab' + t.charAt(0).toUpperCase() + t.slice(1)).classList.add('hidden');
-        document.getElementById('tab' + t.charAt(0).toUpperCase() + t.slice(1) + 'Btn').className = "px-4 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-2 text-dbd-muted hover:text-white";
+    const cap = t => t.charAt(0).toUpperCase() + t.slice(1);
+    TABS.forEach(t => {
+        const pane = document.getElementById('tab' + cap(t));
+        const btn = document.getElementById('tab' + cap(t) + 'Btn');
+        if (pane) pane.classList.add('hidden');
+        if (btn) btn.className = TAB_BTN_OFF;
     });
 
-    const activeTab = document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1));
-    const activeBtn = document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1) + 'Btn');
+    const activeTab = document.getElementById('tab' + cap(tab));
+    const activeBtn = document.getElementById('tab' + cap(tab) + 'Btn');
 
-    if(activeTab && activeBtn) {
+    if (activeTab && activeBtn) {
         activeTab.classList.remove('hidden');
-        activeBtn.className = "px-4 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-2 bg-dbd-red text-white shadow";
+        activeBtn.className = TAB_BTN_ON;
     }
 }
 
@@ -332,7 +441,7 @@ function setRole(role) {
     const survBtn = document.getElementById('roleSurvBtn');
     const killBtn = document.getElementById('roleKillBtn');
 
-    if(role === 'survivor') {
+    if (role === 'survivor') {
         survBtn.className = "px-4 py-2 text-xs rounded-lg border-2 border-dbd-cyan bg-dbd-cyan/10 text-dbd-cyan font-bold flex items-center justify-center gap-2 transition hover:bg-dbd-cyan/20";
         killBtn.className = "px-4 py-2 text-xs rounded-lg border-2 border-neutral-800 text-neutral-400 font-bold flex items-center justify-center gap-2 transition hover:border-dbd-red hover:text-dbd-red";
     } else {
@@ -347,7 +456,7 @@ function setViewMode(mode) {
     const iconBtn = document.getElementById('viewIconBtn');
     const listBtn = document.getElementById('viewListBtn');
 
-    if(mode === 'icon') {
+    if (mode === 'icon') {
         iconBtn.className = "px-3 py-1 rounded text-xs font-bold bg-dbd-panel text-white flex items-center gap-1.5 shadow";
         listBtn.className = "px-3 py-1 rounded text-xs font-bold text-dbd-muted hover:text-white flex items-center gap-1.5";
     } else {
@@ -369,7 +478,7 @@ function getActivePerks() {
     return [...baseList, ...customList];
 }
 
-        function getGeneralPerks() {
+function getGeneralPerks() {
     const ids = new Set(getActiveCharacters().map(c => c.id));
     return getActivePerks().filter(p => !p.ownerId || p.ownerId === 'geral' || !ids.has(p.ownerId));
 }
@@ -457,7 +566,7 @@ function toggleGeneral() {
 }
 
 function toggleCharacterExclusion(id) {
-    if(excludedCharacters.has(id)) {
+    if (excludedCharacters.has(id)) {
         excludedCharacters.delete(id);
     } else {
         excludedCharacters.add(id);
@@ -466,7 +575,7 @@ function toggleCharacterExclusion(id) {
 }
 
 function togglePerkExclusion(id) {
-    if(excludedPerks.has(id)) {
+    if (excludedPerks.has(id)) {
         excludedPerks.delete(id);
     } else {
         excludedPerks.add(id);
@@ -478,7 +587,7 @@ function toggleAllPool(enable) {
     const chars = getActiveCharacters();
     const perks = getActivePerks();
 
-    if(enable) {
+    if (enable) {
         excludedCharacters.clear();
         excludedPerks.clear();
     } else {
@@ -496,7 +605,7 @@ function resetFilters() {
     showToast("Filtros resetados com sucesso!", "info");
 }
 
-        function filterPoolBySearch() {
+function filterPoolBySearch() {
     const term = document.getElementById('inputSearch').value.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '');
     Array.from(document.getElementById('characterPoolContainer').children).forEach(card => {
         if (card.dataset.search === undefined) return;
@@ -505,7 +614,7 @@ function resetFilters() {
 }
 
 function playBeepSound(freq = 440) {
-    if(!document.getElementById('chkSound').checked) return;
+    if (!document.getElementById('chkSound').checked) return;
     try {
         const ctx = new (window.AudioContext || window.webkitAudioContext)();
         const osc = ctx.createOscillator();
@@ -517,10 +626,10 @@ function playBeepSound(freq = 440) {
         gain.connect(ctx.destination);
         osc.start();
         osc.stop(ctx.currentTime + 0.04);
-    } catch(e) {}
+    } catch (e) {}
 }
 
-        function spinRoulette() {
+function spinRoulette() {
     if (isSpinning) return;
 
     const doChar = document.getElementById('chkCharacter').checked;
@@ -605,7 +714,7 @@ function playBeepSound(freq = 440) {
     step();
 }
 
-        function renderResultDisplay(result, isSpinningAnim = false, parts = { char: true, perks: true, items: true }) {
+function renderResultDisplay(result, isSpinningAnim = false, parts = { char: true, perks: true, items: true }) {
     const charName = currentLang === 'pt' ? result.character.namePt : result.character.nameEn;
     document.getElementById('displayCharName').innerText = charName;
     document.getElementById('displayCharRole').innerText = result.role.toUpperCase();
@@ -647,7 +756,7 @@ function playBeepSound(freq = 440) {
 }
 
 function saveCurrentBuild() {
-    if(!currentRollResult) {
+    if (!currentRollResult) {
         showToast("Gire a roleta primeiro!", "error");
         return;
     }
@@ -655,9 +764,13 @@ function saveCurrentBuild() {
         id: Date.now(),
         ...currentRollResult
     });
-    localStorage.setItem('dbd_saved_builds', JSON.stringify(savedBuilds));
+    persistSavedBuilds();
     renderSavedBuilds();
-    showToast("Build salvação com sucesso!", "success");
+    showToast("Build salva com sucesso!", "success");
+}
+
+function persistSavedBuilds() {
+    localStorage.setItem('dbd_saved_builds', JSON.stringify(savedBuilds));
 }
 
 function renderSavedBuilds() {
@@ -665,20 +778,21 @@ function renderSavedBuilds() {
     document.getElementById('savedCountBadge').innerText = savedBuilds.length;
     container.innerHTML = '';
 
-    if(savedBuilds.length === 0) {
-        container.innerHTML = `<div class="col-span-full py-12 text-center text-dbd-muted text-xs">Nenhuma build salvação ainda. Gire a roleta e clique em "Salvar Build"!</div>`;
+    if (savedBuilds.length === 0) {
+        container.innerHTML = `<div class="col-span-full py-12 text-center text-dbd-muted text-xs">Nenhuma build salva ainda. Gire a roleta ou crie uma build manual e clique em "Salvar Build"!</div>`;
         return;
     }
 
     savedBuilds.forEach(build => {
         const charName = currentLang === 'pt' ? build.character.namePt : build.character.nameEn;
-        const itemName = currentLang === 'pt' ? build.item.namePt : build.item.nameEn;
+        const buildItem = build.item || EMPTY_ITEM;
+        const itemName = currentLang === 'pt' ? buildItem.namePt : buildItem.nameEn;
 
         const card = document.createElement('div');
         card.className = "bg-neutral-950 p-4 rounded-xl border border-neutral-800 space-y-3 relative group hover:border-dbd-red transition shadow";
-        
+
         let perkIconsHtml = build.perks.map(p => `
-            <div class="perk-diamond perk-diamond-xs" title="${currentLang==='pt'?p.namePt:p.nameEn}">
+            <div class="perk-diamond perk-diamond-xs" title="${esc(currentLang === 'pt' ? p.namePt : p.nameEn)}">
                 <div class="perk-diamond-inner">
                     ${imgTag(entryImgs(p), 'w-full h-full object-contain', p.icon || 'fa-shield', 'text-purple-200 text-xs')}
                 </div>
@@ -688,20 +802,24 @@ function renderSavedBuilds() {
         card.innerHTML = `
             <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
                 <span class="text-[10px] font-bold px-2 py-0.5 rounded ${build.role === 'survivor' ? 'bg-dbd-cyan/20 text-dbd-cyan' : 'bg-dbd-red/20 text-dbd-red'}">${build.role.toUpperCase()}</span>
-                <span class="text-[10px] text-neutral-500 font-mono">${build.date || ''}</span>
+                <span class="text-[10px] text-neutral-500 font-mono mr-6">${esc(build.date || '')}</span>
             </div>
+            ${build.name ? `<h4 class="text-sm font-black text-white">${esc(build.name)}</h4>` : ''}
             <div class="flex items-center gap-3">
                 <div class="char-card w-11 shrink-0 flex items-center justify-center text-dbd-cyan text-lg">
                     ${imgTag(entryImgs(build.character), 'w-full h-full object-contain', build.character.icon || 'fa-user', 'text-lg')}
                 </div>
                 <div>
-                    <h4 class="text-xs font-bold text-white">${charName}</h4>
-                    <p class="text-[10px] text-dbd-muted"><i class="fa-solid fa-box text-[10px]"></i> ${itemName}</p>
+                    <h4 class="text-xs font-bold text-white">${esc(charName)}</h4>
+                    <p class="text-[10px] text-dbd-muted"><i class="fa-solid fa-box text-[10px]"></i> ${esc(itemName)}</p>
                 </div>
             </div>
             <div class="flex items-center gap-2 pt-1">
                 ${perkIconsHtml}
-                <button onclick="shareSavedBuild(${build.id})" class="ml-auto px-2.5 py-1 bg-neutral-800 hover:bg-neutral-700 text-[10px] font-bold rounded border border-neutral-700 text-white flex items-center gap-1.5 transition" title="Copiar link da build">
+                <button onclick="loadSavedBuild(${build.id})" class="ml-auto px-2.5 py-1 bg-neutral-800 hover:bg-neutral-700 text-[10px] font-bold rounded border border-neutral-700 text-white flex items-center gap-1.5 transition" title="Ver na roleta">
+                    <i class="fa-solid fa-eye text-dbd-cyan"></i>
+                </button>
+                <button onclick="shareSavedBuild(${build.id})" class="px-2.5 py-1 bg-neutral-800 hover:bg-neutral-700 text-[10px] font-bold rounded border border-neutral-700 text-white flex items-center gap-1.5 transition" title="Copiar link da build">
                     <i class="fa-solid fa-link text-dbd-purple"></i> Compartilhar
                 </button>
             </div>
@@ -713,20 +831,26 @@ function renderSavedBuilds() {
     });
 }
 
+function loadSavedBuild(id) {
+    const build = savedBuilds.find(b => b.id === id);
+    if (!build) return;
+    showBuildInRoulette(build);
+}
+
 function deleteSavedBuild(id) {
     savedBuilds = savedBuilds.filter(b => b.id !== id);
-    localStorage.setItem('dbd_saved_builds', JSON.stringify(savedBuilds));
+    persistSavedBuilds();
     renderSavedBuilds();
     showToast("Build removida!", "info");
 }
 
 function copyShareableBuild() {
-    if(!currentRollResult) {
+    if (!currentRollResult) {
         showToast("Nenhuma build para exportar!", "error");
         return;
     }
     const jsonStr = JSON.stringify(currentRollResult);
-    document.addEventListener('copy', function(e) {
+    document.addEventListener('copy', function (e) {
         e.clipboardData.setData('text/plain', jsonStr);
         e.preventDefault();
     }, { once: true });
@@ -760,7 +884,7 @@ function closePerksJsonModal() {
     document.getElementById('importPerksJsonModal').classList.add('hidden');
 }
 
-        function processPerksJsonImport() {
+function processPerksJsonImport() {
     const rawText = document.getElementById('txtPerksJsonCode').value.trim();
     const role = document.getElementById('selPerksJsonRole').value;
     if (!rawText) { showToast("Cole o conteúdo do JSON primeiro!", "error"); return; }
@@ -792,7 +916,7 @@ function closePerksJsonModal() {
         });
         localStorage.setItem('dbd_custom_entries', JSON.stringify(customEntries));
         renderPool();
-        
+
         closePerksJsonModal();
         showToast(`${addedCount} vantagens carregadas do JSON com sucesso!`, "success");
     } catch (e) {
@@ -802,16 +926,16 @@ function closePerksJsonModal() {
 
 function confirmImportBuild() {
     const code = document.getElementById('txtImportCode').value.trim();
-    if(!code) return;
+    if (!code) return;
     try {
         const parsed = JSON.parse(code);
-        if(parsed.character && parsed.perks) {
+        if (parsed.character && parsed.perks) {
             savedBuilds.unshift({
                 id: Date.now(),
                 ...parsed,
                 date: new Date().toLocaleDateString()
             });
-            localStorage.setItem('dbd_saved_builds', JSON.stringify(savedBuilds));
+            persistSavedBuilds();
             renderSavedBuilds();
             closeImportModal();
             switchTab('saved');
@@ -819,7 +943,7 @@ function confirmImportBuild() {
         } else {
             showToast("JSON de build inválido.", "error");
         }
-    } catch(e) {
+    } catch (e) {
         showToast("Erro ao processar o JSON informado.", "error");
     }
 }
@@ -851,7 +975,7 @@ function handleAddNewEntry(e) {
     localStorage.setItem('dbd_custom_entries', JSON.stringify(customEntries));
 
     document.getElementById('formAddEntry').reset();
-    
+
     renderPool();
     showToast("Item cadastrado localmente!", "success");
 }
@@ -860,7 +984,7 @@ function handleAddNewEntry(e) {
 function deleteCustomEntry(id) {
     customEntries = customEntries.filter(e => e.id !== id);
     localStorage.setItem('dbd_custom_entries', JSON.stringify(customEntries));
-    
+
     renderPool();
     showToast("Item removido!", "info");
 }
@@ -879,4 +1003,502 @@ function exportUpdatedDatabaseJSON() {
     anchor.remove();
     showToast("JSON do repositório gerado!", "success");
 }
-    
+
+
+/* ==========================================================================
+   HELPERS DE BUSCA (por nome) - usados pelo construtor e pelas Builds Destaque
+   ========================================================================== */
+const charsByRole = r => [...(r === 'survivor' ? initialData.survivors : initialData.killers),
+    ...customEntries.filter(e => e.category === 'character' && e.role === r)];
+const perksByRole = r => [...(r === 'survivor' ? initialData.survivorPerks : initialData.killerPerks),
+    ...customEntries.filter(e => e.category === 'perk' && e.role === r)];
+
+// procura por nome em PT ou EN, ignorando acentos/maiúsculas
+function findByName(list, name) {
+    const n = norm(name);
+    if (!n) return null;
+    return list.find(x => norm(x.namePt) === n || norm(x.nameEn) === n) || null;
+}
+
+function findSurvItem(name) {
+    const n = norm(name);
+    if (!n) return null;
+    for (const tipo of Object.keys(itemsData.surv)) {
+        const found = itemsData.surv[tipo].find(it => norm(it.nome) === n);
+        if (found) return { tipo, found };
+    }
+    return null;
+}
+
+function getKillerPower(character) {
+    if (!character) return null;
+    const entry = itemsData.kill[character.namePt.toLowerCase().trim()];
+    return (entry && entry[0]) || null;
+}
+
+// Monta o objeto "item" (mesmo formato do rollItem) a partir de nomes escolhidos
+function makeItemObj(role, character, itemName, addonNames) {
+    const wanted = (addonNames || []).filter(Boolean);
+    if (role === 'survivor') {
+        const hit = itemName ? findSurvItem(itemName) : null;
+        if (!hit) return { ...EMPTY_ITEM };
+        const { tipo, found } = hit;
+        return {
+            namePt: found.nome, nameEn: found.nome, rel: 'itens/surv/' + fmt(found.nome) + '.png',
+            icon: ITEM_TYPE_ICON[tipo] || 'fa-toolbox',
+            addons: wanted.map(n => found.complementos.find(a => norm(a) === norm(n)) || n)
+                .map(a => ({ namePt: a, nameEn: a, rel: 'itens/surv/complementos/' + fmt(a) + '.png' }))
+        };
+    }
+    const poder = getKillerPower(character);
+    if (!poder) return { ...EMPTY_ITEM };
+    return {
+        namePt: poder.nome, nameEn: poder.nome, rel: 'itens/kill/poderes/' + fmt(poder.nome) + '.png',
+        icon: 'fa-skull',
+        addons: wanted.map(n => poder.complementos.find(a => norm(a) === norm(n)) || n)
+            .map(a => ({ namePt: a, nameEn: a, rel: 'itens/kill/' + fmt(character.namePt) + '/' + fmt(a) + '.png' }))
+    };
+}
+
+// Mostra qualquer build (salva, destaque, criada) na aba da roleta
+function showBuildInRoulette(build) {
+    currentRollResult = {
+        role: build.role,
+        character: build.character,
+        perks: build.perks,
+        item: build.item || { ...EMPTY_ITEM },
+        date: build.date || new Date().toLocaleDateString()
+    };
+    setRole(build.role);
+    renderResultDisplay(currentRollResult);
+    switchTab('main');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+
+/* ==========================================================================
+   CONSTRUTOR DE BUILD MANUAL
+   ========================================================================== */
+function setBuilderRole(role, keepFields) {
+    builderRole = role;
+    const s = $('bldRoleSurvBtn'), k = $('bldRoleKillBtn');
+    s.classList.toggle('active', role === 'survivor');
+    k.classList.toggle('active', role === 'killer');
+    if (!keepFields) {
+        $('bldChar').value = '';
+        [0, 1, 2, 3].forEach(i => $('bldPerk' + i).value = '');
+        $('bldItem').value = '';
+        $('bldAddon1').value = '';
+        $('bldAddon2').value = '';
+    }
+    populateBuilder();
+}
+
+function populateBuilder() {
+    if (!$('bldChar')) return;
+    if (!initialData.survivors.length && !initialData.killers.length) { renderBuilderPreview(); return; }
+
+    // guarda o estado atual para restaurar (ex.: troca de idioma)
+    const prevChar = $('bldChar').value;
+    const prevPerks = [0, 1, 2, 3].map(i => findByName(perksByRole(builderRole), $('bldPerk' + i).value));
+    const prevItem = $('bldItem').value;
+    const prevAddons = [$('bldAddon1').value, $('bldAddon2').value];
+
+    // personagens
+    $('bldChar').innerHTML = `<option value="">${currentLang === 'pt' ? '— Selecione o personagem —' : '— Select character —'}</option>` +
+        charsByRole(builderRole).map(c => `<option value="${esc(c.id)}">${esc(nm(c))}</option>`).join('');
+    if (prevChar && charsByRole(builderRole).some(c => c.id === prevChar)) $('bldChar').value = prevChar;
+
+    // perks (datalist com autocompletar)
+    $('bldPerkList').innerHTML = perksByRole(builderRole).map(p => `<option value="${esc(nm(p))}"></option>`).join('');
+    prevPerks.forEach((p, i) => { if (p) $('bldPerk' + i).value = nm(p); });
+
+    // itens (somente survivor)
+    const noneLbl = currentLang === 'pt' ? '— Nenhum —' : '— None —';
+    $('bldItem').innerHTML = `<option value="">${noneLbl}</option>` + Object.keys(itemsData.surv).map(tipo =>
+        `<optgroup label="${esc(tipo)}">${itemsData.surv[tipo].map(it => `<option value="${esc(it.nome)}">${esc(it.nome)}</option>`).join('')}</optgroup>`
+    ).join('');
+    if (prevItem && findSurvItem(prevItem)) $('bldItem').value = findSurvItem(prevItem).found.nome;
+
+    $('bldItemRow').style.display = builderRole === 'survivor' ? '' : 'none';
+    $('bldPowerRow').style.display = builderRole === 'killer' ? '' : 'none';
+
+    refreshAddonOptions(prevAddons);
+    onBuilderChange();
+}
+
+function currentAddonChoices() {
+    if (builderRole === 'survivor') {
+        const hit = findSurvItem($('bldItem').value);
+        return { power: null, list: hit ? hit.found.complementos : [] };
+    }
+    const character = charsByRole('killer').find(c => c.id === $('bldChar').value);
+    const poder = getKillerPower(character);
+    return { power: poder, list: poder ? poder.complementos : [] };
+}
+
+function refreshAddonOptions(keep) {
+    const { power, list } = currentAddonChoices();
+    const noneLbl = currentLang === 'pt' ? '— Nenhum —' : '— None —';
+    const keepVals = keep || [$('bldAddon1').value, $('bldAddon2').value];
+    [1, 2].forEach(n => {
+        const sel = $('bldAddon' + n);
+        sel.innerHTML = `<option value="">${noneLbl}</option>` + list.map(a => `<option value="${esc(a)}">${esc(a)}</option>`).join('');
+        const match = list.find(a => norm(a) === norm(keepVals[n - 1]));
+        sel.value = match || '';
+        sel.disabled = list.length === 0;
+    });
+    if (builderRole === 'killer') {
+        $('bldPowerName').textContent = power ? power.nome : (currentLang === 'pt' ? 'Selecione um personagem' : 'Select a character');
+    }
+}
+
+function onBuilderChange() {
+    refreshAddonOptions();
+    // marca em vermelho perks digitados que não existem na lista
+    const perks = perksByRole(builderRole);
+    [0, 1, 2, 3].forEach(i => {
+        const el = $('bldPerk' + i);
+        el.classList.toggle('is-invalid', !!el.value.trim() && !findByName(perks, el.value));
+    });
+    renderBuilderPreview();
+}
+
+function readBuilder() {
+    const role = builderRole;
+    const character = charsByRole(role).find(c => c.id === $('bldChar').value) || null;
+    const perks = [0, 1, 2, 3].map(i => findByName(perksByRole(role), $('bldPerk' + i).value));
+    return {
+        role, character, perks,
+        itemName: role === 'survivor' ? $('bldItem').value : '',
+        addons: [$('bldAddon1').value, $('bldAddon2').value]
+    };
+}
+
+function renderBuilderPreview() {
+    const box = $('bldPreview');
+    if (!box) return;
+    const s = readBuilder();
+
+    const charHtml = s.character
+        ? `<div class="bd-preview-char">
+                <div class="char-card flex items-center justify-center text-dbd-cyan">${imgTag(entryImgs(s.character), 'w-full h-full object-contain', s.character.icon || 'fa-user', 'text-5xl text-dbd-cyan')}</div>
+                <div class="bd-preview-name">${esc(nm(s.character))}</div>
+           </div>`
+        : `<div class="bd-preview-char"><div class="char-card flex items-center justify-center text-neutral-600"><i class="fa-solid fa-user-ninja text-6xl"></i></div><div class="bd-preview-name">--</div></div>`;
+
+    const perksHtml = s.perks.map((p, i) => `
+        <div class="bd-preview-perk">
+            <div class="perk-diamond perk-diamond-sm ${p ? '' : 'is-empty'}">
+                <div class="perk-diamond-inner">${p ? imgTag(entryImgs(p), 'w-full h-full object-contain', p.icon || 'fa-shield-halved', 'text-purple-200 text-xl') : ''}</div>
+            </div>
+            <span>${p ? esc(nm(p)) : 'Slot ' + (i + 1)}</span>
+        </div>`).join('');
+
+    const item = s.character ? makeItemObj(s.role, s.character, s.itemName, s.addons) : { ...EMPTY_ITEM };
+    const slot = (o, fa, label) => `
+        <div class="bd-item-slot">
+            <div class="bd-item-box">${o ? imgTag(entryImgs(o), '', o.icon || fa, 'text-xl') : `<i class="fa-solid ${fa} text-xl"></i>`}</div>
+            <span>${esc(label)}</span>
+        </div>`;
+    const hasItem = item.namePt !== 'Nenhum';
+    const itemHtml = slot(hasItem ? item : null, hasItem ? (item.icon || 'fa-toolbox') : 'fa-toolbox', hasItem ? nm(item) : (currentLang === 'pt' ? 'Nenhum' : 'None'))
+        + [0, 1].map(n => {
+            const a = (item.addons || [])[n];
+            return slot(a || null, 'fa-puzzle-piece', a ? nm(a) : 'Add-on ' + (n + 1));
+        }).join('');
+
+    box.innerHTML = `${charHtml}<div class="bd-preview-perks">${perksHtml}</div><div class="bd-preview-item">${itemHtml}</div>`;
+}
+
+// Valida e monta a build a partir do formulário
+function buildFromBuilder() {
+    const s = readBuilder();
+    if (!s.character) { showToast(currentLang === 'pt' ? 'Selecione um personagem!' : 'Select a character!', 'error'); return null; }
+    if (s.perks.some(p => !p)) { showToast(currentLang === 'pt' ? 'Escolha 4 perks válidos da lista!' : 'Pick 4 valid perks from the list!', 'error'); return null; }
+    if (new Set(s.perks.map(p => p.id)).size < 4) { showToast(currentLang === 'pt' ? 'Há perks repetidos!' : 'Duplicate perks!', 'error'); return null; }
+    if (s.addons[0] && s.addons[0] === s.addons[1]) { showToast(currentLang === 'pt' ? 'Os add-ons não podem ser iguais!' : 'Add-ons must be different!', 'error'); return null; }
+    return {
+        role: s.role,
+        character: s.character,
+        perks: s.perks,
+        item: makeItemObj(s.role, s.character, s.itemName, s.addons),
+        date: new Date().toLocaleDateString()
+    };
+}
+
+function builderSave() {
+    const b = buildFromBuilder();
+    if (!b) return;
+    const name = $('bldName').value.trim();
+    savedBuilds.unshift({ id: Date.now(), ...(name ? { name } : {}), ...b });
+    persistSavedBuilds();
+    renderSavedBuilds();
+    showToast(currentLang === 'pt' ? 'Build salva com sucesso!' : 'Build saved!', 'success');
+}
+
+function builderShow() {
+    const b = buildFromBuilder();
+    if (!b) return;
+    showBuildInRoulette(b);
+}
+
+function builderClear() {
+    $('bldName').value = '';
+    setBuilderRole(builderRole, false);
+}
+
+
+/* ==========================================================================
+   BUILDS DESTAQUE (lista pública vinda de json/builds-destaque.json)
+   ========================================================================== */
+function stubChar(role, name) {
+    return { id: fmt(name), namePt: name, nameEn: name, rel: 'personagens/' + charPhotoSlug(name) + '.png', icon: role === 'survivor' ? 'fa-user' : 'fa-skull' };
+}
+function stubPerk(role, name) {
+    const type = role === 'survivor' ? 'surv' : 'kill';
+    return { id: type + '_' + perkSlug(name), namePt: name, nameEn: name, rel: type + '/iconperks-' + perkSlug(name) + '.png', icon: role === 'survivor' ? 'fa-shield-halved' : 'fa-skull' };
+}
+
+// Converte uma entrada do JSON (só nomes) em objeto de build completo
+function resolveFeatured(b) {
+    const role = b.role === 'killer' ? 'killer' : 'survivor';
+    const character = findByName(charsByRole(role), b.character) || stubChar(role, b.character);
+    const perks = (b.perks || []).slice(0, 4).map(n => findByName(perksByRole(role), n) || stubPerk(role, n));
+    return {
+        role, character, perks,
+        item: makeItemObj(role, character, b.item, b.addons),
+        date: new Date().toLocaleDateString(),
+        name: b.name, source: b.source, type: b.type, url: b.url
+    };
+}
+
+function featuredTypes() {
+    return [...new Set(featuredBuilds.map(b => (b.type || '').trim()).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+}
+
+function renderFeatured() {
+    const wrap = $('featuredContainer');
+    const chips = $('featuredTypeChips');
+    if (!wrap || !chips) return;
+
+    // chips de tipo
+    const types = featuredTypes();
+    const count = t => featuredBuilds.filter(b => (b.type || '').trim() === t).length;
+    const allLbl = currentLang === 'pt' ? 'Todos' : 'All';
+    chips.innerHTML = `<button type="button" class="bd-chip ${featuredFilter.type === '' ? 'active' : ''}" data-type="">${allLbl}<small>${featuredBuilds.length}</small></button>` +
+        types.map(t => `<button type="button" class="bd-chip ${featuredFilter.type === t ? 'active' : ''}" data-type="${esc(t)}">${esc(t)}<small>${count(t)}</small></button>`).join('');
+
+    // filtro
+    const term = norm(featuredFilter.text);
+    const list = featuredBuilds.filter(b => {
+        if (featuredFilter.type && (b.type || '').trim() !== featuredFilter.type) return false;
+        if (featuredFilter.role && (b.role === 'killer' ? 'killer' : 'survivor') !== featuredFilter.role) return false;
+        if (term) {
+            const hay = norm([b.name, b.source, b.type, b.character, ...(b.perks || [])].join(' '));
+            if (!hay.includes(term)) return false;
+        }
+        return true;
+    });
+
+    if (!list.length) {
+        wrap.innerHTML = `<div class="bd-empty">${featuredBuilds.length
+            ? (currentLang === 'pt' ? 'Nenhuma build encontrada com esses filtros.' : 'No builds match these filters.')
+            : (currentLang === 'pt' ? 'Ainda não há builds em destaque.' : 'No featured builds yet.')}</div>`;
+        return;
+    }
+
+    wrap.innerHTML = list.map(b => {
+        const r = resolveFeatured(b);
+        const idx = featuredBuilds.indexOf(b);
+        const perkIcons = r.perks.map(p => `
+            <div class="perk-diamond perk-diamond-xs" title="${esc(nm(p))}">
+                <div class="perk-diamond-inner">${imgTag(entryImgs(p), 'w-full h-full object-contain', p.icon || 'fa-shield-halved', 'text-purple-200 text-xs')}</div>
+            </div>`).join('');
+        const perkNames = r.perks.map(p => `<li>${esc(nm(p))}</li>`).join('');
+        const srcLabel = currentLang === 'pt' ? 'Fonte' : 'Source';
+        const safeUrl = /^https?:\/\//i.test(b.url || '') ? b.url : '';
+        const srcHtml = b.source
+            ? `<div class="bd-card-src">${srcLabel}: ${safeUrl ? `<a href="${esc(safeUrl)}" target="_blank" rel="noopener noreferrer">${esc(b.source)}</a>` : esc(b.source)}</div>`
+            : (safeUrl ? `<div class="bd-card-src"><a href="${esc(safeUrl)}" target="_blank" rel="noopener noreferrer">${srcLabel}</a></div>` : '');
+        const itemLine = r.item.namePt !== 'Nenhum' ? `<div class="bd-char-sub"><i class="fa-solid fa-box"></i> ${esc(nm(r.item))}</div>` : '';
+
+        return `
+        <div class="bd-card">
+            <div class="bd-card-head">
+                <span class="bd-badge">${esc(b.type || '—')}</span>
+                <span class="bd-badge ${r.role === 'survivor' ? 'surv' : 'kill'}">${r.role.toUpperCase()}</span>
+            </div>
+            <div>
+                <div class="bd-card-title">${esc(b.name)}</div>
+                ${srcHtml}
+            </div>
+            <div class="bd-card-char">
+                <div class="char-card w-11 shrink-0 flex items-center justify-center text-dbd-cyan text-lg">
+                    ${imgTag(entryImgs(r.character), 'w-full h-full object-contain', r.character.icon || 'fa-user', 'text-lg')}
+                </div>
+                <div>
+                    <div class="bd-char-name">${esc(nm(r.character))}</div>
+                    ${itemLine}
+                </div>
+            </div>
+            <div class="bd-perks">${perkIcons}</div>
+            <ul class="bd-perk-names">${perkNames}</ul>
+            <div class="bd-actions" style="margin-top:auto">
+                <button type="button" class="bd-btn bd-btn-sm bd-btn-primary" data-act="view" data-idx="${idx}"><i class="fa-solid fa-eye"></i> ${currentLang === 'pt' ? 'Ver na roleta' : 'View'}</button>
+                <button type="button" class="bd-btn bd-btn-sm" data-act="save" data-idx="${idx}"><i class="fa-solid fa-floppy-disk"></i> ${currentLang === 'pt' ? 'Salvar' : 'Save'}</button>
+                <button type="button" class="bd-btn bd-btn-sm" data-act="link" data-idx="${idx}"><i class="fa-solid fa-link"></i> Link</button>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function bindFeaturedEvents() {
+    $('featuredTypeChips').addEventListener('click', e => {
+        const btn = e.target.closest('[data-type]');
+        if (!btn) return;
+        featuredFilter.type = btn.dataset.type;
+        renderFeatured();
+    });
+    $('featuredRole').addEventListener('change', e => { featuredFilter.role = e.target.value; renderFeatured(); });
+    $('featuredSearch').addEventListener('input', e => { featuredFilter.text = e.target.value; renderFeatured(); });
+
+    $('featuredContainer').addEventListener('click', e => {
+        const btn = e.target.closest('[data-act]');
+        if (!btn) return;
+        const b = featuredBuilds[parseInt(btn.dataset.idx, 10)];
+        if (!b) return;
+        const r = resolveFeatured(b);
+        if (btn.dataset.act === 'view') {
+            showBuildInRoulette(r);
+        } else if (btn.dataset.act === 'save') {
+            savedBuilds.unshift({ id: Date.now(), name: b.name, ...r });
+            persistSavedBuilds();
+            renderSavedBuilds();
+            showToast(currentLang === 'pt' ? 'Build salva na sua coleção!' : 'Build saved to your collection!', 'success');
+        } else if (btn.dataset.act === 'link') {
+            if (typeof window.copyBuildLink === 'function') window.copyBuildLink(r);
+        }
+    });
+
+    $('fDraftList').addEventListener('click', e => {
+        const btn = e.target.closest('[data-draft]');
+        if (!btn) return;
+        featuredDrafts = featuredDrafts.filter(d => d.id !== btn.dataset.draft);
+        persistDrafts();
+        renderFeaturedDrafts();
+    });
+}
+
+
+/* ==========================================================================
+   MODO CURADOR: gera o builds-destaque.json
+   ========================================================================== */
+function persistDrafts() {
+    localStorage.setItem('dbd_featured_drafts', JSON.stringify(featuredDrafts));
+}
+
+function refreshTypeList() {
+    const all = [...new Set([...DEFAULT_BUILD_TYPES, ...featuredTypes(), ...featuredDrafts.map(d => d.type)])].filter(Boolean);
+    $('fTypeList').innerHTML = all.map(t => `<option value="${esc(t)}"></option>`).join('');
+}
+
+function addFeaturedDraft() {
+    const b = buildFromBuilder();
+    if (!b) return;
+    const name = $('fName').value.trim();
+    const type = $('fType').value.trim();
+    const source = $('fSource').value.trim();
+    const url = $('fUrl').value.trim();
+    if (!name || !type) {
+        showToast(currentLang === 'pt' ? 'Informe o nome e o tipo da build!' : 'Enter the build name and type!', 'error');
+        return;
+    }
+    if (url && !/^https?:\/\//i.test(url)) {
+        showToast(currentLang === 'pt' ? 'O link precisa começar com http:// ou https://' : 'The link must start with http:// or https://', 'error');
+        return;
+    }
+
+    const taken = new Set([...featuredBuilds, ...featuredDrafts].map(x => x.id));
+    let id = slugId(name), n = 2;
+    while (taken.has(id)) id = slugId(name) + '-' + n++;
+
+    const hasItem = b.item.namePt !== 'Nenhum';
+    featuredDrafts.push({
+        id, name, type, source,
+        ...(url ? { url } : {}),
+        role: b.role,
+        character: b.character.namePt,
+        perks: b.perks.map(p => p.namePt),
+        // killer: o poder já é do personagem, então só guardamos o item do survivor
+        item: (b.role === 'survivor' && hasItem) ? b.item.namePt : '',
+        addons: (b.item.addons || []).map(a => a.namePt)
+    });
+    persistDrafts();
+    renderFeaturedDrafts();
+    $('fName').value = '';
+    showToast(currentLang === 'pt' ? 'Build adicionada ao rascunho!' : 'Build added to draft!', 'success');
+}
+
+function renderFeaturedDrafts() {
+    const list = $('fDraftList');
+    if (!list) return;
+    refreshTypeList();
+    if (!featuredDrafts.length) {
+        list.innerHTML = `<div class="bd-hint">${currentLang === 'pt' ? 'Rascunho vazio.' : 'Draft is empty.'}</div>`;
+        return;
+    }
+    list.innerHTML = featuredDrafts.map(d => `
+        <div class="bd-draft-row">
+            <div><b>${esc(d.name)}</b> · ${esc(d.type)} · ${esc(d.character)}${d.source ? ' · ' + esc(d.source) : ''}</div>
+            <button type="button" class="bd-btn bd-btn-sm bd-btn-danger" data-draft="${esc(d.id)}" title="Remover"><i class="fa-solid fa-trash"></i></button>
+        </div>`).join('');
+}
+
+function mergedFeaturedJSON() {
+    const includeServer = $('fIncludeServer').checked;
+    const base = includeServer ? featuredBuilds : [];
+    const ids = new Set(base.map(b => b.id));
+    const merged = [...base, ...featuredDrafts.filter(d => !ids.has(d.id))];
+    return JSON.stringify({ builds: merged }, null, 2);
+}
+
+function downloadFeaturedJSON() {
+    if (!featuredDrafts.length && !$('fIncludeServer').checked) {
+        showToast(currentLang === 'pt' ? 'Nada para exportar!' : 'Nothing to export!', 'error');
+        return;
+    }
+    const blob = new Blob([mergedFeaturedJSON()], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'builds-destaque.json';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    showToast(currentLang === 'pt' ? 'builds-destaque.json gerado! Suba na pasta json/' : 'builds-destaque.json generated! Upload it to json/', 'success');
+}
+
+async function copyFeaturedJSON() {
+    const text = mergedFeaturedJSON();
+    try {
+        await navigator.clipboard.writeText(text);
+    } catch (e) {
+        const t = document.createElement('textarea');
+        t.value = text;
+        document.body.appendChild(t);
+        t.select();
+        document.execCommand('copy');
+        t.remove();
+    }
+    showToast(currentLang === 'pt' ? 'JSON copiado!' : 'JSON copied!', 'success');
+}
+
+function clearFeaturedDrafts() {
+    if (!featuredDrafts.length) return;
+    if (!confirm(currentLang === 'pt' ? 'Apagar todo o rascunho?' : 'Delete the whole draft?')) return;
+    featuredDrafts = [];
+    persistDrafts();
+    renderFeaturedDrafts();
+}
