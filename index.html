@@ -145,6 +145,9 @@
                         <button onclick="copyShareableBuild()" class="px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-xs font-bold rounded border border-neutral-700 text-white flex items-center gap-1.5 transition">
                             <i class="fa-solid fa-share-nodes text-dbd-purple"></i> <span id="btnExportBuild">Exportar</span>
                         </button>
+                        <button onclick="shareBuildImage()" class="px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-xs font-bold rounded border border-neutral-700 text-white flex items-center gap-1.5 transition">
+                            <i class="fa-solid fa-image text-dbd-cyan"></i> <span id="btnShareImage">Imagem</span>
+                        </button>
                         <button onclick="shareBuildLink()" class="px-3 py-1.5 bg-dbd-red hover:bg-dbd-redHover text-xs font-bold rounded border border-neutral-700 text-white flex items-center gap-1.5 transition">
                             <i class="fa-solid fa-link"></i> <span id="btnShareLink">Compartilhar Link</span>
                         </button>
@@ -163,6 +166,7 @@
                             <div>
                                 <h3 id="displayCharName" class="text-2xl font-black text-white uppercase tracking-wide">--</h3>
                                 <span id="displayCharRole" class="text-xs text-dbd-cyan font-bold uppercase tracking-wider">Survivor</span>
+                                <div><button type="button" id="lockChar" class="bd-lock" onclick="toggleLock('char')" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button></div>
                             </div>
                         </div>
 
@@ -180,6 +184,7 @@
                                     </div>
                                 </div>
                                 <span id="perkName0" class="text-sm font-bold text-neutral-300 line-clamp-2 w-36">Slot 1</span>
+                                <button type="button" id="lockPerk0" class="bd-lock" onclick="toggleLock('perk',0)" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
                             </div>
                             <div id="perkBox1" class="flex flex-col items-center text-center group">
                                 <div class="perk-diamond is-empty my-4">
@@ -189,6 +194,7 @@
                                     </div>
                                 </div>
                                 <span id="perkName1" class="text-sm font-bold text-neutral-300 line-clamp-2 w-36">Slot 2</span>
+                                <button type="button" id="lockPerk1" class="bd-lock" onclick="toggleLock('perk',1)" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
                             </div>
                             <div id="perkBox2" class="flex flex-col items-center text-center group">
                                 <div class="perk-diamond is-empty my-4">
@@ -198,6 +204,7 @@
                                     </div>
                                 </div>
                                 <span id="perkName2" class="text-sm font-bold text-neutral-300 line-clamp-2 w-36">Slot 3</span>
+                                <button type="button" id="lockPerk2" class="bd-lock" onclick="toggleLock('perk',2)" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
                             </div>
                             <div id="perkBox3" class="flex flex-col items-center text-center group">
                                 <div class="perk-diamond is-empty my-4">
@@ -207,6 +214,7 @@
                                     </div>
                                 </div>
                                 <span id="perkName3" class="text-sm font-bold text-neutral-300 line-clamp-2 w-36">Slot 4</span>
+                                <button type="button" id="lockPerk3" class="bd-lock" onclick="toggleLock('perk',3)" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
                             </div>
                                 </div>
                             </div>
@@ -221,6 +229,7 @@
                                     <div>
                                         <div class="text-[11px] text-dbd-muted uppercase font-bold" id="lblItemTitle">Item / Poder</div>
                                         <div id="displayItemName" class="text-base font-bold text-white">Nenhum</div>
+                                        <button type="button" id="lockItem" class="bd-lock" onclick="toggleLock('item')" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
                                     </div>
                                 </div>
 
@@ -252,6 +261,65 @@
                 </div>
 
             </div>
+
+        
+            <!-- HISTÓRICO -->
+            <div class="bg-dbd-card p-5 rounded-xl border border-neutral-800 space-y-3 shadow-xl">
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:.5rem;flex-wrap:wrap">
+                    <h3 class="text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-clock-rotate-left text-dbd-cyan"></i> <span id="histTitle">Histórico de Sorteios</span>
+                        <span id="historyCount" class="bd-badge surv">0</span>
+                    </h3>
+                    <button type="button" class="bd-btn bd-btn-sm bd-btn-danger" onclick="clearHistory()">
+                        <i class="fa-solid fa-trash"></i> <span id="histClear">Limpar histórico</span>
+                    </button>
+                </div>
+                <div id="historyList" class="bd-hist-list"></div>
+            </div>
+
+            <!-- OVERLAY OBS -->
+            <details class="bd-details">
+                <summary><i class="fa-solid fa-tv" style="color:#a855f7"></i> <span id="obsTitle">Overlay para OBS</span></summary>
+                <p class="bd-hint" id="obsHint" style="margin-bottom:.9rem">Adicione cada link como "Fonte de Navegador" no OBS. Cada vez que a página carrega (ou você atualiza a fonte), sai uma build nova. Survivor e Killer são independentes. Clicar na página ou apertar R também sorteia de novo.</p>
+                <div class="bd-form-grid">
+                    <div class="bd-span-2">
+                        <label class="bd-label" for="obsLinkSurv" id="obsLblSurv">Link Survivor</label>
+                        <div class="bd-url-row">
+                            <input type="text" id="obsLinkSurv" class="bd-field" readonly onclick="this.select()">
+                            <button type="button" class="bd-btn" onclick="copyObsLink('surv')" title="Copiar"><i class="fa-solid fa-copy"></i></button>
+                            <a class="bd-btn" id="obsOpenSurv" target="_blank" rel="noopener" title="Abrir"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                    </div>
+                    <div class="bd-span-2">
+                        <label class="bd-label" for="obsLinkKill" id="obsLblKill">Link Killer</label>
+                        <div class="bd-url-row">
+                            <input type="text" id="obsLinkKill" class="bd-field" readonly onclick="this.select()">
+                            <button type="button" class="bd-btn" onclick="copyObsLink('kill')" title="Copiar"><i class="fa-solid fa-copy"></i></button>
+                            <a class="bd-btn" id="obsOpenKill" target="_blank" rel="noopener" title="Abrir"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="bd-opts">
+                    <label class="bd-check"><input type="checkbox" id="obsSpin" checked onchange="updateObsLinks()"> <span id="obsOptSpin">Animação de roleta</span></label>
+                    <label class="bd-check"><input type="checkbox" id="obsNames" checked onchange="updateObsLinks()"> <span id="obsOptNames">Mostrar nomes</span></label>
+                    <div>
+                        <label class="bd-label" for="obsScale" id="obsLblScale">Tamanho</label>
+                        <select id="obsScale" class="bd-field" onchange="updateObsLinks()">
+                            <option value="0.75">75%</option><option value="1" selected>100%</option><option value="1.25">125%</option><option value="1.5">150%</option><option value="2">200%</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="bd-label" for="obsLayout" id="obsLblLayout">Layout</label>
+                        <select id="obsLayout" class="bd-field" onchange="updateObsLinks()">
+                            <option value="h" selected>Horizontal</option><option value="v">Vertical</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="bd-label" for="obsAuto" id="obsLblAuto">Sortear sozinho a cada (s, 0 = não)</label>
+                        <input type="number" id="obsAuto" class="bd-field" min="0" max="3600" value="0" style="width:7rem" onchange="updateObsLinks()">
+                    </div>
+                </div>
+            </details>
 
         </div>
 
@@ -479,6 +547,12 @@
                         <button onclick="toggleAllPool(false)" class="px-3 py-1 bg-neutral-800 hover:bg-neutral-700 text-xs font-bold rounded text-red-400 border border-neutral-700">
                             <i class="fa-solid fa-xmark"></i> <span id="btnDeselectAll">Nenhum</span>
                         </button>
+                        <button onclick="savePoolFilters()" class="px-3 py-1 bg-neutral-800 hover:bg-neutral-700 text-xs font-bold rounded text-cyan-300 border border-neutral-700" title="Guarda esta seleção neste navegador">
+                            <i class="fa-solid fa-floppy-disk"></i> <span id="btnSavePool">Salvar acervo</span>
+                        </button>
+                        <button onclick="clearPoolFilters()" class="px-3 py-1 bg-neutral-800 hover:bg-neutral-700 text-xs font-bold rounded text-yellow-400 border border-neutral-700" title="Apaga o acervo salvo e reativa tudo">
+                            <i class="fa-solid fa-eraser"></i> <span id="btnClearPool">Limpar salvo</span>
+                        </button>
                     </div>
                 </div>
 
@@ -564,6 +638,22 @@
                     <button onclick="closePerksJsonModal()" class="px-4 py-1.5 bg-neutral-800 text-xs font-bold rounded text-white">Cancelar</button>
                     <button onclick="processPerksJsonImport()" class="px-4 py-1.5 bg-dbd-purple hover:bg-purple-800 text-xs font-bold rounded text-white shadow">Carregar Perks</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- IMAGE SHARE MODAL -->
+    <div id="imageModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-dbd-card max-w-3xl w-full p-6 rounded-xl border border-neutral-800 space-y-4 shadow-2xl">
+            <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
+                <h3 class="font-bold text-white uppercase text-sm flex items-center gap-2"><i class="fa-solid fa-image text-dbd-cyan"></i> <span id="imgTitle">Imagem da Build</span></h3>
+                <button onclick="closeImageModal()" class="text-neutral-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <img id="imgPreview" class="bd-modal-img" alt="Build">
+            <div class="bd-actions" style="justify-content:flex-end">
+                <button type="button" class="bd-btn bd-btn-primary" onclick="downloadBuildImage()"><i class="fa-solid fa-download"></i> <span id="imgBtnDownload">Baixar PNG</span></button>
+                <button type="button" class="bd-btn" onclick="copyBuildImage()"><i class="fa-solid fa-copy"></i> <span id="imgBtnCopy">Copiar imagem</span></button>
+                <button type="button" class="bd-btn bd-btn-purple" id="imgBtnShare" onclick="nativeShareBuildImage()" style="display:none"><i class="fa-solid fa-share-nodes"></i> <span>Compartilhar</span></button>
             </div>
         </div>
     </div>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>Overlay | Roleta de Perks</title>
+    <!--
+        Overlay para OBS (Fonte de Navegador).
+        Cada vez que a página carrega, sorteia uma build nova.
+
+        Parâmetros (na URL):
+          role=survivor | killer     lado da build (padrão: survivor)
+          spin=0                     desliga a animação de roleta
+          names=0                    esconde os nomes
+          scale=1.5                  tamanho (1 = 100%)
+          layout=v                   layout vertical (padrão: horizontal)
+          auto=60                    sorteia sozinho a cada 60 segundos
+
+        Exemplos:
+          overlay.html?role=survivor
+          overlay.html?role=killer&scale=1.25&names=0
+    -->
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: transparent !important;
+            overflow: hidden;
+            font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+            color: #fff;
+        }
+        #stage {
+            display: inline-flex;
+            align-items: center;
+            gap: 26px;
+            padding: 18px 26px;
+            margin: 8px;
+            background: rgba(8, 8, 14, 0.78);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 22px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+            transform-origin: top left;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        #stage.ready { opacity: 1; }
+        #stage.v { flex-direction: column; }
+
+        .ov-group { display: flex; align-items: flex-start; gap: 16px; }
+        .ov-sep { width: 1px; align-self: stretch; background: rgba(255, 255, 255, 0.14); }
+        #stage.v .ov-sep { width: auto; height: 1px; align-self: stretch; }
+
+        .ov-label {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            opacity: 0.7;
+        }
+        .ov-role-survivor .ov-label.accent, .ov-role-survivor .ov-role-tag { color: #22d3ee; }
+        .ov-role-killer .ov-label.accent, .ov-role-killer .ov-role-tag { color: #ef4444; }
+
+        /* personagem */
+        .ov-char { display: flex; flex-direction: column; align-items: center; width: 150px; text-align: center; }
+        .ov-char-img {
+            width: 150px;
+            height: 150px;
+            position: relative;
+            background: var(--char-bg) center / contain no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .ov-char-img img { width: 100%; height: 100%; object-fit: contain; }
+        .ov-char-name { font-size: 17px; font-weight: 900; text-transform: uppercase; margin-top: 6px; line-height: 1.1; }
+        .ov-role-tag { font-size: 11px; font-weight: 800; letter-spacing: 0.08em; }
+
+        /* perks */
+        .ov-perks { display: flex; gap: 12px; }
+        .ov-perk { width: 118px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .ov-perk-frame {
+            width: 118px;
+            height: 118px;
+            position: relative;
+            background: var(--perk-purple) center / contain no-repeat;
+        }
+        .ov-perk-frame img {
+            position: absolute;
+            inset: 14%;
+            width: 72%;
+            height: 72%;
+            object-fit: contain;
+        }
+        .ov-name { font-size: 13px; font-weight: 700; line-height: 1.15; margin-top: 4px; color: #e5e5e5; }
+        #stage.nonames .ov-name, #stage.nonames .ov-char-name { display: none; }
+
+        /* item / addons */
+        .ov-items { display: flex; gap: 12px; align-items: flex-start; }
+        .ov-slot { width: 96px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .ov-box {
+            width: 84px;
+            height: 84px;
+            box-sizing: border-box;
+            padding: 6px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .ov-box img { width: 100%; height: 100%; object-fit: contain; }
+        .ov-box.main { width: 100px; height: 100px; }
+        .ov-slot.main { width: 112px; }
+
+        /* animações */
+        .spinning .ov-char-img,
+        .spinning .ov-perk-frame,
+        .spinning .ov-box { animation: ovSpin 0.12s linear infinite; }
+        @keyframes ovSpin {
+            0%   { filter: brightness(1.0) blur(0.5px); transform: translateY(0); }
+            50%  { filter: brightness(1.5) blur(1.5px); transform: translateY(-3px); }
+            100% { filter: brightness(1.0) blur(0.5px); transform: translateY(0); }
+        }
+        .landed .ov-char-img, .landed .ov-perk-frame, .landed .ov-box { animation: ovPop 0.45s ease-out; }
+        @keyframes ovPop {
+            0%   { transform: scale(1.12); filter: brightness(1.6); }
+            100% { transform: scale(1);    filter: brightness(1); }
+        }
+
+        #err { color: #fca5a5; font-size: 14px; padding: 12px; background: rgba(0, 0, 0, 0.7); border-radius: 10px; display: none; margin: 8px; }
+    </style>
+</head>
+<body>
+    <div id="err"></div>
+    <div id="stage"></div>
+
+<script>
+(function () {
+    // ---------- Parâmetros ----------
+    const q = new URLSearchParams(location.search);
+    const ROLE = q.get('role') === 'killer' ? 'killer' : 'survivor';
+    const SPIN = q.get('spin') !== '0';
+    const NAMES = q.get('names') !== '0';
+    const SCALE = parseFloat(q.get('scale')) || 1;
+    const LAYOUT = q.get('layout') === 'v' ? 'v' : 'h';
+    const AUTO = Math.max(0, parseInt(q.get('auto'), 10) || 0);
+
+    // ---------- Caminhos (iguais aos do site) ----------
+    const JSON_DIR = 'json/';
+    const IMG_LOCAL = 'css/img/';
+    const IMG_REMOTE = 'https://astofernest.github.io/perkroulette/css/img/'; // '' desativa o fallback
+
+    const layers = f => [IMG_LOCAL + f, IMG_REMOTE ? IMG_REMOTE + f : null].filter(Boolean)
+        .map(u => `url("${new URL(u, document.baseURI).href}")`).join(', ');
+    document.documentElement.style.setProperty('--perk-purple', layers('perk_purple.png'));
+    document.documentElement.style.setProperty('--char-bg', layers('personagens/fundo_pdbd.png'));
+
+    // ---------- Helpers (mesmos formatos de nome de arquivo do site) ----------
+    const fmt = s => s.toString().toLowerCase().normalize('NFD').replace(/ /g, '').replace(/'/g, '').replace(/-/g, '').replace(/:/g, '').replace(/\p{Diacritic}/gu, '');
+    const perkSlug = s => s.toString().toLowerCase().normalize('NFD').replace(/ /g, '').replace(/'/g, '').replace(/-/g, '').replace(/&/g, 'and').replace(/!/g, '').replace(/:/g, '').replace(/\p{Diacritic}/gu, '');
+    const charPhotoSlug = s => s.toLowerCase().replace(/\s+/g, '-');
+    const cleanChar = c => c.replace(/Perk ensinável de /gi, '').trim();
+    const GENERAL_NAME = 'perk ensinável geral';
+    const pick = a => a[Math.floor(Math.random() * a.length)];
+    const shuffle = a => { const r = [...a]; for (let i = r.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [r[i], r[j]] = [r[j], r[i]]; } return r; };
+    const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const imgs = rel => IMG_REMOTE ? [encodeURI(IMG_LOCAL + rel), encodeURI(IMG_REMOTE + rel)] : [encodeURI(IMG_LOCAL + rel)];
+
+    // imagem com cadeia de fallback (local -> remoto -> some)
+    const imgTag = rel => `<img src="${imgs(rel)[0]}" data-srcs="${esc(imgs(rel).join('|'))}" data-idx="0" alt="">`;
+    document.addEventListener('error', e => {
+        const el = e.target;
+        if (!(el instanceof HTMLImageElement) || !el.dataset.srcs) return;
+        const list = el.dataset.srcs.split('|');
+        const n = parseInt(el.dataset.idx, 10) + 1;
+        if (n < list.length) { el.dataset.idx = n; el.src = list[n]; }
+        else el.style.visibility = 'hidden';
+    }, true);
+
+    // ---------- Dados ----------
+    const data = { chars: [], perks: [], itemsSurv: {}, itemsKill: {} };
+
+    async function load() {
+        const get = n => fetch(JSON_DIR + n + '.json').then(r => { if (!r.ok) throw new Error(n + ' (' + r.status + ')'); return r.json(); });
+        const file = ROLE === 'survivor' ? 'survivor-perks' : 'killer-perks';
+        const [pk, is, ik] = await Promise.all([get(file), get('itens-surv'), get('itens-kill')]);
+        const type = ROLE === 'survivor' ? 'surv' : 'kill';
+
+        const names = [...new Set(pk.perks.map(p => cleanChar(p.character)).filter(n => n.toLowerCase() !== GENERAL_NAME))]
+            .sort((a, b) => a.localeCompare(b));
+        data.chars = names.map(n => ({ name: n, rel: 'personagens/' + charPhotoSlug(n) + '.png' }));
+        data.perks = pk.perks.map(p => ({ name: p.perk_name, rel: type + '/iconperks-' + perkSlug(p.perk_name) + '.png' }));
+        data.itemsSurv = is;
+        data.itemsKill = {};
+        Object.keys(ik).forEach(k => { data.itemsKill[k.toLowerCase().trim()] = ik[k]; });
+    }
+
+    function rollItem(character) {
+        if (ROLE === 'survivor') {
+            const tipos = Object.keys(data.itemsSurv);
+            if (!tipos.length) return null;
+            const item = pick(data.itemsSurv[pick(tipos)]);
+            return {
+                name: item.nome, rel: 'itens/surv/' + fmt(item.nome) + '.png',
+                addons: shuffle(item.complementos).slice(0, 2).map(a => ({ name: a, rel: 'itens/surv/complementos/' + fmt(a) + '.png' }))
+            };
+        }
+        const entry = data.itemsKill[character.name.toLowerCase().trim()];
+        const poder = entry && entry[0];
+        if (!poder) return null;
+        return {
+            name: poder.nome, rel: 'itens/kill/poderes/' + fmt(poder.nome) + '.png',
+            addons: shuffle(poder.complementos).slice(0, 2).map(a => ({ name: a, rel: 'itens/kill/' + fmt(character.name) + '/' + fmt(a) + '.png' }))
+        };
+    }
+
+    function rollBuild() {
+        const character = pick(data.chars);
+        return { character, perks: shuffle(data.perks).slice(0, 4), item: rollItem(character) };
+    }
+
+    // ---------- Render ----------
+    const stage = document.getElementById('stage');
+    stage.classList.add('ov-role-' + ROLE);
+    if (LAYOUT === 'v') stage.classList.add('v');
+    if (!NAMES) stage.classList.add('nonames');
+    stage.style.zoom = SCALE;
+
+    function render(b) {
+        const item = b.item;
+        const addons = item ? item.addons : [];
+        const slot = (o, extra) => `
+            <div class="ov-slot ${extra || ''}">
+                <div class="ov-box ${extra || ''}">${o ? imgTag(o.rel) : ''}</div>
+                <div class="ov-name">${o ? esc(o.name) : ''}</div>
+            </div>`;
+
+        stage.innerHTML = `
+            <div class="ov-char">
+                <div class="ov-char-img">${imgTag(b.character.rel)}</div>
+                <div class="ov-char-name">${esc(b.character.name)}</div>
+                <div class="ov-role-tag">${ROLE.toUpperCase()}</div>
+            </div>
+            <div class="ov-sep"></div>
+            <div class="ov-perks">
+                ${b.perks.map(p => `
+                    <div class="ov-perk">
+                        <div class="ov-perk-frame">${imgTag(p.rel)}</div>
+                        <div class="ov-name">${esc(p.name)}</div>
+                    </div>`).join('')}
+            </div>
+            <div class="ov-sep"></div>
+            <div class="ov-items">
+                ${slot(item, 'main')}
+                ${slot(addons[0])}
+                ${slot(addons[1])}
+            </div>`;
+    }
+
+    // ---------- Roleta ----------
+    let busy = false;
+    function roll() {
+        if (busy || !data.chars.length) return;
+        busy = true;
+        stage.classList.remove('landed');
+
+        if (!SPIN) {
+            render(rollBuild());
+            stage.classList.add('ready', 'landed');
+            busy = false;
+            return;
+        }
+
+        let steps = 22, speed = 50;
+        stage.classList.add('spinning');
+        const step = () => {
+            render(rollBuild());
+            stage.classList.add('ready');
+            steps--;
+            if (steps > 0) {
+                speed += 14;
+                setTimeout(step, speed);
+            } else {
+                stage.classList.remove('spinning');
+                stage.classList.add('landed');
+                busy = false;
+            }
+        };
+        step();
+    }
+
+    // clicar na página ou apertar R sorteia de novo
+    stage.addEventListener('click', roll);
+    document.addEventListener('keydown', e => { if (e.key === 'r' || e.key === 'R') roll(); });
+
+    // ---------- Início ----------
+    load().then(() => {
+        roll();
+        if (AUTO > 0) setInterval(roll, AUTO * 1000);
+    }).catch(e => {
+        console.error(e);
+        const el = document.getElementById('err');
+        el.style.display = 'block';
+        el.textContent = 'Não foi possível carregar os dados: ' + e.message + '. Abra por http:// e mantenha a pasta json/ ao lado deste arquivo.';
+    });
+})();
+</script>
+</body>
+</html>
