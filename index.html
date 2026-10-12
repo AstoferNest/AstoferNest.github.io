@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    
-
     <title>Randomizador de Perks de Assassino e Sobreviventes | Randomizador Dead by Daylight</title>
     <meta name="description" content="Curte uma roleta de Perks, esse randomizador gera perks aleatórios para Dead by Daylight.">
     <link rel="manifest" href="manifest.json">
@@ -24,28 +22,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <link rel="stylesheet" href="css/randomizer.css">
+    <!-- Estilos das abas "Builds Destaque" e "Criar Build" -->
+    <link rel="stylesheet" href="css/builds.css">
 </head>
 <body class="bg-dbd-bg text-dbd-text min-h-screen flex flex-col font-sans transition-colors duration-200 antialiased selection:bg-dbd-red selection:text-white">
 
     <!-- HEADER / NAVIGATION BAR -->
     <header class="border-b border-neutral-800 bg-neutral-900/90 backdrop-blur sticky top-0 z-40 shadow-xl">
         <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
-            
+
             <!-- Logo & Brand -->
             <div class="flex items-center space-x-3">
                 <img src="./css/img/random.png" style="width:60px">
                 <div>
                     <h1 class="text-xl font-black tracking-wider text-white uppercase flex items-center gap-2">
-                        <span class="text-dbd-red">ROLETA</span>  DE PERKS 
+                        <span class="text-dbd-red">ROLETA</span>  DE PERKS
                     </h1>
                     <p class="text-xs text-dbd-muted" id="txtSubtitle">Gerador de Build aleatória para Dead by Daylight</p>
                 </div>
             </div>
 
             <!-- Navigation Tabs -->
-            <nav class="flex items-center bg-neutral-950 p-1 rounded-lg border border-neutral-800">
+            <nav class="flex flex-wrap items-center bg-neutral-950 p-1 rounded-lg border border-neutral-800" style="flex-wrap:wrap;gap:2px">
                 <button onclick="switchTab('main')" id="tabMainBtn" class="px-4 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-2 bg-dbd-red text-white shadow">
                     <i class="fa-solid fa-dice"></i> <span id="navRandomizer">Modo Roleta</span>
+                </button>
+                <button onclick="switchTab('featured')" id="tabFeaturedBtn" class="px-4 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-2 text-dbd-muted hover:text-white">
+                    <i class="fa-solid fa-star"></i> <span id="navFeatured">Builds Destaque</span>
+                </button>
+                <button onclick="switchTab('builder')" id="tabBuilderBtn" class="px-4 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-2 text-dbd-muted hover:text-white">
+                    <i class="fa-solid fa-hammer"></i> <span id="navBuilder">Criar Build</span>
                 </button>
                 <button onclick="switchTab('pool')" id="tabPoolBtn" class="px-4 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-2 text-dbd-muted hover:text-white">
                     <i class="fa-solid fa-boxes-stacked"></i> <span id="navPool">Seletor de Conteúdo</span>
@@ -139,9 +145,9 @@
                         <button onclick="copyShareableBuild()" class="px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-xs font-bold rounded border border-neutral-700 text-white flex items-center gap-1.5 transition">
                             <i class="fa-solid fa-share-nodes text-dbd-purple"></i> <span id="btnExportBuild">Exportar</span>
                         </button>
-						<button onclick="shareBuildLink()" class="px-3 py-1.5 bg-dbd-red hover:bg-dbd-redHover text-xs font-bold rounded border border-neutral-700 text-white flex items-center gap-1.5 transition">
-						    <i class="fa-solid fa-link"></i> <span id="btnShareLink">Compartilhar Link</span>
-						</button>						
+                        <button onclick="shareBuildLink()" class="px-3 py-1.5 bg-dbd-red hover:bg-dbd-redHover text-xs font-bold rounded border border-neutral-700 text-white flex items-center gap-1.5 transition">
+                            <i class="fa-solid fa-link"></i> <span id="btnShareLink">Compartilhar Link</span>
+                        </button>
                     </div>
                 </div>
 
@@ -250,12 +256,198 @@
         </div>
 
         <!-- ======================================================== -->
+        <!-- TAB: BUILDS DESTAQUE (lista pública, vem do JSON)        -->
+        <!-- ======================================================== -->
+        <div id="tabFeatured" class="hidden space-y-6">
+            <div class="bg-dbd-card p-6 rounded-xl border border-neutral-800 space-y-5 shadow-2xl">
+
+                <div class="border-b border-neutral-800 pb-4">
+                    <h2 class="text-lg font-black text-white uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-star" style="color:#facc15"></i> <span id="fTitle">Builds Destaque</span>
+                    </h2>
+                    <p class="text-xs text-dbd-muted" id="fSub">Builds recomendadas e selecionadas. Filtre por tipo, veja na roleta ou salve na sua coleção.</p>
+                </div>
+
+                <div class="bd-filter-bar">
+                    <div style="flex:1;min-width:14rem">
+                        <span class="bd-label" id="fLblType">Tipo de build</span>
+                        <div id="featuredTypeChips" class="bd-chips"></div>
+                    </div>
+                    <div>
+                        <label class="bd-label" for="featuredRole" id="fLblRole">Lado</label>
+                        <select id="featuredRole" class="bd-field">
+                            <option value="">Survivor + Killer</option>
+                            <option value="survivor">Survivor</option>
+                            <option value="killer">Killer</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="bd-label" for="featuredSearch" id="fLblSearch">Buscar</label>
+                        <input type="text" id="featuredSearch" class="bd-field" placeholder="Nome, perk, fonte...">
+                    </div>
+                </div>
+
+                <div id="featuredContainer" class="bd-cards"></div>
+            </div>
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- TAB: CRIAR BUILD MANUAL (+ modo curador)                 -->
+        <!-- ======================================================== -->
+        <div id="tabBuilder" class="hidden space-y-6">
+            <div class="bg-dbd-card p-6 rounded-xl border border-neutral-800 space-y-6 shadow-2xl">
+
+                <div class="border-b border-neutral-800 pb-4">
+                    <h2 class="text-lg font-black text-white uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-hammer text-dbd-red"></i> <span id="bldTitle">Criar Build Manual</span>
+                    </h2>
+                    <p class="text-xs text-dbd-muted" id="bldSub">Escolha o personagem, as 4 perks e o item/poder. Depois salve na sua coleção.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+                    <!-- FORMULÁRIO -->
+                    <div class="lg:col-span-8 space-y-4">
+
+                        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                            <button type="button" id="bldRoleSurvBtn" onclick="setBuilderRole('survivor')" class="bd-role surv active">
+                                <img src="./css/img/surv.png" style="width:30px"> <span>Survivor</span>
+                            </button>
+                            <button type="button" id="bldRoleKillBtn" onclick="setBuilderRole('killer')" class="bd-role kill">
+                                <img src="./css/img/killer.png" style="width:30px"> <span>Killer</span>
+                            </button>
+                        </div>
+
+                        <div class="bd-form-grid">
+                            <div class="bd-span-2">
+                                <label class="bd-label" for="bldChar" id="bldLblChar">Personagem</label>
+                                <select id="bldChar" class="bd-field" onchange="onBuilderChange()"></select>
+                            </div>
+
+                            <div>
+                                <label class="bd-label" for="bldPerk0">Perk 1</label>
+                                <input type="text" id="bldPerk0" list="bldPerkList" autocomplete="off" class="bd-field" placeholder="Digite para buscar..." oninput="onBuilderChange()" onchange="onBuilderChange()">
+                            </div>
+                            <div>
+                                <label class="bd-label" for="bldPerk1">Perk 2</label>
+                                <input type="text" id="bldPerk1" list="bldPerkList" autocomplete="off" class="bd-field" placeholder="Digite para buscar..." oninput="onBuilderChange()" onchange="onBuilderChange()">
+                            </div>
+                            <div>
+                                <label class="bd-label" for="bldPerk2">Perk 3</label>
+                                <input type="text" id="bldPerk2" list="bldPerkList" autocomplete="off" class="bd-field" placeholder="Digite para buscar..." oninput="onBuilderChange()" onchange="onBuilderChange()">
+                            </div>
+                            <div>
+                                <label class="bd-label" for="bldPerk3">Perk 4</label>
+                                <input type="text" id="bldPerk3" list="bldPerkList" autocomplete="off" class="bd-field" placeholder="Digite para buscar..." oninput="onBuilderChange()" onchange="onBuilderChange()">
+                            </div>
+                            <datalist id="bldPerkList"></datalist>
+
+                            <div class="bd-span-2" id="bldItemRow">
+                                <label class="bd-label" for="bldItem" id="bldLblItem">Item</label>
+                                <select id="bldItem" class="bd-field" onchange="onBuilderChange()"></select>
+                            </div>
+                            <div class="bd-span-2" id="bldPowerRow" style="display:none">
+                                <span class="bd-label" id="bldLblPower">Poder (definido pelo personagem)</span>
+                                <div class="bd-power-box" id="bldPowerName">—</div>
+                            </div>
+
+                            <div>
+                                <label class="bd-label" for="bldAddon1" id="bldLblAddon1">Add-on 1</label>
+                                <select id="bldAddon1" class="bd-field" onchange="onBuilderChange()"></select>
+                            </div>
+                            <div>
+                                <label class="bd-label" for="bldAddon2" id="bldLblAddon2">Add-on 2</label>
+                                <select id="bldAddon2" class="bd-field" onchange="onBuilderChange()"></select>
+                            </div>
+
+                            <div class="bd-span-2">
+                                <label class="bd-label" for="bldName" id="bldLblName">Nome da build (opcional)</label>
+                                <input type="text" id="bldName" class="bd-field" maxlength="60" placeholder="Ex.: Minha build de furtividade">
+                            </div>
+                        </div>
+
+                        <div class="bd-actions">
+                            <button type="button" class="bd-btn bd-btn-primary" onclick="builderSave()">
+                                <i class="fa-solid fa-floppy-disk"></i> <span id="bldBtnSave">Salvar Build</span>
+                            </button>
+                            <button type="button" class="bd-btn" onclick="builderShow()">
+                                <i class="fa-solid fa-eye"></i> <span id="bldBtnShow">Ver na Roleta</span>
+                            </button>
+                            <button type="button" class="bd-btn" onclick="builderClear()">
+                                <i class="fa-solid fa-eraser"></i> <span id="bldBtnClear">Limpar</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- PRÉ-VISUALIZAÇÃO -->
+                    <div class="lg:col-span-4 space-y-2">
+                        <span class="bd-label" id="bldPreviewTitle">Pré-visualização</span>
+                        <div id="bldPreview" class="bd-preview"></div>
+                    </div>
+                </div>
+
+                <!-- MODO CURADOR -->
+                <details class="bd-details">
+                    <summary><i class="fa-solid fa-star"></i> <span id="lblCurator">Modo curador: gerar JSON de Builds Destaque</span></summary>
+
+                    <p class="bd-hint" id="lblCuratorHint" style="margin-bottom:.9rem">Monte a build acima, preencha os dados abaixo e adicione ao rascunho. Quando terminar, baixe o JSON e suba para a pasta json/ do seu servidor/GitHub.</p>
+
+                    <div class="bd-form-grid">
+                        <div>
+                            <label class="bd-label" for="fName" id="fLblName">Nome da build</label>
+                            <input type="text" id="fName" class="bd-field" maxlength="80" placeholder="Ex.: Build Furtiva do Nea">
+                        </div>
+                        <div>
+                            <label class="bd-label" for="fType" id="fLblTypeInput">Tipo</label>
+                            <input type="text" id="fType" list="fTypeList" autocomplete="off" class="bd-field" maxlength="40" placeholder="Furtivo, Gen rush, Meme...">
+                            <datalist id="fTypeList"></datalist>
+                        </div>
+                        <div>
+                            <label class="bd-label" for="fSource" id="fLblSource">Fonte (de onde tirou)</label>
+                            <input type="text" id="fSource" class="bd-field" maxlength="80" placeholder="Ex.: Canal do Fulano, Reddit...">
+                        </div>
+                        <div>
+                            <label class="bd-label" for="fUrl" id="fLblUrl">Link da fonte (opcional)</label>
+                            <input type="text" id="fUrl" class="bd-field" placeholder="https://...">
+                        </div>
+                    </div>
+
+                    <div class="bd-actions" style="margin-top:.9rem">
+                        <button type="button" class="bd-btn bd-btn-purple" onclick="addFeaturedDraft()">
+                            <i class="fa-solid fa-plus"></i> <span id="fBtnAdd">Adicionar ao rascunho</span>
+                        </button>
+                    </div>
+
+                    <div id="fDraftList" class="bd-draft-list"></div>
+
+                    <label class="bd-check">
+                        <input type="checkbox" id="fIncludeServer" checked>
+                        <span id="fLblIncludeServer">Incluir builds já publicadas no arquivo</span>
+                    </label>
+
+                    <div class="bd-actions" style="margin-top:.75rem">
+                        <button type="button" class="bd-btn bd-btn-primary" onclick="downloadFeaturedJSON()">
+                            <i class="fa-solid fa-download"></i> <span id="fBtnDownload">Baixar builds-destaque.json</span>
+                        </button>
+                        <button type="button" class="bd-btn" onclick="copyFeaturedJSON()">
+                            <i class="fa-solid fa-copy"></i> <span id="fBtnCopy">Copiar JSON</span>
+                        </button>
+                        <button type="button" class="bd-btn bd-btn-danger" onclick="clearFeaturedDrafts()">
+                            <i class="fa-solid fa-trash"></i> <span id="fBtnClearDrafts">Limpar rascunho</span>
+                        </button>
+                    </div>
+                </details>
+
+            </div>
+        </div>
+
+        <!-- ======================================================== -->
         <!-- TAB 2: CHARACTER & PERK POOL MANAGER (ICON / LIST VIEW)  -->
         <!-- ======================================================== -->
         <div id="tabPool" class="hidden space-y-6">
-            
+
             <div class="bg-dbd-card p-6 rounded-xl border border-neutral-800 space-y-6 shadow-2xl">
-                
+
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-neutral-800 pb-4">
                     <div>
                         <h2 class="text-lg font-black text-white uppercase tracking-wider flex items-center gap-2">
@@ -280,7 +472,7 @@
                             <input type="text" id="inputSearch" onkeyup="filterPoolBySearch()" placeholder="Buscar..." class="bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-1 text-xs text-white focus:outline-none focus:border-dbd-red w-44 pl-8">
                             <i class="fa-solid fa-magnifying-glass text-neutral-500 text-xs absolute left-2.5 top-2"></i>
                         </div>
-						
+
                         <button onclick="toggleAllPool(true)" class="px-3 py-1 bg-neutral-800 hover:bg-neutral-700 text-xs font-bold rounded text-green-400 border border-neutral-700">
                             <i class="fa-solid fa-check"></i> <span id="btnSelectAll">Todos</span>
                         </button>
@@ -334,8 +526,6 @@
             </div>
         </div>
 
-       
-
     </main>
 
     <!-- IMPORT MODAL -->
@@ -383,154 +573,157 @@
 
     <!-- LÓGICA DA APLICAÇÃO -->
     <script src="js/app/randomizer.js"></script>
-	<script>
-	(function () {
-	    // Hash estável de 4 caracteres (base36) a partir de um texto
-	    function h4(s) {
-	        let h = 0x811c9dc5;
-	        for (let i = 0; i < s.length; i++) {
-	            h ^= s.charCodeAt(i);
-	            h = Math.imul(h, 0x01000193) >>> 0;
-	        }
-	        return (h % 1679616).toString(36).padStart(4, '0');
-	    }
-	    const NONE = '----';
-	
-	    // ---------- Gerar código da build ----------
-	    function encodeBuild(r) {
-	        let out = r.role === 'survivor' ? 's' : 'k';
-	        out += h4(r.character.id);
-	        for (let i = 0; i < 4; i++) out += h4(r.perks[i].id);
-	
-	        const item = r.item || {};
-	        const hasItem = item.namePt && item.namePt !== 'Nenhum';
-	        // Killer: o poder já é definido pelo personagem, então não precisa guardar
-	        out += (r.role === 'survivor' && hasItem) ? h4(fmt(item.namePt)) : NONE;
-	
-	        const addons = item.addons || [];
-	        for (let n = 0; n < 2; n++) {
-	            out += addons[n] ? h4(fmt(addons[n].namePt)) : NONE;
-	        }
-	        return out; // sempre 33 caracteres
-	    }
-	
-	    // ---------- Reconstruir build a partir do código ----------
-	    function decodeBuild(code) {
-	        if (code.length !== 33) throw new Error('tamanho inválido');
-	        const role = code[0] === 's' ? 'survivor' : 'killer';
-	        const part = i => code.slice(1 + i * 4, 5 + i * 4);
-	
-	        const chars = role === 'survivor' ? initialData.survivors : initialData.killers;
-	        const perkPool = role === 'survivor' ? initialData.survivorPerks : initialData.killerPerks;
-	
-	        const character = chars.find(c => h4(c.id) === part(0));
-	        if (!character) throw new Error('personagem não encontrado');
-	
-	        const perks = [1, 2, 3, 4].map(i => perkPool.find(p => h4(p.id) === part(i)));
-	        if (perks.some(p => !p)) throw new Error('perk não encontrado');
-	
-	        let item = EMPTY_ITEM;
-	        const addonCodes = [part(6), part(7)];
-	
-	        if (role === 'survivor') {
-	            if (part(5) !== NONE) {
-	                for (const tipo of Object.keys(itemsData.surv)) {
-	                    const found = itemsData.surv[tipo].find(it => h4(fmt(it.nome)) === part(5));
-	                    if (found) {
-	                        item = {
-	                            namePt: found.nome, nameEn: found.nome,
-	                            rel: 'itens/surv/' + fmt(found.nome) + '.png',
-	                            icon: ITEM_TYPE_ICON[tipo] || 'fa-toolbox',
-	                            addons: addonCodes.map(c => found.complementos.find(a => h4(fmt(a)) === c))
-	                                .filter(Boolean)
-	                                .map(a => ({ namePt: a, nameEn: a, rel: 'itens/surv/complementos/' + fmt(a) + '.png' }))
-	                        };
-	                        break;
-	                    }
-	                }
-	            }
-	        } else {
-	            const entry = itemsData.kill[character.namePt.toLowerCase().trim()];
-	            const poder = entry && entry[0];
-	            if (poder) {
-	                item = {
-	                    namePt: poder.nome, nameEn: poder.nome,
-	                    rel: 'itens/kill/poderes/' + fmt(poder.nome) + '.png',
-	                    icon: 'fa-skull',
-	                    addons: addonCodes.map(c => poder.complementos.find(a => h4(fmt(a)) === c))
-	                        .filter(Boolean)
-	                        .map(a => ({ namePt: a, nameEn: a, rel: 'itens/kill/' + fmt(character.namePt) + '/' + fmt(a) + '.png' }))
-	                };
-	            }
-	        }
-	
-	        return { role, character, perks, item, date: new Date().toLocaleDateString() };
-	    }
-	
-	    // ---------- Botão compartilhar ----------
-	    async function copyBuildLink(build) {
-	        let code;
-	        try {
-	            code = encodeBuild(build);
-	        } catch (e) {
-	            console.error(e);
-	            showToast('Não foi possível gerar o link desta build.', 'error');
-	            return;
-	        }
-	        const url = location.origin + location.pathname + '#b=' + code;
-	        try {
-	            await navigator.clipboard.writeText(url);
-	        } catch (e) {
-	            const t = document.createElement('textarea');
-	            t.value = url;
-	            document.body.appendChild(t);
-	            t.select();
-	            document.execCommand('copy');
-	            t.remove();
-	        }
-	        showToast('Link da build copiado!', 'success');
-	    }
-	
-	    // Botão da aba "Resultado"
-	    window.shareBuildLink = function () {
-	        if (!currentRollResult) {
-	            showToast('Gire a roleta antes de compartilhar!', 'error');
-	            return;
-	        }
-	        copyBuildLink(currentRollResult);
-	    };
-	
-	    // Botão das builds salvas
-	    window.shareSavedBuild = function (id) {
-	        const build = savedBuilds.find(b => b.id === id);
-	        if (!build) return;
-	        copyBuildLink(build);
-	    };
-	
-	    // ---------- Abrir link recebido ----------
-	    function applyFromHash() {
-	        const m = location.hash.match(/^#b=([a-z0-9-]+)$/);
-	        if (!m) return;
-	        try {
-	            const result = decodeBuild(m[1]);
-	            currentRollResult = result;
-	            setRole(result.role);
-	            renderResultDisplay(result);
-	            showToast('Build carregada pelo link!', 'success');
-	        } catch (e) {
-	            console.error(e);
-	            showToast('Link de build inválido ou desatualizado.', 'error');
-	        }
-	    }
-	
-	    // Espera os JSON carregarem antes de aplicar a build
-	    const originalLoadData = window.loadData;
-	    window.loadData = async function () {
-	        await originalLoadData();
-	        applyFromHash();
-	    };
-	    window.addEventListener('hashchange', applyFromHash);
-	})();
-	</script>
+    <script>
+    (function () {
+        // Hash estável de 4 caracteres (base36) a partir de um texto
+        function h4(s) {
+            let h = 0x811c9dc5;
+            for (let i = 0; i < s.length; i++) {
+                h ^= s.charCodeAt(i);
+                h = Math.imul(h, 0x01000193) >>> 0;
+            }
+            return (h % 1679616).toString(36).padStart(4, '0');
+        }
+        const NONE = '----';
+
+        // ---------- Gerar código da build ----------
+        function encodeBuild(r) {
+            let out = r.role === 'survivor' ? 's' : 'k';
+            out += h4(r.character.id);
+            for (let i = 0; i < 4; i++) out += h4(r.perks[i].id);
+
+            const item = r.item || {};
+            const hasItem = item.namePt && item.namePt !== 'Nenhum';
+            // Killer: o poder já é definido pelo personagem, então não precisa guardar
+            out += (r.role === 'survivor' && hasItem) ? h4(fmt(item.namePt)) : NONE;
+
+            const addons = item.addons || [];
+            for (let n = 0; n < 2; n++) {
+                out += addons[n] ? h4(fmt(addons[n].namePt)) : NONE;
+            }
+            return out; // sempre 33 caracteres
+        }
+
+        // ---------- Reconstruir build a partir do código ----------
+        function decodeBuild(code) {
+            if (code.length !== 33) throw new Error('tamanho inválido');
+            const role = code[0] === 's' ? 'survivor' : 'killer';
+            const part = i => code.slice(1 + i * 4, 5 + i * 4);
+
+            const chars = role === 'survivor' ? initialData.survivors : initialData.killers;
+            const perkPool = role === 'survivor' ? initialData.survivorPerks : initialData.killerPerks;
+
+            const character = chars.find(c => h4(c.id) === part(0));
+            if (!character) throw new Error('personagem não encontrado');
+
+            const perks = [1, 2, 3, 4].map(i => perkPool.find(p => h4(p.id) === part(i)));
+            if (perks.some(p => !p)) throw new Error('perk não encontrado');
+
+            let item = EMPTY_ITEM;
+            const addonCodes = [part(6), part(7)];
+
+            if (role === 'survivor') {
+                if (part(5) !== NONE) {
+                    for (const tipo of Object.keys(itemsData.surv)) {
+                        const found = itemsData.surv[tipo].find(it => h4(fmt(it.nome)) === part(5));
+                        if (found) {
+                            item = {
+                                namePt: found.nome, nameEn: found.nome,
+                                rel: 'itens/surv/' + fmt(found.nome) + '.png',
+                                icon: ITEM_TYPE_ICON[tipo] || 'fa-toolbox',
+                                addons: addonCodes.map(c => found.complementos.find(a => h4(fmt(a)) === c))
+                                    .filter(Boolean)
+                                    .map(a => ({ namePt: a, nameEn: a, rel: 'itens/surv/complementos/' + fmt(a) + '.png' }))
+                            };
+                            break;
+                        }
+                    }
+                }
+            } else {
+                const entry = itemsData.kill[character.namePt.toLowerCase().trim()];
+                const poder = entry && entry[0];
+                if (poder) {
+                    item = {
+                        namePt: poder.nome, nameEn: poder.nome,
+                        rel: 'itens/kill/poderes/' + fmt(poder.nome) + '.png',
+                        icon: 'fa-skull',
+                        addons: addonCodes.map(c => poder.complementos.find(a => h4(fmt(a)) === c))
+                            .filter(Boolean)
+                            .map(a => ({ namePt: a, nameEn: a, rel: 'itens/kill/' + fmt(character.namePt) + '/' + fmt(a) + '.png' }))
+                    };
+                }
+            }
+
+            return { role, character, perks, item, date: new Date().toLocaleDateString() };
+        }
+
+        // ---------- Botão compartilhar ----------
+        async function copyBuildLink(build) {
+            let code;
+            try {
+                code = encodeBuild(build);
+            } catch (e) {
+                console.error(e);
+                showToast('Não foi possível gerar o link desta build.', 'error');
+                return;
+            }
+            const url = location.origin + location.pathname + '#b=' + code;
+            try {
+                await navigator.clipboard.writeText(url);
+            } catch (e) {
+                const t = document.createElement('textarea');
+                t.value = url;
+                document.body.appendChild(t);
+                t.select();
+                document.execCommand('copy');
+                t.remove();
+            }
+            showToast('Link da build copiado!', 'success');
+        }
+
+        // Exposto para as Builds Destaque usarem o mesmo botão de link
+        window.copyBuildLink = copyBuildLink;
+
+        // Botão da aba "Resultado"
+        window.shareBuildLink = function () {
+            if (!currentRollResult) {
+                showToast('Gire a roleta antes de compartilhar!', 'error');
+                return;
+            }
+            copyBuildLink(currentRollResult);
+        };
+
+        // Botão das builds salvas
+        window.shareSavedBuild = function (id) {
+            const build = savedBuilds.find(b => b.id === id);
+            if (!build) return;
+            copyBuildLink(build);
+        };
+
+        // ---------- Abrir link recebido ----------
+        function applyFromHash() {
+            const m = location.hash.match(/^#b=([a-z0-9-]+)$/);
+            if (!m) return;
+            try {
+                const result = decodeBuild(m[1]);
+                currentRollResult = result;
+                setRole(result.role);
+                renderResultDisplay(result);
+                showToast('Build carregada pelo link!', 'success');
+            } catch (e) {
+                console.error(e);
+                showToast('Link de build inválido ou desatualizado.', 'error');
+            }
+        }
+
+        // Espera os JSON carregarem antes de aplicar a build
+        const originalLoadData = window.loadData;
+        window.loadData = async function () {
+            await originalLoadData();
+            applyFromHash();
+        };
+        window.addEventListener('hashchange', applyFromHash);
+    })();
+    </script>
 </body>
 </html>
