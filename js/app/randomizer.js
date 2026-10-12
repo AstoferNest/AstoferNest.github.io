@@ -1718,7 +1718,7 @@ function clearPoolFilters() {
 /* ==========================================================================
    COMPARTILHAR COMO IMAGEM (canvas -> PNG)
    ========================================================================== */
-const PERK_ICON_SCALE = 0.72; // tamanho do ícone dentro do losango (ajuste se ficar torto)
+const PERK_ICON_SCALE = 0.92; // tamanho do ícone dentro do losango (1 = ocupa todo o losango; diminua/aumente se precisar)
 let lastImage = { blob: null, url: null, name: 'build.png' };
 
 // tenta cada URL em ordem (local -> remoto); resolve null se nenhuma carregar
