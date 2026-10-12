@@ -18,6 +18,13 @@ let featuredBuilds = [];                                   // vindas do servidor
 let featuredDrafts = JSON.parse(localStorage.getItem('dbd_featured_drafts') || '[]'); // rascunho do curador
 let featuredFilter = { type: '', role: '', text: '' };
 
+// ====== Travas / histórico / acervo salvo ======
+let locks = { char: false, perks: [false, false, false, false], item: false };
+const HISTORY_MAX = 10;
+let rollHistory = [];
+try { rollHistory = JSON.parse(localStorage.getItem('dbd_history') || '[]'); } catch (e) { rollHistory = []; }
+const POOL_KEY = 'dbd_pool_filters';
+
 // ====== Caminhos (se a página ficar fora da raiz do projeto, ajuste BASE, ex.: '../') ======
 const BASE = '';
 const JSON_DIR = BASE + 'json/';
@@ -242,7 +249,25 @@ const i18n = {
         fLblIncludeServer: "Incluir builds já publicadas no arquivo",
         fBtnDownload: "Baixar builds-destaque.json",
         fBtnCopy: "Copiar JSON",
-        fBtnClearDrafts: "Limpar rascunho"
+        fBtnClearDrafts: "Limpar rascunho",
+        // Novos recursos
+        btnShareImage: "Imagem",
+        histTitle: "Histórico de Sorteios",
+        histClear: "Limpar histórico",
+        btnSavePool: "Salvar acervo",
+        btnClearPool: "Limpar salvo",
+        obsTitle: "Overlay para OBS",
+        obsHint: "Adicione cada link como \"Fonte de Navegador\" no OBS. Cada vez que a página carrega (ou você atualiza a fonte), sai uma build nova. Survivor e Killer são independentes. Clicar na página ou apertar R também sorteia de novo.",
+        obsLblSurv: "Link Survivor",
+        obsLblKill: "Link Killer",
+        obsOptSpin: "Animação de roleta",
+        obsOptNames: "Mostrar nomes",
+        obsLblScale: "Tamanho",
+        obsLblLayout: "Layout",
+        obsLblAuto: "Sortear sozinho a cada (s, 0 = não)",
+        imgTitle: "Imagem da Build",
+        imgBtnDownload: "Baixar PNG",
+        imgBtnCopy: "Copiar imagem"
     },
     en: {
         subtitle: "Dead by Daylight Streamer Loadout Generator",
@@ -313,7 +338,24 @@ const i18n = {
         fLblIncludeServer: "Include already published builds in the file",
         fBtnDownload: "Download builds-destaque.json",
         fBtnCopy: "Copy JSON",
-        fBtnClearDrafts: "Clear draft"
+        fBtnClearDrafts: "Clear draft",
+        btnShareImage: "Image",
+        histTitle: "Roll History",
+        histClear: "Clear history",
+        btnSavePool: "Save pool",
+        btnClearPool: "Clear saved",
+        obsTitle: "OBS Overlay",
+        obsHint: "Add each link as a \"Browser Source\" in OBS. Every time the page loads (or you refresh the source) a new build is rolled. Survivor and Killer are independent. Clicking the page or pressing R also rerolls.",
+        obsLblSurv: "Survivor link",
+        obsLblKill: "Killer link",
+        obsOptSpin: "Roulette animation",
+        obsOptNames: "Show names",
+        obsLblScale: "Size",
+        obsLblLayout: "Layout",
+        obsLblAuto: "Auto-roll every (s, 0 = off)",
+        imgTitle: "Build Image",
+        imgBtnDownload: "Download PNG",
+        imgBtnCopy: "Copy image"
     }
 };
 
@@ -324,6 +366,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     bindFeaturedEvents();
     renderFeaturedDrafts();
     renderFeatured();
+    loadPoolFilters();
+    bindHistoryEvents();
+    renderHistory();
+    updateLockUI();
+    updateObsLinks();
     try {
         await loadData();
         renderPool();
@@ -377,6 +424,7 @@ function setLanguage(lang) {
     renderSavedBuilds();
     renderFeatured();
     renderFeaturedDrafts();
+    renderHistory();
     populateBuilder();
     if (currentRollResult) renderResultDisplay(currentRollResult);
 }
@@ -438,6 +486,7 @@ function switchTab(tab) {
 
 function setRole(role) {
     currentRole = role;
+    resetLocks();
     const survBtn = document.getElementById('roleSurvBtn');
     const killBtn = document.getElementById('roleKillBtn');
 
@@ -632,42 +681,60 @@ function playBeepSound(freq = 440) {
 function spinRoulette() {
     if (isSpinning) return;
 
-    const doChar = document.getElementById('chkCharacter').checked;
-    const doPerks = document.getElementById('chkPerks').checked;
-    const doItems = document.getElementById('chkItems').checked;
+    const chkChar = document.getElementById('chkCharacter').checked;
+    const chkPerks = document.getElementById('chkPerks').checked;
+    const chkItems = document.getElementById('chkItems').checked;
 
-    if (!doChar && !doPerks && !doItems) {
+    if (!chkChar && !chkPerks && !chkItems) {
         showToast("Marque ao menos um elemento da roleta!", "error");
         return;
     }
 
+    // O que não for sorteado (desmarcado ou travado) é mantido do resultado atual (se for do mesmo lado)
+    const prev = (currentRollResult && currentRollResult.role === currentRole) ? currentRollResult : null;
+    if (!prev) resetLocks();
+
     const availableChars = getActiveCharacters().filter(c => !excludedCharacters.has(c.id));
     const availablePerks = getActivePerks().filter(p => !excludedPerks.has(p.id));
 
-    if (doChar && availableChars.length === 0) {
-        showToast("Selecione ao menos 1 personagem ativo no acervo!", "error");
+    const rollChar = chkChar && !locks.char;
+    const rollSlots = [0, 1, 2, 3].map(i => chkPerks && !locks.perks[i]);
+    // Killer: o poder pertence ao personagem, então muda junto com ele
+    const rollItemFlag = (chkItems && !locks.item) || (currentRole === 'killer' && rollChar);
+
+    if (!rollChar && !rollSlots.some(Boolean) && !rollItemFlag) {
+        showToast("Tudo está travado ou desmarcado!", "error");
         return;
     }
-    if (doPerks && availablePerks.length < 4) {
-        showToast("Selecione ao menos 4 perks ativos no acervo!", "error");
-        return;
+
+    // Personagem
+    let fixedChar = null;
+    if (rollChar) {
+        if (!availableChars.length) { showToast("Selecione ao menos 1 personagem ativo no acervo!", "error"); return; }
+    } else {
+        fixedChar = prev ? prev.character : null;
+        if (!fixedChar) {
+            if (!availableChars.length) { showToast("Selecione ao menos 1 personagem ativo no acervo!", "error"); return; }
+            fixedChar = pick(availableChars);
+        }
     }
 
-    // O que não for sorteado é mantido do resultado atual (se for do mesmo lado)
-    const prev = (currentRollResult && currentRollResult.role === currentRole) ? currentRollResult : null;
-    let keepChar = !doChar && prev ? prev.character : null;
-    let keepPerks = !doPerks && prev ? prev.perks : null;
-    let keepItem = !doItems && prev ? prev.item : null;
+    // Perks: slots fixos mantêm o anterior; slots sem anterior são preenchidos uma vez só
+    const fixedPerks = [0, 1, 2, 3].map(i => (!rollSlots[i] && prev && prev.perks[i]) ? prev.perks[i] : null);
+    const rollIdx = [0, 1, 2, 3].filter(i => rollSlots[i]);
+    const fillIdx = [0, 1, 2, 3].filter(i => !rollSlots[i] && !fixedPerks[i]);
+    const keptIds = new Set(fixedPerks.filter(Boolean).map(p => p.id));
+    const pool = availablePerks.filter(p => !keptIds.has(p.id));
+    if (pool.length < rollIdx.length + fillIdx.length) {
+        showToast("Selecione mais perks ativos no acervo!", "error");
+        return;
+    }
+    const fillPicks = shuffle(pool).slice(0, fillIdx.length);
+    fillIdx.forEach((slot, k) => { fixedPerks[slot] = fillPicks[k]; });
+    const rollPool = pool.filter(p => !fillPicks.includes(p));
 
-    // Sem resultado anterior não há o que manter: sorteia uma vez só para preencher
-    const needChar = !doChar && !keepChar;
-    const needPerks = !doPerks && !keepPerks;
-    if (needChar && availableChars.length === 0) { showToast("Selecione ao menos 1 personagem ativo no acervo!", "error"); return; }
-    if (needPerks && availablePerks.length < 4) { showToast("Selecione ao menos 4 perks ativos no acervo!", "error"); return; }
-    if (needChar) keepChar = pick(availableChars);
-    if (needPerks) keepPerks = shuffle(availablePerks).slice(0, 4);
-
-    const parts = { char: doChar, perks: doPerks, items: doItems };
+    const keepItem = !rollItemFlag && prev ? prev.item : null;
+    const parts = { char: rollChar, perks: rollSlots, items: rollItemFlag };
 
     isSpinning = true;
     const spinBtn = document.getElementById('btnSpin');
@@ -680,12 +747,10 @@ function spinRoulette() {
     function step() {
         playBeepSound(300 + (22 - steps) * 15);
 
-        const character = doChar ? pick(availableChars) : keepChar;
-        const perks = doPerks ? shuffle(availablePerks).slice(0, 4) : keepPerks;
-        let item;
-        if (doItems) item = rollItem(currentRole, character) || EMPTY_ITEM;
-        else if (keepItem) item = keepItem;
-        else item = rollItem(currentRole, character) || EMPTY_ITEM;
+        const character = rollChar ? pick(availableChars) : fixedChar;
+        const picks = shuffle(rollPool).slice(0, rollIdx.length);
+        const perks = [0, 1, 2, 3].map(i => rollSlots[i] ? picks[rollIdx.indexOf(i)] : fixedPerks[i]);
+        const item = keepItem ? keepItem : (rollItem(currentRole, character) || EMPTY_ITEM);
 
         currentRollResult = {
             role: currentRole,
@@ -706,6 +771,7 @@ function spinRoulette() {
             spinBtn.disabled = false;
             spinBtn.classList.remove('opacity-50', 'cursor-not-allowed');
             renderResultDisplay(currentRollResult, false, parts);
+            addToHistory(currentRollResult);
             playBeepSound(880);
             showToast("Novo Loadout gerado!", "success");
         }
@@ -728,7 +794,7 @@ function renderResultDisplay(result, isSpinningAnim = false, parts = { char: tru
         const cands = entryImgs(perk);
         setImg(document.getElementById(`perkImg${i}`), cands, perk.icon || 'fa-shield-halved', 'text-4xl text-purple-200');
         document.getElementById(`perkIcon${i}`).classList.toggle('hidden', cands.length > 0);
-        document.getElementById(`perkInner${i}`).classList.toggle('spinning-reel', isSpinningAnim && parts.perks);
+        document.getElementById(`perkInner${i}`).classList.toggle('spinning-reel', isSpinningAnim && (Array.isArray(parts.perks) ? parts.perks[i] : parts.perks));
         document.getElementById(`perkInner${i}`).parentElement.classList.remove('is-empty');
     });
 
@@ -1501,4 +1567,450 @@ function clearFeaturedDrafts() {
     featuredDrafts = [];
     persistDrafts();
     renderFeaturedDrafts();
+}
+
+
+/* ==========================================================================
+   TRAVAR SLOTS
+   ========================================================================== */
+function resetLocks() {
+    locks = { char: false, perks: [false, false, false, false], item: false };
+    updateLockUI();
+}
+
+function toggleLock(kind, idx) {
+    if (!currentRollResult || currentRollResult.role !== currentRole) {
+        showToast(currentLang === 'pt' ? 'Gire a roleta antes de travar!' : 'Spin the roulette before locking!', 'error');
+        return;
+    }
+    if (kind === 'char') locks.char = !locks.char;
+    else if (kind === 'perk') locks.perks[idx] = !locks.perks[idx];
+    else locks.item = !locks.item;
+    updateLockUI();
+}
+
+function setLockBtn(id, on) {
+    const b = $(id);
+    if (!b) return;
+    b.classList.toggle('locked', on);
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    const ic = b.querySelector('i');
+    if (ic) ic.className = 'fa-solid ' + (on ? 'fa-lock' : 'fa-lock-open');
+    const t = on ? (currentLang === 'pt' ? 'Destravar' : 'Unlock') : (currentLang === 'pt' ? 'Travar' : 'Lock');
+    b.title = t;
+    b.setAttribute('aria-label', t);
+}
+
+function updateLockUI() {
+    setLockBtn('lockChar', locks.char);
+    $('displayCharFrame') && $('displayCharFrame').classList.toggle('bd-char-locked', locks.char);
+    [0, 1, 2, 3].forEach(i => {
+        setLockBtn('lockPerk' + i, locks.perks[i]);
+        const box = $('perkBox' + i);
+        if (box) box.classList.toggle('bd-slot-locked', locks.perks[i]);
+    });
+    setLockBtn('lockItem', locks.item);
+    const li = $('lockItem');
+    if (li) li.style.display = currentRole === 'killer' ? 'none' : '';
+}
+
+
+/* ==========================================================================
+   HISTÓRICO DE SORTEIOS
+   ========================================================================== */
+function addToHistory(result) {
+    rollHistory.unshift({
+        id: Date.now(),
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        role: result.role,
+        character: result.character,
+        perks: result.perks,
+        item: result.item,
+        date: result.date
+    });
+    rollHistory = rollHistory.slice(0, HISTORY_MAX);
+    try { localStorage.setItem('dbd_history', JSON.stringify(rollHistory)); } catch (e) {}
+    renderHistory();
+}
+
+function renderHistory() {
+    const box = $('historyList');
+    if (!box) return;
+    $('historyCount').textContent = rollHistory.length;
+    if (!rollHistory.length) {
+        box.innerHTML = `<div class="bd-hint">${currentLang === 'pt' ? 'Nenhum sorteio ainda. Gire a roleta!' : 'No rolls yet. Spin the roulette!'}</div>`;
+        return;
+    }
+    box.innerHTML = rollHistory.map((h, i) => {
+        const perks = h.perks.map(p => `
+            <div class="perk-diamond perk-diamond-xs" title="${esc(nm(p))}">
+                <div class="perk-diamond-inner">${imgTag(entryImgs(p), 'w-full h-full object-contain', p.icon || 'fa-shield-halved', 'text-purple-200 text-xs')}</div>
+            </div>`).join('');
+        const it = h.item || EMPTY_ITEM;
+        return `
+        <button type="button" class="bd-hist" data-hist="${i}" title="${currentLang === 'pt' ? 'Voltar para esta build' : 'Restore this build'}">
+            <span class="bd-badge ${h.role === 'survivor' ? 'surv' : 'kill'}">${h.role === 'survivor' ? 'SURV' : 'KILL'}</span>
+            <div class="char-card w-11 shrink-0 flex items-center justify-center text-dbd-cyan text-lg">
+                ${imgTag(entryImgs(h.character), 'w-full h-full object-contain', h.character.icon || 'fa-user', 'text-lg')}
+            </div>
+            <div class="bd-hist-info">
+                <div class="bd-hist-name">${esc(nm(h.character))}</div>
+                <div class="bd-hist-sub">${esc(nm(it))}</div>
+            </div>
+            <div class="bd-hist-perks">${perks}</div>
+            <span class="bd-hist-time">${esc(h.time || '')}</span>
+        </button>`;
+    }).join('');
+}
+
+function bindHistoryEvents() {
+    $('historyList').addEventListener('click', e => {
+        const btn = e.target.closest('[data-hist]');
+        if (!btn) return;
+        const h = rollHistory[parseInt(btn.dataset.hist, 10)];
+        if (h) showBuildInRoulette(h);
+    });
+}
+
+function clearHistory() {
+    rollHistory = [];
+    try { localStorage.removeItem('dbd_history'); } catch (e) {}
+    renderHistory();
+    showToast(currentLang === 'pt' ? 'Histórico limpo!' : 'History cleared!', 'info');
+}
+
+
+/* ==========================================================================
+   SALVAR / LIMPAR ACERVO (filtros do Seletor de Conteúdo)
+   ========================================================================== */
+function savePoolFilters() {
+    try {
+        localStorage.setItem(POOL_KEY, JSON.stringify({
+            chars: [...excludedCharacters],
+            perks: [...excludedPerks]
+        }));
+        showToast(currentLang === 'pt' ? 'Acervo salvo neste navegador!' : 'Pool saved in this browser!', 'success');
+    } catch (e) {
+        showToast(currentLang === 'pt' ? 'Não foi possível salvar o acervo.' : 'Could not save the pool.', 'error');
+    }
+}
+
+function loadPoolFilters() {
+    try {
+        const d = JSON.parse(localStorage.getItem(POOL_KEY) || 'null');
+        if (d) {
+            excludedCharacters = new Set(d.chars || []);
+            excludedPerks = new Set(d.perks || []);
+        }
+    } catch (e) {}
+}
+
+function clearPoolFilters() {
+    try { localStorage.removeItem(POOL_KEY); } catch (e) {}
+    excludedCharacters.clear();
+    excludedPerks.clear();
+    $('inputSearch').value = '';
+    renderPool();
+    showToast(currentLang === 'pt' ? 'Acervo salvo apagado e tudo reativado!' : 'Saved pool deleted, everything re-enabled!', 'info');
+}
+
+
+/* ==========================================================================
+   COMPARTILHAR COMO IMAGEM (canvas -> PNG)
+   ========================================================================== */
+const PERK_ICON_SCALE = 0.72; // tamanho do ícone dentro do losango (ajuste se ficar torto)
+let lastImage = { blob: null, url: null, name: 'build.png' };
+
+// tenta cada URL em ordem (local -> remoto); resolve null se nenhuma carregar
+function loadImg(cands) {
+    return new Promise(resolve => {
+        let i = 0;
+        const next = () => {
+            if (i >= cands.length) return resolve(null);
+            const im = new Image();
+            im.crossOrigin = 'anonymous';
+            im.onload = () => resolve(im);
+            im.onerror = () => { i++; next(); };
+            im.src = cands[i];
+        };
+        next();
+    });
+}
+
+function drawContain(g, img, x, y, w, h) {
+    const r = Math.min(w / img.width, h / img.height);
+    const dw = img.width * r, dh = img.height * r;
+    g.drawImage(img, x + (w - dw) / 2, y + (h - dh) / 2, dw, dh);
+}
+
+function roundRectPath(g, x, y, w, h, r) {
+    g.beginPath();
+    g.moveTo(x + r, y);
+    g.arcTo(x + w, y, x + w, y + h, r);
+    g.arcTo(x + w, y + h, x, y + h, r);
+    g.arcTo(x, y + h, x, y, r);
+    g.arcTo(x, y, x + w, y, r);
+    g.closePath();
+}
+
+function wrapText(g, text, maxW, maxLines) {
+    const words = String(text).split(' ');
+    const lines = [];
+    let cur = '';
+    for (const w of words) {
+        const t = cur ? cur + ' ' + w : w;
+        if (g.measureText(t).width <= maxW || !cur) cur = t;
+        else { lines.push(cur); cur = w; }
+    }
+    if (cur) lines.push(cur);
+    if (lines.length > maxLines) {
+        lines.length = maxLines;
+        let last = lines[maxLines - 1];
+        while (g.measureText(last + '…').width > maxW && last.length > 1) last = last.slice(0, -1);
+        lines[maxLines - 1] = last + '…';
+    }
+    return lines;
+}
+
+function drawCenteredLines(g, text, cx, y, maxW, maxLines, lineH) {
+    wrapText(g, text, maxW, maxLines).forEach((ln, i) => g.fillText(ln, cx, y + i * lineH));
+}
+
+async function renderBuildCanvas(b) {
+    const W = 1200, H = 630;
+    const c = document.createElement('canvas');
+    c.width = W; c.height = H;
+    const g = c.getContext('2d');
+
+    const item = b.item || EMPTY_ITEM;
+    const hasItem = item.namePt !== 'Nenhum';
+    const addons = (item.addons || []).slice(0, 2);
+    const accent = b.role === 'survivor' ? '#22d3ee' : '#ef4444';
+
+    const [charImg, bgImg, frame, itemImg, ...others] = await Promise.all([
+        loadImg(entryImgs(b.character)),
+        loadImg(imgPaths('personagens/fundo_pdbd.png')),
+        loadImg(imgPaths('perk_purple.png')),
+        hasItem ? loadImg(entryImgs(item)) : Promise.resolve(null),
+        ...b.perks.map(p => loadImg(entryImgs(p))),
+        ...addons.map(a => loadImg(entryImgs(a)))
+    ]);
+    const perkImgs = others.slice(0, b.perks.length);
+    const addonImgs = others.slice(b.perks.length);
+
+    // fundo
+    const grad = g.createLinearGradient(0, 0, W, H);
+    grad.addColorStop(0, '#0a0a0f');
+    grad.addColorStop(1, '#1b1b30');
+    g.fillStyle = grad;
+    g.fillRect(0, 0, W, H);
+    const glow = g.createRadialGradient(210, 300, 20, 210, 300, 420);
+    glow.addColorStop(0, accent + '33');
+    glow.addColorStop(1, 'transparent');
+    g.fillStyle = glow;
+    g.fillRect(0, 0, W, H);
+
+    g.textBaseline = 'alphabetic';
+    const font = (w, px) => `${w} ${px}px "Segoe UI", Arial, sans-serif`;
+
+    // título
+    g.textAlign = 'left';
+    g.font = font(900, 30);
+    g.fillStyle = '#d1202f';
+    g.fillText('ROLETA', 40, 58);
+    const rw = g.measureText('ROLETA ').width;
+    g.fillStyle = '#ffffff';
+    g.fillText('DE PERKS', 40 + rw, 58);
+
+    // painel do personagem
+    roundRectPath(g, 40, 90, 340, 490, 18);
+    g.fillStyle = 'rgba(255,255,255,0.04)';
+    g.fill();
+    g.strokeStyle = 'rgba(255,255,255,0.12)';
+    g.lineWidth = 2;
+    g.stroke();
+
+    if (bgImg) drawContain(g, bgImg, 60, 110, 300, 360);
+    if (charImg) drawContain(g, charImg, 60, 110, 300, 360);
+    else {
+        g.fillStyle = '#525252';
+        g.font = font(900, 120);
+        g.textAlign = 'center';
+        g.fillText('?', 210, 330);
+    }
+
+    g.textAlign = 'center';
+    g.fillStyle = '#ffffff';
+    let px = 34;
+    const cname = nm(b.character).toUpperCase();
+    g.font = font(900, px);
+    while (g.measureText(cname).width > 300 && px > 16) { px -= 2; g.font = font(900, px); }
+    g.fillText(cname, 210, 520);
+    g.font = font(700, 18);
+    g.fillStyle = accent;
+    g.fillText(b.role.toUpperCase(), 210, 552);
+
+    // perks
+    const x0 = 420, areaW = 740, S = 150;
+    const gap = (areaW - 4 * S) / 3;
+    g.textAlign = 'left';
+    g.font = font(700, 16);
+    g.fillStyle = '#a3a3a3';
+    g.fillText(currentLang === 'pt' ? 'VANTAGENS' : 'PERKS', x0, 128);
+
+    b.perks.forEach((p, i) => {
+        const x = x0 + i * (S + gap), y = 145;
+        if (frame) g.drawImage(frame, x, y, S, S);
+        else {
+            g.save();
+            g.translate(x + S / 2, y + S / 2);
+            g.rotate(Math.PI / 4);
+            g.fillStyle = '#7e22ce';
+            g.fillRect(-S * 0.33, -S * 0.33, S * 0.66, S * 0.66);
+            g.restore();
+        }
+        const im = perkImgs[i];
+        if (im) {
+            const is = S * PERK_ICON_SCALE;
+            drawContain(g, im, x + (S - is) / 2, y + (S - is) / 2, is, is);
+        }
+        g.textAlign = 'center';
+        g.fillStyle = '#e5e5e5';
+        g.font = font(700, 20);
+        drawCenteredLines(g, nm(p), x + S / 2, y + S + 28, S + gap - 10, 2, 24);
+    });
+
+    // item / poder + addons
+    g.textAlign = 'left';
+    g.font = font(700, 16);
+    g.fillStyle = '#a3a3a3';
+    g.fillText(currentLang === 'pt' ? 'ITEM / PODER' : 'ITEM / POWER', x0, 440);
+
+    const box = (x, y, s, img) => {
+        roundRectPath(g, x, y, s, s, 14);
+        g.fillStyle = 'rgba(255,255,255,0.06)';
+        g.fill();
+        g.strokeStyle = 'rgba(255,255,255,0.18)';
+        g.lineWidth = 2;
+        g.stroke();
+        if (img) drawContain(g, img, x + 8, y + 8, s - 16, s - 16);
+    };
+
+    box(x0, 455, 110, itemImg);
+    g.textAlign = 'left';
+    g.fillStyle = '#ffffff';
+    g.font = font(800, 24);
+    wrapText(g, hasItem ? nm(item) : (currentLang === 'pt' ? 'Nenhum' : 'None'), 210, 3)
+        .forEach((ln, i) => g.fillText(ln, x0 + 128, 495 + i * 28));
+
+    addons.forEach((a, i) => {
+        const x = 790 + i * 190;
+        box(x, 460, 90, addonImgs[i]);
+        g.textAlign = 'center';
+        g.fillStyle = '#d4d4d4';
+        g.font = font(600, 16);
+        drawCenteredLines(g, nm(a), x + 45, 570, 170, 2, 19);
+    });
+
+    // rodapé
+    g.textAlign = 'right';
+    g.font = font(600, 16);
+    g.fillStyle = '#737373';
+    g.fillText(location.host || 'Roleta de Perks', W - 40, H - 20);
+
+    return c;
+}
+
+async function shareBuildImage() {
+    if (!currentRollResult) {
+        showToast(currentLang === 'pt' ? 'Gire a roleta antes de gerar a imagem!' : 'Spin the roulette first!', 'error');
+        return;
+    }
+    showToast(currentLang === 'pt' ? 'Gerando imagem...' : 'Generating image...', 'info');
+    try {
+        const canvas = await renderBuildCanvas(currentRollResult);
+        const blob = await new Promise((res, rej) => canvas.toBlob(b => b ? res(b) : rej(new Error('blob')), 'image/png'));
+        if (lastImage.url) URL.revokeObjectURL(lastImage.url);
+        lastImage = { blob, url: URL.createObjectURL(blob), name: 'roleta-perks-' + slugId(currentRollResult.character.namePt) + '.png' };
+        $('imgPreview').src = lastImage.url;
+        let canNative = false;
+        try { canNative = !!(navigator.canShare && navigator.canShare({ files: [new File([blob], lastImage.name, { type: 'image/png' })] })); } catch (e) {}
+        $('imgBtnShare').style.display = canNative ? '' : 'none';
+        $('imageModal').classList.remove('hidden');
+    } catch (e) {
+        console.error(e);
+        showToast(currentLang === 'pt' ? 'Não foi possível gerar a imagem (abra o site por http://).' : 'Could not generate the image.', 'error');
+    }
+}
+
+function closeImageModal() {
+    $('imageModal').classList.add('hidden');
+}
+
+function downloadBuildImage() {
+    if (!lastImage.url) return;
+    const a = document.createElement('a');
+    a.href = lastImage.url;
+    a.download = lastImage.name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+}
+
+async function copyBuildImage() {
+    if (!lastImage.blob) return;
+    try {
+        await navigator.clipboard.write([new ClipboardItem({ 'image/png': lastImage.blob })]);
+        showToast(currentLang === 'pt' ? 'Imagem copiada!' : 'Image copied!', 'success');
+    } catch (e) {
+        showToast(currentLang === 'pt' ? 'Seu navegador não permite copiar imagem. Use "Baixar PNG".' : 'Copy not supported. Use "Download PNG".', 'error');
+    }
+}
+
+async function nativeShareBuildImage() {
+    if (!lastImage.blob) return;
+    try {
+        await navigator.share({ files: [new File([lastImage.blob], lastImage.name, { type: 'image/png' })], title: 'Roleta de Perks' });
+    } catch (e) { /* usuário cancelou */ }
+}
+
+
+/* ==========================================================================
+   LINKS DO OVERLAY PARA OBS
+   ========================================================================== */
+function obsUrl(role) {
+    const q = new URLSearchParams();
+    q.set('role', role);
+    if (!$('obsSpin').checked) q.set('spin', '0');
+    if (!$('obsNames').checked) q.set('names', '0');
+    const scale = $('obsScale').value;
+    if (scale && scale !== '1') q.set('scale', scale);
+    if ($('obsLayout').value === 'v') q.set('layout', 'v');
+    const auto = parseInt($('obsAuto').value, 10);
+    if (auto > 0) q.set('auto', auto);
+    return new URL('overlay.html', location.href).href.split('#')[0] + '?' + q.toString();
+}
+
+function updateObsLinks() {
+    if (!$('obsLinkSurv')) return;
+    const s = obsUrl('survivor'), k = obsUrl('killer');
+    $('obsLinkSurv').value = s;
+    $('obsLinkKill').value = k;
+    $('obsOpenSurv').href = s;
+    $('obsOpenKill').href = k;
+}
+
+async function copyObsLink(which) {
+    const text = $(which === 'surv' ? 'obsLinkSurv' : 'obsLinkKill').value;
+    try {
+        await navigator.clipboard.writeText(text);
+    } catch (e) {
+        const t = document.createElement('textarea');
+        t.value = text;
+        document.body.appendChild(t);
+        t.select();
+        document.execCommand('copy');
+        t.remove();
+    }
+    showToast(currentLang === 'pt' ? 'Link do overlay copiado!' : 'Overlay link copied!', 'success');
 }
