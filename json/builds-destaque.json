@@ -1,0 +1,16 @@
+{
+  "builds": [
+    {
+      "id": "exemplo-apague-depois",
+      "name": "Exemplo - apague depois",
+      "type": "Furtivo",
+      "source": "Minha fonte de exemplo",
+      "url": "https://exemplo.com",
+      "role": "survivor",
+      "character": "Dwight Fairfield",
+      "perks": ["Dead Hard", "Lithe", "Sprint Burst", "Iron Will"],
+      "item": "",
+      "addons": []
+    }
+  ]
+}
