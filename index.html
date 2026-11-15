@@ -56,6 +56,9 @@
                 <button onclick="switchTab('pool')" id="tabPoolBtn" class="px-4 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-2 text-dbd-muted hover:text-white">
                     <i class="fa-solid fa-boxes-stacked"></i> <span id="navPool">Seletor de Conteúdo</span>
                 </button>
+                <button onclick="switchTab('perks')" id="tabPerksBtn" class="px-4 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-2 text-dbd-muted hover:text-white">
+                    <i class="fa-solid fa-gem"></i> <span id="navPerks">Todos os Perks</span>
+                </button>
                 <button onclick="switchTab('saved')" id="tabSavedBtn" class="px-4 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-2 text-dbd-muted hover:text-white">
                     <i class="fa-solid fa-bookmark"></i> <span id="navSaved">Builds Salvas</span>
                     <span id="savedCountBadge" class="ml-1 bg-neutral-800 text-[10px] px-1.5 py-0.5 rounded-full text-dbd-cyan">0</span>
@@ -570,6 +573,41 @@
 
             </div>
 
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- TAB: GALERIA DE PERKS (só os perks, em duas abas)        -->
+        <!-- ======================================================== -->
+        <div id="tabPerks" class="hidden space-y-6">
+            <div class="bg-dbd-card p-6 rounded-xl border border-neutral-800 space-y-5 shadow-2xl">
+
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-neutral-800 pb-4">
+                    <div>
+                        <h2 class="text-lg font-black text-white uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-gem" style="color:#a855f7"></i> <span id="pgTitle">Todos os Perks</span>
+                            <span id="pgCount" class="bd-badge surv">0</span>
+                        </h2>
+                        <p class="text-xs text-dbd-muted" id="pgSub">Todos os perks do jogo dentro da moldura roxa, separados por lado.</p>
+                    </div>
+                    <div class="relative">
+                        <input type="text" id="pgSearch" placeholder="Buscar perk..." class="bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-dbd-red w-56 pl-8">
+                        <i class="fa-solid fa-magnifying-glass text-neutral-500 text-xs absolute left-2.5 top-2.5"></i>
+                    </div>
+                </div>
+
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                    <button type="button" id="pgRoleKillBtn" onclick="setPerkGalleryRole('killer')" class="bd-role kill active">
+                        <img src="./css/img/killer.png" style="width:30px"> <span id="pgKillLbl">Killer</span>
+                        <span id="pgKillCount" class="bd-badge">0</span>
+                    </button>
+                    <button type="button" id="pgRoleSurvBtn" onclick="setPerkGalleryRole('survivor')" class="bd-role surv">
+                        <img src="./css/img/surv.png" style="width:30px"> <span id="pgSurvLbl">Survivor</span>
+                        <span id="pgSurvCount" class="bd-badge">0</span>
+                    </button>
+                </div>
+
+                <div id="perkGalleryGrid" class="perk-gallery"></div>
+            </div>
         </div>
 
         <!-- ======================================================== -->
