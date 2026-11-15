@@ -183,6 +183,9 @@ const i18n = {
         navFeatured: "Builds Destaque",
         navBuilder: "Criar Build",
         navPool: "Acervo de Conteúdo",
+        navPerks: "Todos os Perks",
+        pgTitle: "Todos os Perks",
+        pgSub: "Todos os perks do jogo dentro da moldura roxa, separados por lado.",
         navSaved: "Builds Salvas",
         navAdmin: "Cadastro / Admin",
         lblConfigTitle: "Configurações do Sorteio",
@@ -275,6 +278,9 @@ const i18n = {
         navFeatured: "Featured Builds",
         navBuilder: "Create Build",
         navPool: "Content Pool",
+        navPerks: "All Perks",
+        pgTitle: "All Perks",
+        pgSub: "Every perk in the game inside the purple frame, split by side.",
         navSaved: "Saved Builds",
         navAdmin: "Registration / Admin",
         lblConfigTitle: "Randomizer Settings",
@@ -375,6 +381,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         await loadData();
         renderPool();
         populateBuilder();
+        renderPerkGallery();
     } catch (e) {
         console.error(e);
         document.getElementById('characterPoolContainer').innerHTML =
@@ -426,6 +433,7 @@ function setLanguage(lang) {
     renderFeaturedDrafts();
     renderHistory();
     populateBuilder();
+    renderPerkGallery();
     if (currentRollResult) renderResultDisplay(currentRollResult);
 }
 
@@ -462,7 +470,58 @@ function applyTheme() {
     }
 }
 
-const TABS = ['main', 'featured', 'builder', 'pool', 'saved'];
+
+// ====== Galeria de Perks (aba "Todos os Perks") ======
+let perkGalleryRole = 'killer';
+let perkGalleryText = '';
+
+function setPerkGalleryRole(role) {
+    perkGalleryRole = role;
+    renderPerkGallery();
+}
+
+function renderPerkGallery() {
+    const grid = $('perkGalleryGrid');
+    if (!grid) return;
+
+    const all = role => [
+        ...(role === 'survivor' ? initialData.survivorPerks : initialData.killerPerks),
+        ...customEntries.filter(e => e.category === 'perk' && e.role === role)
+    ];
+    const killAll = all('killer'), survAll = all('survivor');
+    $('pgKillCount').textContent = killAll.length;
+    $('pgSurvCount').textContent = survAll.length;
+
+    const kBtn = $('pgRoleKillBtn'), sBtn = $('pgRoleSurvBtn');
+    kBtn.classList.toggle('active', perkGalleryRole === 'killer');
+    sBtn.classList.toggle('active', perkGalleryRole === 'survivor');
+
+    const q = norm(perkGalleryText);
+    const list = (perkGalleryRole === 'survivor' ? survAll : killAll)
+        .filter(p => !q || norm(p.namePt).includes(q) || norm(p.nameEn).includes(q));
+    $('pgCount').textContent = list.length;
+
+    if (!list.length) {
+        grid.innerHTML = `<div class="bd-hint">${currentLang === 'pt' ? 'Nenhum perk encontrado.' : 'No perks found.'}</div>`;
+        return;
+    }
+    grid.innerHTML = list.map(p => `
+        <div class="perk-gallery-item" title="${esc(nm(p))}">
+            <div class="perk-diamond perk-diamond-lg">
+                <div class="perk-diamond-inner">
+                    ${imgTag(entryImgs(p), 'w-full h-full object-contain', p.icon || 'fa-shield-halved', 'text-purple-200 text-2xl')}
+                </div>
+            </div>
+            <span class="perk-gallery-name">${esc(nm(p))}</span>
+        </div>`).join('');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const s = $('pgSearch');
+    if (s) s.addEventListener('input', e => { perkGalleryText = e.target.value; renderPerkGallery(); });
+});
+
+const TABS = ['main', 'featured', 'builder', 'pool', 'perks', 'saved'];
 const TAB_BTN_OFF = "px-4 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-2 text-dbd-muted hover:text-white";
 const TAB_BTN_ON = "px-4 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-2 bg-dbd-red text-white shadow";
 
