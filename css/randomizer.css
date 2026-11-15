@@ -2076,3 +2076,44 @@ html:not(.dark) ::placeholder {
   }
 }
     
+
+
+/* ====== Aba "Todos os Perks": galeria só com os losangos roxos ====== */
+.perk-diamond-lg {
+  width: 104px;
+  height: 104px;
+}
+
+.perk-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(116px, 1fr));
+  gap: 1.1rem 0.5rem;
+  justify-items: center;
+  max-height: 78vh;
+  overflow-y: auto;
+  padding: 0.25rem;
+}
+
+.perk-gallery-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 112px;
+  text-align: center;
+}
+
+.perk-gallery-item:hover .perk-diamond {
+  transform: scale(1.1);
+}
+
+.perk-gallery-name {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-top: 2px;
+  color: #d4d4d4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
