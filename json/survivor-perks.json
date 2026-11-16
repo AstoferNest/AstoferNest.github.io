@@ -464,7 +464,7 @@
       "perk_name": "Força Interior",
       "character": "Perk ensinável de Nancy Wheeler",
       "perk_name_en": "Inner Healing",
-      "descricao": "A <i>Cura Interior</i> se ativará sempre que você purificar um Totem. Se você já estiver sob o efeito do estado Quebrado, <i>Cura Interior</i> não se ativará.\n\nEnquanto a <i>Cura Interior</i> estiver em vigor, esconder-se por 8 s dentro de um armário após sofrer um ferimento terá efeitos curativos automaticamente.\n\n<i>Cura Interior</i> desativará assim que\ for ativada com sucesso.",
+      "descricao": "A <i>Cura Interior</i> se ativará sempre que você purificar um Totem. Se você já estiver sob o efeito do estado Quebrado, <i>Cura Interior</i> não se ativará.\n\nEnquanto a <i>Cura Interior</i> estiver em vigor, esconder-se por 8 s dentro de um armário após sofrer um ferimento terá efeitos curativos automaticamente.\n\n<i>Cura Interior</i> desativará assim que for ativada com sucesso.",
       "descricao_en": "Each time you cleanse a Totem, Inner Healing activates. If you are already afflicted by the Broken status effect, Inner Healing does not activate.\n\nWhile Inner Healing is active, hiding inside a locker for 8 seconds while injured automatically heals you.\n\nInner Healing deactivates as soon as it has successfully triggered.",
       "tags": [
         "quebrado",
