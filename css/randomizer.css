@@ -2117,3 +2117,57 @@ html:not(.dark) ::placeholder {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+
+/* ====== Tooltip de perk ====== */
+.perk-tip {
+  position: fixed;
+  z-index: 9999;
+  width: 320px;
+  max-width: calc(100vw - 16px);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity .12s ease, transform .12s ease;
+  background: #0b0b0d;
+  border: 1px solid #3a2a52;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .65);
+  color: #e8e8e8;
+  font-size: 14px;
+  line-height: 1.45;
+}
+.perk-tip.show { opacity: 1; transform: none; }
+
+.perk-tip-head {
+  padding: 12px 16px 10px;
+  background: linear-gradient(135deg, #2b1448 0%, #5a2a8c 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, .35);
+}
+.perk-tip-name {
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  line-height: 1.15;
+}
+.perk-tip-sub {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 4px;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #cbb8e6;
+}
+.perk-tip-sub span:first-child { font-style: italic; }
+.perk-tip-sub span:last-child { color: #b5b5b5; }
+
+.perk-tip-body { padding: 12px 16px 14px; }
+.perk-tip-body p { margin: 0 0 8px; }
+.perk-tip-body p:last-child { margin-bottom: 0; }
+.perk-tip-body ul { margin: 4px 0 8px 4px; padding-left: 14px; list-style: disc; }
+.perk-tip-body li { margin: 2px 0; }
+.perk-tip-body b { color: #fff; font-weight: 700; }
+.perk-tip-body .kw-good { color: #1fb383; }
+.perk-tip-body .kw-bad { color: #f08a3c; }
