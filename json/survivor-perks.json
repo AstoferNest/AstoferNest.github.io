@@ -1019,8 +1019,8 @@
       "perk_color": "green",
       "character": "Perk ensinável de Kate Denson",
       "perk_name_en": "Windows Of Opportunity",
-      "descricao": "Enquanto estiver a até 24 m, você vê as auras de janelas.\n\nVocê pula janelas {Tunable.S13P02.VaultSpeed}% mais rápido.\n\nSempre que pular uma janela, tempo de recarga: 40/35/30 s.",
-      "descricao_en": "Within 24m of you see the Auras of Windows.\n\nYou vault Windows {Tunable.S13P02.VaultSpeed}% faster.\n\nWhenever you vault a Window, cooldown: 40/35/30s.",
+      "descricao": "Enquanto estiver a até 24 m, você vê as auras de janelas.\n\nVocê pula janelas 10% mais rápido.\n\nSempre que pular uma janela, tempo de recarga: 40/35/30 s.",
+      "descricao_en": "Within 24m of you see the Auras of Windows.\n\nYou vault Windows 10% faster.\n\nWhenever you vault a Window, cooldown: 40/35/30s.",
       "tags": [
         "aura",
         "janela",
