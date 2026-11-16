@@ -509,7 +509,7 @@ function renderPerkGallery() {
         return;
     }
     grid.innerHTML = list.map(p => `
-        <div class="perk-gallery-item" title="${esc(nm(p))}">
+        <div class="perk-gallery-item" data-perk="${esc(p.id)}">
             <div class="perk-diamond perk-diamond-lg">
                 <div class="perk-diamond-inner">
                     ${imgTag(entryImgs(p), 'w-full h-full object-contain', p.icon || 'fa-shield-halved', 'text-purple-200 text-2xl')}
@@ -629,7 +629,7 @@ function renderPool() {
             const perkName = currentLang === 'pt' ? perk.namePt : perk.nameEn;
             return `
                 <div onclick="event.stopPropagation(); togglePerkExclusion('${perk.id}')"
-                     class="group/perk flex flex-col items-center w-[4.75rem] cursor-pointer" title="${perkName}">
+                     class="group/perk flex flex-col items-center w-[4.75rem] cursor-pointer" data-perk="${esc(perk.id)}">
                     <div class="perk-diamond perk-diamond-sm ${isPerkExcluded ? 'is-empty' : ''}">
                         <div class="perk-diamond-inner">
                             ${imgTag(entryImgs(perk), 'w-full h-full object-contain', perk.icon || 'fa-shield', 'text-purple-200 text-xl')}
@@ -858,6 +858,7 @@ function renderResultDisplay(result, isSpinningAnim = false, parts = { char: tru
         document.getElementById(`perkIcon${i}`).classList.toggle('hidden', cands.length > 0);
         document.getElementById(`perkInner${i}`).classList.toggle('spinning-reel', isSpinningAnim && (Array.isArray(parts.perks) ? parts.perks[i] : parts.perks));
         document.getElementById(`perkInner${i}`).parentElement.classList.remove('is-empty');
+        document.getElementById(`perkInner${i}`).parentElement.dataset.perk = perk.id;
     });
 
     const item = result.item || EMPTY_ITEM;
@@ -920,7 +921,7 @@ function renderSavedBuilds() {
         card.className = "bg-neutral-950 p-4 rounded-xl border border-neutral-800 space-y-3 relative group hover:border-dbd-red transition shadow";
 
         let perkIconsHtml = build.perks.map(p => `
-            <div class="perk-diamond perk-diamond-xs" title="${esc(currentLang === 'pt' ? p.namePt : p.nameEn)}">
+            <div class="perk-diamond perk-diamond-xs" data-perk="${esc(p.id)}">
                 <div class="perk-diamond-inner">
                     ${imgTag(entryImgs(p), 'w-full h-full object-contain', p.icon || 'fa-shield', 'text-purple-200 text-xs')}
                 </div>
@@ -1316,7 +1317,7 @@ function renderBuilderPreview() {
         : `<div class="bd-preview-char"><div class="char-card flex items-center justify-center text-neutral-600"><i class="fa-solid fa-user-ninja text-6xl"></i></div><div class="bd-preview-name">--</div></div>`;
 
     const perksHtml = s.perks.map((p, i) => `
-        <div class="bd-preview-perk">
+        <div class="bd-preview-perk" ${p ? `data-perk="${esc(p.id)}"` : ''}>
             <div class="perk-diamond perk-diamond-sm ${p ? '' : 'is-empty'}">
                 <div class="perk-diamond-inner">${p ? imgTag(entryImgs(p), 'w-full h-full object-contain', p.icon || 'fa-shield-halved', 'text-purple-200 text-xl') : ''}</div>
             </div>
@@ -1440,10 +1441,10 @@ function renderFeatured() {
         const r = resolveFeatured(b);
         const idx = featuredBuilds.indexOf(b);
         const perkIcons = r.perks.map(p => `
-            <div class="perk-diamond perk-diamond-xs" title="${esc(nm(p))}">
+            <div class="perk-diamond perk-diamond-xs" data-perk="${esc(p.id)}">
                 <div class="perk-diamond-inner">${imgTag(entryImgs(p), 'w-full h-full object-contain', p.icon || 'fa-shield-halved', 'text-purple-200 text-xs')}</div>
             </div>`).join('');
-        const perkNames = r.perks.map(p => `<li>${esc(nm(p))}</li>`).join('');
+        const perkNames = r.perks.map(p => `<li data-perk="${esc(p.id)}">${esc(nm(p))}</li>`).join('');
         const srcLabel = currentLang === 'pt' ? 'Fonte' : 'Source';
         const safeUrl = /^https?:\/\//i.test(b.url || '') ? b.url : '';
         const srcHtml = b.source
@@ -1705,7 +1706,7 @@ function renderHistory() {
     }
     box.innerHTML = rollHistory.map((h, i) => {
         const perks = h.perks.map(p => `
-            <div class="perk-diamond perk-diamond-xs" title="${esc(nm(p))}">
+            <div class="perk-diamond perk-diamond-xs" data-perk="${esc(p.id)}">
                 <div class="perk-diamond-inner">${imgTag(entryImgs(p), 'w-full h-full object-contain', p.icon || 'fa-shield-halved', 'text-purple-200 text-xs')}</div>
             </div>`).join('');
         const it = h.item || EMPTY_ITEM;
