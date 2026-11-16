@@ -2076,3 +2076,83 @@ async function copyObsLink(which) {
     }
     showToast(currentLang === 'pt' ? 'Link do overlay copiado!' : 'Overlay link copied!', 'success');
 }
+
+
+/* ===== Tooltip de perk (hover) ===== */
+(function () {
+    const GOOD = ['Celeridade', 'Indetectável', 'Resistência', 'Esquiva', 'Haste', 'Undetectable', 'Endurance'];
+    const BAD = ['Exaustão', 'Exposto', 'Quebrado', 'Lentidão', 'Cegueira', 'Hemorragia', 'Ferida Profunda',
+        'Incapacitado', 'Dilacerado', 'Alheio', 'Exhausted', 'Exposed', 'Broken', 'Hindered', 'Blindness',
+        'Hemorrhage', 'Deep Wound', 'Mangled', 'Oblivious'];
+    const kwMap = {};
+    GOOD.forEach(k => kwMap[k.toLowerCase()] = 'kw-good');
+    BAD.forEach(k => kwMap[k.toLowerCase()] = 'kw-bad');
+    const kwRx = new RegExp('(?<![\\p{L}])(' + Object.keys(kwMap).sort((a, b) => b.length - a.length).join('|') + ')(?![\\p{L}])', 'giu');
+
+    function descToHtml(text) {
+        const lines = esc(text).replace(/\{[^}]*\}/g, '<b>X</b>').split('\n');
+        let html = '', inList = false;
+        lines.forEach(raw => {
+            const ln = raw.trim();
+            if (!ln) return;
+            const li = ln.startsWith('- ');
+            const body = (li ? ln.slice(2) : ln).replace(kwRx, m => `<span class="${kwMap[m.toLowerCase()]}">${m}</span>`);
+            if (li && !inList) { html += '<ul>'; inList = true; }
+            if (!li && inList) { html += '</ul>'; inList = false; }
+            html += li ? `<li>${body}</li>` : `<p>${body}</p>`;
+        });
+        return html + (inList ? '</ul>' : '');
+    }
+
+    function findPerk(id) {
+        return [...initialData.survivorPerks, ...initialData.killerPerks,
+            ...customEntries.filter(e => e.category === 'perk')].find(p => p.id === id);
+    }
+
+    const tip = document.createElement('div');
+    tip.id = 'perkTip';
+    tip.className = 'perk-tip';
+    document.body.appendChild(tip);
+    let cur = null;
+
+    function show(el) {
+        const p = findPerk(el.dataset.perk);
+        if (!p) return hide();
+        const pt = currentLang === 'pt';
+        const desc = (!pt && p.descEn) ? p.descEn : p.desc;
+        const owner = p.ownerId === 'geral' ? (pt ? 'Geral' : 'General') : (p.charName || '');
+        tip.innerHTML = `
+            <div class="perk-tip-head">
+                <div class="perk-tip-name">${esc(nm(p))}</div>
+                <div class="perk-tip-sub"><span>${esc(owner)}</span><span>${pt ? 'Muito raro' : 'Very rare'}</span></div>
+            </div>
+            <div class="perk-tip-body">${desc ? descToHtml(desc) : `<p>${pt ? 'Sem descrição.' : 'No description.'}</p>`}</div>`;
+        tip.classList.add('show');
+        cur = el;
+    }
+    function hide() { tip.classList.remove('show'); cur = null; }
+    function place(e) {
+        const pad = 16, w = tip.offsetWidth, h = tip.offsetHeight;
+        let x = e.clientX + pad, y = e.clientY + pad;
+        if (x + w > innerWidth - 8) x = e.clientX - w - pad;
+        if (y + h > innerHeight - 8) y = innerHeight - h - 8;
+        tip.style.left = Math.max(8, x) + 'px';
+        tip.style.top = Math.max(8, y) + 'px';
+    }
+
+    document.addEventListener('mouseover', e => {
+        const el = e.target.closest && e.target.closest('[data-perk]');
+        if (!el) return;
+        if (el !== cur) show(el);
+        place(e);
+    });
+    document.addEventListener('mouseout', e => {
+        if (cur && !cur.contains(e.relatedTarget)) hide();
+    });
+    document.addEventListener('mousemove', e => {
+        if (!cur) return;
+        if (!cur.isConnected) return hide();   // a roleta redesenha os perks enquanto gira
+        place(e);
+    });
+    document.addEventListener('scroll', hide, true);
+})();
