@@ -95,6 +95,9 @@ function buildPerks(perks, role) {
             id, ownerId: c.toLowerCase() === GENERAL_NAME ? 'geral' : fmt(c),
             namePt: p.perk_name,
             nameEn: p.perk_name_en || p.perk_name,
+            charName: c,                      // novo
+            desc: p.descricao || '',          // novo
+            descEn: p.descricao_en || '',     // novo
             rel: type + '/iconperks-' + perkSlug(p.perk_name) + '.png',
             icon: role === 'survivor' ? 'fa-shield-halved' : 'fa-skull'
         };
