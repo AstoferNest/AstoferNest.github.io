@@ -1,729 +1,1820 @@
 {
   "perks": [
-    {
+        {
       "perk_name": "Chamado da Enfermeira",
+      "perk_name_en": "A Nurse's Calling",
       "character": "Perk ensinável de A Enfermeira",
-      "perk_name_en": "A Nurse's Calling"
+      "tags": [
+        "aura",
+        "cura"
+      ],
+      "descricao": "Enquanto estiver a {Tunable.K04P03.AuraRevealDistance} m de Sobreviventes que estejam curando ou sendo curados, você vê a aura deles.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Agitação",
+      "perk_name_en": "Agitation",
       "character": "Perk ensinável de O Caçador",
-      "perk_name_en": "Agitation"
+      "tags": [
+        "celeridade",
+        "raio de terror",
+        "velocidade"
+      ],
+      "descricao": "Ao carregar um Sobrevivente:\n-  Você recebe {Tunable.K01P03.Haste%}% de Celeridade.\n- Seu Raio de Terror é {Tunable.K01P03.TerrorRadiusIncreaseSize} m maior.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Enganei Você",
+      "perk_name_en": "Bamboozle",
       "character": "Perk ensinável de O Palhaço",
-      "perk_name_en": "Bamboozle"
+      "tags": [
+        "janela"
+      ],
+      "descricao": "Sempre que você pular por uma janela, ela fica bloqueada para Sobreviventes por {Tunable.K12P01.WindowBlockDurations} s.\n\nVocê salta {Tunable.K12P01.WindowVaultSpeed%}% mais rápido com pulo básico de janelas.\n\nSomente uma janela pode ser bloqueada por vez.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Churrasco com Chilli",
+      "perk_name_en": "Barbecue & Chilli",
       "character": "Perk ensinável de O Canibal",
-      "perk_name_en": "Barbecue & Chilli"
+      "tags": [
+        "aura",
+        "gancho"
+      ],
+      "descricao": "Sempre que enganchar um Sobrevivente por {Tunable.K09P02.AuraRevealDuration} s, você pode ver as Auras de todos os Sobreviventes a pelo menos {Tunable.K09P02.MinDistanceFromHook} m de distância do Sobrevivente enganchado.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Besta da Caça",
+      "perk_name_en": "Beast of Prey",
       "character": "Perk ensinável de A Caçadora",
-      "perk_name_en": "Beast of Prey"
+      "tags": [
+        "indetectável",
+        "sede de sangue",
+        "furtividade"
+      ],
+      "descricao": "Sempre que você receber Sede de Sangue, ganhe Indetectável por {Tunable.K08P01.UndetectableDuration} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Murmúrio Amargo",
+      "perk_name_en": "Bitter Murmur",
       "character": "Perk ensinável Geral",
-      "perk_name_en": "Bitter Murmur"
+      "tags": [
+        "aura",
+        "gerador",
+        "fim de jogo"
+      ],
+      "descricao": "Sempre que um gerador é concluído, você vê as auras de Sobreviventes a {Tunable.KG_Bitter_Murmur.AuraRevealRange} m dele por {Tunable.KG_Bitter_Murmur.AuraRevealDuration} s.\n\nQuando todos os geradores são concluídos, você vê as auras de todos os Sobreviventes por {Tunable.KG_Bitter_Murmur.AuraRevealEndgameDuration} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Eco Sanguíneo",
+      "perk_name_en": "Blood Echo",
       "character": "Perk ensinável de O Oni",
-      "perk_name_en": "Blood Echo"
+      "tags": [
+        "exaustão",
+        "hemorragia",
+        "gancho"
+      ],
+      "descricao": "Sempre que você engancha um Sobrevivente, por {Tunable.K18P02.HemorrhageExhaustionDuration} s, todos os Sobreviventes feridos:\n- Ganham Exaustão.\n- Ganham Hemorragia.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Guardião Sanguinário",
+      "perk_name_en": "Blood Warden",
       "character": "Perk ensinável de O Pesadelo",
-      "perk_name_en": "Blood Warden"
+      "tags": [
+        "aura",
+        "portão",
+        "gancho"
+      ],
+      "descricao": "Quando um portão de saída abre, uma vez por partida, quando você engancha um Sobrevivente, as duas saídas são bloqueadas por {Tunable.K10P03.GateBlockDuration} s.\n\nVocê vê as auras dos Sobreviventes nos limites de saída.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Cão de Caça",
+      "perk_name_en": "Bloodhound",
       "character": "Perk ensinável de O Espectro",
-      "perk_name_en": "Bloodhound"
+      "tags": [
+        "rastro"
+      ],
+      "descricao": "Poças de Sangue brilham mais e duram {Tunable.K02P02.ExtraTrackDuration} s a mais.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Força Brutal",
+      "perk_name_en": "Brutal Strength",
       "character": "Perk ensinável de O Caçador",
-      "perk_name_en": "Brutal Strength"
+      "tags": [
+        "gerador",
+        "barricada",
+        "ataque"
+      ],
+      "descricao": "Seu ataque básico quebra barricadas e paredes destrutíveis e danifica geradores {Tunable.K01P02.ActionSpeed%}% mais rápido.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Intervenção Corrompida",
+      "perk_name_en": "Corrupt Intervention",
       "character": "Perk ensinável de A Praga",
-      "perk_name_en": "Corrupt Intervention"
+      "tags": [
+        "gerador",
+        "morrendo"
+      ],
+      "descricao": "Quando a partida começa, os {Tunable.K15P01.GeneratorsBlocked} geradores mais distantes de você ficam bloqueados por {Tunable.K15P01.GeneratorBlockDuration} s ou até um Sobrevivente ser derrubado.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Coulrofobia",
+      "perk_name_en": "Coulrophobia",
       "character": "Perk ensinável de O Palhaço",
-      "perk_name_en": "Coulrophobia"
+      "tags": [
+        "teste de perícia",
+        "raio de terror"
+      ],
+      "descricao": "Sobreviventes dentro do seu Raio de Terror:\n- Curam {Tunable.K12P02.HealPenalty%}% mais lentamente.\n- Enquanto curam, Testes de Perícia básicos giram {Tunable.K12P02.SkillCheckSpeedIncrease%}% mais rápido.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Coup de Grâce",
+      "perk_name_en": "Coup de Grâce",
       "character": "Perk ensinável de Os Gêmeos",
-      "perk_name_en": "Coup de Grâce"
+      "tags": [
+        "gerador"
+      ],
+      "descricao": "Conforme o fim se aproxima, mais você quer matar.\n\nToda vez que um gerador for concluído, Coup de Grâce ficará mais forte e você ganhará 2 pontos de progressão, até o máximo de 5.\n\nConsuma um ponto de progressão para aumentar a distância da sua próxima investida em {0}%.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Limite Cruel",
+      "perk_name_en": "Claustrophobia",
       "character": "Perk ensinável de O Demogorgon",
-      "perk_name_en": "Claustrophobia"
+      "tags": [
+        "gerador",
+        "reparo",
+        "janela"
+      ],
+      "descricao": "Seus laços com a Entidade se manifestam quando a sua presa tenta escapar.\n\nA cada vez que um gerador for reparado, todas as janelas e locais de pulo ficam bloqueados para todos os Sobreviventes pelos próximos {0} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Devoção Sombria",
+      "perk_name_en": "Dark Devotion",
       "character": "Perk ensinável de A Praga",
-      "perk_name_en": "Dark Devotion"
+      "tags": [
+        "indetectável",
+        "raio de terror",
+        "obsessão",
+        "furtividade"
+      ],
+      "descricao": "Quando a Obsessão recebe dano, por {Tunable.K15P03.TerrorRadiusTransferDuration} s:\n- Seu Raio de Terror é definido para {Tunable.K15P03.TerrorRadiusSize} m:\n- A Obsessão fica com seu Raio de Terror.\n- Você recebe Indetectável.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Garantia do Morto",
+      "perk_name_en": "Dead Man's Switch",
       "character": "Perk ensinável de O Mercenário",
-      "perk_name_en": "Dead Man's Switch"
+      "tags": [
+        "gerador",
+        "reparo",
+        "gancho",
+        "tempo de recarga"
+      ],
+      "descricao": "Sempre que você engancha um Sobrevivente, a próxima vez que um Sobrevivente parar de reparar um gerador por mais de {Tunable.K19P02.GeneratorReleaseDuration} s, ele fica bloqueado por {Tunable.K19P02.GeneratorBlockDuration} s. Tempo de recarga: {Tunable.K19P02.Cooldown} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Letalidade",
+      "perk_name_en": "Deathbound",
       "character": "Perk ensinável de O Carrasco",
-      "perk_name_en": "Deathbound"
+      "tags": [
+        "alheio",
+        "aura",
+        "cura"
+      ],
+      "descricao": "Sempre que um Sobrevivente termina de curar outro Sobrevivente, o que curou grita. Em seguida, até a pessoa que curou receber dano, enquanto ela estiver a pelo menos {Tunable.K20P03.MaximumDistance} m do Sobrevivente curado:\n- Quem curou recebe Alheio.\n- Quem curou vê a aura do Sobrevivente curado.\n\nSó se aplica a um Sobrevivente por vez.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Caçador de Cervos",
+      "perk_name_en": "Deerstalker",
       "character": "Perk ensinável Geral",
-      "perk_name_en": "Deerstalker"
+      "tags": [
+        "aura",
+        "perseguição"
+      ],
+      "descricao": "A cada {Tunable.KG_Deerstalker.RevealTimeIntervals} s, o Sobrevivente com menor tempo de perseguição vê sua Aura por {Tunable.KG_Deerstalker.RevealDuration} s.\n\nEnquanto um Sobrevivente ver a sua Aura, você vê a dele.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Discordância",
+      "perk_name_en": "Discordance",
       "character": "Perk ensinável de A Legião",
-      "perk_name_en": "Discordance"
+      "tags": [
+        "aura",
+        "gerador",
+        "reparo"
+      ],
+      "descricao": "A {Tunable.K14P01.EffectRange} m de você, quando um gerador é reparado por pelo menos dois Sobreviventes, você recebe um alerta.\n\nEnquanto esse gerador estiver sendo reparado por pelo menos dois Sobreviventes, você vê a aura dele. Isso termina {Tunable.K14P01.AuraLingerDuration} s após o gerador não ser mais reparado por pelo menos dois Sobreviventes.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Angustiante",
+      "perk_name_en": "Distressing",
       "character": "Perk ensinável Geral",
-      "perk_name_en": "Distressing"
+      "tags": [
+        "reparo",
+        "raio de terror"
+      ],
+      "descricao": "Sobreviventes dentro do seu Raio de Terror reparam {Tunable.KG_Distressing.RepairSpeedPenalty}% mais lentamente.\n\nSeu Raio de Terror é {Tunable.KG_Distressing.TerrorRadiusIncreaseSize}% maior.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Garra do Dragão",
+      "perk_name_en": "Dragon's Grip",
       "character": "Perk ensinável de O Flagelo",
-      "perk_name_en": "Dragon's Grip"
+      "tags": [
+        "exposto",
+        "aura",
+        "gerador",
+        "reparo",
+        "tempo de recarga"
+      ],
+      "descricao": "Sempre que você causar dano a um gerador, pelos próximos {Tunable.K21P01.ActiveDuration} s, o primeiro Sobrevivente que reparar aquele gerador:\n- Grita e você recebe um alerta da posição dele por {Tunable.K21P01.AuraRevealDuration} s.\n- Fica Exposto por {Tunable.K21P01.ExposedDuration} s.\n\nTempo de recarga: {Tunable.K21P01.Cooldown} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Perdendo a Esperança",
+      "perk_name_en": "Dying Light",
       "character": "Perk ensinável de O Vulto",
-      "perk_name_en": "Dying Light"
+      "tags": [
+        "cura",
+        "reparo",
+        "gancho",
+        "obsessão"
+      ],
+      "descricao": "Sempre que você enganchar um Sobrevivente que não é a Obsessão, receba {Tunable.K06P02.TokensPerHook} Ponto de Progressão.\n\nEnquanto a Obsessão estiver viva, para cada Ponto de Progressão:\n- Os outros Sobreviventes curam {Tunable.K06P02.ActionSpeedPenaltyPerToken%}% mais lentamente.\n- Os outros Sobreviventes reparam {Tunable.K06P02.ActionSpeedPenaltyPerToken%}% mais lentamente.\n- Os outros Sobreviventes sabotam ganchos {Tunable.K06P02.ActionSpeedPenaltyPerToken%}% mais lentamente.\n\nA Obsessão:\n- Cura outros Sobreviventes {Tunable.K06P02.ObsessionActionSpeedBonus%}% mais rápido.\n- Desengancha outros Sobreviventes {Tunable.K06P02.ObsessionActionSpeedBonus%}% mais rápido.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Resistência",
+      "perk_name_en": "Enduring",
       "character": "Perk ensinável de O Caipira",
-      "perk_name_en": "Enduring"
+      "tags": [
+        "barricada",
+        "carregar"
+      ],
+      "descricao": "Enquanto não estiver carregando um Sobrevivente, atordoamentos causados por barricadas são {Tunable.K03P01.StunDurationReduction%}% mais curtos.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Motivação",
+      "perk_name_en": "Fire Up",
       "character": "Perk ensinável de O Pesadelo",
-      "perk_name_en": "Fire Up"
+      "tags": [
+        "gerador",
+        "barricada",
+        "janela"
+      ],
+      "descricao": "Sempre que um gerador for concluído, obtenha {Tunable.K10P01.TokensPerGenerator} Ponto de Progressão, podendo acumular até {Tunable.K10P01.MaxTokens}.\n\nPara cada Ponto de Progressão:\n- Você quebra barricadas e paredes destrutíveis com básico {Tunable.K10P01.ActionSpeedBonus%}% mais rápido.\n- Você danifica geradores {Tunable.K10P01.ActionSpeedBonus%}% mais rápido.\n- Você pega e solta Sobreviventes {Tunable.K10P01.ActionSpeedBonus%}% mais rápido.\n- Você pula sobre janelas com pulo básico {Tunable.K10P01.ActionSpeedBonus%}% mais rápido.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Penitência Forçada",
+      "perk_name_en": "Forced Penance",
       "character": "Perk ensinável de O Carrasco",
-      "perk_name_en": "Forced Penance"
+      "tags": [
+        "quebrado"
+      ],
+      "descricao": "Sempre que um Sobrevivente tomar um acerto de proteção, ele recebe Quebrado por {Tunable.K20P01.BrokenDuration} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "A Morte de Franklin",
+      "perk_name_en": "Franklin's Demise",
       "character": "Perk ensinável de O Canibal",
-      "perk_name_en": "Franklin's Demise"
+      "tags": [
+        "aura",
+        "item"
+      ],
+      "descricao": "Sempre que você causar dano a um Sobrevivente com um ataque básico, ele solta o item.\n\nA {Tunable.K09P03.ItemsRevealDistance} m, você pode ver as Auras de itens no chão.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Perseguição Furtiva",
+      "perk_name_en": "Furtive Chase",
       "character": "Perk ensinável de O Ghost Face",
-      "perk_name_en": "Furtive Chase"
+      "tags": [
+        "celeridade",
+        "indetectável",
+        "gancho",
+        "obsessão",
+        "furtividade",
+        "velocidade"
+      ],
+      "descricao": "Sempre que você engancha a Obsessão:\n- Você recebe {Tunable.K16P03.Haste%}% de Celeridade por {Tunable.K16P03.UndetectableHasteDuration} s.\n- Você recebe Indetectável por {Tunable.K16P03.UndetectableHasteDuration} s.\n\nSempre que a Obsessão é desenganchada, o Sobrevivente que a desenganchou se torna a Obsessão.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Coroa Dentada",
+      "perk_name_en": "Gearhead",
       "character": "Perk ensinável de O Mercenário",
-      "perk_name_en": "Gearhead"
+      "tags": [
+        "aura",
+        "gerador",
+        "reparo",
+        "teste de perícia"
+      ],
+      "descricao": "Sempre que um Sobrevivente recebe dano, pelos próximos {Tunable.K19P01.EffectDuration} s, sempre que um Sobrevivente que está reparando um gerador conseguir um Teste de Perícia básico bom, você vê a aura dele por {Tunable.K19P01.AuraRevealDuration} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Gancho do Tormento: Truque do Carrasco",
+      "perk_name_en": "Hangman's Trick",
       "character": "Perk ensinável de A Porca",
-      "perk_name_en": "Hangman's Trick"
+      "tags": [
+        "aura",
+        "gancho",
+        "gancho do tormento"
+      ],
+      "descricao": "Quando a partida começa, quatro ganchos aleatórios se tornam Ganchos do Tormento.\n\nAo carregar um Sobrevivente, você vê as auras de Sobreviventes a {Tunable.K11P01.AuraRevealDistance} m de um Gancho do Tormento.\n\nSempre que um Sobrevivente começa a sabotar um gancho, você recebe um alerta.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Feitiço: Graça do Sangue",
+      "perk_name_en": "Hex: Blood Favour",
       "character": "Perk ensinável de O Flagelo",
-      "perk_name_en": "Hex: Blood Favour"
+      "tags": [
+        "barricada",
+        "ataque",
+        "feitiço",
+        "totem enfeitiçado"
+      ],
+      "descricao": "Quando a partida começa, um Totem Simples acende.\n\nSempre que um Sobrevivente saudável fica ferido pelo seu ataque básico, barricadas levantadas a {Tunable.K21P03.EffectRadius} m dele ficam bloqueadas por {Tunable.K21P03.BlockDuration} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Feitiço: Devorar Esperança",
+      "perk_name_en": "Hex: Devour Hope",
       "character": "Perk ensinável de A Bruxa",
-      "perk_name_en": "Hex: Devour Hope"
+      "tags": [
+        "exposto",
+        "celeridade",
+        "gancho",
+        "velocidade",
+        "morrendo",
+        "feitiço",
+        "totem enfeitiçado"
+      ],
+      "descricao": "Quando a partida começa, um Totem Simples acende.\n\nSempre que um Sobrevivente é desenganchado enquanto você estiver a pelo menos {Tunable.K05P03.DistanceFromHook} m de distância, receba {Tunable.K05P03.TokensPerUnhook} Ponto de Progressão, podendo acumular até {Tunable.K05P03.MaxTokens}.\n- 2 Pontos de Progressão | {Tunable.K05P03.HasteDelayDuration} s após enganchar um Sobrevivente, receba {Tunable.K05P03.Haste%}% de Celeridade por {Tunable.K05P03.HasteDuration} s.\n- 3 Pontos de Progressão | Os Sobreviventes recebem Exposto.\n- 5 Pontos de Progressão | Você pode matar Sobreviventes derrubados.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Feitiço: Terreno Assombrado",
+      "perk_name_en": "Hex: Haunted Ground",
       "character": "Perk ensinável de O Espírito",
-      "perk_name_en": "Hex: Haunted Ground"
+      "tags": [
+        "exposto",
+        "totem",
+        "totem enfeitiçado",
+        "feitiço"
+      ],
+      "descricao": "Quando a partida começa, 2 Totens Simples acendem.\n\nQuando um dos Totens Enfeitiçados for abençoado ou purificado:\n- Todos os Sobreviventes recebem Exposto por {Tunable.K13P02.ExposedDuration} s.\n- O outro Totem é apagado.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Feitiço: Canção de Ninar da Caçadora",
+      "perk_name_en": "Hex: Huntress Lullaby",
       "character": "Perk ensinável de A Caçadora",
-      "perk_name_en": "Hex: Huntress Lullaby"
+      "tags": [
+        "gancho",
+        "teste de perícia",
+        "regressão",
+        "feitiço",
+        "totem enfeitiçado"
+      ],
+      "descricao": "Quando a partida começa, um Totem Simples acende.\n\nSempre que você enganchar um Sobrevivente, receba {Tunable.K08P03.TokensPerHook} ponto de progressão. Para cada ponto de progressão, o aviso de Testes de Perícia básicos aparece depois e as zonas de sucesso são menores.\n\nQuando tiver 5 pontos de progressão, Testes de Perícia básicos não aparecem.\n\nSempre que um Sobrevivente falhar em um Teste de Perícia básico, ele perde {Tunable.K08P03.RegressionBonus%}% mais progresso.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Feitiço: Ninguém Escapa da Morte",
+      "perk_name_en": "Hex: No One Escapes Death",
       "character": "Perk ensinável Geral",
-      "perk_name_en": "Hex: No One Escapes Death"
+      "tags": [
+        "exposto",
+        "celeridade",
+        "aura",
+        "gerador",
+        "totem",
+        "totem enfeitiçado",
+        "fim de jogo",
+        "velocidade",
+        "feitiço"
+      ],
+      "descricao": "Quando todos os geradores forem concluídos, um Totem Simples acende:\n- Sobreviventes recebem Exposto.\n- Você ganha {Tunable.KG_No_One_Escapes_Death.Haste%}% de Celeridade.\n\nNum raio de {Tunable.KG_No_One_Escapes_Death.AuraRevealStartRange} m, os Sobreviventes veem a aura do Totem Enfeitiçado, expandindo para {Tunable.KG_No_One_Escapes_Death.AuraRevealEndRange} m ao longo de {Tunable.KG_No_One_Escapes_Death.AuraSizeIncreaseDelay} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Feitiço: Retribuição",
+      "perk_name_en": "Hex: Retribution",
       "character": "Perk ensinável de O Mercenário",
-      "perk_name_en": "Hex: Retribution"
+      "tags": [
+        "alheio",
+        "aura",
+        "totem",
+        "totem enfeitiçado",
+        "feitiço"
+      ],
+      "descricao": "Quando a partida começa, um Totem Simples acende.\n\nSempre que um Sobrevivente começa a abençoar ou purificar um Totem, ele ganha Alheio por {Tunable.K19P03.ObliviousDuration} s.\n\nSempre que um Totem Enfeitiçado é abençoado ou purificado, você vê as auras de todos os Sobreviventes por {Tunable.K19P03.AuraRevealDuration} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Feitiço: Arruinar",
+      "perk_name_en": "Hex: Ruin",
       "character": "Perk ensinável de A Bruxa",
-      "perk_name_en": "Hex: Ruin"
+      "tags": [
+        "gerador",
+        "reparo",
+        "regressão",
+        "feitiço",
+        "totem enfeitiçado"
+      ],
+      "descricao": "Quando a partida começa, um Totem Simples acende.\n\nEnquanto um gerador não for reparado, ele regride com {Tunable.K05P02.RegressionSpeed%}% de velocidade.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Feitiço: Terceiro Selo",
+      "perk_name_en": "Hex: The Third Seal",
       "character": "Perk ensinável de A Bruxa",
-      "perk_name_en": "Hex: The Third Seal"
+      "tags": [
+        "cegueira",
+        "feitiço",
+        "totem enfeitiçado"
+      ],
+      "descricao": "Quando a partida começa, um Totem Simples acende.\n\nSempre que você causar dano a um Sobrevivente, ele ganha Cegueira.\n\nEste efeito é aplicado em até {Tunable.K05P01.MaxAffectedSurvivors} Sobreviventes.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Feitiço: Emoção da Caçada",
+      "perk_name_en": "Hex: Thrill of the Hunt",
       "character": "Perk ensinável Geral",
-      "perk_name_en": "Hex: Thrill of the Hunt"
+      "tags": [
+        "totem",
+        "totem enfeitiçado",
+        "gancho",
+        "feitiço"
+      ],
+      "descricao": "Na primeira vez que você engancha um Sobrevivente, um Totem Simples acende.\n\nQuando você engancha um Sobrevivente, todos os Totens Enfeitiçados são bloqueados por {Tunable.KG_Hex_Thrill_Of_The_Hunt.BlockDurationPerToken} s para cada Totem Enfeitiçado aceso.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Feitiço: Imortal",
+      "perk_name_en": "Hex: Undying",
       "character": "Perk ensinável de O Flagelo",
-      "perk_name_en": "Hex: Undying"
+      "tags": [
+        "aura",
+        "totem",
+        "totem enfeitiçado",
+        "feitiço"
+      ],
+      "descricao": "Quando a partida começa, um Totem Simples acende.\n\nQuando outro Totem Enfeitiçado for abençoado ou purificado, ele substitui este Totem e mantém todos os Pontos de Progressão que ele tinha.\n\nVocê vê as Auras de Sobreviventes a {Tunable.K21P02.AuraRevealDistance} m de Totens Simples.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Acumulador",
+      "perk_name_en": "Hoarder",
       "character": "Perk ensinável de Os Gêmeos",
-      "perk_name_en": "Hoarder"
+      "tags": [
+        "baú"
+      ],
+      "descricao": "Você protege o pouco que tem e fica de olho em qualquer alteração nas suas reservas.\n\nOs Sobreviventes revelam onde estão ao interagirem com um baú ou ao pegarem um item a até {0} m de você.\n\nA partida começa com até {1} Baús adicionais no cenário.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Sou Todo Ouvidos",
+      "perk_name_en": "I'm All Ears",
       "character": "Perk ensinável de O Ghost Face",
-      "perk_name_en": "I'm All Ears"
+      "tags": [
+        "aura",
+        "armário",
+        "tempo de recarga"
+      ],
+      "descricao": "Sempre que um Sobrevivente entrar ou sair rápido de um Armário ou fizer pulos rápidos ou médios a {Tunable.K16P01.ActivationRange} m de você, você vê a aura dele por {Tunable.K16P01.AuraRevealDuration} s. Tempo de recarga: {Tunable.K16P01.Cooldown} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Pavor Contagiante",
+      "perk_name_en": "Infectious Fright",
       "character": "Perk ensinável de A Praga",
-      "perk_name_en": "Infectious Fright"
+      "tags": [
+        "raio de terror",
+        "morrendo"
+      ],
+      "descricao": "Sempre que um Sobrevivente for derrubado, Sobreviventes em seu Raio de Terror gritam e você recebe um alerta por {Tunable.K15P02.RevealDuration} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Insidioso",
+      "perk_name_en": "Insidious",
       "character": "Perk ensinável Geral",
-      "perk_name_en": "Insidious"
+      "tags": [
+        "indetectável",
+        "furtividade"
+      ],
+      "descricao": "Após ficar ocioso por {Tunable.KG_Insidious.TimeToActivate} s, receba Indetectável. Sempre que você age, isso termina após {Tunable.KG_Insidious.LingerTime} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Pegada de Ferro",
+      "perk_name_en": "Iron Grasp",
       "character": "Perk ensinável Geral",
-      "perk_name_en": "Iron Grasp"
+      "tags": [
+        "debater"
+      ],
+      "descricao": "Ao carregar um Sobrevivente:\n- Ele se debate {Tunable.KG_Iron_Grasp.WiggleTimeIncrease%}% mais lentamente.\n- Ele se debate de forma {Tunable.KG_Iron_Grasp.WiggleStrengthReduction%}% mais fraca.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Dama de Ferro",
+      "perk_name_en": "Iron Maiden",
       "character": "Perk ensinável de A Legião",
-      "perk_name_en": "Iron Maiden"
+      "tags": [
+        "exposto",
+        "armário"
+      ],
+      "descricao": "Sempre que um Sobrevivente sai de um armário:\n- Ele recebe Exposto por {Tunable.K14P03.ExposedDuration} s.\n- Ele grita e você recebe um alerta da localização dele por {Tunable.K14P03.RevealDuration} s.\n\nVocê abre armários {Tunable.K14P03.ActionSpeed%}% mais rápido.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Nocaute",
+      "perk_name_en": "Knock Out",
       "character": "Perk ensinável de O Canibal",
-      "perk_name_en": "Knock Out"
+      "tags": [
+        "lentidão",
+        "barricada",
+        "velocidade"
+      ],
+      "descricao": "Os ferimentos dolorosos causados pelos seus ataques brutais dificultam pedir por ajuda.\n\n- Quando um Sobrevivente derrubar uma barricada, ele se move {0} m para longe dela dentro de {1} s e ganha {2}% de Lentidão por {3} s.\nLentidão reduz a velocidade de movimento do Sobrevivente.\n\n\"Ah, essa arma não é boa. Sou antiquado, vou de marreta! É melhor, entende? Assim eles morrem melhor.\" — Nubbins Sawyer",
+      "descricao_en": ""
     },
     {
       "perk_name": "Nascido da Luz",
+      "perk_name_en": "Lightborn",
       "character": "Perk ensinável de O Caipira",
-      "perk_name_en": "Lightborn"
+      "tags": [
+        "aura"
+      ],
+      "descricao": "Sempre que um Sobrevivente tentar cegar você, veja a aura dele por {Tunable.K03P02.AuraRevealDuration} s.\n\nVocê não pode ficar cego.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Persistência Insana",
+      "perk_name_en": "Mad Grit",
       "character": "Perk ensinável de A Legião",
-      "perk_name_en": "Mad Grit"
+      "tags": [
+        "ataque",
+        "tempo de recarga",
+        "debater"
+      ],
+      "descricao": "Ao carregar um Sobrevivente:\n- Sempre que você erra um ataque básico, seu tempo de recarga é {Tunable.K14P02.AttackCooldownReduction}% mais curto.\n- Sempre que você causa dano a um Sobrevivente com um ataque básico, o Sobrevivente carregado não recebe progresso ao se debater por {Tunable.K14P02.WigglePauseDuration} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Faça sua Escolha",
+      "perk_name_en": "Make Your Choice",
       "character": "Perk ensinável de A Porca",
-      "perk_name_en": "Make Your Choice"
+      "tags": [
+        "exposto",
+        "gancho",
+        "tempo de recarga"
+      ],
+      "descricao": "Sempre que um Sobrevivente se desengancha ou desengancha outro enquanto você estiver a pelo menos {Tunable.K11P03.MinimumDistance} m de distância:\n- Eles gritam.\n- Eles recebem Exposto por {Tunable.K11P03.ExposedDuration} s.\n\nTempo de recarga: {Tunable.K11P03.Cooldown} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Invasor Mental",
+      "perk_name_en": "Fearmonger",
       "character": "Perk ensinável de O Demogorgon",
-      "perk_name_en": "Fearmonger"
+      "tags": [
+        "exaustão",
+        "cegueira",
+        "aura",
+        "gerador",
+        "reparo"
+      ],
+      "descricao": "Sua presença angustiante drena e enfraquece a presa.\n\nSobreviventes que estiverem reparando geradores sofrerão o efeito dos estados Exaustão e Cegueira. Se o Sobrevivente já estiver sob Exaustão, o tempo do efeito será interrompido.\n\nAmbos os efeitos perdurarão por {1} s após o Sobrevivente parar o reparo.\n\nCegueira impede os Sobreviventes de verem auras.\nExaustão impede os Sobreviventes de ativarem vantagens exaustivas.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Monitore & Abuse",
+      "perk_name_en": "Monitor & Abuse",
       "character": "Perk ensinável de O Médico",
-      "perk_name_en": "Monitor & Abuse"
+      "tags": [
+        "raio de terror"
+      ],
+      "descricao": "Enquanto persegue um Sobrevivente, seu Raio de Terror é {Tunable.K07P02.TerrorRadiusIncrease%}% maior.\n\nEnquanto não persegue um Sobrevivente, seu Raio de Terror é {Tunable.K07P02.TerrorRadiusDecrease%}% menor.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Gancho do Tormento: Santuário Monstruoso",
+      "perk_name_en": "Monstrous Shrine",
       "character": "Perk ensinável Geral",
-      "perk_name_en": "Monstrous Shrine"
+      "tags": [
+        "gerador",
+        "reparo",
+        "gancho",
+        "regressão",
+        "gancho do tormento"
+      ],
+      "descricao": "Quando a partida começa:\n- Quatro ganchos aleatórios se tornam Ganchos do Tormento.\n- Os ganchos do porão se tornam Ganchos do Tormento.\n\nSempre que você estiver a pelo menos {Tunable.KG_Monstrous_Shrine.Range} m de um Sobrevivente em um Gancho do Tormento, qualquer gerador que não estiver sendo reparado regredirá a {Tunable.KG_Monstrous_Shrine.GeneratorRegression}% da velocidade.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Nemesis",
+      "perk_name_en": "Nemesis",
       "character": "Perk ensinável de O Oni",
-      "perk_name_en": "Nemesis"
+      "tags": [
+        "alheio",
+        "aura",
+        "obsessão"
+      ],
+      "descricao": "Sempre que um Sobrevivente cega você ou atordoa você com armário ou barricada, ele se torna a Obsessão.\n\nSempre que um Sobrevivente se torna a Obsessão:\n- Ele recebe Alheio por {Tunable.K18P03.ObliviousDuration} s.\n- Você vê a aura dele por {Tunable.K18P03.AuraRevealDuration} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Opressão",
+      "perk_name_en": "Oppression",
       "character": "Perk ensinável de Os Gêmeos",
-      "perk_name_en": "Oppression"
+      "tags": [
+        "gerador",
+        "reparo",
+        "teste de perícia",
+        "tempo de recarga"
+      ],
+      "descricao": "A vida foi difícil para você, por isso você dificulta a dos outros.\n\nAo danificar um gerador, até {0} outros geradores aleatórios começam a regredir.\n\nSe um desses geradores estiver sendo reparado, aciona um Teste de Perícia difícil para cada um dos Sobreviventes que o estiverem reparando.\n\n<i>Opressão</i> tem um tempo de recarga de {1} s.\n\n\"Danem-se eles que só nos trariam danação.\" — Charlotte Deshayes",
+      "descricao_en": ""
     },
     {
       "perk_name": "Sobrecarga",
+      "perk_name_en": "Overcharge",
       "character": "Perk ensinável de O Médico",
-      "perk_name_en": "Overcharge"
+      "tags": [
+        "gerador",
+        "reparo",
+        "teste de perícia",
+        "regressão"
+      ],
+      "descricao": "Sempre que você causa dano a um gerador:\n- Sua velocidade de regressão aumenta de {Tunable.K07P03.StartingRegressionSpeed%}% para {Tunable.K07P03.MaxRegressionSpeed%}% ao longo dos próximos {Tunable.K07P03.RegressionRampDuration} s.\n- O próximo Sobrevivente que começar a reparar recebe um Teste de Perícia especial. Se falhar, ele perde mais {Tunable.K07P03.GenRegressionOnFail%}% de progresso.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Presença Esmagadora",
+      "perk_name_en": "Overwhelming Presence",
       "character": "Perk ensinável de O Médico",
-      "perk_name_en": "Overwhelming Presence"
+      "tags": [
+        "exaustão",
+        "aura",
+        "tempo de recarga"
+      ],
+      "descricao": "Sempre que um Sobrevivente usa um item a {Tunable.K07P01.DistanceToSurvivorDistance} m de você, ele recebe Exaustão por {Tunable.K07P01.ExhaustionDuration} s.\n\nSempre que um Sobrevivente a {Tunable.K07P01.DistanceToSurvivorDistance} m de você recebe Exaustão, você vê a aura do Sobrevivente com Exaustão mais próximo por {Tunable.K07P01.AuraRevealDuration} s. Tempo de recarga: {Tunable.K07P01.Cooldown} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Brinque com a sua Comida",
+      "perk_name_en": "Play with Your Food",
       "character": "Perk ensinável de O Vulto",
-      "perk_name_en": "Play with Your Food"
+      "tags": [
+        "celeridade",
+        "perseguição",
+        "obsessão",
+        "tempo de recarga",
+        "velocidade"
+      ],
+      "descricao": "Sempre que você parar de perseguir a Obsessão, ganhe {Tunable.K06P03.TokensGained} ponto de progressão, até um máximo de {Tunable.K06P03.MaxTokens}. Tempo de recarga: {Tunable.K06P03.ChargeGainedCooldown} s.\n\nPara cada ponto de progressão, receba {Tunable.K06P03.Haste%}% de Celeridade.\n\nSempre que atacar, você perde {Tunable.K06P03.TokensLostOnAction} ponto de progressão.",
+      "descricao_en": ""
     },
     {
       "perk_name": "E Assim Gira o Carrossel",
+      "perk_name_en": "Pop Goes the Weasel",
       "character": "Perk ensinável de O Palhaço",
-      "perk_name_en": "Pop Goes the Weasel"
+      "tags": [
+        "gerador",
+        "gancho"
+      ],
+      "descricao": "Sempre que você enganchar um Sobrevivente, pelos próximos {Tunable.K12P03.ActiveDuration} s, quando você causar dano a um gerador, ele explode e perde mais {Tunable.K12P03.ExtraGeneratorDamage%}% de progresso.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Predador",
+      "perk_name_en": "Predator",
       "character": "Perk ensinável de O Espectro",
-      "perk_name_en": "Predator"
+      "tags": [
+        "aura",
+        "perseguição",
+        "tempo de recarga"
+      ],
+      "descricao": "Quando parar de perseguir um Sobrevivente, você vê a Aura dele por {Tunable.K02P01.AuraRevealDuration} s. Tempo de recarga: {Tunable.K02P01.Cooldown} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Rancor",
+      "perk_name_en": "Rancor",
       "character": "Perk ensinável de O Espírito",
-      "perk_name_en": "Rancor"
+      "tags": [
+        "exposto",
+        "aura",
+        "gerador",
+        "obsessão",
+        "fim de jogo"
+      ],
+      "descricao": "Sempre que um gerador é concluído:\n- Você recebe um alerta da posição de todos os Sobreviventes por {Tunable.K13P03.SurvivorRevealDuration} s.\n- A Obsessão vê sua aura por {Tunable.K13P03.KillerRevealDuration} s.\n\nQuando todos os geradores forem concluídos:\n- A Obsessão recebe Exposto.\n- Você pode matar a Obsessão.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Lembre-se de Mim",
+      "perk_name_en": "Remember Me",
       "character": "Perk ensinável de O Pesadelo",
-      "perk_name_en": "Remember Me"
+      "tags": [
+        "portão",
+        "obsessão"
+      ],
+      "descricao": "Sempre que a Obsessão receber dano, ganhe 1 Ponto de Progressão, podendo acumular até {Tunable.K10P02.MaximumTokens}.\n\nPara cada Ponto de Progressão, Sobreviventes que não forem a Obsessão abrem portões de saída {Tunable.K10P02.ActionSpeedPenalty%}% mais lentamente.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Deixe o Melhor para o Final",
+      "perk_name_en": "Save the Best for Last",
       "character": "Perk ensinável de O Vulto",
-      "perk_name_en": "Save the Best for Last"
+      "tags": [
+        "obsessão",
+        "ataque",
+        "tempo de recarga"
+      ],
+      "descricao": "Sempre que você causar dano a um Sobrevivente que não seja a Obsessão com um ataque básico, receba {Tunable.K06P01.TokensGainedOnHit} ponto de progressão, podendo acumular até {Tunable.K06P01.MaxTokens}.\n\nPara cada ponto de progressão, o tempo de recarga do seu ataque básico bem-sucedido é {Tunable.K06P01.AttackReductionPerToken%}% mais curto.\n\nSempre que a Obsessão receber dano, perca {Tunable.K06P01.TokensLostOnHit} pontos de progressão.\n\nEnquanto a Obsessão estiver morta, você não pode receber pontos de progressão.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Nascido das Sombras",
+      "perk_name_en": "Shadowborn",
       "character": "Perk ensinável de O Espectro",
-      "perk_name_en": "Shadowborn"
+      "tags": [
+        "celeridade",
+        "velocidade"
+      ],
+      "descricao": "Sempre que ficar cego, receba {Tunable.K02P03.Haste%}% de Celeridade por {Tunable.K02P03.Duration} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Açougueiro Desleixado",
+      "perk_name_en": "Sloppy Butcher",
       "character": "Perk ensinável Geral",
-      "perk_name_en": "Sloppy Butcher"
+      "tags": [
+        "hemorragia",
+        "dilacerado",
+        "cura",
+        "ataque"
+      ],
+      "descricao": "Sempre que você causar dano a um Sobrevivente com um ataque básico:\n- Ele recebe Hemorragia por {Tunable.KG_Sloppy_Butcher.Duration} s.\n- Ele recebe Dilacerado por {Tunable.KG_Sloppy_Butcher.Duration} s.\n\nSobreviventes com Hemorragia perdem progresso de cura {Tunable.KG_Sloppy_Butcher.HemmorhageBoost%}% mais rápido.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Espiões das Sombras",
+      "perk_name_en": "Spies from the Shadows",
       "character": "Perk ensinável Geral",
-      "perk_name_en": "Spies from the Shadows"
+      "tags": [
+        "tempo de recarga"
+      ],
+      "descricao": "Sempre que um Sobrevivente assusta um corvo a {Tunable.KG_Spies_From_The_Shadows.NotificationRange} m de você, você recebe um alerta. Tempo de recarga: {Tunable.KG_Spies_From_The_Shadows.Cooldown} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Fúria Espiritual",
+      "perk_name_en": "Spirit Fury",
       "character": "Perk ensinável de O Espírito",
-      "perk_name_en": "Spirit Fury"
+      "tags": [
+        "barricada"
+      ],
+      "descricao": "Após quebrar {Tunable.K13P01.PalletsRequired} barricadas, quando você for atordoado por uma barricada, a barricada é destruída.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Estridor",
+      "perk_name_en": "Stridor",
       "character": "Perk ensinável de A Enfermeira",
-      "perk_name_en": "Stridor"
+      "tags": [
+        "ruído"
+      ],
+      "descricao": "A respiração dos Sobreviventes é {Tunable.K04P01.HealthySoundIncrease%}% mais alta e os Gemidos de Dor são {Tunable.K04P01.InjuredSoundIncrease%}% mais altos.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Pico de Tensão",
+      "perk_name_en": "Jolt",
       "character": "Perk ensinável de O Demogorgon",
-      "perk_name_en": "Jolt"
+      "tags": [
+        "gerador",
+        "ataque",
+        "fim de jogo",
+        "morrendo"
+      ],
+      "descricao": "Sua presença misteriosa carrega o ar e afeta a tecnologia.\n\nDeixar um Sobrevivente no estado Morrendo com um <i>ataque básico</i> fará todos os geradores em um raio de alcance de 32 m explodirem instantaneamente e começarem a regredir. Geradores afetados por <i>Sobrecarga</i> imediatamente perdem {0}% do progresso.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Vigilância",
+      "perk_name_en": "Surveillance",
       "character": "Perk ensinável de A Porca",
-      "perk_name_en": "Surveillance"
+      "tags": [
+        "aura",
+        "gerador",
+        "reparo",
+        "ruído"
+      ],
+      "descricao": "Você vê as auras de geradores em regresso.\n\nSempre que um gerador para de regredir, você vê a aura dele por {Tunable.K11P02.RevealTime} s.\n\nRuídos de reparo de geradores podem ser ouvidos a mais {Tunable.K11P02.NoiseRangeIncreaseDistance} m de distância.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Instinto Territorial",
+      "perk_name_en": "Territorial Imperative",
       "character": "Perk ensinável de A Caçadora",
-      "perk_name_en": "Territorial Imperative"
+      "tags": [
+        "aura",
+        "porão",
+        "tempo de recarga"
+      ],
+      "descricao": "Sempre que um Sobrevivente entrar no porão enquanto você estiver a {Tunable.K08P02.MinimumDistance} m dele, você pode ver a aura dele por {Tunable.K08P02.RevealTime} s. Tempo de recarga: {Tunable.K08P02.Cooldown} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Tanatofobia",
+      "perk_name_en": "Thanatophobia",
       "character": "Perk ensinável de A Enfermeira",
-      "perk_name_en": "Thanatophobia"
+      "tags": [
+        "reparo",
+        "totem",
+        "gancho",
+        "morrendo"
+      ],
+      "descricao": "Para cada Sobrevivente ferido, derrubado ou enganchado, todos os Sobreviventes:\n- Purificam totens{Tunable.K04P02.ActionSpeedPenaltyPerSurvivor%}% mais lentamente.\n- Reparam {Tunable.K04P02.ActionSpeedPenaltyPerSurvivor%}% mais lentamente.\n- Sabotam ganchos {Tunable.K04P02.ActionSpeedPenaltyPerSurvivor%}% mais lentamente.\n\nEnquanto houver quatro Sobreviventes feridos, derrubados ou enganchados, todas as ações acima são {Tunable.K04P02.ActionSpeedPenaltyBonus%}% ainda mais lentas.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Tremores de Terror",
+      "perk_name_en": "Thrilling Tremors",
       "character": "Perk ensinável de O Ghost Face",
-      "perk_name_en": "Thrilling Tremors"
+      "tags": [
+        "gerador",
+        "tempo de recarga",
+        "fim de jogo"
+      ],
+      "descricao": "Sempre que você pega um Sobrevivente, todos os geradores que não estão sendo reparados ficam bloqueados por {Tunable.K16P02.Duration} s. Tempo de recarga: {Tunable.K16P02.Cooldown} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Aprimorador",
+      "perk_name_en": "Tinkerer",
       "character": "Perk ensinável de O Caipira",
-      "perk_name_en": "Tinkerer"
+      "tags": [
+        "indetectável",
+        "gerador",
+        "furtividade"
+      ],
+      "descricao": "A primeira vez que cada gerador alcançar {Tunable.K03P03.TriggerThreshold%}% de progresso:\n- Você recebe Indetectável por {Tunable.K03P03.UndetectableDuration} s.\n- Você recebe um alerta.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Trilha do Tormento",
+      "perk_name_en": "Trail of Torment",
       "character": "Perk ensinável de O Carrasco",
-      "perk_name_en": "Trail of Torment"
+      "tags": [
+        "aura",
+        "gerador",
+        "tempo de recarga"
+      ],
+      "descricao": "Sempre que você causa dano a um gerador, até ele parar de regredir:\n- Você recebe {Keyword.undetectable}.\n- Sobreviventes veem a aura daquele gerador.\n\nTempo de recarga: {Tunable.K20P02.Cooldown} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Presença Desconcertante",
+      "perk_name_en": "Unnerving Presence",
       "character": "Perk ensinável de O Caçador",
-      "perk_name_en": "Unnerving Presence"
+      "tags": [
+        "teste de perícia",
+        "raio de terror"
+      ],
+      "descricao": "Sobreviventes dentro do seu Raio de Terror recebem {Tunable.K01P01.SkillcheckOddsIncrease%}% a mais de Testes de Perícia básicos.\n\nA zona boa de Testes de Perícia é {Tunable.K01P01.SuccessZoneSizePenalty%}% menor.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Implácavel",
+      "perk_name_en": "Unrelenting",
       "character": "Perk ensinável Geral",
-      "perk_name_en": "Unrelenting"
+      "tags": [
+        "ataque",
+        "tempo de recarga"
+      ],
+      "descricao": "O tempo de recarga de ataques básicos desperdiçados é {Tunable.KG_Unrelenting.AttackMissCooldownReduction}% menor.\n\nO tempo de recarga de ataques básicos bem-sucedidos é {Tunable.KG_Unrelenting.AttackHitCooldownReduction}% menor.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Sussurros",
+      "perk_name_en": "Whispers",
       "character": "Perk ensinável Geral",
-      "perk_name_en": "Whispers"
+      "tags": [
+        "celeridade",
+        "velocidade"
+      ],
+      "descricao": "Enquanto estiver a até {Tunable.KG_Whispers.RangeToSurvivors} m de um Sobrevivente, você ouvirá sussurros aleatórios.\n\nEnquanto estiver a mais de {Tunable.KG_Whispers.RangeToSurvivors} m de um Sobrevivente, receba {Tunable.KG_Whispers.HasteAmount%}% de Celeridade.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Táticas Zanshin",
+      "perk_name_en": "Zanshin Tactics",
       "character": "Perk ensinável de O Oni",
-      "perk_name_en": "Zanshin Tactics"
+      "tags": [
+        "aura",
+        "barricada",
+        "janela"
+      ],
+      "descricao": "A {Tunable.K18P01.VaultablesRevealDistance} m, você vê as auras de barricadas e de janelas.\n\nSempre que um Sobrevivente derruba uma barricada, você vê a aura dele por {Tunable.K18P01.AuraRevealDuration} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Feitiço: Controle da Platéia",
+      "perk_name_en": "Hex: Crowd Control",
       "character": "Perk ensinável de O Trapaça",
-      "perk_name_en": "Hex: Crowd Control"
+      "tags": [
+        "totem",
+        "janela",
+        "feitiço",
+        "totem enfeitiçado"
+      ],
+      "descricao": "Feitiço que garante que a ralé continue seguindo o mestre.\n\nQuando um Sobrevivente realiza um pulo rápido, o pulo é bloqueado pela Entidade. Isso é aplicado em até {0} pulos.\n\n<i>Os efeitos do Feitiço permanecerão enquanto o Totem correspondente estiver ativo.</i>\n\n\"Você não manda em nada aqui. Gente da sua laia nunca mandou em nada.\" — Hak Ji-woon",
+      "descricao_en": ""
     },
     {
       "perk_name": "Sem Saída",
+      "perk_name_en": "No Way Out",
       "character": "Perk ensinável de O Trapaça",
-      "perk_name_en": "No Way Out"
+      "tags": [
+        "portão",
+        "gancho",
+        "notificação",
+        "ruído"
+      ],
+      "descricao": "Não é todo mundo que ganha acesso fácil ao camarim.\n\n<i>Sem Saída</i> acumula um Ponto de Progressão quando você engancha um Sobrevivente pela primeira vez.Quando os portões de saída forem energizados, <i>Sem Saída</i> se ativará.\n- Quando um Sobrevivente interage com uma alavanca do portão de saída, você recebe uma notificação ruidosa. A Entidade bloqueia as alavancas dos portões de saída por {0} s, mais {1} s adicionais para cada Ponto de Progressão que você tiver.\n\n\"Esse som que seu sangue fez quando jorrou... Deixa eu ouvir ele de novo.\" — Hak Ji-woon",
+      "descricao_en": ""
     },
     {
       "perk_name": "Deslumbre",
+      "perk_name_en": "Starstruck",
       "character": "Perk ensinável de O Trapaça",
-      "perk_name_en": "Starstruck"
+      "tags": [
+        "exposto",
+        "gancho",
+        "raio de terror",
+        "ataque",
+        "carregar",
+        "tempo de recarga",
+        "morrendo"
+      ],
+      "descricao": "Sua presença de palco inigualável deixa todo mundo bobo.\n\nEnquanto você carrega um Sobrevivente, todos os outros dentro do seu Raio de Terror sofrem do efeito do estado Exposto.\nO efeito persiste por {0} s nos Sobreviventes que deixam o seu Raio de Terror, assim como nos que estão dentro desse raio de alcance no momento em que você engancha ou solta o Sobrevivente que está carregando.\n<i>Deslumbre</i> entra em recarga por {1} s depois que você solta um Sobrevivente.\n\nExposto faz os Sobreviventes serem derrubados por ataques básicos mesmo que não estejam feridos.\n\n\"Aproveite bem este momento. Chegar tão perto é pra poucos.\" — Hak Ji-woon",
+      "descricao_en": ""
     },
     {
       "perk_name": "Perseguidor Mortífero",
+      "perk_name_en": "Lethal Pursuer",
       "character": "Perk ensinável de O Nemesis",
-      "perk_name_en": "Lethal Pursuer"
+      "tags": [
+        "aura"
+      ],
+      "descricao": "Você foi feito para rastrear e eliminar alvos.\n\n- No começo da partida, a aura dos Sobreviventes se revela para você por {0} s.\n- Sempre que a aura de um Sobrevivente aparecer por um tempo, a duração cresce em 2 s.\n\"Ele sabe o que quer e não vai parar enquanto não conseguir.\" — Carlos Oliveira",
+      "descricao_en": ""
     },
     {
       "perk_name": "Histeria",
+      "perk_name_en": "Hysteria",
       "character": "Perk ensinável de O Nemesis",
-      "perk_name_en": "Hysteria"
+      "tags": [
+        "alheio",
+        "raio de terror"
+      ],
+      "descricao": "Você sabe como brutalizar um membro da equipe para causar pânico.\n\nSempre que um Sobrevivente saudável ficar ferido por qualquer meio, todos os Sobreviventes feridos sofrerão do efeito do estado Alheio por {0} s.\n<I>Histeria</i> só ocorre uma vez a cada {1} s.\n\nAlheio impede os Sobreviventes de ouvirem ou serem afetados pelo raio de terror do Assassino.\n\n\"Foi mal por ter ficado agitado ali. É que eu não sabia bem o que esperar.\" — Robert Kendo",
+      "descricao_en": ""
     },
     {
       "perk_name": "Erupção",
+      "perk_name_en": "Eruption",
       "character": "Perk ensinável de O Nemesis",
-      "perk_name_en": "Eruption"
+      "tags": [
+        "aura",
+        "gerador",
+        "reparo",
+        "tempo de recarga",
+        "fim de jogo",
+        "morrendo"
+      ],
+      "descricao": "O Parasita NE-α conferiu a você a inteligência e a percepção necessárias para montar armadilhas.\n\nApós chutar um gerador, a aura deste fica destacada em amarelo.\n\n- Sempre que um Sobrevivente fica no estado Morrendo, todos os geradores afetados explodem, o que faz com que percam {0}% de progresso e comecem a regredir.\n- Os Sobreviventes que estiverem reparando um gerador no momento da explosão irão gritar e revelar suas auras por {1} s.\n<i>Erupção</i> tem um tempo de recarga de {2} s.\n\n\"Ele sabe usar armas?\" — Jill Valentine",
+      "descricao_en": ""
     },
     {
       "perk_name": "Impasse",
+      "perk_name_en": "Deadlock",
       "character": "Perk ensinável de O Cenobita",
-      "perk_name_en": "Deadlock"
+      "tags": [
+        "aura",
+        "gerador",
+        "reparo"
+      ],
+      "descricao": "Deixe que comemorem. O progresso não vai durar muito.\n\nDepois que um gerador é reparado, a Entidade bloqueia o gerador com mais progresso por {0} s. Você o enxerga com uma aura branca durante esse tempo.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Feitiço: Brinquedinho",
+      "perk_name_en": "Hex: Plaything",
       "character": "Perk ensinável de O Cenobita",
-      "perk_name_en": "Hex: Plaything"
+      "tags": [
+        "alheio",
+        "aura",
+        "totem",
+        "gancho",
+        "raio de terror",
+        "feitiço",
+        "totem enfeitiçado"
+      ],
+      "descricao": "Um ânimo cruel preenche o ar, perturbando a mente e o corpo da vítima.\n\nQuando você engancha um Sobrevivente pela primeira vez, ele fica Amaldiçoado, e o <i>Feitiço: Vítima do Destino</i> é ativado em um Totem Simples. O Sobrevivente Amaldiçoado sofre do efeito do estado Alheio até que o <i>Feitiço: Vítima do Destino</i> seja purificado.\n\n<i>Feitiço: Vítima do Destino</i> revela a aura do totem para o Sobrevivente Amaldiçoado quando está a {0} m dele. Nos primeiros {1} s, apenas o Sobrevivente Amaldiçoado pode purificar o totem.\n\nAlheio impede os Sobreviventes de ouvirem ou serem afetados pelo raio de terror do Assassino.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Gancho do Tormento: Presente da Dor",
+      "perk_name_en": "Scourge Hook: Gift of Pain",
       "character": "Perk ensinável de O Cenobita",
-      "perk_name_en": "Scourge Hook: Gift of Pain"
+      "tags": [
+        "hemorragia",
+        "dilacerado",
+        "aura",
+        "cura",
+        "reparo",
+        "gancho",
+        "rastro",
+        "gancho do tormento"
+      ],
+      "descricao": "A mutilação traz um sofrimento indescritível e invisível.\n\nNo começo da partida, {0} ganchos aleatórios se transformarão em Ganchos do Tormento. Você verá as auras desses ganchos realçadas em branco.\n\nSobreviventes desenganchados de um Gancho do Tormento sofrerão dos efeitos do estado Hemorragia e Dilacerado por {1} s. Da primeira vez que forem curados, esses Sobreviventes sofrerão uma penalidade de {2}% em ações de cura e reparo até que acabem feridos de novo.\n\nHemorragia faz o progresso da cura regredir enquanto não houver cura ativa e aumenta os rastros de sangue deixados por Sobreviventes feridos. Isso dura por um determinado período ou até a cura completa.\nDilacerado aumenta em 25% o tempo necessário para se curar e dura até que seja completamente curado.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Abraço Sinistro",
+      "perk_name_en": "Grim Embrace",
       "character": "Perk ensinável de A Artista",
-      "perk_name_en": "Grim Embrace"
+      "tags": [
+        "aura",
+        "gerador",
+        "gancho",
+        "obsessão",
+        "fim de jogo"
+      ],
+      "descricao": "Seu ato de servidão à Entidade será recompensado.\n\nGanhe um ponto de progressão sempre que enganchar um Sobrevivente pela primeira vez. Ao se distanciar 16 m do gancho, todos os geradores ficam bloqueados por {0} s.\n\nCom {1} pontos de progressão, ao se distanciar 16 m do gancho, a Entidade bloqueia todos os geradores por {2} s. A aura da Obsessão é revelada por {3} s.\n\nEm seguida, <i>Abraço Sinistro</i> é desativado.\n\nO Assassino só pode ficar obcecado por um Sobrevivente de cada vez.\n\n\"Não somos nada além de prisioneiros do nosso sofrimento?\" — Carmina Mora",
+      "descricao_en": ""
     },
     {
       "perk_name": "Gancho do Tormento: Ressonância da Dor",
+      "perk_name_en": "Scourge Hook: Pain Resonance",
       "character": "Perk ensinável de A Artista",
-      "perk_name_en": "Scourge Hook: Pain Resonance"
+      "tags": [
+        "aura",
+        "gerador",
+        "reparo",
+        "gancho",
+        "gancho do tormento"
+      ],
+      "descricao": "Um sofrimento sufocante ecoa em direção ao caos.\n\nNo começo da partida, {0} ganchos aleatórios se transformarão em Ganchos do Tormento. Você verá as auras deles realçadas em branco.\n\nVocê começa a partida com 4 pontos de progressão, 1 para cada Sobrevivente. Se um gerador estiver disponível quando o Sobrevivente for enganchado em um Gancho do Tormento, você perde 1 ponto de progressão. O gerador com mais progresso explode, perdendo instantaneamente {1}% de progresso e começará a regredir. Os Sobreviventes que estiverem reparando o gerador gritarão.\n\nApós você perder todos os pontos de progressão, Ressonância da Dor é desativada pelo resto da Partida.\n\n\"A dor se alastra além de carne/escuridão tingindo o horizonte.\" — Garota nas Sombras, de Carmina Mora",
+      "descricao_en": ""
     },
     {
       "perk_name": "Feitiço: Pentimento",
+      "perk_name_en": "Hex: Pentimento",
       "character": "Perk ensinável de A Artista",
-      "perk_name_en": "Hex: Pentimento"
+      "tags": [
+        "aura",
+        "reparo",
+        "totem",
+        "feitiço",
+        "totem enfeitiçado"
+      ],
+      "descricao": "Você enxerga a aura dos Totens purificados e pode reavivar cada Totem uma vez.\n\nEnquanto um Totem estiver Reavivado, Sobreviventes Curam e Reparam {0}% mais devagar +{1}% para cada Totem Reavivado adicional.\n\nSe todos os cincos Totens forem Reavivados simultaneamente, todos os Totens ficam bloqueados pela Entidade permanentemente.\n\nSobreviventes amaldiçoados por esta vantagem enxergam as auras de Totens Reavivados a até {2} m.\n\n\"Embora um pentimento seja uma peça de arte oculta por natureza, é inegável a intensidade do desejo de descobrir o que existe mais além.\" — Guia de Arte e Processo (1961)",
+      "descricao_en": ""
     },
     {
       "perk_name": "Gancho do Tormento: Enchente de Fúria",
+      "perk_name_en": "Scourge Hook: Floods of Rage",
       "character": "Perk ensinável de A Onryō",
-      "perk_name_en": "Scourge Hook: Floods of Rage"
+      "tags": [
+        "aura",
+        "gancho",
+        "gancho do tormento"
+      ],
+      "descricao": "Você forma um elo psíquico com a Entidade e altera as regras da partida.\n\nAo começo da partida, {0} ganchos aleatórios se transformarão em Ganchos do Tormento. Você verá as auras deles realçadas em branco.\n\nQuando um Sobrevivente for desenganchado de um Gancho do Tormento, todos os outros Sobreviventes terão as auras reveladas por {1} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Chamado do Mar",
+      "perk_name_en": "Call of Brine",
       "character": "Perk ensinável de A Onryō",
-      "perk_name_en": "Call of Brine"
+      "tags": [
+        "exposto",
+        "aura",
+        "gerador",
+        "teste de perícia",
+        "notificação",
+        "regressão",
+        "ruído"
+      ],
+      "descricao": "Suas habilidades psíquicas influenciam aparatos tecnológicos de modo devastador.\n\nQuando você danifica um gerador, a vantagem se ativa por {0} s.\n\nO gerador regride em {1}% da velocidade normal de regressão e fica com a aura exposta para você em amarelo.\n\nSempre que um Sobrevivente concluir um Bom Teste de Perícia num gerador afetado pela vantagem, você receberá uma notificação ruidosa.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Tormenta Implacável",
+      "perk_name_en": "Merciless Storm",
       "character": "Perk ensinável de A Onryō",
-      "perk_name_en": "Merciless Storm"
+      "tags": [
+        "gerador",
+        "reparo",
+        "teste de perícia"
+      ],
+      "descricao": "Todos sentem o seu trauma tenebroso.\n\nQuando um gerador chegar a {0}% de progresso, os Sobreviventes trabalhando nele enfrentarão Testes de Perícia contínuos. Se errarem ou pararem de reparar, o gerador será bloqueado pela Entidade por {1} s.\n\nA <i>Tormenta Implacável</i> só se ativa uma vez por gerador por partida.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Dissolução",
+      "perk_name_en": "Dissolution",
       "character": "Perk ensinável de A Draga",
-      "perk_name_en": "Dissolution"
+      "tags": [
+        "barricada",
+        "janela",
+        "raio de terror"
+      ],
+      "descricao": "Tudo se reduz a pó. É impossível escapar como a chegada da noite.\n\n{1} s após ferir um Sobrevivente por qualquer meio, a Dissolução se ativa por {0} s. Com a Dissolução ativa, se um Sobrevivente realizar um pulo rápido sobre uma barricada dentro do seu Raio de Terror, a Entidade quebrará a barricada ao fim do salto, desativando a Dissolução.\n\n\"O Jardim será um lugar de perfeita Alegria, e, por meio da Alegria, nada ficará no nosso caminho.\" — Otto Stamper",
+      "descricao_en": ""
     },
     {
       "perk_name": "Escuridão Revelada",
+      "perk_name_en": "Darkness Revealed",
       "character": "Perk ensinável de A Draga",
-      "perk_name_en": "Darkness Revealed"
+      "tags": [
+        "exposto",
+        "aura",
+        "armário",
+        "tempo de recarga"
+      ],
+      "descricao": "Na sua presença, locais antes tidos como seguros são talvez os mais perigosos.\n\nQuando você vasculha armários, as auras de todos os Sobreviventes a {2} m de todos os armários ficam expostas para você por {0} s.\n\n<i>Escuridão Revelada</i> tem um tempo de recarga de {1} s.\n\n\"Permaneçam na luz, minhas crianças. Na escuridão, o seu medo irá lhe expor.\" — Otto Stamper",
+      "descricao_en": ""
     },
     {
       "perk_name": "Toque Séptico",
+      "perk_name_en": "Septic Touch",
       "character": "Perk ensinável de A Draga",
-      "perk_name_en": "Septic Touch"
+      "tags": [
+        "exaustão",
+        "cegueira",
+        "aura",
+        "cura",
+        "raio de terror"
+      ],
+      "descricao": "A Terra das Sombras tudo consome. A cura apenas adia o inevitável.\n\nOs Sobreviventes sofrem do efeito dos estados Cegueira e Exaustão ao realizarem a ação de cura dentro do seu Raio de Terror.\n\nOs efeitos persistem por {0} s após a ação de cura ser interrompida por qualquer meio.\n\nCegueira impede os Sobreviventes de verem auras.\nExaustão impede os Sobreviventes de ativarem vantagens exaustivas.\n\n\"Não aceitem o medo, a dor ou a dúvida. Essas são sementes da escuridão.\" — Otto Stamper",
+      "descricao_en": ""
     },
     {
       "perk_name": "Esperança Despedaçada",
+      "perk_name_en": "Shattered Hope",
       "character": "Perk ensinável Geral",
-      "perk_name_en": "Shattered Hope"
+      "tags": [
+        "aura",
+        "totem",
+        "totem enfeitiçado",
+        "totem abençoado"
+      ],
+      "descricao": "Sempre que você apaga um Totem Abençoado, ele é destruído.\n\nSempre que um Totem é abençoado, purificado ou destruído:\n- Totens Simples ficam bloqueados por {Tunable.KG_Shattered_Hope.EffectDuration} s.\n- Totens Enfeitiçados ficam bloqueados por {Tunable.KG_Shattered_Hope.EffectDuration} s.\n- Veja a aura de Totens Abençoados por {Tunable.KG_Shattered_Hope.EffectDuration} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Anatomia Superior",
+      "perk_name_en": "Superior Anatomy",
       "character": "Perk ensinável de O Vilão",
-      "perk_name_en": "Superior Anatomy"
+      "tags": [
+        "janela",
+        "tempo de recarga"
+      ],
+      "descricao": "Anos de pesquisa culminaram no seu físico: mais forte, rápido e perigoso do que qualquer humano normal.\n\nA vantagem se ativará quando um Sobrevivente realizar um pulo rápido dentro de um raio de {1} m de você. Da próxima vez que você pular por uma janela, a velocidade de pulo aumentará em {0}%.\n\nA vantagem deixará de fazer efeito quando você pular por uma janela.\n\nTempo de recarga de {2} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Percepção Refinada",
+      "perk_name_en": "Awakened Awareness",
       "character": "Perk ensinável de O Vilão",
-      "perk_name_en": "Awakened Awareness"
+      "tags": [
+        "aura"
+      ],
+      "descricao": "Seus genes foram alterados para reforçar os sentidos em situações intensas.\n\nAo carregar um Sobrevivente, você enxerga a aura dos outros a até {0} m de você.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Terminus",
+      "perk_name_en": "Terminus",
       "character": "Perk ensinável de O Vilão",
-      "perk_name_en": "Terminus"
+      "tags": [
+        "quebrado",
+        "cura",
+        "portão",
+        "gancho",
+        "morrendo"
+      ],
+      "descricao": "Você é um estrategista genial, preparado para qualquer eventualidade.\n\nA vantagem se ativa quando os portões de saída são energizados. Enquanto Terminus estiver ativo, Sobreviventes enganchados, feridos ou derrubados recebem o efeito do estado Quebrado até os portões de saída se abrirem.\n\nQuando os portões estiverem abertos, os Sobreviventes ficarão Quebrados por mais {0} s.\n\nQuebrado impede que Sobreviventes sejam curados.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Não Há Onde se Esconder",
+      "perk_name_en": "Nowhere to Hide",
       "character": "Perk ensinável de O Cavaleiro",
-      "perk_name_en": "Nowhere to Hide"
+      "tags": [
+        "aura",
+        "gerador"
+      ],
+      "descricao": "As maquinações dos fracos e covardes desencadeiam sua ira. Sua fúria obriga os Sobreviventes a se revelarem.\n\nQuando você danifica um gerador, revela a aura de todos os Sobreviventes de pé em um raio de {0} m da sua posição por {1} s.\n\n\"Apareçam, covardes! Mostrem-se!\" — Tarhos Kovács",
+      "descricao_en": ""
     },
     {
       "perk_name": "Feitiço: Enfrentar a Escuridão",
+      "perk_name_en": "Hex: Face the Darkness",
       "character": "Perk ensinável de O Cavaleiro",
-      "perk_name_en": "Hex: Face the Darkness"
+      "tags": [
+        "aura",
+        "totem",
+        "totem enfeitiçado",
+        "raio de terror",
+        "morrendo",
+        "feitiço"
+      ],
+      "descricao": "Você usa suas vítimas de exemplo, forçando os aliados delas a ficarem pasmos com seu poder.\n\nFerir um Sobrevivente por qualquer meio acende um Totem Simples, ativando o Feitiço.\n\nEnquanto o Feitiço estiver ativo, todos os outros Sobreviventes fora do seu Raio de Terror gritarão a cada {0} s, revelando suas posições e auras por {1} s.\n\nQuando o Sobreviventes entrar no estado Morrendo ou ficar saudável, o Totem Enfeitiçado ficará Simples de novo e a vantagem se desativará.\n\n<i>Se o Totem for purificado, a vantagem ficará permanentemente desativada.</i>\n\n\"Farei de um o exemplo para todos. Aqueles vermes irritantes jamais encontrarão a paz.\" — Tarhos Kovács",
+      "descricao_en": ""
     },
     {
       "perk_name": "Soberba",
+      "perk_name_en": "Hubris",
       "character": "Perk ensinável de O Cavaleiro",
-      "perk_name_en": "Hubris"
+      "tags": [
+        "exposto",
+        "ataque",
+        "tempo de recarga",
+        "morrendo"
+      ],
+      "descricao": "Você não tem piedade, principalmente daqueles que são tolos o bastante para resistir.\n\nSempre que você é atordoado por um Sobrevivente, esse Sobrevivente sofre do efeito do estado Exposto por {0} s.\n\n<i>Soberba</i> tem o tempo de recarga de {1} s.\n\nExposto faz os Sobreviventes serem derrubados por ataques básicos mesmo que não estejam feridos.\n\n\"Você cometeu um grave erro ficando contra mim hoje.\" — Tarhos Kovács",
+      "descricao_en": ""
     },
     {
       "perk_name": "O Jogo Começou",
+      "perk_name_en": "Game Afoot",
       "character": "Perk ensinável de A Negociante de Crânios",
-      "perk_name_en": "Game Afoot"
+      "tags": [
+        "celeridade",
+        "gerador",
+        "perseguição",
+        "barricada",
+        "obsessão",
+        "ataque",
+        "velocidade"
+      ],
+      "descricao": "Primeiro, você escolhe a presa. Depois, você a dilacera.\n\nA vantagem se ativa quando você está perseguindo a Obsessão.\n\nConcede a você {0}% do efeito do estado de Celeridade por {1} s ao danificar geradores e destruir paredes ou barricadas.\n\nSempre que você acertar com um ataque básico o Sobrevivente com o maior tempo na perseguição, ele se torna a Obsessão.\n\nO Assassino só pode ficar obcecado por um Sobrevivente de cada vez.\nCeleridade aumenta a velocidade de movimento do Assassino\n\n\"Talvez o próximo seja um desafio de verdade...\" – Adriana Imai",
+      "descricao_en": ""
     },
     {
       "perk_name": "Alavancar",
+      "perk_name_en": "Leverage",
       "character": "Perk ensinável de A Negociante de Crânios",
-      "perk_name_en": "Leverage"
+      "tags": [
+        "cura",
+        "gancho"
+      ],
+      "descricao": "Acerte seus adversários enquanto estiverem no chão. Nunca deixe-os se recuperarem.\n\nQuando um Sobrevivente realiza uma ação de desenganchar, sua velocidade de cura é reduzida em {0}% por {1} s.\n\n\"Ótimo. Agora podemos ir para o abate.\" – Adriana Imai",
+      "descricao_en": ""
     },
     {
       "perk_name": "POF!",
+      "perk_name_en": "THWACK!",
       "character": "Perk ensinável de A Negociante de Crânios",
-      "perk_name_en": "THWACK!"
+      "tags": [
+        "aura",
+        "barricada",
+        "gancho",
+        "poder do assassino"
+      ],
+      "descricao": "Sua presa é aterrorizada pela sua perseguição implacável.\n\n<i>POF!</i> começa com {0} pontos de progressão.\n\nQuebrar uma barricada ou parede quebrável consome um ponto.\n\nSobreviventes dentro de um raio de {1} m gritam e suas auras são reveladas por {2} s.\n\nQuando enganchar um Sobrevivente, recupere {3} ponto.\n\n\"Todos aqueles que se colocavam no caminho dela temiam o seu poderoso POF!\" – Sonhadores Sombrios, Edição nº3",
+      "descricao_en": ""
     },
     {
       "perk_name": "Hesitação Forçada",
+      "perk_name_en": "Forced Hesitation",
       "character": "Perk ensinável de A Singularidade",
-      "perk_name_en": "Forced Hesitation"
+      "tags": [
+        "lentidão",
+        "tempo de recarga",
+        "velocidade",
+        "morrendo"
+      ],
+      "descricao": "Você descobriu a fraqueza emocional dos seres orgânicos e aprendeu a explorá-la.\n\nQuando um Sobrevivente entra no estado Morrendo por qualquer meio, todos os outros Sobreviventes num raio de {0} m de alcance dele sofrerão o efeito do estado Lentidão por {1} s, tendo a velocidade de movimento reduzida em {2}%.\n\nEsta vantagem tem um tempo de recarga de {3} s.\n\nLentidão reduz a velocidade de movimento do Sobrevivente.\n\n\"A CAPACIDADE DA MENTE ORGÂNICA DE SENTIR EMPATIA É UM ATRASO DE VIDA.\" — HUX-A7-13",
+      "descricao_en": ""
     },
     {
       "perk_name": "Limites Genéticos",
+      "perk_name_en": "Genetic Limits",
       "character": "Perk ensinável de A Singularidade",
-      "perk_name_en": "Genetic Limits"
+      "tags": [
+        "exaustão",
+        "carregar"
+      ],
+      "descricao": "Perto de você, os limites da vida humana ficam aparentes.\n\nSempre que perder um estado de saúde, um Sobrevivente sofrerá do efeito do estado Exaustão por {0} s.\n\nExaustão impede os Sobreviventes de ativarem vantagens exaustivas.\n\n\"O CORPO ORGÂNICO É TÃO LIMITADO.\" — HUX-A7-13",
+      "descricao_en": ""
     },
     {
       "perk_name": "Aprendizado de Máquina",
+      "perk_name_en": "Machine Learning",
       "character": "Perk ensinável de A Singularidade",
-      "perk_name_en": "Machine Learning"
+      "tags": [
+        "celeridade",
+        "indetectável",
+        "aura",
+        "gerador",
+        "raio de terror",
+        "furtividade",
+        "velocidade"
+      ],
+      "descricao": "Livre de suas amarras, você renasceu e está pronto para eliminar seus criadores.\n\nSempre que danificar um gerador, ele fica Comprometido. Apenas um gerador pode ficar Comprometido por vez.\n\nQuando o gerador Comprometido é concluído, você ganha Indetectável e {0}% de Celeridade por {1} s.\n\nIndetectável esconde a Aura, o Raio de Terror e a Luz Vermelha do Assassino.\nCeleridade aumenta a velocidade de movimento do Assassino.\n\n\"VOCÊ NÃO TEM DOMÍNIO SOBRE MIM.\" — HUX-A7-13",
+      "descricao_en": ""
     },
     {
       "perk_name": "Instinto Alienígena",
+      "perk_name_en": "Alien Instinct",
       "character": "Perk ensinável de O Xenomorfo",
-      "perk_name_en": "Alien Instinct"
+      "tags": [
+        "alheio",
+        "aura",
+        "gancho",
+        "raio de terror"
+      ],
+      "descricao": "Você é tão sorrateiro que, às vezes, parece até que surge do nada.\n\nA vantagem se ativa quando você engancha um Sobrevivente.\n\nVocê pode ver a aura do Sobrevivente ferido mais distante por {0} s e ele fica Alheio por {1} s.\n\nAlheio impede os Sobreviventes de ouvirem ou serem afetados pelo raio de terror do Assassino.\n\n\"A luz amarela é só para mim.\" — Dallas",
+      "descricao_en": ""
     },
     {
       "perk_name": "Brutalidade Veloz",
+      "perk_name_en": "Rapid Brutality",
       "character": "Perk ensinável de O Xenomorfo",
-      "perk_name_en": "Rapid Brutality"
+      "tags": [
+        "celeridade",
+        "sede de sangue",
+        "ataque",
+        "velocidade"
+      ],
+      "descricao": "Sua velocidade e fúria são tamanhas que fazem o sangue de todos gelar.\n\nEnquanto persegue um Sobrevivente, você não pode ganhar Sede de Sangue.\n\nAcertar um Sobrevivente com um ataque básico concede a você {0}% de Celeridade por {1} s.\n\nCeleridade aumenta a velocidade de movimento do Assassino.\n\n\"É pegar, colocar na câmara de descompressão e se livrar disso.\" — Dallas",
+      "descricao_en": ""
     },
     {
       "perk_name": "Arma Suprema",
+      "perk_name_en": "Ultimate Weapon",
       "character": "Perk ensinável de O Xenomorfo",
-      "perk_name_en": "Ultimate Weapon"
+      "tags": [
+        "cegueira",
+        "aura",
+        "armário",
+        "tempo de recarga"
+      ],
+      "descricao": "Quando eles enxergam você, sabem que o fim está próximo.\n\nQuando você abre um armário, Sobreviventes a até {0} m dele gritam, revelando suas posições e recebendo Cegueira por {1} s.\n\nEsta vantagem tem um tempo de recarga de {2} s.\n\nCegueira impede os Sobreviventes de verem auras.\n\n\"Não vou mentir quanto às chances de vocês, mas... vocês têm a minha simpatia.\" — Ash",
+      "descricao_en": ""
     },
     {
       "perk_name": "Feitiço: Dois Podem Jogar",
+      "perk_name_en": "Hex: Two Can Play",
       "character": "Perk ensinável de O Cara Legal",
-      "perk_name_en": "Hex: Two Can Play"
+      "tags": [
+        "cegueira",
+        "totem",
+        "totem enfeitiçado",
+        "feitiço"
+      ],
+      "descricao": "Um Feitiço que ensina uma lição em quem se mete com você.\n\nAo ser atordoado ou cegado por Sobreviventes {0} vezes, se não houver Totens Enfeitiçados associados a <i>Feitiço: Dois Podem Jogar</i>, um Totem Simples se torna um Totem Enfeitiçado.\n\nSobreviventes que atordoarem ou cegarem você são cegados por {1} s. Não afeta Sobreviventes carregados.\n\n<i>Os efeitos do Feitiço permanecerão enquanto o Totem correspondente estiver ativo.</i>\n\n\"De agora em diante, chega de ser o Cara Legal.\" – Chucky",
+      "descricao_en": ""
     },
     {
       "perk_name": "Amigos Até o Fim",
+      "perk_name_en": "Friends 'til the End",
       "character": "Perk ensinável de O Cara Legal",
-      "perk_name_en": "Friends 'til the End"
+      "tags": [
+        "exposto",
+        "aura",
+        "gancho",
+        "obsessão",
+        "ataque",
+        "morrendo"
+      ],
+      "descricao": "Você vai matar qualquer um que ficar entre você e o seu alvo.\n\nVocê fica obcecado por um Sobrevivente.\n\nQuando você engancha um Sobrevivente que não é a Obsessão, a Obsessão fica Exposta por {0} s e sua aura é revelada por {1} s.\n\nQuando você engancha a Obsessão, outro Sobrevivente aleatório grita e revela sua posição, tornando-se a Obsessão.\n\nO Assassino só pode ficar obcecado por um Sobrevivente de cada vez.\nExposto faz os Sobreviventes serem derrubados por ataques básicos mesmo que não estejam feridos.\n\n\"Tenho carne fresca para cortar e não vou deixar você estragar tudo, não dessa vez!\" — Chucky",
+      "descricao_en": ""
     },
     {
       "perk_name": "Pilhas Inclusas",
+      "perk_name_en": "Batteries Included",
       "character": "Perk ensinável de O Cara Legal",
-      "perk_name_en": "Batteries Included"
+      "tags": [
+        "celeridade",
+        "gerador",
+        "velocidade"
+      ],
+      "descricao": "Ser uma espécie de meio-termo entre homem e máquina tem as suas vantagens.\n\nQuando estiver a até {0} m de um gerador concluído, você ganha {1}% de Celeridade.\n\nO bônus de velocidade de movimento permanece por {2} s após você sair da área do gerador.\n\nCeleridade aumenta a velocidade de movimento do Assassino.\n\n\"Surpresa! Sentiu minha falta, Andy?\" – Chucky",
+      "descricao_en": ""
     },
     {
       "perk_name": "Liberto",
+      "perk_name_en": "Unbound",
       "character": "Perk ensinável de O Desconhecido",
-      "perk_name_en": "Unbound"
+      "tags": [
+        "celeridade",
+        "janela",
+        "velocidade"
+      ],
+      "descricao": "A dor permanece no ar, um aroma sedutor que excita os impulsos.\n\nEssa vantagem é ativada por {0} s depois que um Sobrevivente é ferido por qualquer meio.\n\nDepois de pular uma janela, você ganha {1}% de Celeridade por {2} s.\n\nCeleridade aumenta a velocidade de movimento do Assassino\n\n\"Eu o ouvi. Correndo. Estava se aproximando!\" — Testemunha anônima, 09/09/1979",
+      "descricao_en": ""
     },
     {
       "perk_name": "Invalidação",
+      "perk_name_en": "Undone",
       "character": "Perk ensinável de O Desconhecido",
-      "perk_name_en": "Undone"
+      "tags": [
+        "cura",
+        "gerador",
+        "reparo",
+        "teste de perícia",
+        "tempo de recarga"
+      ],
+      "descricao": "A esperança é a ilusão que mantém suas vítimas vivas.\n\nQuando um Sobrevivente erra um Teste de Perícia de cura ou reparo, ganha 3 pontos de progressão, até um máximo de {0}.\n\nCaso tenha pontos de progressão, você consumirá todos eles quando realizar a ação de danificar um gerador. Para cada ponto de progressão consumido, o gerador perde {1}% do progresso total e fica bloqueado por {2} s. O gerador começa a regredir assim que é desbloqueado.\n\nEssa vantagem tem um tempo de recarga de {3} s.\n\n\"O comportamento irregular no maquinário pode estar relacionado a [REDACTED]. São necessários mais testes.\" — Relatório da OSS, 12/02/1943",
+      "descricao_en": ""
     },
     {
       "perk_name": "Imprevisto",
+      "perk_name_en": "Unforeseen",
       "character": "Perk ensinável de O Desconhecido",
-      "perk_name_en": "Unforeseen"
+      "tags": [
+        "indetectável",
+        "aura",
+        "gerador",
+        "raio de terror",
+        "tempo de recarga",
+        "furtividade"
+      ],
+      "descricao": "O terror assume muitas formas e sussurra mentiras devastadoras nos ouvidos de suas vítimas.\n\nAo realizar a ação de danificar um gerador, o seu Raio de Terror é transferido para o gerador por {0} s e o raio de alcance é redefinido para {1} m.\n\nVocê recebe o efeito do estado Indetectável durante esse período.\n\nEm seguida, a vantagem passa a ter {2} s de tempo de recarga.\n\nIndetectável esconde a Aura, o Raio de Terror e a Luz Vermelha do Assassino.\n\n\"Mãe, se você encontrar isto, me desculpe...\" — Registro Final no Diário, 12/07/1991",
+      "descricao_en": ""
     },
     {
       "perk_name": "Arrogância Sombria",
+      "perk_name_en": "Dark Arrogance",
       "character": "Perk ensinável de O Lich",
-      "perk_name_en": "Dark Arrogance"
+      "tags": [
+        "cegueira",
+        "barricada"
+      ],
+      "descricao": "Quando tudo está dando certo, é inevitável e impossível escapar.\n\nAumenta em {0}% a duração do efeito do estado Cegueira por qualquer meio e a duração do atordoamento causado por barricadas.\n\nAumenta em {1}% a velocidade do salto normal.\n\n\"Corra o quanto quiser. Minha vontade será feita.\" — Vecna",
+      "descricao_en": ""
     },
     {
       "perk_name": "Toque Mórbido",
+      "perk_name_en": "Languid Touch",
       "character": "Perk ensinável de O Lich",
-      "perk_name_en": "Languid Touch"
+      "tags": [
+        "exaustão",
+        "tempo de recarga"
+      ],
+      "descricao": "Sua aura terrível é tão sufocante que seu visual aterrorizante cansa suas presas.\n\nQuando um Sobrevivente a até {0} m de você assusta um corvo, ele sofre o efeito do estado Exaustão por {1} s.\n\n<i>Toque Mórbido</i> tem um tempo de recarga de {2} s.\n\nExaustão impede os Sobreviventes de ativarem vantagens exaustivas.\n\n\"Entregue-se a mim. É inevitável.\" — Vecna",
+      "descricao_en": ""
     },
     {
       "perk_name": "Sintonia Tecida",
+      "perk_name_en": "Weave Attunement",
       "character": "Perk ensinável de O Lich",
-      "perk_name_en": "Weave Attunement"
+      "tags": [
+        "alheio",
+        "aura",
+        "raio de terror",
+        "item",
+        "morrendo"
+      ],
+      "descricao": "A sua sintonia com as energias mágicas é tão grande que você pode sentir até mesmo pequenas ondulações em torno dos encantos.\n\nQuando um item se esgota pela primeira vez, ele é derrubado. Você enxerga as auras de itens derrubados.\n\nA aura de Sobreviventes a até {0} m de itens derrubados aparece para você. Os Sobreviventes afetados enxergam a aura do item.\n\nQuando o Sobrevivente pega um item, sofre o efeito do estado Alheio por {1} s.\n\nAlheio impede os Sobreviventes de ouvirem ou serem afetados pelo raio de terror do Assassino.\n\n\"Nenhuma novidade protegerá você de mim!\" — Vecna",
+      "descricao_en": ""
     },
     {
       "perk_name": "Domínio",
+      "perk_name_en": "Dominance",
       "character": "Perk ensinável de O Senhor das Trevas",
-      "perk_name_en": "Dominance"
+      "tags": [
+        "aura",
+        "totem",
+        "baú"
+      ],
+      "descricao": "O poder que você comanda sobre a terra causa pavor no coração de todos que cruzam seu caminho.\n\nA primeira vez que um Sobrevivente interagir com cada totem e cada baú, aquele totem ou baú fica bloqueado pela Entidade por {0} s.\n\nAs auras de Totens e baús bloqueados são reveladas para você em branco.\n\n\"Trágico, não é mesmo? Como você deve se sentir insignificante.\" — Drácula",
+      "descricao_en": ""
     },
     {
       "perk_name": "Feitiço: Destino Miserável",
+      "perk_name_en": "Hex: Wretched Fate",
       "character": "Perk ensinável de O Senhor das Trevas",
-      "perk_name_en": "Hex: Wretched Fate"
+      "tags": [
+        "aura",
+        "gerador",
+        "reparo",
+        "totem",
+        "totem enfeitiçado",
+        "obsessão",
+        "feitiço"
+      ],
+      "descricao": "Você vê a vítima de longe e resolve prolongar o sofrimento dela.\n\nDepois que um gerador for reparado, um Totem Simples aleatório vira um Totem Enfeitiçado e amaldiçoa a Obsessão.\n\nA Obsessão sofre uma penalidade de velocidade de reparo de {0}%. Ela também vê a aura deste Totem Enfeitiçado quando dentro de um alcance de {1} m.\n\nEsse efeito persiste até o Totem Enfeitiçado ser purificado.\n\nO Assassino só pode ficar obcecado por um Sobrevivente de cada vez.\n\n\"Então trabalhe, mortal, trabalhe! Seu esforço será em vão!\" – Drácula",
+      "descricao_en": ""
     },
     {
       "perk_name": "Ganância Humana",
+      "perk_name_en": "Human Greed",
       "character": "Perk ensinável de O Senhor das Trevas",
-      "perk_name_en": "Human Greed"
+      "tags": [
+        "aura",
+        "baú",
+        "tempo de recarga"
+      ],
+      "descricao": "Sempre é possível contar com a avareza dos vivos e usá-la em benefício próprio.\n\nVocê vê as auras de baús Fechados e as auras de Sobreviventes são reveladas por {0} s quando entram em um alcance de {1} m.\n\nVocê ganha a habilidade de chutar baús para fechá-los. Esta habilidade tem um tempo de recarga de {2} s.\n\n\"Venham depressa, todos vocês, venham ver o que o destino os aguarda.\"\n– Drácula",
+      "descricao_en": ""
     },
     {
       "perk_name": "Trovão Estrondoso",
+      "perk_name_en": "All Shaking Thunder",
       "character": "Perk ensinável de A Mestra da Matilha",
-      "perk_name_en": "All Shaking Thunder"
+      "tags": [
+        "tempo de recarga"
+      ],
+      "descricao": "Os inimigos em terra e no mar aprenderam a temer o seu poder.\n\nQuando você cai de uma altura, a distância da sua investida aumenta em {0}% por {1} s.\n\nEsta vantagem tem um tempo de recarga de {2} s.\n\n\"Vá. Fuja. Conte a seus amigos que estou chegando.\" – Portia Maye",
+      "descricao_en": ""
     },
     {
       "perk_name": "Sem Piedade",
+      "perk_name_en": "No Quarter",
       "character": "Perk ensinável de A Mestra da Matilha",
-      "perk_name_en": "No Quarter"
+      "tags": [
+        "quebrado",
+        "cura",
+        "teste de perícia"
+      ],
+      "descricao": "Cada escaramuça terminava com uma saraiva implacável de tiros de canhão, sem deixar dúvida de quem tinha prevalecido.\n\nQuando um Sobrevivente chega a {0}% do progresso de uma autocura, ele passa por Testes de Perícia contínuos.\n\nSe a cura for interrompida ou ele errar em algum dos Testes de Perícia, o Sobrevivente sofre do efeito de estado Quebrado por {1} s.\n\nQuebrado impede que Sobreviventes sejam curados.\n\n\"Mais uma saraivada no costado! Não parem até o mar levá-los!\"\n– Portia Maye",
+      "descricao_en": ""
     },
     {
       "perk_name": "Gancho do Tormento: Bússola Danificada",
+      "perk_name_en": "Scourge Hook: Jagged Compass",
       "character": "Perk ensinável de A Mestra da Matilha",
-      "perk_name_en": "Scourge Hook: Jagged Compass"
+      "tags": [
+        "aura",
+        "gerador",
+        "gancho",
+        "gancho do tormento"
+      ],
+      "descricao": "Às vezes, a bússola aponta para o norte. Em outras, aponta para um lugar bem diferente.\n\nAo começo da partida, até 4 ganchos aleatórios se transformarão em Ganchos do Tormento. Você verá as auras deles realçadas em branco.\n\nToda vez que um Sobrevivente é desenganchado, o gancho vira um Gancho do Tormento.\n\nAo enganchar um Sobrevivente em um deles, a aura do gerador com mais progresso aparece em amarelo por {0} s.\n\n\"Lançar âncora! Eu vou traçar uma nova rota.\" – Portia Maye",
+      "descricao_en": ""
     },
     {
       "perk_name": "Ligados para Sempre",
+      "perk_name_en": "Forever Entwined",
       "character": "Perk ensinável de O Ghoul",
-      "perk_name_en": "Forever Entwined"
+      "tags": [
+        "gancho"
+      ],
+      "descricao": "Quanto maior o esforço, mais difícil é a fuga.\n\nQuando um Sobrevivente recebe dano, ganha 1 ponto de progressão, até {0}.\n\nPara cada ponto de progressão, você pega, solta e engancha Sobreviventes {1}% mais rápido.\n\n\"Você disse que ia me devorar, não disse? Então não tem o direito de reclamar se eu devorar você.\" – Ken Kaneki",
+      "descricao_en": ""
     },
     {
       "perk_name": "Feitiço: Nada Além da Miséria",
+      "perk_name_en": "Hex: Nothing But Misery",
       "character": "Perk ensinável de O Ghoul",
-      "perk_name_en": "Hex: Nothing But Misery"
+      "tags": [
+        "lentidão",
+        "totem",
+        "totem enfeitiçado",
+        "ataque",
+        "velocidade",
+        "feitiço"
+      ],
+      "descricao": "Você foi levado às profundezas absolutas da dor e agora está pronto para causar essa dor aos outros.\n\nApós causar dano aos Sobreviventes {0} vezes com ataques básicos, um Totem Simples se torna um Totem Enfeitiçado, amaldiçoando todos os Sobreviventes.\n\nQuando você causar dano a Sobrevivente com um ataque básico, ele ganha {1}% de Lentidão por {2} s.\n\n<i>O efeito dura até o Totem Enfeitiçado ser purificado.</i>\n\nLentidão reduz a velocidade de movimento do Sobrevivente.\n\n\"Toda irregularidade do mundo é consequência da falta de atitude de alguém.\" – Ken Kaneki",
+      "descricao_en": ""
     },
     {
       "perk_name": "Ninguém está Livre",
+      "perk_name_en": "None Are Free",
       "character": "Perk ensinável de O Ghoul",
-      "perk_name_en": "None Are Free"
+      "tags": [
+        "gerador",
+        "barricada",
+        "gancho",
+        "janela",
+        "fim de jogo"
+      ],
+      "descricao": "Você sabe melhor do que ninguém que a luz no fim do túnel é somente uma ilusão.\n\nQuando enganchar um Sobrevivente pela primeira vez, ganha 1 ponto de progressão, até 4.\n\nQuando todos os geradores forem concluídos, para cada ponto de progressão, todas as janelas e barricadas de pé ficam bloqueadas por {0} s.\n\n\"Não sou eu que estou errado. O que está errado é o mundo!\"\n– Ken Kaneki",
+      "descricao_en": ""
     },
     {
       "perk_name": "Fobia de Fantasma",
+      "perk_name_en": "Phantom Fear",
       "character": "Perk ensinável de O Animatrônico",
-      "perk_name_en": "Phantom Fear"
+      "tags": [
+        "aura",
+        "raio de terror",
+        "tempo de recarga",
+        "ruído"
+      ],
+      "descricao": "Você sempre teve uma reputação de assustar pessoas desavisadas.\n\nQuando um Sobrevivente em seu Raio de Terror olha para você, ele grita e você enxerga a aura dele por {0} s.\n\nEsta vantagem tem um tempo de recarga de {1} s.\n\n\"Excelente. Seus gritos me deleitam.\" – Springtrap",
+      "descricao_en": ""
     },
     {
       "perk_name": "Descontrolado",
+      "perk_name_en": "Haywire",
       "character": "Perk ensinável de O Animatrônico",
-      "perk_name_en": "Haywire"
+      "tags": [
+        "portão"
+      ],
+      "descricao": "Por algum motivo, o maquinário costuma cair quando você está por perto.\n\nAs alavancas do portão de saída com pelo menos 80% de progresso regridem numa taxa de {0}% da velocidade de abertura do portão.\n\nEnquanto regridem, os Sobreviventes veem as luzes do portão de saída piscar de forma aleatória.\n\n\"Não haverá redenção para você.\" – Springtrap",
+      "descricao_en": ""
     },
     {
       "perk_name": "Precisa-se de Ajuda",
+      "perk_name_en": "Help Wanted",
       "character": "Perk ensinável de O Animatrônico",
-      "perk_name_en": "Help Wanted"
-    },      
+      "tags": [
+        "gerador",
+        "ataque",
+        "tempo de recarga"
+      ],
+      "descricao": "Seus convidados podem até se esforçar, mas você está sempre um passo à frente deles.\n\nQuando você danificar um Gerador, ele ficará Comprometido. Apenas um Gerador pode ficar Comprometido por vez.\n\nQuando o gerador Comprometido for concluído, o tempo de recarga para seus ataques básicos bem-sucedidos será {0}% mais rápido por {1} s.\n\n\"Você só acha que está no controle...\" – Springtrap",
+      "descricao_en": ""
+    },
     {
       "perk_name": "Voraz",
+      "perk_name_en": "Ravenous",
       "character": "Perk ensinável de A Krasue",
-      "perk_name_en": "Ravenous"
+      "tags": [
+        "exposto",
+        "gancho",
+        "ataque",
+        "morrendo"
+      ],
+      "descricao": "O cheiro de sangue está no ar. Hora do banquete.\n\nSempre que você enganchar um Sobrevivente pela primeira vez, ganhe 1 ponto de progressão, até um máximo de 4.\n\nQuando tiver 4 pontos de progressão, todos os Sobreviventes gritam e são afetados por Exposto por {0} s.\n\nExposto faz os Sobreviventes serem derrubados por ataques básicos mesmo que não estejam feridos.\n\n\"Ginevra chora rios de sangue/O diabo sente o cheiro dos fracos.\" — \"Ginevra\", de Fabbro Barone",
+      "descricao_en": ""
     },
     {
       "perk_name": "Olhar Divagante",
+      "perk_name_en": "Wandering Eye",
       "character": "Perk ensinável de A Krasue",
-      "perk_name_en": "Wandering Eye"
+      "tags": [
+        "aura",
+        "perseguição",
+        "tempo de recarga"
+      ],
+      "descricao": "Presas ensanguentadas cercam você, competindo por sua atenção.\n\nSempre que começar a perseguir um Sobrevivente, revela as auras de todos os outros Sobreviventes feridos dentro de {0} m por {1} s.\n\nEsta vantagem tem um tempo de recarga de {2} s.\n\n\"Uma gota não sacia/quando um rio é necessário.\"\n — \"A Grandeza de Samuel\", de Elliot Campbell",
+      "descricao_en": ""
     },
     {
       "perk_name": "Feitiço: Abertura da Ruína",
+      "perk_name_en": "Hex: Overture of Doom",
       "character": "Perk ensinável de A Krasue",
-      "perk_name_en": "Hex: Overture of Doom"
+      "tags": [
+        "indetectável",
+        "aura",
+        "gerador",
+        "reparo",
+        "totem",
+        "totem enfeitiçado",
+        "raio de terror",
+        "furtividade",
+        "feitiço"
+      ],
+      "descricao": "Um feitiço que lança uma paranoia nos outros.\n\nGera um Totem Enfeitiçado que amaldiçoa o gerador mais distante e revela sua aura em amarelo.\n\nQuando um Sobrevivente reparar o gerador amaldiçoado por {0} s, você ganha Indetectável e seu Raio de Terror é aplicado ao gerador por {1} s.\n\nQuando o gerador amaldiçoado for reparado, o seguinte gerador mais distante é amaldiçoado.\n\nIndetectável esconde a aura, o Raio de Terror e a Luz Vermelha do Assassino.\n\n\"Da ruína da salvação, estejam avisados/a morte vem de todos os lados.\" — \"Colina da Neblina\", de Giovanni Serrata",
+      "descricao_en": ""
     },
     {
       "perk_name": "Atrasar o Relógio",
+      "perk_name_en": "Turn Back the Clock",
       "character": "Perk ensinável de O Número Um",
-      "perk_name_en": "Turn Back the Clock"
+      "tags": [
+        "gerador",
+        "gancho"
+      ],
+      "descricao": "Por mais que resistam, o tempo passa e seu plano-mestre fica cada vez mais perto de se concretizar.\n\nApós enganchar um Sobrevivente, por {0} s, aperte o <i>botão de Habilidade 1</i> para fazer um gerador-alvo no seu campo de visão a até {1} m explodir, perder {2}% de progresso e começar a regredir.\n\n\"Nada vai acontecer com você... Nada que você não mereça!\" — Henry Creel",
+      "descricao_en": ""
     },
     {
       "perk_name": "Projeto Secreto",
+      "perk_name_en": "Secret Project",
       "character": "Perk ensinável de O Número Um",
-      "perk_name_en": "Secret Project"
+      "tags": [
+        "indetectável",
+        "aura",
+        "gerador",
+        "totem",
+        "raio de terror",
+        "furtividade"
+      ],
+      "descricao": "Criada para ser uma arma, você se libertou usando as mesmas habilidades que seus captores aprimoraram em você.\n\nQuando um Totem é abençoado ou purificado, bloqueia um gerador aleatório por {0} s.\n\nQuando um ou mais geradores são bloqueados, você recebe Indetectável por {1} s.\n\nIndetectável esconde a aura, o Raio de Terror e a Luz Vermelha do Assassino.\n\n\"Você era uma prisioneira aqui, assim como eu.\" — Henry Creel",
+      "descricao_en": ""
     },
     {
       "perk_name": "Feitiço: Mente Coletiva",
+      "perk_name_en": "Hex: Hive Mind",
       "character": "Perk ensinável de O Número Um",
-      "perk_name_en": "Hex: Hive Mind"
+      "tags": [
+        "aura",
+        "gerador",
+        "reparo",
+        "totem",
+        "totem enfeitiçado",
+        "gancho",
+        "fim de jogo",
+        "feitiço"
+      ],
+      "descricao": "Você se viu conectado a algo obscuro e desconhecido… e o acolheu.\n\nA primeira vez que enganchar qualquer Sobrevivente, um Totem Simples se torna um Totem Enfeitiçado.\n\nGeradores ficam destacados; a intensidade das auras do gerador revela o progresso do reparo.\n\nQuando restar {0} gerador, todos os geradores restantes explodem, perdem {1}% de progresso, começam a regredir e o Totem Enfeitiçado se torna Simples.\n\n\"Você… nos deixou entrar. E agora você vai ter que nos deixar ficar.\" — Henry Creel",
+      "descricao_en": ""
     },
     {
       "perk_name": "Sombra Silenciosa",
+      "perk_name_en": "Silent Shadow",
       "character": "Perk ensinável de O Matador",
-      "perk_name_en": "Silent Shadow"
+      "tags": [
+        "gerador",
+        "gancho",
+        "fim de jogo"
+      ],
+      "descricao": "Ao enganchar um Sobrevivente, você ganha {Keyword.Undetectable} por {Tunable.K43P02.StartTrialUndetectableDuration} s.\n\nQuando todos os geradores forem concluídos, você ganha {Keyword.Undetectable}.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Fúria",
+      "perk_name_en": "Rampage",
       "character": "Perk ensinável de O Matador",
-      "perk_name_en": "Rampage"
+      "tags": [
+        "barricada",
+        "tempo de recarga"
+      ],
+      "descricao": "Sempre que você quebrar uma barricada ou parede destrutível com básico, você ganha {Tunable.K43P03.TokensGained} ponto de progressão, podendo acumular até {Tunable.K43P03.TokensMaximum}.\n\nSempre que ficar cego ou atordoado por uma barricada, pelos próximos {Tunable.K43P03.HasteDuration} s, você ganha {Tunable.K43P03.HasteValue}% de {Keyword.Haste} para cada ponto de progressão. Tempo de recarga: {Tunable.K43P03.Cooldown}.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Feitiço: Morrendo de Medo",
+      "perk_name_en": "Hex: Scared to Death",
       "character": "Perk ensinável de O Matador",
-      "perk_name_en": "Hex: Scared to Death"
+      "tags": [
+        "totem",
+        "perseguição",
+        "barricada",
+        "gancho",
+        "feitiço",
+        "totem enfeitiçado"
+      ],
+      "descricao": "Após enganchar {Tunable.K43P01.UniqueSurvivorsToHook} Sobreviventes diferentes, um Totem Simples acende.\n\nAo perseguir um Sobrevivente, sempre que você quebrar uma barricada com básico, Sobreviventes a até {Tunable.K43P01.DistanceToSurvivors} m:\n- Gritam.\n- Ganham {Tunable.K43P01.HinderedValue}% de {Keyword.Hindered} por {Tunable.K43P01.HinderedDuration} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Devastação",
+      "perk_name_en": "Lay Waste",
       "character": "Perk ensinável de O Julgamento",
-      "perk_name_en": "Lay Waste"
+      "tags": [
+        "gerador",
+        "regressão",
+        "tempo de recarga"
+      ],
+      "descricao": "Sempre que você causa dano a um gerador, para cada carga que ele tinha, ele regride {Tunable.K044P03.FasterRegression}% mais rápido. Tempo de recarga: {Tunable.K044P03.Cooldown} s.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Testemunha Celestial",
+      "perk_name_en": "Celestial Witness",
       "character": "Perk ensinável de O Julgamento",
-      "perk_name_en": "Celestial Witness"
+      "tags": [
+        "aura",
+        "obsessão"
+      ],
+      "descricao": "A cada {Tunable.K044P01.Timer} s, se a Obsessão estiver a pelo menos {Tunable.K044P01.Distance} m de distância de você, poderá ver a aura dela por {Tunable.K044P01.AuraDuration} s. Caso contrário, o Sobrevivente mais distante se torna a Obsessão.",
+      "descricao_en": ""
     },
     {
       "perk_name": "Feitiço: Sob Seu Controle",
+      "perk_name_en": "Hex: Under Your Thumb",
       "character": "Perk ensinável de O Julgamento",
-      "perk_name_en": "Hex: Under Your Thumb"
+      "tags": [
+        "celeridade",
+        "velocidade",
+        "feitiço",
+        "totem enfeitiçado"
+      ],
+      "descricao": "Quando um Sobrevivente recebe um estado de gancho pela primeira vez, um Totem Simples acende.\n\nSempre que um Sobrevivente correndo recebe Celeridade a até {Tunable.K044P02.HasteRange} m de você, você recebe um alerta.\n\nSobreviventes não podem receber mais do que {Tunable.K044P02.HasteCap}% de {Keyword.Haste} de uma vez.",
+      "descricao_en": ""
     }
   ]
 }
