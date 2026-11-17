@@ -95,9 +95,10 @@ function buildPerks(perks, role) {
             id, ownerId: c.toLowerCase() === GENERAL_NAME ? 'geral' : fmt(c),
             namePt: p.perk_name,
             nameEn: p.perk_name_en || p.perk_name,
-            charName: c,                      // novo
-            desc: p.descricao || '',          // novo
-            descEn: p.descricao_en || '',     // novo
+            charName: c,
+            desc: p.descricao || '',
+            descEn: p.descricao_en || '',
+            tags: Array.isArray(p.tags) ? p.tags : null,   // opcional: sobrescreve a detecção automática de tags
             rel: type + '/iconperks-' + perkSlug(p.perk_name) + '.png',
             icon: role === 'survivor' ? 'fa-shield-halved' : 'fa-skull'
         };
@@ -273,7 +274,12 @@ const i18n = {
         obsLblAuto: "Sortear sozinho a cada (s, 0 = não)",
         imgTitle: "Imagem da Build",
         imgBtnDownload: "Baixar PNG",
-        imgBtnCopy: "Copiar imagem"
+        imgBtnCopy: "Copiar imagem",
+        // Roleta temática
+        tagTitle: "Roleta temática (filtrar por tags)",
+        tagClear: "Limpar tags",
+        tagModeAny: "Qualquer tag",
+        tagModeAll: "Todas as tags"
     },
     en: {
         subtitle: "Dead by Daylight Streamer Loadout Generator",
@@ -364,7 +370,12 @@ const i18n = {
         obsLblAuto: "Auto-roll every (s, 0 = off)",
         imgTitle: "Build Image",
         imgBtnDownload: "Download PNG",
-        imgBtnCopy: "Copy image"
+        imgBtnCopy: "Copy image",
+        // Themed roulette
+        tagTitle: "Themed roulette (filter by tags)",
+        tagClear: "Clear tags",
+        tagModeAny: "Any tag",
+        tagModeAll: "All tags"
     }
 };
 
@@ -500,8 +511,12 @@ function renderPerkGallery() {
     sBtn.classList.toggle('active', perkGalleryRole === 'survivor');
 
     const q = norm(perkGalleryText);
-    const list = (perkGalleryRole === 'survivor' ? survAll : killAll)
-        .filter(p => !q || norm(p.namePt).includes(q) || norm(p.nameEn).includes(q));
+    const roleList = perkGalleryRole === 'survivor' ? survAll : killAll;
+    const pgTags = $('pgTags');
+    if (pgTags) pgTags.innerHTML = tagChipsHtml(roleList, galleryTags);
+    const list = roleList
+        .filter(p => !q || norm(p.namePt).includes(q) || norm(p.nameEn).includes(q))
+        .filter(p => !galleryTags.size || [...galleryTags].some(t => perkTags(p).has(t)));
     $('pgCount').textContent = list.length;
 
     if (!list.length) {
@@ -666,6 +681,8 @@ function renderPool() {
         charContainer.appendChild(card);
     });
 
+    renderTagChips();
+
     if (document.getElementById('inputSearch').value) filterPoolBySearch();
 }
 
@@ -711,6 +728,8 @@ function toggleAllPool(enable) {
 function resetFilters() {
     excludedCharacters.clear();
     excludedPerks.clear();
+    activeTags.clear();
+    saveTags();
     document.getElementById('inputSearch').value = '';
     renderPool();
     showToast("Filtros resetados com sucesso!", "info");
@@ -757,7 +776,8 @@ function spinRoulette() {
     if (!prev) resetLocks();
 
     const availableChars = getActiveCharacters().filter(c => !excludedCharacters.has(c.id));
-    const availablePerks = getActivePerks().filter(p => !excludedPerks.has(p.id));
+    // Roleta temática: só entram perks que tenham as tags marcadas
+    const availablePerks = getActivePerks().filter(p => !excludedPerks.has(p.id) && matchesTags(p));
 
     const rollChar = chkChar && !locks.char;
     const rollSlots = [0, 1, 2, 3].map(i => chkPerks && !locks.perks[i]);
@@ -788,7 +808,9 @@ function spinRoulette() {
     const keptIds = new Set(fixedPerks.filter(Boolean).map(p => p.id));
     const pool = availablePerks.filter(p => !keptIds.has(p.id));
     if (pool.length < rollIdx.length + fillIdx.length) {
-        showToast("Selecione mais perks ativos no acervo!", "error");
+        showToast(activeTags.size
+            ? (currentLang === 'pt' ? 'Poucos perks com essas tags. Remova alguma tag ou ative mais perks no acervo.' : 'Not enough perks with these tags. Remove a tag or enable more perks in the pool.')
+            : "Selecione mais perks ativos no acervo!", "error");
         return;
     }
     const fillPicks = shuffle(pool).slice(0, fillIdx.length);
@@ -2157,3 +2179,102 @@ async function copyObsLink(which) {
     });
     document.addEventListener('scroll', hide, true);
 })();
+
+
+/* ==========================================================================
+   TAGS DE PERKS + ROLETA TEMÁTICA
+   ========================================================================== */
+// rx roda sobre texto normalizado (minúsculo, sem acento), nome + descrição PT/EN.
+// Para criar uma tag nova, basta adicionar uma linha aqui.
+const PERK_TAGS = [
+    { id: 'heal',      pt: 'Cura',              en: 'Healing',        icon: 'fa-kit-medical',      rx: /\bcur(a|as|ar|ado|ada|ados|adas|ando|e|em)\b|kit medico|\bheal(s|ed|ing)?\b/ },
+    { id: 'aura',      pt: 'Aura',              en: 'Aura',           icon: 'fa-eye',              rx: /\baura/ },
+    { id: 'exposed',   pt: 'Exposto',           en: 'Exposed',        icon: 'fa-bullseye',         rx: /exposto|exposed/ },
+    { id: 'stealth',   pt: 'Furtividade',       en: 'Stealth',        icon: 'fa-user-secret',      rx: /indetectavel|undetectable|raio de terror|terror radius|furtiv|stealth/ },
+    { id: 'speed',     pt: 'Velocidade',        en: 'Speed',          icon: 'fa-person-running',   rx: /celeridade|\bhaste\b|velocidade de movimento|movement speed/ },
+    { id: 'endurance', pt: 'Resistência',       en: 'Endurance',      icon: 'fa-shield-halved',    rx: /resistencia|endurance/ },
+    { id: 'exhaust',   pt: 'Exaustão',          en: 'Exhaustion',     icon: 'fa-battery-quarter',  rx: /exaust|exhaust/ },
+    { id: 'gens',      pt: 'Geradores',         en: 'Generators',     icon: 'fa-bolt',             rx: /gerador|geradores|generator|regress/ },
+    { id: 'hook',      pt: 'Ganchos',           en: 'Hooks',          icon: 'fa-skull-crossbones', rx: /gancho|\bhook/ },
+    { id: 'vault',     pt: 'Paletes/Janelas',   en: 'Pallets/Vaults', icon: 'fa-window-maximize',  rx: /palete|pallet|janela|window|vault|salto/ },
+    { id: 'exit',      pt: 'Portões/Escotilha', en: 'Gates/Hatch',    icon: 'fa-door-open',        rx: /portao|portoes|gate|escotilha|hatch/ },
+    { id: 'totem',     pt: 'Totens',            en: 'Totems',         icon: 'fa-fire',             rx: /totem/ },
+    { id: 'debuff',    pt: 'Status negativos',  en: 'Status effects', icon: 'fa-biohazard',        rx: /lentidao|hindered|cegueira|blindness|quebrado|broken|hemorragia|hemorrhage|ferida profunda|deep wound|dilacerado|mangled|alheio|oblivious/ },
+    { id: 'items',     pt: 'Itens/Baús',        en: 'Items/Chests',   icon: 'fa-box-open',         rx: /\bbau|\bbaus|chest|\bitens?\b|\bitems?\b/ }
+];
+
+const TAGS_KEY = 'dbd_tags';
+let activeTags = new Set();
+try { activeTags = new Set(JSON.parse(localStorage.getItem(TAGS_KEY) || '[]')); } catch (e) {}
+let tagMode = 'any';           // 'any' | 'all'
+let galleryTags = new Set();
+const tagCache = new Map();
+
+// Se o perk tiver "tags": [...] no JSON, elas substituem a detecção automática
+function perkTags(p) {
+    if (tagCache.has(p.id)) return tagCache.get(p.id);
+    let set;
+    if (Array.isArray(p.tags)) set = new Set(p.tags);
+    else {
+        const txt = norm([p.namePt, p.nameEn, p.desc, p.descEn].join(' '));
+        set = new Set(PERK_TAGS.filter(t => t.rx.test(txt)).map(t => t.id));
+    }
+    tagCache.set(p.id, set);
+    return set;
+}
+
+function matchesTags(p) {
+    if (!activeTags.size) return true;
+    const t = perkTags(p), sel = [...activeTags];
+    return tagMode === 'all' ? sel.every(x => t.has(x)) : sel.some(x => t.has(x));
+}
+
+function tagChipsHtml(perks, selected) {
+    return PERK_TAGS.map(t => {
+        const n = perks.filter(p => perkTags(p).has(t.id)).length;
+        if (!n && !selected.has(t.id)) return '';
+        return `<button type="button" class="bd-chip ${selected.has(t.id) ? 'active' : ''}" data-tag="${t.id}">
+            <i class="fa-solid ${t.icon}"></i> ${esc(currentLang === 'pt' ? t.pt : t.en)}<small>${n}</small></button>`;
+    }).join('');
+}
+
+function renderTagChips() {
+    const box = $('tagChips');
+    if (!box) return;
+    box.innerHTML = tagChipsHtml(getActivePerks(), activeTags);
+
+    const n = getActivePerks().filter(p => !excludedPerks.has(p.id) && matchesTags(p)).length;
+    const st = $('tagStatus');
+    if (st) {
+        st.textContent = activeTags.size
+            ? (currentLang === 'pt' ? `${n} perks elegíveis` : `${n} eligible perks`)
+            : '';
+        st.style.color = (activeTags.size && n < 4) ? '#ef4444' : '';
+    }
+}
+
+function saveTags() {
+    try { localStorage.setItem(TAGS_KEY, JSON.stringify([...activeTags])); } catch (e) {}
+}
+function setTagMode(m) { tagMode = m; renderTagChips(); }
+function clearTags() { activeTags.clear(); saveTags(); renderTagChips(); }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const tc = $('tagChips');
+    if (tc) tc.addEventListener('click', e => {
+        const b = e.target.closest('[data-tag]');
+        if (!b) return;
+        const id = b.dataset.tag;
+        activeTags.has(id) ? activeTags.delete(id) : activeTags.add(id);
+        saveTags();
+        renderTagChips();
+    });
+    const pt = $('pgTags');
+    if (pt) pt.addEventListener('click', e => {
+        const b = e.target.closest('[data-tag]');
+        if (!b) return;
+        const id = b.dataset.tag;
+        galleryTags.has(id) ? galleryTags.delete(id) : galleryTags.add(id);
+        renderPerkGallery();
+    });
+});
