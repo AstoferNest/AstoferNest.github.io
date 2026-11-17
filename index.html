@@ -134,6 +134,26 @@
                 </div>
             </div>
 
+            <!-- ROLETA TEMÁTICA (TAGS) -->
+            <div class="bg-dbd-card px-4 py-3 rounded-xl border border-neutral-800 shadow-xl space-y-2">
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                    <span class="text-[10px] font-bold uppercase text-dbd-muted flex items-center gap-2">
+                        <i class="fa-solid fa-tags text-dbd-cyan"></i> <span id="tagTitle">Roleta temática</span>
+                    </span>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <span id="tagStatus" class="text-[11px] font-bold text-dbd-cyan"></span>
+                        <select id="tagMode" class="bd-field" style="width:auto;padding:.25rem .5rem;font-size:.75rem" onchange="setTagMode(this.value)">
+                            <option value="any" id="tagModeAny">Qualquer tag</option>
+                            <option value="all" id="tagModeAll">Todas as tags</option>
+                        </select>
+                        <button type="button" onclick="clearTags()" class="text-xs text-dbd-cyan hover:underline flex items-center gap-1">
+                            <i class="fa-solid fa-xmark"></i> <span id="tagClear">Limpar tags</span>
+                        </button>
+                    </div>
+                </div>
+                <div id="tagChips" class="bd-chips"></div>
+            </div>
+
             <!-- RESULTADO (LARGURA TOTAL) -->
             <div class="bg-dbd-card p-6 md:p-8 rounded-xl border border-neutral-800 flex flex-col justify-between fog-overlay shadow-2xl min-h-[640px]">
 
@@ -605,6 +625,8 @@
                         <span id="pgSurvCount" class="bd-badge">0</span>
                     </button>
                 </div>
+
+                <div id="pgTags" class="bd-chips"></div>
 
                 <div id="perkGalleryGrid" class="perk-gallery"></div>
             </div>
