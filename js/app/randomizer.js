@@ -2183,41 +2183,108 @@ async function copyObsLink(which) {
 
 /* ==========================================================================
    TAGS DE PERKS + ROLETA TEMÁTICA
+   As tags vêm do campo "tags" de cada perk no JSON (qualquer tag nova que você
+   escrever lá aparece sozinha nos filtros). Perks sem "tags" usam detecção
+   automática pelo texto como reserva.
    ========================================================================== */
-// rx roda sobre texto normalizado (minúsculo, sem acento), nome + descrição PT/EN.
-// Para criar uma tag nova, basta adicionar uma linha aqui.
-const PERK_TAGS = [
-    { id: 'heal',      pt: 'Cura',              en: 'Healing',        icon: 'fa-kit-medical',      rx: /\bcur(a|as|ar|ado|ada|ados|adas|ando|e|em)\b|kit medico|\bheal(s|ed|ing)?\b/ },
-    { id: 'aura',      pt: 'Aura',              en: 'Aura',           icon: 'fa-eye',              rx: /\baura/ },
-    { id: 'exposed',   pt: 'Exposto',           en: 'Exposed',        icon: 'fa-bullseye',         rx: /exposto|exposed/ },
-    { id: 'stealth',   pt: 'Furtividade',       en: 'Stealth',        icon: 'fa-user-secret',      rx: /indetectavel|undetectable|raio de terror|terror radius|furtiv|stealth/ },
-    { id: 'speed',     pt: 'Velocidade',        en: 'Speed',          icon: 'fa-person-running',   rx: /celeridade|\bhaste\b|velocidade de movimento|movement speed/ },
-    { id: 'endurance', pt: 'Resistência',       en: 'Endurance',      icon: 'fa-shield-halved',    rx: /resistencia|endurance/ },
-    { id: 'exhaust',   pt: 'Exaustão',          en: 'Exhaustion',     icon: 'fa-battery-quarter',  rx: /exaust|exhaust/ },
-    { id: 'gens',      pt: 'Geradores',         en: 'Generators',     icon: 'fa-bolt',             rx: /gerador|geradores|generator|regress/ },
-    { id: 'hook',      pt: 'Ganchos',           en: 'Hooks',          icon: 'fa-skull-crossbones', rx: /gancho|\bhook/ },
-    { id: 'vault',     pt: 'Paletes/Janelas',   en: 'Pallets/Vaults', icon: 'fa-window-maximize',  rx: /palete|pallet|janela|window|vault|salto/ },
-    { id: 'exit',      pt: 'Portões/Escotilha', en: 'Gates/Hatch',    icon: 'fa-door-open',        rx: /portao|portoes|gate|escotilha|hatch/ },
-    { id: 'totem',     pt: 'Totens',            en: 'Totems',         icon: 'fa-fire',             rx: /totem/ },
-    { id: 'debuff',    pt: 'Status negativos',  en: 'Status effects', icon: 'fa-biohazard',        rx: /lentidao|hindered|cegueira|blindness|quebrado|broken|hemorragia|hemorrhage|ferida profunda|deep wound|dilacerado|mangled|alheio|oblivious/ },
-    { id: 'items',     pt: 'Itens/Baús',        en: 'Items/Chests',   icon: 'fa-box-open',         rx: /\bbau|\bbaus|chest|\bitens?\b|\bitems?\b/ }
+const TAG_META = {
+    'aura':               { pt: 'Aura',               en: 'Aura',            icon: 'fa-eye' },
+    'cura':               { pt: 'Cura',               en: 'Healing',         icon: 'fa-kit-medical' },
+    'exposto':            { pt: 'Exposto',            en: 'Exposed',         icon: 'fa-bullseye' },
+    'furtividade':        { pt: 'Furtividade',        en: 'Stealth',         icon: 'fa-user-secret' },
+    'indetectavel':       { pt: 'Indetectável',       en: 'Undetectable',    icon: 'fa-ghost' },
+    'celeridade':         { pt: 'Celeridade',         en: 'Haste',           icon: 'fa-gauge-high' },
+    'velocidade':         { pt: 'Velocidade',         en: 'Speed',           icon: 'fa-person-running' },
+    'raio de terror':     { pt: 'Raio de Terror',     en: 'Terror Radius',   icon: 'fa-circle-dot' },
+    'janela':             { pt: 'Janela',             en: 'Window',          icon: 'fa-window-maximize' },
+    'barricada':          { pt: 'Barricada',          en: 'Pallet',          icon: 'fa-road-barrier' },
+    'gancho':             { pt: 'Gancho',             en: 'Hook',            icon: 'fa-skull-crossbones' },
+    'gancho do tormento': { pt: 'Gancho do Tormento', en: 'Scourge Hook',    icon: 'fa-skull' },
+    'gerador':            { pt: 'Gerador',            en: 'Generator',       icon: 'fa-bolt' },
+    'reparo':             { pt: 'Reparo',             en: 'Repair',          icon: 'fa-wrench' },
+    'regressao':          { pt: 'Regressão',          en: 'Regression',      icon: 'fa-rotate-left' },
+    'fim de jogo':        { pt: 'Fim de jogo',        en: 'Endgame',         icon: 'fa-flag-checkered' },
+    'exaustao':           { pt: 'Exaustão',           en: 'Exhaustion',      icon: 'fa-battery-quarter' },
+    'hemorragia':         { pt: 'Hemorragia',         en: 'Hemorrhage',      icon: 'fa-droplet' },
+    'dilacerado':         { pt: 'Dilacerado',         en: 'Mangled',         icon: 'fa-bandage' },
+    'quebrado':           { pt: 'Quebrado',           en: 'Broken',          icon: 'fa-bone' },
+    'cegueira':           { pt: 'Cegueira',           en: 'Blindness',       icon: 'fa-eye-low-vision' },
+    'alheio':             { pt: 'Alheio',             en: 'Oblivious',       icon: 'fa-eye-slash' },
+    'lentidao':           { pt: 'Lentidão',           en: 'Hindered',        icon: 'fa-person-walking' },
+    'portao':             { pt: 'Portão',             en: 'Gate',            icon: 'fa-door-open' },
+    'totem':              { pt: 'Totem',              en: 'Totem',           icon: 'fa-fire' },
+    'totem enfeiticado':  { pt: 'Totem Enfeitiçado',  en: 'Hex Totem',       icon: 'fa-fire-flame-curved' },
+    'totem abencoado':    { pt: 'Totem Abençoado',    en: 'Boon Totem',      icon: 'fa-hands-praying' },
+    'feitico':            { pt: 'Feitiço',            en: 'Hex',             icon: 'fa-hat-wizard' },
+    'teste de pericia':   { pt: 'Teste de Perícia',   en: 'Skill Check',     icon: 'fa-crosshairs' },
+    'tempo de recarga':   { pt: 'Tempo de recarga',   en: 'Cooldown',        icon: 'fa-hourglass-half' },
+    'perseguicao':        { pt: 'Perseguição',        en: 'Chase',           icon: 'fa-route' },
+    'obsessao':           { pt: 'Obsessão',           en: 'Obsession',       icon: 'fa-star-of-life' },
+    'ataque':             { pt: 'Ataque',             en: 'Attack',          icon: 'fa-hand-fist' },
+    'morrendo':           { pt: 'Morrendo',           en: 'Dying',           icon: 'fa-heart-crack' },
+    'carregar':           { pt: 'Carregar',           en: 'Carrying',        icon: 'fa-person-carry-box' },
+    'debater':            { pt: 'Debater',            en: 'Wiggle',          icon: 'fa-hand' },
+    'item':               { pt: 'Item',               en: 'Item',            icon: 'fa-box-open' },
+    'bau':                { pt: 'Baú',                en: 'Chest',           icon: 'fa-box' },
+    'armario':            { pt: 'Armário',            en: 'Locker',          icon: 'fa-door-closed' },
+    'porao':              { pt: 'Porão',              en: 'Basement',        icon: 'fa-stairs' },
+    'rastro':             { pt: 'Rastro',             en: 'Trail',           icon: 'fa-shoe-prints' },
+    'ruido':              { pt: 'Ruído',              en: 'Noise',           icon: 'fa-volume-high' },
+    'notificacao':        { pt: 'Notificação',        en: 'Notification',    icon: 'fa-bell' },
+    'sede de sangue':     { pt: 'Sede de Sangue',     en: 'Bloodlust',       icon: 'fa-droplet' },
+    'poder do assassino': { pt: 'Poder do Assassino', en: 'Killer Power',    icon: 'fa-gem' }
+};
+
+// Reserva: só é usada em perks que NÃO têm "tags" no JSON (ex.: perks importados)
+const AUTO_TAGS = [
+    { k: 'cura',      rx: /\bcur(a|as|ar|ado|ada|ados|adas|ando|e|em)\b|kit medico|\bheal(s|ed|ing)?\b/ },
+    { k: 'aura',      rx: /\baura/ },
+    { k: 'exposto',   rx: /exposto|exposed/ },
+    { k: 'furtividade', rx: /indetectavel|undetectable|furtiv|stealth/ },
+    { k: 'celeridade', rx: /celeridade|\bhaste\b/ },
+    { k: 'exaustao',  rx: /exaust|exhaust/ },
+    { k: 'gerador',   rx: /gerador|geradores|generator/ },
+    { k: 'gancho',    rx: /gancho|\bhook/ },
+    { k: 'janela',    rx: /janela|window|vault/ },
+    { k: 'barricada', rx: /barricada|palete|pallet/ },
+    { k: 'portao',    rx: /portao|portoes|gate/ },
+    { k: 'totem',     rx: /totem/ }
 ];
 
-const TAGS_KEY = 'dbd_tags';
+const TAGS_KEY = 'dbd_tags_v2';
 let activeTags = new Set();
 try { activeTags = new Set(JSON.parse(localStorage.getItem(TAGS_KEY) || '[]')); } catch (e) {}
 let tagMode = 'any';           // 'any' | 'all'
 let galleryTags = new Set();
 const tagCache = new Map();
+const tagLabels = {};          // chave normalizada -> texto original visto no JSON
 
-// Se o perk tiver "tags": [...] no JSON, elas substituem a detecção automática
+const tagKey = t => norm(t);
+const capFirst = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+
+function tagInfo(key) {
+    const m = TAG_META[key];
+    const raw = capFirst(tagLabels[key] || key);
+    return {
+        label: currentLang === 'pt' ? (m ? m.pt : raw) : (m ? m.en : raw),
+        icon: (m && m.icon) || 'fa-tag'
+    };
+}
+
+// Tags do perk = campo "tags" do JSON (se existir); senão, detecção automática
 function perkTags(p) {
     if (tagCache.has(p.id)) return tagCache.get(p.id);
-    let set;
-    if (Array.isArray(p.tags)) set = new Set(p.tags);
-    else {
+    const set = new Set();
+    if (Array.isArray(p.tags) && p.tags.length) {
+        p.tags.forEach(t => {
+            const k = tagKey(t);
+            if (!k) return;
+            if (!tagLabels[k]) tagLabels[k] = String(t).trim();
+            set.add(k);
+        });
+    } else {
         const txt = norm([p.namePt, p.nameEn, p.desc, p.descEn].join(' '));
-        set = new Set(PERK_TAGS.filter(t => t.rx.test(txt)).map(t => t.id));
+        AUTO_TAGS.forEach(t => { if (t.rx.test(txt)) set.add(t.k); });
     }
     tagCache.set(p.id, set);
     return set;
@@ -2229,19 +2296,25 @@ function matchesTags(p) {
     return tagMode === 'all' ? sel.every(x => t.has(x)) : sel.some(x => t.has(x));
 }
 
+// Gera os chips a partir das tags que realmente existem nos perks (mais usadas primeiro)
 function tagChipsHtml(perks, selected) {
-    return PERK_TAGS.map(t => {
-        const n = perks.filter(p => perkTags(p).has(t.id)).length;
-        if (!n && !selected.has(t.id)) return '';
-        return `<button type="button" class="bd-chip ${selected.has(t.id) ? 'active' : ''}" data-tag="${t.id}">
-            <i class="fa-solid ${t.icon}"></i> ${esc(currentLang === 'pt' ? t.pt : t.en)}<small>${n}</small></button>`;
-    }).join('');
+    const counts = new Map();
+    perks.forEach(p => perkTags(p).forEach(k => counts.set(k, (counts.get(k) || 0) + 1)));
+    selected.forEach(k => { if (!counts.has(k)) counts.set(k, 0); });
+    return [...counts.entries()]
+        .map(([k, n]) => ({ k, n, ...tagInfo(k) }))
+        .sort((a, b) => b.n - a.n || a.label.localeCompare(b.label))
+        .map(t => `<button type="button" class="bd-chip ${selected.has(t.k) ? 'active' : ''}" data-tag="${esc(t.k)}">
+            <i class="fa-solid ${t.icon}"></i> ${esc(t.label)}<small>${t.n}</small></button>`)
+        .join('');
 }
 
 function renderTagChips() {
     const box = $('tagChips');
     if (!box) return;
     box.innerHTML = tagChipsHtml(getActivePerks(), activeTags);
+    box.style.maxHeight = '9rem';      // muitas tags: rola dentro da caixa
+    box.style.overflowY = 'auto';
 
     const n = getActivePerks().filter(p => !excludedPerks.has(p.id) && matchesTags(p)).length;
     const st = $('tagStatus');
