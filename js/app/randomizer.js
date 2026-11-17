@@ -276,7 +276,7 @@ const i18n = {
         imgBtnDownload: "Baixar PNG",
         imgBtnCopy: "Copiar imagem",
         // Roleta temática
-        tagTitle: "Roleta temática (filtrar por tags)",
+        tagTitle: "Filtrar por tags",
         tagClear: "Limpar tags",
         tagModeAny: "Qualquer tag",
         tagModeAll: "Todas as tags"
@@ -372,7 +372,7 @@ const i18n = {
         imgBtnDownload: "Download PNG",
         imgBtnCopy: "Copy image",
         // Themed roulette
-        tagTitle: "Themed roulette (filter by tags)",
+        tagTitle: "Filter by tags",
         tagClear: "Clear tags",
         tagModeAny: "Any tag",
         tagModeAll: "All tags"
@@ -512,11 +512,10 @@ function renderPerkGallery() {
 
     const q = norm(perkGalleryText);
     const roleList = perkGalleryRole === 'survivor' ? survAll : killAll;
-    const pgTags = $('pgTags');
-    if (pgTags) pgTags.innerHTML = tagChipsHtml(roleList, galleryTags);
     const list = roleList
         .filter(p => !q || norm(p.namePt).includes(q) || norm(p.nameEn).includes(q))
-        .filter(p => !galleryTags.size || [...galleryTags].some(t => perkTags(p).has(t)));
+        .filter(matchesTags);
+    renderTagChips();   // atualiza contagens do menu lateral para o lado da galeria
     $('pgCount').textContent = list.length;
 
     if (!list.length) {
@@ -559,6 +558,8 @@ function switchTab(tab) {
         activeTab.classList.remove('hidden');
         activeBtn.className = TAB_BTN_ON;
     }
+    currentTab = tab;
+    updateTagDrawerForTab();
 }
 
 function setRole(role) {
@@ -2255,7 +2256,7 @@ const TAGS_KEY = 'dbd_tags_v2';
 let activeTags = new Set();
 try { activeTags = new Set(JSON.parse(localStorage.getItem(TAGS_KEY) || '[]')); } catch (e) {}
 let tagMode = 'any';           // 'any' | 'all'
-let galleryTags = new Set();
+let currentTab = 'main';
 const tagCache = new Map();
 const tagLabels = {};          // chave normalizada -> texto original visto no JSON
 
@@ -2296,7 +2297,16 @@ function matchesTags(p) {
     return tagMode === 'all' ? sel.every(x => t.has(x)) : sel.some(x => t.has(x));
 }
 
-// Gera os chips a partir das tags que realmente existem nos perks (mais usadas primeiro)
+// Perks que servem de base para as contagens: o lado da galeria (aba Todos os Perks) ou o lado da roleta
+function tagContextPerks() {
+    if (currentTab === 'perks') {
+        return [...(perkGalleryRole === 'survivor' ? initialData.survivorPerks : initialData.killerPerks),
+            ...customEntries.filter(e => e.category === 'perk' && e.role === perkGalleryRole)];
+    }
+    return getActivePerks();
+}
+
+// Chips criados a partir das tags que existem nos perks (mais usadas primeiro)
 function tagChipsHtml(perks, selected) {
     const counts = new Map();
     perks.forEach(p => perkTags(p).forEach(k => counts.set(k, (counts.get(k) || 0) + 1)));
@@ -2312,42 +2322,169 @@ function tagChipsHtml(perks, selected) {
 function renderTagChips() {
     const box = $('tagChips');
     if (!box) return;
-    box.innerHTML = tagChipsHtml(getActivePerks(), activeTags);
-    box.style.maxHeight = '9rem';      // muitas tags: rola dentro da caixa
-    box.style.overflowY = 'auto';
+    const perks = tagContextPerks();
+    box.innerHTML = tagChipsHtml(perks, activeTags);
 
-    const n = getActivePerks().filter(p => !excludedPerks.has(p.id) && matchesTags(p)).length;
+    // contador de perks elegíveis (na roleta respeita o acervo; na galeria só as tags)
+    const n = perks.filter(p => (currentTab === 'perks' || !excludedPerks.has(p.id)) && matchesTags(p)).length;
+    const pt = currentLang === 'pt';
     const st = $('tagStatus');
     if (st) {
         st.textContent = activeTags.size
-            ? (currentLang === 'pt' ? `${n} perks elegíveis` : `${n} eligible perks`)
+            ? (currentTab === 'perks' ? (pt ? `${n} perks no filtro` : `${n} perks match`)
+                                      : (pt ? `${n} perks elegíveis` : `${n} eligible perks`))
             : '';
-        st.style.color = (activeTags.size && n < 4) ? '#ef4444' : '';
+        st.style.color = (activeTags.size && currentTab !== 'perks' && n < 4) ? '#ef4444' : '';
     }
+
+    // bolinha com a quantidade de tags ativas na aba lateral
+    const badge = $('tagBadge');
+    if (badge) {
+        badge.textContent = activeTags.size;
+        badge.style.display = activeTags.size ? '' : 'none';
+    }
+    const handle = $('tagHandle');
+    if (handle) handle.title = pt ? 'Filtrar por tags' : 'Filter by tags';
 }
 
 function saveTags() {
     try { localStorage.setItem(TAGS_KEY, JSON.stringify([...activeTags])); } catch (e) {}
 }
-function setTagMode(m) { tagMode = m; renderTagChips(); }
-function clearTags() { activeTags.clear(); saveTags(); renderTagChips(); }
+function setTagMode(m) {
+    tagMode = m;
+    renderTagChips();
+    renderPerkGallery();
+}
+function clearTags() {
+    activeTags.clear();
+    saveTags();
+    renderTagChips();
+    renderPerkGallery();
+}
 
-document.addEventListener('DOMContentLoaded', () => {
-    const tc = $('tagChips');
-    if (tc) tc.addEventListener('click', e => {
+
+/* ==========================================================================
+   MENU LATERAL DE TAGS (escondido, só uma aba na lateral esquerda)
+   Criado por aqui mesmo: não precisa de HTML no index.html.
+   Aparece nas abas "Modo Roleta" e "Todos os Perks".
+   ========================================================================== */
+const TAG_DRAWER_CSS = `
+#tagDrawer{position:fixed;top:0;left:0;bottom:0;width:320px;max-width:86vw;z-index:45;display:flex;flex-direction:column;
+  background:#1f242d;border-right:1px solid #2f3540;box-shadow:6px 0 24px rgba(0,0,0,.5);
+  transform:translateX(-100%);transition:transform .25s ease}
+#tagDrawer.open{transform:none}
+#tagDrawer.no-tabs{display:none}
+#tagHandle{position:absolute;top:50%;left:100%;transform:translateY(-50%);width:30px;height:104px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;
+  background:#1f242d;color:#00e5ff;border:1px solid #2f3540;border-left:none;border-radius:0 10px 10px 0;
+  box-shadow:6px 0 14px rgba(0,0,0,.35)}
+#tagHandle:hover{background:#2a303b}
+#tagHandle .tg-chev{font-size:10px;transition:transform .25s ease}
+#tagDrawer.open #tagHandle .tg-chev{transform:rotate(180deg)}
+#tagBadge{min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:#d78056;color:#fff;
+  font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.tg-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.9rem 1rem .6rem;border-bottom:1px solid #2f3540}
+.tg-title{font-size:.8rem;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:#fff;display:flex;align-items:center;gap:.5rem}
+.tg-title i{color:#00e5ff}
+#tagClose{color:#9ca3af;padding:.25rem .4rem;cursor:pointer}
+#tagClose:hover{color:#fff}
+.tg-tools{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;padding:.7rem 1rem;border-bottom:1px solid #2f3540}
+#tagStatus{flex:1 0 100%;font-size:11px;font-weight:700;color:#00e5ff;min-height:1rem}
+#tagMode{width:auto;padding:.25rem .5rem;font-size:.75rem}
+#tagClear{font-size:.75rem;color:#00e5ff;cursor:pointer;display:flex;align-items:center;gap:.25rem;margin-left:auto}
+#tagClear:hover{text-decoration:underline}
+#tagChips.tg-chips{flex:1;overflow-y:auto;padding:.8rem 1rem 1.2rem;align-content:flex-start}
+html:not(.dark) #tagDrawer,html:not(.dark) #tagHandle{background:#fff;border-color:#e5e7eb;box-shadow:6px 0 20px rgba(0,0,0,.12)}
+html:not(.dark) #tagHandle{color:#0e7490}
+html:not(.dark) #tagHandle:hover{background:#f3f4f6}
+html:not(.dark) .tg-head,html:not(.dark) .tg-tools{border-color:#e5e7eb}
+html:not(.dark) .tg-title{color:#111827}
+html:not(.dark) #tagStatus,html:not(.dark) #tagClear{color:#0e7490}
+`;
+
+function openTagDrawer() {
+    const d = $('tagDrawer'), h = $('tagHandle');
+    if (!d) return;
+    d.classList.add('open');
+    if (h) h.setAttribute('aria-expanded', 'true');
+}
+function closeTagDrawer() {
+    const d = $('tagDrawer'), h = $('tagHandle');
+    if (!d) return;
+    d.classList.remove('open');
+    if (h) h.setAttribute('aria-expanded', 'false');
+}
+function toggleTagDrawer() {
+    const d = $('tagDrawer');
+    if (!d) return;
+    d.classList.contains('open') ? closeTagDrawer() : openTagDrawer();
+}
+
+// A aba lateral só existe na roleta e em "Todos os Perks"
+function updateTagDrawerForTab() {
+    const d = $('tagDrawer');
+    if (!d) return;
+    const ok = currentTab === 'main' || currentTab === 'perks';
+    d.classList.toggle('no-tabs', !ok);
+    if (!ok) closeTagDrawer();
+    renderTagChips();
+}
+
+function initTagDrawer() {
+    if ($('tagDrawer')) return;
+
+    // remove a barra de tags antiga do index.html, se você ainda não a apagou (evita ids duplicados)
+    const oldChips = $('tagChips');
+    if (oldChips) (oldChips.closest('.bg-dbd-card') || oldChips.parentElement).remove();
+    const oldPg = $('pgTags');
+    if (oldPg) oldPg.remove();
+
+    const st = document.createElement('style');
+    st.textContent = TAG_DRAWER_CSS;
+    document.head.appendChild(st);
+
+    const d = document.createElement('aside');
+    d.id = 'tagDrawer';
+    d.setAttribute('aria-label', 'Tags');
+    d.innerHTML = `
+        <button type="button" id="tagHandle" aria-expanded="false" aria-controls="tagDrawer">
+            <i class="fa-solid fa-tags"></i>
+            <span id="tagBadge" style="display:none">0</span>
+            <i class="fa-solid fa-chevron-right tg-chev"></i>
+        </button>
+        <div class="tg-head">
+            <span class="tg-title"><i class="fa-solid fa-tags"></i> <span id="tagTitle">Filtrar por tags</span></span>
+            <button type="button" id="tagClose" aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="tg-tools">
+            <span id="tagStatus"></span>
+            <select id="tagMode" class="bd-field">
+                <option value="any" id="tagModeAny">Qualquer tag</option>
+                <option value="all" id="tagModeAll">Todas as tags</option>
+            </select>
+            <button type="button" id="tagClear"><i class="fa-solid fa-xmark"></i> <span>Limpar tags</span></button>
+        </div>
+        <div id="tagChips" class="bd-chips tg-chips"></div>`;
+    document.body.appendChild(d);
+
+    $('tagHandle').addEventListener('click', toggleTagDrawer);
+    $('tagClose').addEventListener('click', closeTagDrawer);
+    $('tagClear').addEventListener('click', clearTags);
+    $('tagMode').addEventListener('change', e => setTagMode(e.target.value));
+    $('tagChips').addEventListener('click', e => {
         const b = e.target.closest('[data-tag]');
         if (!b) return;
         const id = b.dataset.tag;
         activeTags.has(id) ? activeTags.delete(id) : activeTags.add(id);
         saveTags();
         renderTagChips();
-    });
-    const pt = $('pgTags');
-    if (pt) pt.addEventListener('click', e => {
-        const b = e.target.closest('[data-tag]');
-        if (!b) return;
-        const id = b.dataset.tag;
-        galleryTags.has(id) ? galleryTags.delete(id) : galleryTags.add(id);
         renderPerkGallery();
     });
-});
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeTagDrawer(); });
+
+    updateLanguageUI();      // traduz os textos que acabaram de ser criados
+    updateTagDrawerForTab();
+}
+
+if (document.body) initTagDrawer();
+else document.addEventListener('DOMContentLoaded', initTagDrawer);
