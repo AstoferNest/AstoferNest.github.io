@@ -48,6 +48,25 @@ let itemsData = { surv: {}, kill: {} };
 const EMPTY_ITEM = { namePt: 'Nenhum', nameEn: 'None', addons: [], icon: 'fa-toolbox' };
 const ITEM_TYPE_ICON = { 'Chaves': 'fa-key', 'Lanternas': 'fa-lightbulb', 'Mapas': 'fa-map', 'Kit Médico': 'fa-kit-medical', 'Caixa de Ferramenta': 'fa-toolbox', 'Frasco de Névoa': 'fa-flask' };
 
+// ====== PTB ======
+let ptbIds = new Set();
+const isPtb = o => !!o && ptbIds.has(o.id);
+const ptbCls = o => isPtb(o) ? ' is-ptb' : '';
+const includePtb = () => { const el = $('chkPtb'); return !el || el.checked; };
+
+// Perks usam data-perk em todo lugar, então a aura é gerada por CSS dinâmico (sem mexer em cada template)
+function applyPtbStyles() {
+    let st = $('ptbDynStyle');
+    if (!st) { st = document.createElement('style'); st.id = 'ptbDynStyle'; document.head.appendChild(st); }
+    const ids = [...ptbIds].filter(id => /^(surv|kill)_/.test(id));
+    st.textContent = ids.map(id => {
+        const v = String(id).replace(/["\\]/g, '\\$&');
+        return `[data-perk="${v}"].perk-diamond,[data-perk="${v}"] .perk-diamond{animation:ptbPulse 1.8s ease-in-out infinite}`;
+    }).join('\n');
+    const chk = $('chkPtb');
+    if (chk && chk.closest('label')) chk.closest('label').style.display = ptbIds.size ? '' : 'none';
+}
+
 // Sugestões de tipos de build (o curador também pode digitar um tipo novo)
 const DEFAULT_BUILD_TYPES = ['Furtivo', 'Gen rush', 'Perseguição', 'Informação', 'Cura', 'Controle de mapa', 'Meta', 'Meme / Troll'];
 
@@ -74,12 +93,18 @@ const imgPaths = rel => IMG_REMOTE ? [encodeURI(IMG_LOCAL + rel), encodeURI(IMG_
 const entryImgs = e => e.image ? [e.image] : (e.rel ? imgPaths(e.rel) : []);
 
 function buildCharacters(perks, role) {
-    const names = [...new Set(perks.map(p => cleanChar(p.character)).filter(n => n.toLowerCase() !== GENERAL_NAME))]
-        .sort((a, b) => a.localeCompare(b));
-    return names.map(n => ({
+    const own = {};
+    perks.forEach(p => {
+        const n = cleanChar(p.character);
+        if (n.toLowerCase() === GENERAL_NAME) return;
+        (own[n] = own[n] || []).push(p);
+    });
+    return Object.keys(own).sort((a, b) => a.localeCompare(b)).map(n => ({
         id: fmt(n), namePt: n, nameEn: n,
         rel: 'personagens/' + charPhotoSlug(n) + '.png',
-        icon: role === 'survivor' ? 'fa-user' : 'fa-skull'
+        icon: role === 'survivor' ? 'fa-user' : 'fa-skull',
+        // PTB se algum perk marcar character_ptb, ou se TODOS os perks dele forem PTB
+        ptb: own[n].some(p => p.character_ptb === true) || own[n].every(p => p.ptb === true)
     }));
 }
 
@@ -98,6 +123,7 @@ function buildPerks(perks, role) {
             charName: c,
             desc: p.descricao || '',
             descEn: p.descricao_en || '',
+            ptb: p.ptb === true,            
             tags: Array.isArray(p.tags) ? p.tags : null,   // opcional: sobrescreve a detecção automática de tags
             rel: type + '/iconperks-' + perkSlug(p.perk_name) + '.png',
             icon: role === 'survivor' ? 'fa-shield-halved' : 'fa-skull'
@@ -115,6 +141,10 @@ async function loadData() {
     itemsData.surv = is;
     itemsData.kill = {};
     Object.keys(ik).forEach(k => { itemsData.kill[k.toLowerCase().trim()] = ik[k]; });
+    ptbIds = new Set([...initialData.survivors, ...initialData.killers,
+        ...initialData.survivorPerks, ...initialData.killerPerks]
+        .filter(x => x.ptb).map(x => x.id));
+    applyPtbStyles();    
 }
 
 // Builds Destaque: arquivo opcional no servidor. Se não existir, a lista fica vazia.
@@ -279,7 +309,8 @@ const i18n = {
         tagTitle: "Filtrar por tags",
         tagClear: "Limpar tags",
         tagModeAny: "Qualquer tag",
-        tagModeAll: "Todas as tags"
+        tagModeAll: "Todas as tags",
+        optPtb: "Incluir PTB",        
     },
     en: {
         subtitle: "Dead by Daylight Streamer Loadout Generator",
@@ -375,7 +406,8 @@ const i18n = {
         tagTitle: "Filter by tags",
         tagClear: "Clear tags",
         tagModeAny: "Any tag",
-        tagModeAll: "All tags"
+        tagModeAll: "All tags",
+        optPtb: "Include PTB",        
     }
 };
 
@@ -658,7 +690,7 @@ function renderPool() {
         if (currentViewMode === 'icon') {
             card.innerHTML = `
                 <div onclick="${toggleCall}" class="cursor-pointer flex flex-col items-center gap-2 border-b border-neutral-800 pb-4">
-                    <div class="char-card w-24 flex items-center justify-center text-dbd-cyan">
+                    <div class="char-card w-24 flex items-center justify-center text-dbd-cyan${ptbCls(char)}">
                         ${imgTag(entryImgs(char), 'w-full h-full object-contain', char.icon || 'fa-user', 'text-5xl text-dbd-cyan')}
                     </div>
                     <div class="text-center">
@@ -679,6 +711,10 @@ function renderPool() {
                     <span class="text-[10px] text-neutral-500 font-mono">${charPerks.length} Perks</span>
                 </div>`;
         }
+        if (isPtb(char)) {
+            card.classList.add('ptb-card');
+            card.insertAdjacentHTML('afterbegin', '<span class="ptb-tag">PTB</span>');
+        }        
         charContainer.appendChild(card);
     });
 
@@ -776,9 +812,9 @@ function spinRoulette() {
     const prev = (currentRollResult && currentRollResult.role === currentRole) ? currentRollResult : null;
     if (!prev) resetLocks();
 
-    const availableChars = getActiveCharacters().filter(c => !excludedCharacters.has(c.id));
+     const availableChars = getActiveCharacters().filter(c => !excludedCharacters.has(c.id) && (includePtb() || !isPtb(c)));
     // Roleta temática: só entram perks que tenham as tags marcadas
-    const availablePerks = getActivePerks().filter(p => !excludedPerks.has(p.id) && matchesTags(p));
+     const availablePerks = getActivePerks().filter(p => !excludedPerks.has(p.id) && matchesTags(p) && (includePtb() || !isPtb(p)));
 
     const rollChar = chkChar && !locks.char;
     const rollSlots = [0, 1, 2, 3].map(i => chkPerks && !locks.perks[i]);
@@ -873,6 +909,7 @@ function renderResultDisplay(result, isSpinningAnim = false, parts = { char: tru
     setImg(document.getElementById('displayCharImg'), entryImgs(result.character), result.character.icon || 'fa-user-ninja', 'text-8xl text-neutral-600');
     document.getElementById('displayCharIcon').classList.toggle('hidden', entryImgs(result.character).length > 0);
     document.getElementById('displayCharFrame').classList.toggle('spinning-reel', isSpinningAnim && parts.char);
+    document.getElementById('displayCharFrame').classList.toggle('is-ptb', isPtb(result.character));
 
     result.perks.forEach((perk, i) => {
         document.getElementById(`perkName${i}`).innerText = currentLang === 'pt' ? perk.namePt : perk.nameEn;
@@ -958,7 +995,7 @@ function renderSavedBuilds() {
             </div>
             ${build.name ? `<h4 class="text-sm font-black text-white">${esc(build.name)}</h4>` : ''}
             <div class="flex items-center gap-3">
-                <div class="char-card w-11 shrink-0 flex items-center justify-center text-dbd-cyan text-lg">
+                <div class="char-card w-11 shrink-0${ptbCls(build.character)} flex items-center justify-center text-dbd-cyan text-lg">
                     ${imgTag(entryImgs(build.character), 'w-full h-full object-contain', build.character.icon || 'fa-user', 'text-lg')}
                 </div>
                 <div>
@@ -1334,7 +1371,7 @@ function renderBuilderPreview() {
 
     const charHtml = s.character
         ? `<div class="bd-preview-char">
-                <div class="char-card flex items-center justify-center text-dbd-cyan">${imgTag(entryImgs(s.character), 'w-full h-full object-contain', s.character.icon || 'fa-user', 'text-5xl text-dbd-cyan')}</div>
+                <div class="char-card flex items-center justify-center text-dbd-cyan${ptbCls(s.character)}">${imgTag(entryImgs(s.character), 'w-full h-full object-contain', s.character.icon || 'fa-user', 'text-5xl text-dbd-cyan')}</div>
                 <div class="bd-preview-name">${esc(nm(s.character))}</div>
            </div>`
         : `<div class="bd-preview-char"><div class="char-card flex items-center justify-center text-neutral-600"><i class="fa-solid fa-user-ninja text-6xl"></i></div><div class="bd-preview-name">--</div></div>`;
@@ -1486,7 +1523,7 @@ function renderFeatured() {
                 ${srcHtml}
             </div>
             <div class="bd-card-char">
-                <div class="char-card w-11 shrink-0 flex items-center justify-center text-dbd-cyan text-lg">
+                <div class="char-card w-11 shrink-0${ptbCls(r.character)} flex items-center justify-center text-dbd-cyan text-lg">
                     ${imgTag(entryImgs(r.character), 'w-full h-full object-contain', r.character.icon || 'fa-user', 'text-lg')}
                 </div>
                 <div>
@@ -1736,7 +1773,7 @@ function renderHistory() {
         return `
         <button type="button" class="bd-hist" data-hist="${i}" title="${currentLang === 'pt' ? 'Voltar para esta build' : 'Restore this build'}">
             <span class="bd-badge ${h.role === 'survivor' ? 'surv' : 'kill'}">${h.role === 'survivor' ? 'SURV' : 'KILL'}</span>
-            <div class="char-card w-11 shrink-0 flex items-center justify-center text-dbd-cyan text-lg">
+            <div class="char-card w-11 shrink-0${ptbCls(h.character)} flex items-center justify-center text-dbd-cyan text-lg">
                 ${imgTag(entryImgs(h.character), 'w-full h-full object-contain', h.character.icon || 'fa-user', 'text-lg')}
             </div>
             <div class="bd-hist-info">
@@ -2148,7 +2185,7 @@ async function copyObsLink(which) {
         tip.innerHTML = `
             <div class="perk-tip-head">
                 <div class="perk-tip-name">${esc(nm(p))}</div>
-                <div class="perk-tip-sub"><span>${esc(owner)}</span><span>${pt ? 'Muito raro' : 'Very rare'}</span></div>
+                <div class="perk-tip-sub"><span>${esc(owner)}</span><span>${p.ptb ? 'PTB' : (pt ? 'Muito raro' : 'Very rare')}</span></div>
             </div>
             <div class="perk-tip-body">${desc ? descToHtml(desc) : `<p>${pt ? 'Sem descrição.' : 'No description.'}</p>`}</div>`;
         tip.classList.add('show');
@@ -2233,7 +2270,8 @@ const TAG_META = {
     'ruido':              { pt: 'Ruído',              en: 'Noise',           icon: 'fa-volume-high' },
     'notificacao':        { pt: 'Notificação',        en: 'Notification',    icon: 'fa-bell' },
     'sede de sangue':     { pt: 'Sede de Sangue',     en: 'Bloodlust',       icon: 'fa-droplet' },
-    'poder do assassino': { pt: 'Poder do Assassino', en: 'Killer Power',    icon: 'fa-gem' }
+    'poder do assassino': { pt: 'Poder do Assassino', en: 'Killer Power',    icon: 'fa-gem' },
+    'ptb':                { pt: 'PTB',                en: 'PTB',             icon: 'fa-flask' },
 };
 
 // Reserva: só é usada em perks que NÃO têm "tags" no JSON (ex.: perks importados)
@@ -2287,6 +2325,7 @@ function perkTags(p) {
         const txt = norm([p.namePt, p.nameEn, p.desc, p.descEn].join(' '));
         AUTO_TAGS.forEach(t => { if (t.rx.test(txt)) set.add(t.k); });
     }
+    if (p.ptb) { set.add('ptb'); if (!tagLabels.ptb) tagLabels.ptb = 'PTB'; }
     tagCache.set(p.id, set);
     return set;
 }
