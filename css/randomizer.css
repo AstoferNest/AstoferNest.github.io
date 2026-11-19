@@ -2171,3 +2171,21 @@ html:not(.dark) ::placeholder {
 .perk-tip-body b { color: #fff; font-weight: 700; }
 .perk-tip-body .kw-good { color: #1fb383; }
 .perk-tip-body .kw-bad { color: #f08a3c; }
+
+
+/* ====== PTB (Public Test Build) ====== */
+@keyframes ptbPulse {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(255,30,30,.95)) drop-shadow(0 0 10px rgba(255,0,0,.55)); }
+  50%      { filter: drop-shadow(0 0 8px rgba(255,70,70,1))   drop-shadow(0 0 20px rgba(255,0,0,.85)); }
+}
+.char-card.is-ptb,
+.perk-diamond.is-ptb { animation: ptbPulse 1.8s ease-in-out infinite; }
+
+.ptb-tag {
+  position: absolute; top: .5rem; left: .5rem; z-index: 2;
+  font-size: 9px; font-weight: 900; letter-spacing: .08em;
+  padding: 1px 6px; border-radius: 4px;
+  background: #dc2626; color: #fff;
+  box-shadow: 0 0 8px rgba(255,0,0,.7);
+}
+.ptb-card { border-color: rgba(255,40,40,.6) !important; }
