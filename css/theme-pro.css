@@ -1,0 +1,695 @@
+/* ==========================================================================
+   THEME-PRO.CSS — Redesign Profissional (AAA / Esports HUD)
+   Carregue este arquivo por ÚLTIMO no <head> do index.html:
+     <link rel="stylesheet" href="css/theme-pro.css">
+   Preserva 100% dos IDs, scripts, Dark/Light mode e responsividade.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --dbd-bg: #0B0C0F;
+  --dbd-surface: #12141A;
+  --dbd-elevated: #1A1D24;
+  --dbd-hover: #222630;
+  --dbd-border: rgba(255, 255, 255, 0.08);
+  --dbd-border-strong: rgba(255, 255, 255, 0.16);
+
+  --dbd-text: #ECEAE4;
+  --dbd-text-muted: #8E95A5;
+
+  --dbd-crimson: #B91C28;
+  --dbd-crimson-hover: #9F1722;
+  --dbd-crimson-soft: rgba(185, 28, 40, 0.14);
+
+  --dbd-surv: #6BA3BE;
+  --dbd-surv-soft: rgba(107, 163, 190, 0.14);
+
+  --dbd-lock: #D4A34A;
+  --dbd-lock-soft: rgba(212, 163, 74, 0.16);
+  --dbd-purple: #8B5CF6;
+
+  --dbd-radius-sm: 4px;
+  --dbd-radius: 6px;
+  --dbd-radius-lg: 8px;
+
+  --font-display: 'Barlow Condensed', system-ui, sans-serif;
+  --font-ui: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+
+  /* Sincroniza variáveis do builds.css */
+  --bd-red: var(--dbd-crimson);
+  --bd-cyan: var(--dbd-surv);
+  --bd-purple: var(--dbd-purple);
+  --bd-panel: var(--dbd-elevated);
+  --bd-panel-2: var(--dbd-surface);
+  --bd-border: var(--dbd-border);
+  --bd-border-2: var(--dbd-border-strong);
+  --bd-text: var(--dbd-text);
+  --bd-muted: var(--dbd-text-muted);
+}
+
+html:not(.dark) {
+  --dbd-bg: #F3F3EF;
+  --dbd-surface: #FFFFFF;
+  --dbd-elevated: #EAEAE4;
+  --dbd-hover: #DFDFD8;
+  --dbd-border: rgba(15, 18, 25, 0.10);
+  --dbd-border-strong: rgba(15, 18, 25, 0.20);
+
+  --dbd-text: #16181D;
+  --dbd-text-muted: #5C6370;
+
+  --dbd-crimson: #A81924;
+  --dbd-crimson-hover: #8D141E;
+  --dbd-crimson-soft: rgba(168, 25, 36, 0.10);
+
+  --dbd-surv: #2C6785;
+  --dbd-surv-soft: rgba(44, 103, 133, 0.10);
+
+  --dbd-lock: #B58122;
+  --dbd-lock-soft: rgba(181, 129, 34, 0.14);
+
+  --bd-red: var(--dbd-crimson);
+  --bd-cyan: var(--dbd-surv);
+  --bd-panel: #FFFFFF;
+  --bd-panel-2: #F8F8F5;
+  --bd-border: var(--dbd-border);
+  --bd-border-2: var(--dbd-border-strong);
+  --bd-text: var(--dbd-text);
+  --bd-muted: var(--dbd-text-muted);
+}
+
+/* ==========================================================================
+   BASE & CORREÇÕES ESTRUTURAIS
+   ========================================================================== */
+html, body {
+  font-family: var(--font-ui) !important;
+  background-color: var(--dbd-bg) !important;
+  color: var(--dbd-text) !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+.max-w-7xl {
+  max-width: 1280px !important;
+}
+
+.border {
+  border-width: 1px !important;
+}
+
+.rounded-xl { border-radius: var(--dbd-radius-lg) !important; }
+.rounded-lg { border-radius: var(--dbd-radius) !important; }
+.rounded-md, .rounded { border-radius: var(--dbd-radius-sm) !important; }
+
+.shadow-xl, .shadow-2xl, .shadow-lg {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22) !important;
+}
+html:not(.dark) .shadow-xl,
+html:not(.dark) .shadow-2xl,
+html:not(.dark) .shadow-lg {
+  box-shadow: 0 6px 20px rgba(15, 18, 25, 0.06) !important;
+}
+
+/* Remove clichês visuais de IA */
+.glow-pulse {
+  animation: none !important;
+}
+.fog-overlay {
+  background: var(--dbd-surface) !important;
+  background-image: radial-gradient(ellipse at 18% 45%, rgba(255, 255, 255, 0.025) 0%, transparent 55%) !important;
+}
+html:not(.dark) .fog-overlay {
+  background: var(--dbd-surface) !important;
+}
+
+/* Scrollbar discreta */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--dbd-border-strong); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--dbd-crimson); }
+
+/* ==========================================================================
+   CORES SEMÂNTICAS UNIFICADAS
+   ========================================================================== */
+.bg-dbd-bg { background-color: var(--dbd-bg) !important; }
+.bg-dbd-card { background-color: var(--dbd-surface) !important; }
+.bg-dbd-panel { background-color: var(--dbd-elevated) !important; }
+
+.bg-neutral-950,
+.bg-neutral-950\/80,
+.bg-neutral-900,
+.bg-neutral-900\/80,
+.bg-neutral-900\/50 {
+  background-color: var(--dbd-elevated) !important;
+}
+.bg-neutral-800 {
+  background-color: var(--dbd-elevated) !important;
+}
+.hover\:bg-neutral-700:hover {
+  background-color: var(--dbd-hover) !important;
+}
+
+.border-neutral-800,
+.border-neutral-800\/80,
+.border-neutral-700 {
+  border-color: var(--dbd-border) !important;
+}
+.hover\:border-neutral-700:hover {
+  border-color: var(--dbd-border-strong) !important;
+}
+
+.text-white { color: var(--dbd-text) !important; }
+.text-dbd-text { color: var(--dbd-text) !important; }
+.text-dbd-muted,
+.text-neutral-400,
+.text-neutral-500 { color: var(--dbd-text-muted) !important; }
+.text-neutral-300 { color: var(--dbd-text) !important; opacity: 0.88; }
+
+.text-dbd-red { color: var(--dbd-crimson) !important; }
+.bg-dbd-red { background-color: var(--dbd-crimson) !important; color: #FFFFFF !important; }
+.hover\:bg-dbd-redHover:hover { background-color: var(--dbd-crimson-hover) !important; }
+.border-dbd-red { border-color: var(--dbd-crimson) !important; }
+.bg-dbd-red\/10, .bg-dbd-red\/20 { background-color: var(--dbd-crimson-soft) !important; }
+.shadow-dbd-red\/30, .shadow-dbd-red\/40 { --tw-shadow-color: transparent !important; }
+
+.text-dbd-cyan { color: var(--dbd-surv) !important; }
+.border-dbd-cyan { border-color: var(--dbd-surv) !important; }
+.bg-dbd-cyan\/10, .bg-dbd-cyan\/20 { background-color: var(--dbd-surv-soft) !important; }
+.hover\:border-dbd-cyan:hover { border-color: var(--dbd-surv) !important; }
+.hover\:text-dbd-cyan:hover { color: var(--dbd-surv) !important; }
+.hover\:border-dbd-red:hover { border-color: var(--dbd-crimson) !important; }
+.hover\:text-dbd-red:hover { color: var(--dbd-crimson) !important; }
+
+/* Botões com fundo vermelho sempre mantêm texto branco */
+.bg-dbd-red,
+.bg-dbd-red span,
+.bg-dbd-red i,
+.bd-btn-primary,
+.bd-btn-primary span,
+.bd-btn-primary i {
+  color: #FFFFFF !important;
+}
+
+/* ==========================================================================
+   TIPOGRAFIA DISPLAY
+   ========================================================================== */
+h1, h2, h3,
+#displayCharName,
+#crCharName,
+.bd-card-title,
+.perk-tip-name {
+  font-family: var(--font-display) !important;
+  letter-spacing: 0.04em !important;
+}
+
+/* ==========================================================================
+   HEADER & NAVEGAÇÃO (ESTILO UNDERLINE)
+   ========================================================================== */
+header {
+  background: rgba(11, 12, 15, 0.92) !important;
+  border-bottom: 1px solid var(--dbd-border) !important;
+  box-shadow: none !important;
+}
+html:not(.dark) header {
+  background: rgba(255, 255, 255, 0.94) !important;
+}
+
+header > div {
+  padding-top: 0.65rem !important;
+  padding-bottom: 0.65rem !important;
+}
+
+header img[src*="random.png"] {
+  width: 38px !important;
+  height: 38px;
+  object-fit: contain;
+}
+
+header h1 {
+  font-size: 1.4rem !important;
+  line-height: 1.05 !important;
+}
+
+#txtSubtitle {
+  font-size: 11px !important;
+  color: var(--dbd-text-muted) !important;
+}
+
+/* Remove caixa pesada em volta das abas */
+header nav {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  gap: 0.25rem !important;
+}
+
+header nav button {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 2px solid transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0.55rem 0.75rem !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: var(--dbd-text-muted) !important;
+  transition: color 0.15s ease, border-color 0.15s ease !important;
+}
+
+header nav button:hover {
+  color: var(--dbd-text) !important;
+}
+
+header nav button.bg-dbd-red {
+  background: transparent !important;
+  color: var(--dbd-text) !important;
+  border-bottom-color: var(--dbd-crimson) !important;
+}
+
+header nav button.bg-dbd-red span,
+header nav button.bg-dbd-red i {
+  color: var(--dbd-text) !important;
+}
+
+header nav button i {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+#savedCountBadge {
+  background: var(--dbd-elevated) !important;
+  color: var(--dbd-surv) !important;
+  border: 1px solid var(--dbd-border) !important;
+  font-weight: 700;
+}
+
+/* Controles de idioma & tema compactos */
+header > div > div:last-child > div {
+  background: var(--dbd-elevated) !important;
+  border: 1px solid var(--dbd-border) !important;
+  border-radius: var(--dbd-radius) !important;
+  padding: 2px !important;
+}
+#langPtBtn, #langEnBtn {
+  font-size: 11px !important;
+  padding: 0.25rem 0.55rem !important;
+  border-radius: var(--dbd-radius-sm) !important;
+}
+header button[onclick="toggleTheme()"] {
+  background: var(--dbd-elevated) !important;
+  border: 1px solid var(--dbd-border) !important;
+  border-radius: var(--dbd-radius) !important;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+header button[onclick="toggleTheme()"]:hover {
+  border-color: var(--dbd-border-strong) !important;
+}
+
+/* ==========================================================================
+   BARRA DE CONTROLES (SEGMENTED CONTROL + TOGGLE SWITCHES + CTA SÓLIDO)
+   ========================================================================== */
+#tabMain > div:first-child,
+#tabClasses > div:first-child {
+  background: var(--dbd-surface) !important;
+  border: 1px solid var(--dbd-border) !important;
+  padding: 0.75rem 1rem !important;
+  box-shadow: none !important;
+}
+
+/* Seletor Survivor / Killer estilo Segmented Control */
+#roleSurvBtn, #roleKillBtn,
+#crRoleSurvBtn, #crRoleKillBtn {
+  border-width: 1px !important;
+  border-radius: var(--dbd-radius) !important;
+  padding: 0.45rem 0.9rem !important;
+  font-family: var(--font-display) !important;
+  font-size: 0.95rem !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase;
+  font-weight: 700 !important;
+}
+#roleSurvBtn img, #roleKillBtn img,
+#crRoleSurvBtn img, #crRoleKillBtn img {
+  width: 22px !important;
+  height: 22px !important;
+  object-fit: contain;
+}
+
+/* Checkboxes em linha (sem caixinhas) + visual de Toggle Switch */
+#tabMain > div:first-child label,
+#tabClasses > div:first-child label {
+  background: transparent !important;
+  border: none !important;
+  padding: 0.25rem 0.45rem !important;
+  color: var(--dbd-text-muted) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  gap: 0.5rem !important;
+}
+#tabMain > div:first-child label:hover,
+#tabClasses > div:first-child label:hover {
+  color: var(--dbd-text) !important;
+}
+
+/* Remove ícones redundantes ao lado dos checkboxes */
+#tabMain > div:first-child label > i,
+#tabClasses > div:first-child label > i {
+  display: none !important;
+}
+
+/* Switch customizado */
+#tabMain input[type="checkbox"],
+#tabClasses input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 30px !important;
+  height: 17px !important;
+  border-radius: 999px !important;
+  background: var(--dbd-elevated);
+  border: 1px solid var(--dbd-border-strong);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease;
+  flex-shrink: 0;
+}
+#tabMain input[type="checkbox"]::after,
+#tabClasses input[type="checkbox"]::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--dbd-text-muted);
+  transition: transform 0.18s ease, background 0.18s ease;
+}
+#tabMain input[type="checkbox"]:checked,
+#tabClasses input[type="checkbox"]:checked {
+  background: var(--dbd-crimson-soft);
+  border-color: var(--dbd-crimson);
+}
+#tabMain input[type="checkbox"]:checked::after,
+#tabClasses input[type="checkbox"]:checked::after {
+  transform: translateX(13px);
+  background: var(--dbd-crimson);
+}
+
+/* Botão principal GIRAR ROLETA */
+#btnSpin, #crBtnSpin {
+  background: var(--dbd-crimson) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: var(--dbd-radius) !important;
+  padding: 0.65rem 1.5rem !important;
+  font-family: var(--font-display) !important;
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.09em !important;
+  box-shadow: 0 2px 8px rgba(185, 28, 40, 0.28) !important;
+  transition: background 0.15s ease, transform 0.1s ease !important;
+}
+#btnSpin:hover, #crBtnSpin:hover {
+  background: var(--dbd-crimson-hover) !important;
+}
+#btnSpin:active, #crBtnSpin:active {
+  transform: translateY(1px);
+}
+#btnSpin i, #crBtnSpin i {
+  font-size: 0.95rem !important;
+}
+
+/* ==========================================================================
+   PALCO DO LOADOUT (RESULTADO PRINCIPAL E ROLETA DE CLASSES)
+   ========================================================================== */
+#tabMain .min-h-\[640px\],
+#tabClasses .min-h-\[640px\] {
+  min-height: auto !important;
+  border: 1px solid var(--dbd-border) !important;
+  padding: 1.5rem !important;
+}
+
+/* Cabeçalho do resultado e botões secundários ghost */
+#tabMain .min-h-\[640px\] > div:first-child button:not(.bg-dbd-red),
+#tabClasses .min-h-\[640px\] > div:first-child button:not(.bg-dbd-red) {
+  background: transparent !important;
+  border: 1px solid var(--dbd-border-strong) !important;
+  color: var(--dbd-text) !important;
+  font-weight: 600 !important;
+  padding: 0.4rem 0.75rem !important;
+}
+#tabMain .min-h-\[640px\] > div:first-child button:not(.bg-dbd-red):hover,
+#tabClasses .min-h-\[640px\] > div:first-child button:not(.bg-dbd-red):hover {
+  background: var(--dbd-elevated) !important;
+  border-color: var(--dbd-text-muted) !important;
+}
+
+/* Subpainéis do palco sem aspecto de "caixa pesada dentro de caixa" */
+#rouletteDisplayArea .bg-neutral-950\/80,
+#tabClasses .min-h-\[640px\] .bg-neutral-950\/80 {
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid var(--dbd-border) !important;
+  box-shadow: none !important;
+}
+html:not(.dark) #rouletteDisplayArea .bg-neutral-950\/80,
+html:not(.dark) #tabClasses .min-h-\[640px\] .bg-neutral-950\/80 {
+  background: #F8F8F5 !important;
+}
+
+#displayCharName, #crCharName {
+  font-size: 1.85rem !important;
+  line-height: 1.1 !important;
+  margin-bottom: 0.15rem;
+}
+#displayCharRole, #crCharRole {
+  font-size: 11px !important;
+  letter-spacing: 0.14em !important;
+}
+
+/* Item & Add-ons */
+#displayItemBox, #crItemBox,
+#displayAddon1, #displayAddon2,
+#crAddon1, #crAddon2 {
+  background: var(--dbd-surface) !important;
+  border: 1px solid var(--dbd-border-strong) !important;
+  border-radius: var(--dbd-radius) !important;
+}
+
+/* Botões de Trava (Lock) discretos e elegantes */
+.bd-lock {
+  width: 1.75rem !important;
+  height: 1.75rem !important;
+  border-radius: var(--dbd-radius-sm) !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  color: var(--dbd-text-muted) !important;
+  opacity: 0.65;
+}
+.bd-lock:hover {
+  opacity: 1;
+  background: var(--dbd-elevated) !important;
+  border-color: var(--dbd-border-strong) !important;
+  color: var(--dbd-text) !important;
+}
+.bd-lock.locked {
+  opacity: 1;
+  background: var(--dbd-lock-soft) !important;
+  border-color: var(--dbd-lock) !important;
+  color: var(--dbd-lock) !important;
+  box-shadow: none !important;
+}
+.bd-slot-locked .perk-diamond {
+  filter: drop-shadow(0 0 6px rgba(212, 163, 74, 0.45)) !important;
+}
+.bd-char-locked {
+  box-shadow: 0 0 0 1px var(--dbd-lock), 0 0 12px rgba(212, 163, 74, 0.25) !important;
+  border-radius: var(--dbd-radius) !important;
+}
+
+/* ==========================================================================
+   ROLETA DE CLASSES (LIMPEZA DOS NEONS DE classes.css)
+   ========================================================================== */
+.cr-ring {
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45)) !important;
+  position: relative;
+}
+.cr-ring::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--cc);
+  opacity: 0.9;
+}
+
+.cr-chip {
+  margin-top: 8px !important;
+  padding: 2px 9px !important;
+  border-radius: var(--dbd-radius-sm) !important;
+  background: color-mix(in srgb, var(--cc) 18%, var(--dbd-elevated)) !important;
+  color: var(--dbd-text) !important;
+  border: 1px solid color-mix(in srgb, var(--cc) 55%, transparent) !important;
+  box-shadow: none !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em !important;
+}
+.cr-chip i {
+  color: var(--cc) !important;
+  font-size: 9px;
+}
+.cr-chip small {
+  color: var(--dbd-text-muted) !important;
+  border-left-color: var(--dbd-border-strong) !important;
+}
+
+/* ==========================================================================
+   HISTÓRICO, OVERLAY DETAILS, BUILDS DESTAQUE, CONSTRUTOR E ACERVO
+   ========================================================================== */
+.bd-card, .bd-preview, .bd-details, .bd-hist {
+  border-radius: var(--dbd-radius) !important;
+  border: 1px solid var(--dbd-border) !important;
+}
+.bd-card {
+  background: var(--dbd-elevated) !important;
+}
+.bd-card:hover {
+  border-color: var(--dbd-border-strong) !important;
+  transform: translateY(-1px) !important;
+}
+
+.bd-hist {
+  background: rgba(255, 255, 255, 0.02) !important;
+  padding: 0.5rem 0.85rem !important;
+}
+html:not(.dark) .bd-hist {
+  background: #F8F8F5 !important;
+}
+.bd-hist:hover {
+  border-color: var(--dbd-surv) !important;
+  background: var(--dbd-elevated) !important;
+}
+
+.bd-btn {
+  border-radius: var(--dbd-radius-sm) !important;
+  background: var(--dbd-elevated) !important;
+  border: 1px solid var(--dbd-border-strong) !important;
+  color: var(--dbd-text) !important;
+  font-weight: 600 !important;
+}
+.bd-btn:hover {
+  background: var(--dbd-hover) !important;
+}
+.bd-btn-primary {
+  background: var(--dbd-crimson) !important;
+  border-color: var(--dbd-crimson) !important;
+}
+.bd-btn-primary:hover {
+  background: var(--dbd-crimson-hover) !important;
+}
+
+.bd-field {
+  border-radius: var(--dbd-radius-sm) !important;
+  background: var(--dbd-bg) !important;
+  border: 1px solid var(--dbd-border-strong) !important;
+  color: var(--dbd-text) !important;
+}
+.bd-field:focus {
+  border-color: var(--dbd-crimson) !important;
+}
+
+.bd-chip {
+  border-radius: var(--dbd-radius-sm) !important;
+  background: var(--dbd-elevated) !important;
+  border: 1px solid var(--dbd-border) !important;
+  color: var(--dbd-text-muted) !important;
+  font-weight: 600 !important;
+}
+.bd-chip:hover {
+  border-color: var(--dbd-border-strong) !important;
+  color: var(--dbd-text) !important;
+}
+.bd-chip.active {
+  background: var(--dbd-crimson) !important;
+  border-color: var(--dbd-crimson) !important;
+  color: #FFFFFF !important;
+}
+
+.bd-role {
+  border-width: 1px !important;
+  border-radius: var(--dbd-radius) !important;
+}
+
+/* ==========================================================================
+   DRAWER LATERAL DE TAGS (#tagDrawer)
+   ========================================================================== */
+#tagDrawer {
+  background: var(--dbd-surface) !important;
+  border-right: 1px solid var(--dbd-border-strong) !important;
+  box-shadow: 12px 0 32px rgba(0, 0, 0, 0.45) !important;
+}
+#tagHandle {
+  background: var(--dbd-surface) !important;
+  color: var(--dbd-surv) !important;
+  border: 1px solid var(--dbd-border-strong) !important;
+  border-left: none !important;
+  border-radius: 0 var(--dbd-radius) var(--dbd-radius) 0 !important;
+  box-shadow: 4px 0 14px rgba(0, 0, 0, 0.3) !important;
+}
+#tagHandle:hover {
+  background: var(--dbd-elevated) !important;
+}
+#tagBadge {
+  background: var(--dbd-crimson) !important;
+  color: #FFFFFF !important;
+}
+.tg-head, .tg-tools {
+  border-bottom-color: var(--dbd-border) !important;
+}
+.tg-title {
+  font-family: var(--font-display) !important;
+  font-size: 1rem !important;
+  letter-spacing: 0.06em !important;
+  color: var(--dbd-text) !important;
+}
+.tg-title i, #tagStatus, #tagClear {
+  color: var(--dbd-surv) !important;
+}
+
+/* ==========================================================================
+   TOOLTIP DE PERKS (.perk-tip)
+   ========================================================================== */
+.perk-tip {
+  background: #0F1117 !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: var(--dbd-radius) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65) !important;
+  overflow: hidden;
+  font-family: var(--font-ui) !important;
+}
+.perk-tip-head {
+  background: linear-gradient(135deg, #1E1630 0%, #372059 100%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14) !important;
+}
+.perk-tip-name {
+  font-size: 1.35rem !important;
+  letter-spacing: 0.04em !important;
+}
+
+/* ==========================================================================
+   ANIMAÇÃO DE GIRO MAIS FLUIDA
+   ========================================================================== */
+@keyframes slotSpin {
+  0%   { transform: translateY(-3px); opacity: 0.72; }
+  50%  { transform: translateY(3px);  opacity: 1; }
+  100% { transform: translateY(-3px); opacity: 0.72; }
+}
+.spinning-reel {
+  animation: slotSpin 0.11s ease-in-out infinite !important;
+}
