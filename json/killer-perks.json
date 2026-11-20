@@ -205,7 +205,8 @@
       "tags": [
         "gerador",
         "gancho",
-        "bloqueio"
+        "bloqueio",
+        "grito"
       ]
     },
     {
@@ -271,8 +272,7 @@
         "exposto",
         "gerador",
         "reparo",
-        "grito",
-        "tempo de recarga"
+        "grito"
       ]
     },
     {
@@ -558,8 +558,7 @@
       "tags": [
         "aura",
         "armário",
-        "janela",
-        "tempo de recarga"
+        "janela"
       ]
     },
     {
@@ -646,9 +645,9 @@
       "classe_rpg": "Tank",
       "tags": [
         "ataque",
-        "tempo de recarga",
         "debater",
-        "carregar"
+        "carregar",
+        "tempo de recarga"
       ]
     },
     {
@@ -661,8 +660,7 @@
       "tags": [
         "exposto",
         "gancho",
-        "grito",
-        "tempo de recarga"
+        "grito"
       ]
     },
     {
@@ -730,8 +728,7 @@
         "gerador",
         "reparo",
         "teste de perícia",
-        "regressão",
-        "tempo de recarga"
+        "regressão"
       ]
     },
     {
@@ -758,8 +755,7 @@
       "tags": [
         "exaustão",
         "aura",
-        "item",
-        "tempo de recarga"
+        "item"
       ]
     },
     {
@@ -773,7 +769,6 @@
         "celeridade",
         "perseguição",
         "obsessão",
-        "tempo de recarga",
         "velocidade"
       ]
     },
@@ -787,7 +782,8 @@
       "tags": [
         "gerador",
         "gancho",
-        "regressão"
+        "regressão",
+        "chute"
       ]
     },
     {
@@ -799,8 +795,7 @@
       "classe_rpg": "Batedor",
       "tags": [
         "aura",
-        "perseguição",
-        "tempo de recarga"
+        "perseguição"
       ]
     },
     {
@@ -879,8 +874,7 @@
       "descricao_en": "Whenever a Survivor scares a Crow within 36/38/40m of you, you are alerted. Cooldown: 3s.",
       "classe_rpg": "Batedor",
       "tags": [
-        "notificação",
-        "tempo de recarga"
+        "notificação"
       ]
     },
     {
@@ -942,8 +936,7 @@
       "classe_rpg": "Batedor",
       "tags": [
         "aura",
-        "porão",
-        "tempo de recarga"
+        "porão"
       ]
     },
     {
@@ -970,8 +963,7 @@
       "tags": [
         "gerador",
         "bloqueio",
-        "carregar",
-        "tempo de recarga"
+        "carregar"
       ]
     },
     {
@@ -993,13 +985,12 @@
       "character": "Perk ensinável de O Carrasco",
       "perk_name_en": "Trail of Torment",
       "descricao": "Sempre que você causa dano a um gerador, até ele parar de regredir:\n- Você recebe Indetectável.\n- Sobreviventes veem a aura daquele gerador.\n\nTempo de recarga: 60/45/30 s.",
-      "descricao_en": "Cooldown: 60/45/30s.",
+      "descricao_en": "Performing the Damage Generator Action on a Generator activates Trail of Torment:\n- Grants the Undetectable Status Effect for 16 seconds.\n- The Aura of the damaged Generator is revealed to all Survivors in yellow.\n\nCooldown: 60/45/30s.",
       "classe_rpg": "Batedor",
       "tags": [
         "indetectável",
         "gerador",
-        "furtividade",
-        "tempo de recarga"
+        "furtividade"
       ]
     },
     {
@@ -1035,7 +1026,8 @@
       "classe_rpg": "Batedor",
       "tags": [
         "celeridade",
-        "velocidade"
+        "velocidade",
+        "notificação"
       ]
     },
     {
@@ -1094,8 +1086,7 @@
         "gancho",
         "raio de terror",
         "ataque",
-        "carregar",
-        "tempo de recarga"
+        "carregar"
       ]
     },
     {
@@ -1135,8 +1126,7 @@
         "gerador",
         "reparo",
         "regressão",
-        "grito",
-        "tempo de recarga"
+        "grito"
       ]
     },
     {
@@ -1303,8 +1293,7 @@
       "classe_rpg": "Batedor",
       "tags": [
         "aura",
-        "armário",
-        "tempo de recarga"
+        "armário"
       ]
     },
     {
@@ -1345,8 +1334,7 @@
       "descricao_en": "When a Survivor performs a fast vault within 12 meters  of you, this perk activates. The next time you vault a window, your vaulting speed is increased by 30/35/40%.\n\nThis perk deactivates after vaulting a window.\n\nThis perk has a 20 second cooldown.",
       "classe_rpg": "Tank",
       "tags": [
-        "janela",
-        "tempo de recarga"
+        "janela"
       ]
     },
     {
@@ -1414,8 +1402,7 @@
       "classe_rpg": "Assassino",
       "tags": [
         "exposto",
-        "ataque",
-        "tempo de recarga"
+        "ataque"
       ]
     },
     {
@@ -1471,7 +1458,6 @@
       "classe_rpg": "Controlador",
       "tags": [
         "lentidão",
-        "tempo de recarga",
         "velocidade"
       ]
     },
@@ -1539,8 +1525,7 @@
       "tags": [
         "cegueira",
         "armário",
-        "grito",
-        "tempo de recarga"
+        "grito"
       ]
     },
     {
@@ -1611,8 +1596,7 @@
         "reparo",
         "teste de perícia",
         "regressão",
-        "bloqueio",
-        "tempo de recarga"
+        "bloqueio"
       ]
     },
     {
@@ -1626,7 +1610,6 @@
         "indetectável",
         "gerador",
         "raio de terror",
-        "tempo de recarga",
         "furtividade"
       ]
     },
@@ -1649,8 +1632,7 @@
       "descricao_en": "When a Survivor within 36 meters of you scares a crow, they suffer from the Exhausted status effect for 6/8/10 seconds.\n\nLanguid Touch has a cooldown of 5 seconds.\n\nExhausted prevents Survivors from activating exhausting perks.",
       "classe_rpg": "Controlador",
       "tags": [
-        "exaustão",
-        "tempo de recarga"
+        "exaustão"
       ]
     },
     {
@@ -1707,8 +1689,7 @@
       "classe_rpg": "Batedor",
       "tags": [
         "aura",
-        "baú",
-        "tempo de recarga"
+        "baú"
       ]
     },
     {
@@ -1720,8 +1701,7 @@
       "classe_rpg": "Assassino",
       "tags": [
         "ataque",
-        "alcance",
-        "tempo de recarga"
+        "alcance"
       ]
     },
     {
@@ -1761,7 +1741,8 @@
       "classe_rpg": "Assassino",
       "tags": [
         "gancho",
-        "carregar"
+        "carregar",
+        "tempo de recarga"
       ]
     },
     {
@@ -1806,8 +1787,7 @@
       "tags": [
         "aura",
         "raio de terror",
-        "grito",
-        "tempo de recarga"
+        "grito"
       ]
     },
     {
@@ -1858,8 +1838,7 @@
       "classe_rpg": "Batedor",
       "tags": [
         "aura",
-        "perseguição",
-        "tempo de recarga"
+        "perseguição"
       ]
     },
     {
@@ -1953,8 +1932,7 @@
       "tags": [
         "celeridade",
         "barricada",
-        "velocidade",
-        "tempo de recarga"
+        "velocidade"
       ]
     },
     {
@@ -1984,8 +1962,7 @@
       "classe_rpg": "Controlador",
       "tags": [
         "gerador",
-        "regressão",
-        "tempo de recarga"
+        "regressão"
       ]
     },
     {
