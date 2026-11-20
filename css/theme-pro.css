@@ -711,3 +711,161 @@ html:not(.dark) .dbd-char-col::after {
   width: 74px !important;
   height: 74px !important;
 }
+
+
+/* ================= RESPONSIVIDADE MOBILE ================= */
+@media (max-width: 767px) {
+  /* 1. Respiro lateral mais enxuto */
+  main.max-w-7xl {
+    padding: 0.75rem !important;
+  }
+
+  /* 2. Header compacto + abas com rolagem horizontal estilo app */
+  .dbd-header > div {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+    gap: 0.25rem 0.5rem !important;
+  }
+  #txtSubtitle {
+    display: none;
+  }
+  .dbd-nav {
+    order: 3;
+    width: 100%;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    border-top: 1px solid var(--border-subtle);
+    margin: 0 -0.75rem;
+    padding: 0 0.75rem;
+  }
+  .dbd-nav::-webkit-scrollbar {
+    display: none;
+  }
+  .dbd-tab {
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 0.65rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  /* 3. Barra de controles: toque fácil com o polegar */
+  .dbd-control-bar {
+    padding: 0.85rem;
+    gap: 0.85rem;
+  }
+  .dbd-segmented {
+    width: 100%;
+  }
+  .dbd-seg-btn {
+    flex: 1;
+    padding: 0.55rem 0.75rem;
+  }
+  .dbd-toggle-group {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem 0.75rem;
+  }
+  .dbd-control-bar > .ml-auto {
+    width: 100%;
+    margin-left: 0 !important;
+  }
+  .dbd-spin-btn {
+    flex: 1;
+    padding: 0.75rem 1rem;
+  }
+
+  /* 4. Cabeçalho do palco e botões de ação */
+  .dbd-stage-head {
+    padding: 0.85rem 1rem;
+  }
+  .dbd-stage-head > div {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.45rem;
+  }
+  .dbd-action-btn {
+    justify-content: center;
+  }
+
+  /* 5. Retrato proporcional à tela do celular */
+  .dbd-char-col {
+    min-height: 310px;
+  }
+  .dbd-char-col .char-card img {
+    transform: scale(1.06) translateY(6px);
+  }
+
+  /* 6. Perks 2x2 sem apertar nas laterais */
+  .dbd-perks-zone {
+    padding: 1.25rem 0.85rem;
+  }
+  .dbd-perks-zone .perk-diamond {
+    width: 104px;
+    height: 104px;
+  }
+  .dbd-perks-zone .w-36 {
+    width: 8rem !important;
+  }
+
+  /* 7. Item / Poder + Add-ons compactos e centralizados */
+  .dbd-items-zone {
+    padding: 1rem;
+    gap: 1.25rem !important;
+    flex-direction: column;
+    align-items: center;
+  }
+  #displayItemBox,
+  #crItemBox {
+    width: 78px !important;
+    height: 78px !important;
+  }
+  #displayAddon1,
+  #displayAddon2,
+  #crAddon1,
+  #crAddon2 {
+    width: 62px !important;
+    height: 62px !important;
+  }
+
+  /* 8. Histórico: quebra as 4 perks para a linha de baixo sem espremer */
+  .bd-hist {
+    flex-wrap: wrap;
+    gap: 0.5rem 0.65rem;
+  }
+  .bd-hist-perks {
+    width: 100%;
+    justify-content: flex-start;
+    padding-top: 0.35rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  /* 9. Campos de busca e filtros ocupam 100% da largura */
+  #inputSearch,
+  #pgSearch,
+  .bd-filter-bar > div,
+  .bd-filter-bar .bd-field {
+    width: 100% !important;
+  }
+
+  /* 10. Galeria "Todos os Perks" mais confortável no toque */
+  .perk-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(94px, 1fr));
+  }
+  .perk-gallery-item {
+    width: 92px;
+  }
+  .perk-diamond-lg {
+    width: 86px;
+    height: 86px;
+  }
+
+  /* 11. Aba lateral de tags um pouco mais discreta */
+  #tagHandle {
+    width: 26px;
+    height: 88px;
+  }
+}
