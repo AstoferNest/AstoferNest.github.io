@@ -2,101 +2,596 @@
   "Chaves": [
     {
       "nome": "Chave Quebrada",
-      "complementos": ["Pingente da Amizade","Apito Estridente","Enfeite Trançado","Aliança de Casamento Única","Âmbar Sangrento"]
+      "nome_en": "Broken Key",
+      "complementos": [
+        "Pingente da Amizade",
+        "Apito Estridente",
+        "Enfeite Trançado",
+        "Aliança de Casamento Única",
+        "Âmbar Sangrento"
+      ],
+      "complementos_en": [
+        "Friendship Charm",
+        "Shrill Whistle",
+        "Braided Bauble",
+        "Unique Wedding Ring",
+        "Blood Amber"
+      ]
     },
     {
       "nome": "Chave Comum",
-      "complementos": ["Pingente da Amizade","Apito Estridente","Enfeite Trançado","Aliança de Casamento Única","Âmbar Sangrento"]
+      "nome_en": "Dull Key",
+      "complementos": [
+        "Pingente da Amizade",
+        "Apito Estridente",
+        "Enfeite Trançado",
+        "Aliança de Casamento Única",
+        "Âmbar Sangrento"
+      ],
+      "complementos_en": [
+        "Friendship Charm",
+        "Shrill Whistle",
+        "Braided Bauble",
+        "Unique Wedding Ring",
+        "Blood Amber"
+      ]
     },
     {
       "nome": "Chave-Mestra",
-      "complementos": ["Pingente da Amizade","Apito Estridente","Enfeite Trançado","Aliança de Casamento Única","Âmbar Sangrento"]
+      "nome_en": "Skeleton Key",
+      "complementos": [
+        "Pingente da Amizade",
+        "Apito Estridente",
+        "Enfeite Trançado",
+        "Aliança de Casamento Única",
+        "Âmbar Sangrento"
+      ],
+      "complementos_en": [
+        "Friendship Charm",
+        "Shrill Whistle",
+        "Braided Bauble",
+        "Unique Wedding Ring",
+        "Blood Amber"
+      ]
     }
   ],
-  "Lanternas":[
+  "Lanternas": [
     {
       "nome": "Lanterna",
-      "complementos": ["Bateria", "Cabo de Couro","Lentes Largas", "Lâmpada", "Apoio Emborrachado", "Bateria Pesada", "Filamento de Amperagem Baixa", "Lente de Foco", "Óptica RIT", "Bateria de Longa Duração", "Lâmpada de Halogênio", "Lente de Safira Superior", "Lâmpada Esquisita"]
+      "nome_en": "Flashlight",
+      "complementos": [
+        "Bateria",
+        "Cabo de Couro",
+        "Lâmpada",
+        "Lentes Largas",
+        "Lente de Foco",
+        "Bateria Pesada",
+        "Filamento de Amperagem Baixa",
+        "Apoio Emborrachado",
+        "Óptica RIT",
+        "Lâmpada de Halogênio",
+        "Bateria de Longa Duração",
+        "Lente de Safira Superior",
+        "Lâmpada Esquisita"
+      ],
+      "complementos_en": [
+        "Battery",
+        "Leather Grip",
+        "Power Bulb",
+        "Wide Lens",
+        "Focus Lens",
+        "Heavy Duty Battery",
+        "Low Amp Filament",
+        "Rubber Grip",
+        "TIR Optic",
+        "Intense Halogen",
+        "Long Life Battery",
+        "High-End Sapphire Lens",
+        "Odd Bulb",
+        "Broken Bulb"
+      ]
     },
     {
       "nome": "Lanterna Esportiva",
-      "complementos": ["Bateria", "Cabo de Couro","Lentes Largas", "Lâmpada", "Apoio Emborrachado", "Bateria Pesada", "Filamento de Amperagem Baixa", "Lente de Foco", "Óptica RIT", "Bateria de Longa Duração", "Lâmpada de Halogênio", "Lente de Safira Superior", "Lâmpada Esquisita"]
+      "nome_en": "Sport Flashlight",
+      "complementos": [
+        "Bateria",
+        "Cabo de Couro",
+        "Lâmpada",
+        "Lentes Largas",
+        "Lente de Foco",
+        "Bateria Pesada",
+        "Filamento de Amperagem Baixa",
+        "Apoio Emborrachado",
+        "Óptica RIT",
+        "Lâmpada de Halogênio",
+        "Bateria de Longa Duração",
+        "Lente de Safira Superior",
+        "Lâmpada Esquisita"
+      ],
+      "complementos_en": [
+        "Battery",
+        "Leather Grip",
+        "Power Bulb",
+        "Wide Lens",
+        "Focus Lens",
+        "Heavy Duty Battery",
+        "Low Amp Filament",
+        "Rubber Grip",
+        "TIR Optic",
+        "Intense Halogen",
+        "Long Life Battery",
+        "High-End Sapphire Lens",
+        "Odd Bulb",
+        "Broken Bulb"
+      ]
     },
     {
       "nome": "Lanterna Utilitaria",
-      "complementos": ["Bateria", "Cabo de Couro","Lentes Largas", "Lâmpada", "Apoio Emborrachado", "Bateria Pesada", "Filamento de Amperagem Baixa", "Lente de Foco", "Óptica RIT", "Bateria de Longa Duração", "Lâmpada de Halogênio", "Lente de Safira Superior", "Lâmpada Esquisita"]
+      "nome_en": "Utility Flashlight",
+      "complementos": [
+        "Bateria",
+        "Cabo de Couro",
+        "Lâmpada",
+        "Lentes Largas",
+        "Lente de Foco",
+        "Bateria Pesada",
+        "Filamento de Amperagem Baixa",
+        "Apoio Emborrachado",
+        "Óptica RIT",
+        "Lâmpada de Halogênio",
+        "Bateria de Longa Duração",
+        "Lente de Safira Superior",
+        "Lâmpada Esquisita"
+      ],
+      "complementos_en": [
+        "Battery",
+        "Leather Grip",
+        "Power Bulb",
+        "Wide Lens",
+        "Focus Lens",
+        "Heavy Duty Battery",
+        "Low Amp Filament",
+        "Rubber Grip",
+        "TIR Optic",
+        "Intense Halogen",
+        "Long Life Battery",
+        "High-End Sapphire Lens",
+        "Odd Bulb",
+        "Broken Bulb"
+      ]
     }
   ],
-  "Mapas":[
+  "Mapas": [
     {
       "nome": "Mapa Críptico",
-      "complementos": ["Tinta Brilhante", "Bússola Retorcida","Fita Gasta", "Pederneira Afiada", "Carimbo Carmesim"]
+      "nome_en": "Cryptic Map",
+      "complementos": [
+        "Tinta Brilhante",
+        "Bússola Retorcida",
+        "Fita Gasta",
+        "Pederneira Afiada",
+        "Carimbo Carmesim"
+      ],
+      "complementos_en": [
+        "Glowing Ink",
+        "Gnarled Compass",
+        "Battered Tape",
+        "Sharpened Flint",
+        "Crimson Stamp"
+      ]
     },
     {
       "nome": "Mapa Rabiscado",
-      "complementos": ["Tinta Brilhante", "Bússola Retorcida","Fita Gasta", "Pederneira Afiada", "Carimbo Carmesim"]
+      "nome_en": "Scribbled Map",
+      "complementos": [
+        "Tinta Brilhante",
+        "Bússola Retorcida",
+        "Fita Gasta",
+        "Pederneira Afiada",
+        "Carimbo Carmesim"
+      ],
+      "complementos_en": [
+        "Glowing Ink",
+        "Gnarled Compass",
+        "Battered Tape",
+        "Sharpened Flint",
+        "Crimson Stamp"
+      ]
     },
     {
       "nome": "Mapa Anotado",
-      "complementos": ["Tinta Brilhante", "Bússola Retorcida","Fita Gasta", "Pederneira Afiada", "Carimbo Carmesim"]
+      "nome_en": "Annotated Map",
+      "complementos": [
+        "Tinta Brilhante",
+        "Bússola Retorcida",
+        "Fita Gasta",
+        "Pederneira Afiada",
+        "Carimbo Carmesim"
+      ],
+      "complementos_en": [
+        "Glowing Ink",
+        "Gnarled Compass",
+        "Battered Tape",
+        "Sharpened Flint",
+        "Crimson Stamp"
+      ]
     }
   ],
-  "Kit Médico":[
+  "Kit Médico": [
     {
       "nome": "Kit Médico de Acampamento",
-      "complementos": ["Ataduras", "Bandagem Borboleta","Luvas de Borracha", "Esponja", "Linha e Agulha", "Tecido Autoaderente", "Tesouras Médicas", "Rolo de Gaze", "Sutura Cirúrgica", "Agente Hemostático", "Compressa Abdominal", "Compressas de Gel", "Seringa Anti-Hemorrágica"]
+      "nome_en": "Camping Aid Kit",
+      "complementos": [
+        "Ataduras",
+        "Bandagem Borboleta",
+        "Luvas de Borracha",
+        "Tesouras Médicas",
+        "Linha e Agulha",
+        "Tecido Autoaderente",
+        "Esponja",
+        "Rolo de Gaze",
+        "Sutura Cirúrgica",
+        "Compressa Abdominal",
+        "Agente Hemostático",
+        "Seringa Anti-Hemorrágica",
+        "Compressas de Gel"
+      ],
+      "complementos_en": [
+        "Bandages",
+        "Butterfly Tape",
+        "Rubber Gloves",
+        "Medical Scissors",
+        "Needle & Thread",
+        "Self Adherent Wrap",
+        "Sponge",
+        "Gauze Roll",
+        "Surgical Suture",
+        "Abdominal Dressing",
+        "Styptic Agent",
+        "Anti-Exhaustion Syringe",
+        "Gel Dressings"
+      ]
     },
     {
       "nome": "Kit de Primeiros Socorros",
-      "complementos": ["Ataduras", "Bandagem Borboleta","Luvas de Borracha", "Esponja", "Linha e Agulha", "Tecido Autoaderente", "Tesouras Médicas", "Rolo de Gaze", "Sutura Cirúrgica", "Agente Hemostático", "Compressa Abdominal", "Compressas de Gel", "Seringa Anti-Hemorrágica"]
+      "nome_en": "First Aid Kit",
+      "complementos": [
+        "Ataduras",
+        "Bandagem Borboleta",
+        "Luvas de Borracha",
+        "Tesouras Médicas",
+        "Linha e Agulha",
+        "Tecido Autoaderente",
+        "Esponja",
+        "Rolo de Gaze",
+        "Sutura Cirúrgica",
+        "Compressa Abdominal",
+        "Agente Hemostático",
+        "Seringa Anti-Hemorrágica",
+        "Compressas de Gel"
+      ],
+      "complementos_en": [
+        "Bandages",
+        "Butterfly Tape",
+        "Rubber Gloves",
+        "Medical Scissors",
+        "Needle & Thread",
+        "Self Adherent Wrap",
+        "Sponge",
+        "Gauze Roll",
+        "Surgical Suture",
+        "Abdominal Dressing",
+        "Styptic Agent",
+        "Anti-Exhaustion Syringe",
+        "Gel Dressings"
+      ]
     },
     {
       "nome": "Kit Médico Emergencial",
-      "complementos": ["Ataduras", "Bandagem Borboleta","Luvas de Borracha", "Esponja", "Linha e Agulha", "Tecido Autoaderente", "Tesouras Médicas", "Rolo de Gaze", "Sutura Cirúrgica", "Agente Hemostático", "Compressa Abdominal", "Compressas de Gel", "Seringa Anti-Hemorrágica"]
+      "nome_en": "Emergency Med-Kit",
+      "complementos": [
+        "Ataduras",
+        "Bandagem Borboleta",
+        "Luvas de Borracha",
+        "Tesouras Médicas",
+        "Linha e Agulha",
+        "Tecido Autoaderente",
+        "Esponja",
+        "Rolo de Gaze",
+        "Sutura Cirúrgica",
+        "Compressa Abdominal",
+        "Agente Hemostático",
+        "Seringa Anti-Hemorrágica",
+        "Compressas de Gel"
+      ],
+      "complementos_en": [
+        "Bandages",
+        "Butterfly Tape",
+        "Rubber Gloves",
+        "Medical Scissors",
+        "Needle & Thread",
+        "Self Adherent Wrap",
+        "Sponge",
+        "Gauze Roll",
+        "Surgical Suture",
+        "Abdominal Dressing",
+        "Styptic Agent",
+        "Anti-Exhaustion Syringe",
+        "Gel Dressings"
+      ]
     },
     {
       "nome": "Kit Médico de Guarda-Florestal",
-      "complementos": ["Ataduras", "Bandagem Borboleta","Luvas de Borracha", "Esponja", "Linha e Agulha", "Tecido Autoaderente", "Tesouras Médicas", "Rolo de Gaze", "Sutura Cirúrgica", "Agente Hemostático", "Compressa Abdominal", "Compressas de Gel", "Seringa Anti-Hemorrágica"]
+      "nome_en": "Ranger Med-Kit",
+      "complementos": [
+        "Ataduras",
+        "Bandagem Borboleta",
+        "Luvas de Borracha",
+        "Tesouras Médicas",
+        "Linha e Agulha",
+        "Tecido Autoaderente",
+        "Esponja",
+        "Rolo de Gaze",
+        "Sutura Cirúrgica",
+        "Compressa Abdominal",
+        "Agente Hemostático",
+        "Seringa Anti-Hemorrágica",
+        "Compressas de Gel"
+      ],
+      "complementos_en": [
+        "Bandages",
+        "Butterfly Tape",
+        "Rubber Gloves",
+        "Medical Scissors",
+        "Needle & Thread",
+        "Self Adherent Wrap",
+        "Sponge",
+        "Gauze Roll",
+        "Surgical Suture",
+        "Abdominal Dressing",
+        "Styptic Agent",
+        "Anti-Exhaustion Syringe",
+        "Gel Dressings"
+      ]
     }
   ],
-  "Caixa de Ferramenta":[
+  "Caixa de Ferramenta": [
     {
       "nome": "Ferramentas Gastas",
-      "complementos": ["Instruções", "Pano Limpo","Sucata", "Alicate de Mola", "Bobina de Arame", "Fio de Corte", "Luvas de Proteção", "Soquete Móvel", "Chave Inglesa", "Serrote", "Peça Nova em Folha"]        
-    } ,
+      "nome_en": "Worn-Out Tools",
+      "complementos": [
+        "Pano Limpo",
+        "Instruções",
+        "Sucata",
+        "Fio de Corte",
+        "Luvas de Proteção",
+        "Soquete Móvel",
+        "Alicate de Mola",
+        "Bobina de Arame",
+        "Chave Inglesa",
+        "Serrote",
+        "Peça Nova em Folha"
+      ],
+      "complementos_en": [
+        "Clean Rag",
+        "Instructions",
+        "Scraps",
+        "Cutting Wire",
+        "Protective Gloves",
+        "Socket Swivels",
+        "Spring Clamp",
+        "Wire Spool",
+        "Grip Wrench",
+        "Hacksaw",
+        "Brand New Part"
+      ]
+    },
     {
       "nome": "Caixa de Ferramentas",
-      "complementos": ["Instruções", "Pano Limpo","Sucata", "Alicate de Mola", "Bobina de Arame", "Fio de Corte", "Luvas de Proteção", "Soquete Móvel", "Chave Inglesa", "Serrote", "Peça Nova em Folha"]        
-    } ,
+      "nome_en": "Toolbox",
+      "complementos": [
+        "Pano Limpo",
+        "Instruções",
+        "Sucata",
+        "Fio de Corte",
+        "Luvas de Proteção",
+        "Soquete Móvel",
+        "Alicate de Mola",
+        "Bobina de Arame",
+        "Chave Inglesa",
+        "Serrote",
+        "Peça Nova em Folha"
+      ],
+      "complementos_en": [
+        "Clean Rag",
+        "Instructions",
+        "Scraps",
+        "Cutting Wire",
+        "Protective Gloves",
+        "Socket Swivels",
+        "Spring Clamp",
+        "Wire Spool",
+        "Grip Wrench",
+        "Hacksaw",
+        "Brand New Part"
+      ]
+    },
     {
       "nome": "Caixa de Ferramentas Espaçosa",
-      "complementos": ["Instruções", "Pano Limpo","Sucata", "Alicate de Mola", "Bobina de Arame", "Fio de Corte", "Luvas de Proteção", "Soquete Móvel", "Chave Inglesa", "Serrote", "Peça Nova em Folha"]        
-    } ,
+      "nome_en": "Commodious Toolbox",
+      "complementos": [
+        "Pano Limpo",
+        "Instruções",
+        "Sucata",
+        "Fio de Corte",
+        "Luvas de Proteção",
+        "Soquete Móvel",
+        "Alicate de Mola",
+        "Bobina de Arame",
+        "Chave Inglesa",
+        "Serrote",
+        "Peça Nova em Folha"
+      ],
+      "complementos_en": [
+        "Clean Rag",
+        "Instructions",
+        "Scraps",
+        "Cutting Wire",
+        "Protective Gloves",
+        "Socket Swivels",
+        "Spring Clamp",
+        "Wire Spool",
+        "Grip Wrench",
+        "Hacksaw",
+        "Brand New Part"
+      ]
+    },
     {
       "nome": "Caixa de Ferramentas de Mecânico",
-      "complementos": ["Instruções", "Pano Limpo","Sucata", "Alicate de Mola", "Bobina de Arame", "Fio de Corte", "Luvas de Proteção", "Soquete Móvel", "Chave Inglesa", "Serrote", "Peça Nova em Folha"]        
-    } ,
+      "nome_en": "Mechanic's Toolbox",
+      "complementos": [
+        "Pano Limpo",
+        "Instruções",
+        "Sucata",
+        "Fio de Corte",
+        "Luvas de Proteção",
+        "Soquete Móvel",
+        "Alicate de Mola",
+        "Bobina de Arame",
+        "Chave Inglesa",
+        "Serrote",
+        "Peça Nova em Folha"
+      ],
+      "complementos_en": [
+        "Clean Rag",
+        "Instructions",
+        "Scraps",
+        "Cutting Wire",
+        "Protective Gloves",
+        "Socket Swivels",
+        "Spring Clamp",
+        "Wire Spool",
+        "Grip Wrench",
+        "Hacksaw",
+        "Brand New Part"
+      ]
+    },
     {
       "nome": "Caixa de Ferramentas de Engenheiro",
-      "complementos": ["Instruções", "Pano Limpo","Sucata", "Alicate de Mola", "Bobina de Arame", "Fio de Corte", "Luvas de Proteção", "Soquete Móvel", "Chave Inglesa", "Serrote", "Peça Nova em Folha"]        
-    } ,
+      "nome_en": "Engineer's Toolbox",
+      "complementos": [
+        "Pano Limpo",
+        "Instruções",
+        "Sucata",
+        "Fio de Corte",
+        "Luvas de Proteção",
+        "Soquete Móvel",
+        "Alicate de Mola",
+        "Bobina de Arame",
+        "Chave Inglesa",
+        "Serrote",
+        "Peça Nova em Folha"
+      ],
+      "complementos_en": [
+        "Clean Rag",
+        "Instructions",
+        "Scraps",
+        "Cutting Wire",
+        "Protective Gloves",
+        "Socket Swivels",
+        "Spring Clamp",
+        "Wire Spool",
+        "Grip Wrench",
+        "Hacksaw",
+        "Brand New Part"
+      ]
+    },
     {
       "nome": "Caixa de Ferramentas do Alex",
-      "complementos": ["Instruções", "Pano Limpo","Sucata", "Alicate de Mola", "Bobina de Arame", "Fio de Corte", "Luvas de Proteção", "Soquete Móvel", "Chave Inglesa", "Serrote", "Peça Nova em Folha"]        
-    } 
+      "nome_en": "Alex's Toolbox",
+      "complementos": [
+        "Pano Limpo",
+        "Instruções",
+        "Sucata",
+        "Fio de Corte",
+        "Luvas de Proteção",
+        "Soquete Móvel",
+        "Alicate de Mola",
+        "Bobina de Arame",
+        "Chave Inglesa",
+        "Serrote",
+        "Peça Nova em Folha"
+      ],
+      "complementos_en": [
+        "Clean Rag",
+        "Instructions",
+        "Scraps",
+        "Cutting Wire",
+        "Protective Gloves",
+        "Socket Swivels",
+        "Spring Clamp",
+        "Wire Spool",
+        "Grip Wrench",
+        "Hacksaw",
+        "Brand New Part"
+      ]
+    }
   ],
-  "Frasco de Névoa":[
+  "Frasco de Névoa": [
     {
       "nome": "Frasco de Névoa de Aprendiz",
-      "complementos": ["Pedra Vulcânica", "Composto Reativo","Seiva Oleosa", "Fórmula de Cogumelos", "Extrato Potente"]           
-    },  
+      "nome_en": "Apprentice's Fog Vial",
+      "complementos": [
+        "Pedra Vulcânica",
+        "Composto Reativo",
+        "Seiva Oleosa",
+        "Fórmula de Cogumelos",
+        "Extrato Potente"
+      ],
+      "complementos_en": [
+        "Volcanic Stone",
+        "Reactive Compound",
+        "Oily Sap",
+        "Mushroom Formula",
+        "Potent Extract"
+      ]
+    },
     {
       "nome": "Frasco de Névoa de Artesão",
-      "complementos": ["Pedra Vulcânica", "Composto Reativo","Seiva Oleosa", "Fórmula de Cogumelos", "Extrato Potente"]           
-    },  
+      "nome_en": "Artisan's Fog Vial",
+      "complementos": [
+        "Pedra Vulcânica",
+        "Composto Reativo",
+        "Seiva Oleosa",
+        "Fórmula de Cogumelos",
+        "Extrato Potente"
+      ],
+      "complementos_en": [
+        "Volcanic Stone",
+        "Reactive Compound",
+        "Oily Sap",
+        "Mushroom Formula",
+        "Potent Extract"
+      ]
+    },
     {
       "nome": "Frasco de Névoa de Vigo",
-      "complementos": ["Pedra Vulcânica", "Composto Reativo","Seiva Oleosa", "Fórmula de Cogumelos", "Extrato Potente"]           
-    }  
+      "nome_en": "Vigo's Fog Vial",
+      "complementos": [
+        "Pedra Vulcânica",
+        "Composto Reativo",
+        "Seiva Oleosa",
+        "Fórmula de Cogumelos",
+        "Extrato Potente"
+      ],
+      "complementos_en": [
+        "Volcanic Stone",
+        "Reactive Compound",
+        "Oily Sap",
+        "Mushroom Formula",
+        "Potent Extract"
+      ]
+    }
   ]
 }
