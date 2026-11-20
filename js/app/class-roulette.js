@@ -11,16 +11,48 @@
     // ---- Classes de cada lado (a ordem define a ordem dos 4 slots) ----
     const SLOTS = {
         survivor: [
-            { k: 'Healer',      pt: 'Healer',      en: 'Healer',     icon: 'fa-kit-medical' },
-            { k: 'Tank',        pt: 'Tank',        en: 'Tank',       icon: 'fa-shield-halved' },
-            { k: 'Suporte',     pt: 'Suporte',     en: 'Support',    icon: 'fa-handshake-angle' },
-            { k: 'Objetivo',    pt: 'Objetivo',    en: 'Objective',  icon: 'fa-bolt' }
+            {
+                k: 'Healer', pt: 'Healer', en: 'Healer', icon: 'fa-kit-medical',
+                descPt: 'Cura, recuperação, velocidade de cura e bênçãos de cura.',
+                descEn: 'Healing, recovery, healing speed, and healing boons.'
+            },
+            {
+                k: 'Tank', pt: 'Tank', en: 'Tank', icon: 'fa-shield-halved',
+                descPt: 'Sobrevivência, resistência, fuga de gancho e todos os perks ofensivos contra o killer (atordoar, cegar, lentidão, armadilhas, bloquear, sabotar).',
+                descEn: 'Survivability, endurance, hook escapes, and all offensive perks against the killer (stun, blind, hinder, traps, bodyblock, sabotage).'
+            },
+            {
+                k: 'Suporte', pt: 'Suporte', en: 'Support', icon: 'fa-handshake-angle',
+                descPt: 'Auras e visão, furtividade, mobilidade, itens e baús, buffs de equipe e utilidades.',
+                descEn: 'Auras and vision, stealth, mobility, items and chests, team buffs, and utility.'
+            },
+            {
+                k: 'Objetivo', pt: 'Objetivo', en: 'Objective', icon: 'fa-bolt',
+                descPt: 'Geradores, testes de perícia, totens, portões e fim de jogo ligado ao objetivo.',
+                descEn: 'Generators, skill checks, totems, exit gates, and objective-focused endgame.'
+            }
         ],
         killer: [
-            { k: 'Assassino',   pt: 'Assassino',   en: 'Assassin',   icon: 'fa-skull' },
-            { k: 'Controlador', pt: 'Controlador', en: 'Controller', icon: 'fa-hat-wizard' },
-            { k: 'Batedor',     pt: 'Batedor',     en: 'Scout',      icon: 'fa-eye' },
-            { k: 'Tank',        pt: 'Tank',        en: 'Tank',       icon: 'fa-shield-halved' }
+            {
+                k: 'Assassino', pt: 'Assassino', en: 'Assassin', icon: 'fa-skull',
+                descPt: 'Dano e burst: Exposto, mori, ataques e ganchos mais rápidos.',
+                descEn: 'Damage and burst: Exposed, mori, attacks, and faster hooks.'
+            },
+            {
+                k: 'Controlador', pt: 'Controlador', en: 'Controller', icon: 'fa-hat-wizard',
+                descPt: 'Regressão e bloqueio de geradores, feitiços, anti-cura e debuffs (Exaustão, Cegueira, Quebrado).',
+                descEn: 'Generator regression and blocking, hexes, anti-healing, and debuffs (Exhausted, Blindness, Broken).'
+            },
+            {
+                k: 'Batedor', pt: 'Batedor', en: 'Scout', icon: 'fa-eye',
+                descPt: 'Auras, alertas e furtividade (Indetectável, Alheio, Raio de Terror).',
+                descEn: 'Auras, alerts, and stealth (Undetectable, Oblivious, Terror Radius).'
+            },
+            {
+                k: 'Tank', pt: 'Tank', en: 'Tank', icon: 'fa-shield-halved',
+                descPt: 'Celeridade, imunidade a atordoamento, cegueira e barricadas, e velocidade em perseguição.',
+                descEn: 'Haste, stun/blind/pallet resistance, and chase speed.'
+            }
         ]
     };
     // tank azul, cura verde, batedor laranja, suporte amarelo, assassino vermelho sangue, controlador/objetivo marrom
@@ -210,7 +242,7 @@
         if (!box) return;
         const p = pools(crRole);
         box.innerHTML = SLOTS[crRole].map((s, i) => `
-            <span class="cr-chip" style="--cc:${COLORS[s.k]};color:${INK[s.k] || '#fff'}">
+            <span class="cr-chip" data-cr-tip="${crRole}:${s.k}" style="--cc:${COLORS[s.k]};color:${INK[s.k] || '#fff'}">
                 <i class="fa-solid ${s.icon}"></i> ${esc(slotLabel(s))} <small>${p[i].length}</small>
             </span>`).join('');
     }
@@ -236,6 +268,7 @@
             const p = res && res.perks[i];
             ring.style.setProperty('--cc', COLORS[s.k]);
             chip.style.setProperty('--cc', COLORS[s.k]);
+            chip.dataset.crTip = `${crRole}:${s.k}`;
             chip.style.color = INK[s.k] || '#fff';
             chip.innerHTML = `<i class="fa-solid ${s.icon}"></i> ${esc(slotLabel(s))}`;
             if (p) {
@@ -425,6 +458,69 @@
         if (typeof window.copyBuildLink === 'function') window.copyBuildLink(crResult);
     }
 
+// ---------- Tooltip das classes (mesma caixinha de .perk-tip) ----------
+    function initClassTooltip() {
+        if ($('crTip')) return;
+        const tip = document.createElement('div');
+        tip.id = 'crTip';
+        tip.className = 'perk-tip cr-tip';
+        document.body.appendChild(tip);
+        let cur = null;
+
+        function show(el) {
+            const [role, key] = (el.dataset.crTip || '').split(':');
+            const slot = (SLOTS[role] || []).find(s => s.k === key);
+            if (!slot) return hide();
+
+            const pt = currentLang === 'pt';
+            const roleLabel = role === 'survivor' ? 'Survivor' : 'Killer';
+            const desc = pt ? slot.descPt : slot.descEn;
+
+            tip.style.setProperty('--cc', COLORS[slot.k] || '#888');
+            tip.innerHTML = `
+                <div class="perk-tip-head">
+                    <div class="perk-tip-name"><i class="fa-solid ${slot.icon}"></i> ${esc(slotLabel(slot))}</div>
+                    <div class="perk-tip-sub">
+                        <span>${pt ? 'Classe RPG' : 'RPG Class'}</span>
+                        <span>${roleLabel}</span>
+                    </div>
+                </div>
+                <div class="perk-tip-body"><p>${esc(desc)}</p></div>`;
+            tip.classList.add('show');
+            cur = el;
+        }
+
+        function hide() {
+            tip.classList.remove('show');
+            cur = null;
+        }
+
+        function place(e) {
+            const pad = 16, w = tip.offsetWidth, h = tip.offsetHeight;
+            let x = e.clientX + pad, y = e.clientY + pad;
+            if (x + w > innerWidth - 8) x = e.clientX - w - pad;
+            if (y + h > innerHeight - 8) y = innerHeight - h - 8;
+            tip.style.left = Math.max(8, x) + 'px';
+            tip.style.top = Math.max(8, y) + 'px';
+        }
+
+        document.addEventListener('mouseover', e => {
+            const el = e.target.closest && e.target.closest('[data-cr-tip]');
+            if (!el) return;
+            if (el !== cur) show(el);
+            place(e);
+        });
+        document.addEventListener('mouseout', e => {
+            if (cur && !cur.contains(e.relatedTarget)) hide();
+        });
+        document.addEventListener('mousemove', e => {
+            if (!cur) return;
+            if (!cur.isConnected) return hide();
+            place(e);
+        });
+        document.addEventListener('scroll', hide, true);
+    }   
+
     // ---------- Montagem ----------
     function init() {
         if ($('tabClasses') || !$('tabMain') || !$('tabMainBtn')) return;
@@ -471,6 +567,7 @@
         applyLabels();
         render(null);
         renderLegend();
+        initClassTooltip();
     }
 
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
