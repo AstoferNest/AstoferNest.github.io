@@ -2,269 +2,353 @@
   "O Canibal": [
     {
       "nome": "Motosserra do Bubba",
-      "complementos": ["Óleo Vegetal", "Vela de Ignição", "Lixa de Motosserra", "Limitador de Velocidade", "Silenciador Caseiro", "Marcas de Faca", "Chili", "Bomba de Pressão", "Barra de Guia Longa", "Lubrificante", "Correntes Sujas", "Corrente Terrível", "As Marcas da Besta", "A Graxa", "Corrente Enferrujada", "Chili Premiado", "Chassi Leve", "Ancinho de Profundidade", "Guia de Aprimoramento de Carburador", "Carne Iridescente"]
+      "nome_en": "Bubba's Chainsaw",
+      "complementos": ["Lixa de Motosserra", "Vela de Ignição", "Limitador de Velocidade", "Óleo Vegetal", "Chili", "Silenciador Caseiro", "Marcas de Faca", "Barra de Guia Longa", "Bomba de Pressão", "Correntes Sujas", "Corrente Terrível", "Lubrificante", "As Marcas da Besta", "A Graxa", "Chili Premiado", "Ancinho de Profundidade", "Chassi Leve", "Corrente Enferrujada", "Guia de Aprimoramento de Carburador", "Carne Iridescente"],
+      "complementos_en": ["Chainsaw File", "Spark Plug", "Speed Limiter", "Deviousness", "Health State", "Vegetable Oil", "Chilli", "Homemade Muffler", "Knife Scratches", "Long Guide Bar", "Primer Bulb", "Begrimed Chains", "Item", "Grisly Chains", "Mangled", "Shop Lubricant", "Auras", "Terror Radius", "The Beast's Marks", "The Grease", "Award-winning Chilli", "Depth Gauge Rake", "Light Chassis", "Rusted Chains", "Broken", "Carburettor Tuning Guide", "Iridescent Flesh"]
     }
-  ],    
+  ],
   "A Artista": [
     {
       "nome": "Pássaros do Tormento",
-      "complementos": ["Pinturas a Óleo", "Piche Espesso", "Obituário Vibrante", "Milho Choclo", "Tecido Aveludado", "Desenho Automático", "Corvo em Natureza-Morta", "Carniça Apodrecida", "Agonia Indefinida", "Ó Angústia, Ó Amante", "Sino de Prata", "Pedaço de Carvão", "Ninho Espinhoso", "A Tinta Mais Escura", "Sapatinho de Matias", "Ovo de Tinta", "Mãos Decepadas", "Língua Decepada", "Pluma Iridescente", "Jardim da Putrefação"]
+      "nome_en": "Birds of Torment",
+      "complementos": ["Milho Choclo", "Pinturas a Óleo", "Piche Espesso", "Obituário Vibrante", "Desenho Automático", "Carniça Apodrecida", "Corvo em Natureza-Morta", "Agonia Indefinida", "Tecido Aveludado", "Pedaço de Carvão", "A Tinta Mais Escura", "Ó Angústia, Ó Amante", "Sino de Prata", "Ninho Espinhoso", "Ovo de Tinta", "Sapatinho de Matias", "Mãos Decepadas", "Língua Decepada", "Jardim da Putrefação", "Pluma Iridescente"],
+      "complementos_en": ["Choclo Corn", "Oil Paints", "Killer Instinct", "Thick Tar", "Vibrant Obituary", "Automatic Drawing", "Festering Carrion", "Still Life Crow", "Untitled Agony", "Hindered", "Velvet Fabric", "Auras", "Charcoal Stick", "Darkest Ink", "Blindness", "O Grief, O Lover", "Exhausted", "Silver Bell", "Oblivious", "Thorny Nest", "Haemorrhage", "Mangled", "Ink Egg", "Matias' Baby Shoes", "Severed Hands", "Severed Tongue", "Garden of Rot", "Exposed", "Iridescent Feather", "Undetectable"]
     }
   ],
   "Os Gêmeos": [
     {
       "nome": "Vínculo de Sangue",
-      "complementos": ["Unha de Criancinha", "Leite Azedo", "Estatueta de Gato", "Espada de Brinquedo", "Olho de Gato", "Luva de Madeleine", "Dente de Leite", "Capuz Preto Ensanguentado", "Candelabro Cerimonial", "Chorume do Esgoto", "Chocalho Pesado", "Cachecol de Madeleine", "Biscoito Dormido", "Agulha Enferrujada", "Soldado Victor", "Pião de Madeira", "Gota de Perfume", "Ensopado da Floresta", "Pingente Iridescente", "Pano do Silêncio"]
+      "nome_en": "Blood Bond",
+      "complementos": ["Estatueta de Gato", "Leite Azedo", "Unha de Criancinha", "Espada de Brinquedo", "Dente de Leite", "Capuz Preto Ensanguentado", "Olho de Gato", "Candelabro Cerimonial", "Luva de Madeleine", "Cachecol de Madeleine", "Agulha Enferrujada", "Chorume do Esgoto", "Biscoito Dormido", "Chocalho Pesado", "Gota de Perfume", "Ensopado da Floresta", "Pião de Madeira", "Soldado Victor", "Pingente Iridescente", "Pano do Silêncio"],
+      "complementos_en": ["Cat Figurine", "Soured Milk", "Tiny Fingernail", "Toy Sword", "Baby Teeth", "Blindness", "Bloody Black Hood", "Cat's Eye", "Ceremonial Candelabrum", "Madeleine's Glove", "Madeleine's Scarf", "Rusted Needle", "Haemorrhage", "Sewer Sludge", "Stale Biscuit", "Weighty Rattle", "Broken", "Drop of Perfume", "Oblivious", "Forest Stew", "Spinning Top", "Item", "Victor's Soldier", "Auras", "Iridescent Pendant", "Exposed", "Silencing Cloth", "Undetectable"]
     }
   ],
   "O Caçador": [
     {
       "nome": "Armadilha de Urso",
-      "complementos": ["Óleo de Urso", "Mandíbulas Acolchoadas", "Luvas do Caçador", "Coberta Improvisada", "Tijolo de Cera", "Mandíbulas Serrilhadas", "Mandíbulas Alongadas","Kit de 4 Molas Espirais", "Borras de Café", "Mola Secundária", "Mochila de Caçador", "Mandíbulas Enferrujadas", "Garrafa de Alcatrão", "Ferramentas de Fixação", "Saco do Caçador", "Pedra de Amolar", "Mola Oleosa", "Armadilha de Tensão", "Pedra Iridescente", "Mola Ensanguentada"]
+      "nome_en": "Bear Trap",
+      "complementos": ["Óleo de Urso", "Coberta Improvisada", "Mandíbulas Acolchoadas", "Mandíbulas Serrilhadas", "Mandíbulas Enferrujadas", "Luvas do Caçador", "Kit de 4 Molas Espirais", "Borras de Café", "Mandíbulas Alongadas", "Tijolo de Cera", "Ferramentas de Fixação", "Mola Secundária", "Garrafa de Alcatrão", "Mochila de Caçador", "Pedra de Amolar", "Mola Oleosa", "Armadilha de Tensão", "Saco do Caçador", "Mola Ensanguentada", "Pedra Iridescente"],
+      "complementos_en": ["Bear Oil", "Makeshift Wrap", "Padded Jaws", "Bloodpoints", "Serrated Jaws", "Rusted Jaws", "Trapper Gloves", "4-Coil Spring Kit", "Coffee Grounds", "Haste", "Lengthened Jaws", "Deep Wound", "Haemorrhage", "Wax Brick", "Fastening Tools", "Mangled", "Secondary Coil", "Tar Bottle", "Trapper Bag", "Honing Stone", "Dying State", "Oily Coil", "Aura", "Tension Spring", "Trapper Sack", "Bloody Coil", "Injured State", "Iridescent Stone"]
     }
   ],
   "A Negociante de Crânios": [
     {
       "nome": "Olhos no Céu",
-      "complementos": ["Melhoria de Alta Corrente", "Holofote de Alta Potência", "Alto-Falante Ultrassônico", "Adi Valente Número 1", "Supercarga", "Modo de Economia de Energia", "Microfone Remoto Estéreo", "Iluminação Ajustável", "Alto-falantes Shotgun", "Vidro Moído", "Processo de Mira Vital", "Parafuso-Solto", "Melhoria de Infravermelho", "Gerador de Ruído Marrom", "Protótipo de Rotor", "Predição de Movimento Avançada", "Leitura Geográfica", "Estroboscópios Randomizados", "Manuscrito Não Publicado Iridescente", "Baterias Expiradas"]
+      "nome_en": "Eyes in the Sky",
+      "complementos": ["Adi Valente Número 1", "Melhoria de Alta Corrente", "Holofote de Alta Potência", "Alto-Falante Ultrassônico", "Iluminação Ajustável", "Modo de Economia de Energia", "Alto-falantes Shotgun", "Microfone Remoto Estéreo", "Supercarga", "Gerador de Ruído Marrom", "Melhoria de Infravermelho", "Parafuso-Solto", "Vidro Moído", "Processo de Mira Vital", "Predição de Movimento Avançada", "Leitura Geográfica", "Protótipo de Rotor", "Estroboscópios Randomizados", "Baterias Expiradas", "Manuscrito Não Publicado Iridescente"],
+      "complementos_en": ["Adi Valente Issue 1", "Skill Checks", "High-Current Upgrade", "High-Power Floodlight", "Blindness", "Ultrasonic Speaker", "Adaptive Lighting", "Undetectable", "Low-Power Mode", "Shotgun Speakers", "Stereo Remote Mic", "Supercharge", "Brown Noise Generator", "Oblivious", "Infrared Upgrade", "Auras", "Loose Screw", "Exhausted", "Powdered Glass", "Haemorrhage", "Mangled", "Vital Targeting Processor", "Hindered", "Advanced Movement Prediction", "Geographical Readout", "Breakable Walls", "Pallets", "Generators", "Windows", "Prototype Rotor", "Randomised Strobes", "Expired Batteries", "Iridescent Unpublished Manuscript", "Terror Radius"]
     }
   ],
   "O Cara Legal": [
     {
       "nome": "A Brincadeira Acabou",
-      "complementos": ["Olhos de Boneco", "Luz Estroboscópica", "Caixa do Cara Legal", "Bisturi Minúsculo", "Spray Capilar e Vela", "Furadeira Elétrica", "Faca de Entalhe Elétrica", "Corda de Pular", "Chave de Fenda Automática", "Venendo de Rato", "Tênis de Corrida", "TV Portátil", "Travesseiro de Seda", "Régua", "Sacola Plástica", "Pilha de Pregos", "Navalha Reta", "Fragmentos de Espelho", "Capacete", "Amuleto Iridescente"]
+      "nome_en": "Playtime's Over",
+      "complementos": ["Olhos de Boneco", "Caixa do Cara Legal", "Luz Estroboscópica", "Bisturi Minúsculo", "Chave de Fenda Automática", "Faca de Entalhe Elétrica", "Spray Capilar e Vela", "Corda de Pular", "Furadeira Elétrica", "TV Portátil", "Venendo de Rato", "Tênis de Corrida", "Travesseiro de Seda", "Régua", "Fragmentos de Espelho", "Pilha de Pregos", "Sacola Plástica", "Navalha Reta", "Capacete", "Amuleto Iridescente"],
+      "complementos_en": ["Doll Eyes", "Auras", "Windows", "Pallets", "Good Guy Box", "Strobing Light", "Terror Radius", "Tiny Scalpel", "Pools of Blood", "Automatic Screwdriver", "Electric Carving Knife", "Hair Spray & Candle", "Jump Rope", "Power Drill", "Portable TV", "Exit Gates", "Rat Poison", "Running Shoes", "Haste", "Silk Pillow", "Yardstick", "Mirror Shards", "Pile of Nails", "Undetectable", "Plastic Bag", "Exhausted", "Straight Razor", "Haemorrhage", "Mangled", "Hard Hat", "Iridescent Amulet"]
     }
   ],
   "O Vilão": [
     {
       "nome": "Salto Virulento",
-      "complementos": ["Walkie-Talkie de Ombro do RPD", "Tentáculo de Uroboros", "Medalhão de Unicórnio", "Joia de Besouro", "Megafone", "Medalhão de Leão", "Manivela Solta", "Luvas de Couro", "Cálice (Ouro)", "Ovo (Ouro)", "Medalhão de Donzela", "Erva Vermelha", "Dispositivo de Videoconferência", "Cofre Portátil", "Óculos de Sol Potente", "Vírus Uroboros", "Manche de Helicóptero", "Erva Verde", "Frasco de Uroboros Iridescente", "Foto do Laboratório"]
+      "nome_en": "Virulent Bound",
+      "complementos": ["Joia de Besouro", "Walkie-Talkie de Ombro do RPD", "Medalhão de Unicórnio", "Tentáculo de Uroboros", "Megafone", "Cálice (Ouro)", "Luvas de Couro", "Medalhão de Leão", "Manivela Solta", "Ovo (Ouro)", "Medalhão de Donzela", "Cofre Portátil", "Erva Vermelha", "Dispositivo de Videoconferência", "Óculos de Sol Potente", "Erva Verde", "Manche de Helicóptero", "Vírus Uroboros", "Frasco de Uroboros Iridescente", "Foto do Laboratório"],
+      "complementos_en": ["Jewel Beetle", "R.P.D. Shoulder Walkie", "Unicorn Medallion", "Uroboros Tendril", "Bullhorn", "Oblivious", "First Aid Spray", "Chalice (Gold)", "Leather Gloves", "Lion Medallion", "Loose Crank", "Egg (Gold)", "Maiden Medallion", "Blindness", "Portable Safe", "Haemorrhage", "Red Herb", "Video Conference Device", "Dark Sunglasses", "Undetectable", "Green Herb", "Helicopter Stick", "Auras", "Uroboros Virus", "Iridescent Uroboros Vial", "Exposed", "Lab Photo", "Breakable Walls", "Pallets"]
     }
   ],
   "A Singularidade": [
     {
       "nome": "Instanciação Quântica",
-      "complementos": ["Água Pesada", "Lavagem Nutricional", "Ferramenta de Diagnóstico (Reparo)", "Chaves de Segurança Quebrada", "Sensor Ultrassônico", "Restos Cremados", "Luva de Beisebol Infantil", "Gel Criogênico", "Braço Androide", "Tanque de Oxigênio Gasto", "Spray de Hiperestesia", "Gerador de Hologramas", "Gel de Nanomáquinas", "Fios Vivos", "Manifesto da Tripulação", "Foto da Família Soma", "Fibras de Plantas Desconhecidas", "Ferramenta de Diagnóstico (Construção)", "Formulário de Requisição Negado", "Estilhaço de Cristal Iridescente"]
+      "nome_en": "Quantum Instantiation",
+      "complementos": ["Chaves de Segurança Quebrada", "Ferramenta de Diagnóstico (Reparo)", "Água Pesada", "Lavagem Nutricional", "Braço Androide", "Restos Cremados", "Gel Criogênico", "Luva de Beisebol Infantil", "Sensor Ultrassônico", "Gerador de Hologramas", "Spray de Hiperestesia", "Fios Vivos", "Gel de Nanomáquinas", "Tanque de Oxigênio Gasto", "Manifesto da Tripulação", "Ferramenta de Diagnóstico (Construção)", "Fibras de Plantas Desconhecidas", "Foto da Família Soma", "Formulário de Requisição Negado", "Estilhaço de Cristal Iridescente"],
+      "complementos_en": ["Broken Security Key", "Diagnostic Tool (Repair)", "Heavy Water", "Supply Cases", "Nutritional Slurry", "Android Arm", "Cremated Remains", "Blindness", "Cryo Gel", "Haemorrhage", "Kid's Ball Glove", "Ultrasonic Sensor", "Terror Radius", "Hologram Generator", "Oblivious", "Hyperawareness Spray", "Live Wires", "Nanomachine Gel", "Spent Oxygen Tank", "Exhausted", "Crew Manifest", "Aura", "Diagnostic Tool (Construction)", "Auras", "EMP", "Foreign Plant Fibres", "Pallet", "Soma Family Photo", "Hindered", "Denied Requisition Form", "EMPs", "Iridescent Crystal Shard"]
     }
   ],
   "O Caipira": [
     {
       "nome": "Motosserra",
-      "complementos": ["Filtro de Ar Abandonado", "Contrapeso", "Botas de Biqueira de Aço", "Bomba de Pressão Quebrada", "Óleo de Motor sem Marca", "Parafuso de Marcha Lenta", "Ingestão Obstruída", "Estojo Térmico", "Acelerador Lubrificado", "Motor Rústico", "Correntes Sujas", "Correntes com Baixo Recuo", "Botas do Papai", "A Combinação dos Thompson", "Silenciador de Ponta", "Pantufas Nojentas", "Correntes LO PRO", "Botas Pontiagudas", "Marcas Iridescentes", "Carburador Tunado"]
+      "nome_en": "Chainsaw",
+      "complementos": ["Contrapeso", "Bomba de Pressão Quebrada", "Filtro de Ar Abandonado", "Botas de Biqueira de Aço", "Ingestão Obstruída", "Acelerador Lubrificado", "Parafuso de Marcha Lenta", "Óleo de Motor sem Marca", "Estojo Térmico", "Correntes Sujas", "Botas do Papai", "Correntes com Baixo Recuo", "Motor Rústico", "A Combinação dos Thompson", "Silenciador de Ponta", "Pantufas Nojentas", "Correntes LO PRO", "Botas Pontiagudas", "Marcas Iridescentes", "Carburador Tunado"],
+      "complementos_en": ["Counterweight", "Cracked Primer Bulb", "Health State", "Discarded Air Filter", "Steel Toe Boots", "Clogged Intake", "Greased Throttle", "High-Speed Idler Screw", "Off-Brand Motor Oil", "Thermal Casing", "Begrimed Chains", "Haemorrhage", "Mangled", "Dad's Boots", "Low Kickback Chains", "Ragged Engine", "The Thompsons' Mix", "Apex Muffler", "Terror Radius", "Filthy Slippers", "Undetectable", "LoPro Chains", "Breakable Walls", "Pallets", "Deep Wound", "Spiked Boots", "Iridescent Engravings", "Tuned Carburettor"]
     }
   ],
   "O Xenomorfo": [
     {
       "nome": "Perseguição Oculta",
-      "complementos": ["Relógio da Ripley", "Rações de Cereais", "Pássaro Bebedor", "Ovomorfo", "Mapa Estelar da Lambert", "Fone da Tripulação", "Entranhas do Ash", "Boné do Brett", "Bastão de Luz", "Pele Fundida", "Machadinha Multiuso", "Faixa do Parker", "Capacete do Kane", "Capacete de Emergência", "Teclado Simiótico","Pino de Autodestruição", "Caixa de Transporte", "Arma de Arpão","Sangue Ácido", "Aguilhão Improvisado"]
+      "nome_en": "Hidden Pursuit",
+      "complementos": ["Rações de Cereais", "Pássaro Bebedor", "Ovomorfo", "Relógio da Ripley", "Entranhas do Ash", "Boné do Brett", "Fone da Tripulação", "Mapa Estelar da Lambert", "Bastão de Luz", "Capacete de Emergência", "Capacete do Kane", "Pele Fundida", "Machadinha Multiuso", "Faixa do Parker", "Caixa de Transporte", "Arma de Arpão", "Pino de Autodestruição", "Teclado Simiótico", "Sangue Ácido", "Aguilhão Improvisado"],
+      "complementos_en": ["Cereal Rations", "Auras", "Remote Flame Turrets", "Drinking Bird", "Killer Instinct", "Ovomorph", "Ripley's Watch", "Ash's Innards", "Brett's Cap", "Remote Flame Turret", "Blindness", "Crew Headset", "Lambert's Star Map", "Light Wand", "Emergency Helmet", "Kane's Helmet", "Mangled", "Moulted Skin", "Exhausted", "Multipurpose Hatchet", "Haemorrhage", "Parker's Headband", "Haste", "Cat Carrier", "Undetectable", "Harpoon Gun", "Self-Destruct Bolt", "Semiotic Keyboard", "Generators", "Acidic Blood", "Health State", "Deep Wound", "Improvised Cattle Prod", "Generator", "Aura"]
     }
   ],
   "O Lich": [
     {
       "nome": "Vil da Escuridão",
-      "complementos": ["Pena de Corvo", "Luva do Trapaça", "Bola de Cristal", "Bandana Esfarrapada", "Poção de Velocidade", "Olho de Vidro", "Lanterna da Revelação", "Anel de Telecinese", "Anel de Armazenamento de Feitiços", "Pérola do Poder", "Manto Élfico", "Chifre Ornamentado", "Cajado do Apodrecimento", "Botas da Velocidade", "Mochila de Carga", "Manto de Olhos", "Manto da Invisibilidade", "Adaga de Dente de Dragão", "Livro Vil da Escuridão Iridescente", "Espada Vorpal"]
+      "nome_en": "Vile Darkness",
+      "complementos": ["Bola de Cristal", "Pena de Corvo", "Bandana Esfarrapada", "Luva do Trapaça", "Olho de Vidro", "Lanterna da Revelação", "Poção de Velocidade", "Anel de Armazenamento de Feitiços", "Anel de Telecinese", "Botas da Velocidade", "Manto Élfico", "Chifre Ornamentado", "Pérola do Poder", "Cajado do Apodrecimento", "Mochila de Carga", "Manto da Invisibilidade", "Adaga de Dente de Dragão", "Manto de Olhos", "Livro Vil da Escuridão Iridescente", "Espada Vorpal"],
+      "complementos_en": ["Crystal Ball", "Dispelling Sphere", "Killer Instinct", "Raven's Feather", "Fly", "Tattered Headband", "Flight of the Damned", "Trickster's Glove", "Mage Hand", "Pallet", "Glass Eye", "Lantern of Revealing", "Auras", "Potion of Speed", "Ring of Spell Storing", "Ring of Telekinesis", "Boots of Speed", "Haste", "Cloak of Elvenkind", "Terror Radius", "Ornate Horn", "Pearl of Power", "Staff of Withering", "Exhausted", "Bag of Holding", "Oblivious", "Cloak of Invisibility", "Undetectable", "Dragontooth Dagger", "Haemorrhage", "Mangled", "Robe of Eyes", "Treasure Chest", "Iridescent Book of Vile Darkness", "Window", "Vorpal Sword", "Broken", "Pallets"]
     }
   ],
   "A Caçadora": [
     {
       "nome": "Machadinha de Caça",
-      "complementos": ["Toxina de Amanita", "Pedra Áspera", "Pano Amarelado", "Cabo Enfaixado", "Trança de Grama de Maná", "Lâmina Pesada", "Laço de Couro", "Ferradura Brilhante", "Cabo de Carvalho", "Raiz de Rosa", "Mistura Venenosa", "Lâmina Enferrujada", "Luvas de Camurça", "Lenço de Flores", "Raposa de Madeira", "Mistura Brilhante", "Lâmina Contaminada", "Cinto de Infantaria", "Lâmina Iridescente", "Grevas de Soldado"]
+      "nome_en": "Hunting Hatchets",
+      "complementos": ["Toxina de Amanita", "Cabo Enfaixado", "Pedra Áspera", "Pano Amarelado", "Laço de Couro", "Trança de Grama de Maná", "Cabo de Carvalho", "Ferradura Brilhante", "Lâmina Pesada", "Luvas de Camurça", "Lenço de Flores", "Raiz de Rosa", "Lâmina Enferrujada", "Mistura Venenosa", "Lâmina Contaminada", "Mistura Brilhante", "Cinto de Infantaria", "Raposa de Madeira", "Lâmina Iridescente", "Grevas de Soldado"],
+      "complementos_en": ["Amanita Toxin", "Blindness", "Bandaged Haft", "Coarse Stone", "Yellowed Cloth", "Leather Loop", "Haste", "Manna Grass Braid", "Oak Haft", "Shiny Pin", "Weighted Head", "Incapacitated", "Deerskin Gloves", "Lockers", "Flower Babushka", "Rose Root", "Rusty Head", "Mangled", "Venomous Concoction", "Exhausted", "Begrimed Head", "Haemorrhage", "Glowing Concoction", "Aura", "Infantry Belt", "Wooden Fox", "Undetectable", "Iridescent Head", "Dying State", "Soldier's Puttee"]
     }
   ],
   "O Vulto": [
     {
       "nome": "Maldade Encarnada",
-      "complementos": ["Flor Memorial", "Fio Loiro", "Brincos Cafonas", "Bilhete do Namorado", "Fragmento Reflexivo", "Fragmento de Vidro", "Escova de Cabelo", "Coelho Morto", "Bijuteria", "Memorial de J.MYERS", "Laço de Cabelo", "Diário de Judith", "Caixa de Bijuterias", "Caco de Espelho", "Pedaço de Lápide", "Mecha de Cabelo", "Espelho de Maquiagem", "Espelho Arranhado", "Tufo de Cabelo Perfumado", "Lápide de Judith"]
+      "nome_en": "Evil Within",
+      "complementos": ["Fio Loiro", "Bilhete do Namorado", "Flor Memorial", "Brincos Cafonas", "Coelho Morto", "Tufo de Cabelo Perfumado", "Fragmento de Vidro", "Escova de Cabelo", "Bijuteria", "Laço de Cabelo", "Memorial de J.MYERS", "Caixa de Bijuterias", "Diário de Judith", "Caco de Espelho", "Mecha de Cabelo", "Fragmento Reflexivo", "Pedaço de Lápide", "Espelho de Maquiagem", "Lápide de Judith", "Espelho Arranhado"],
+      "complementos_en": ["Blond Hair", "Boyfriend's Memo", "Memorial Flower", "Tacky Earrings", "Dead Rabbit", "Terror Radius", "Fragrant Tuft of Hair", "Exposed", "Glass Fragment", "Hair Brush", "Pallet", "Jewellery", "Hair Bow", "J. Myers Memorial", "Jewellery Box", "Judith's Journal", "Obsession", "Mirror Shard", "Lock of Hair", "Reflective Fragment", "Health State", "Tombstone Piece", "Undetectable", "Vanity Mirror", "Auras", "Judith's Tombstone", "Scratched Mirror", "Brutality", "Deviousness"]
     }
   ],
   "O Espectro": [
     {
       "nome": "Sino da Lamentação",
-      "complementos": ["The Ghost - Fuligem", "O Cão de Caça - Fuligem", "A Serpente - Fuligem", "A Besta - Fuligem", "Badalo de Ossos", "Vendaval - Lama", "Teletransporte - Lama", "Guerreiro Cego - Lama", "Caçada Rápida - Lama", "Vendaval - Branco", "Teletransporte - Branco", "Guerreiro Cego - Branco", "Dança das Sombras - Branco", "Caçada Rápida - Branco", "Vendaval - Sangue", "Onisciente - Sangue", "Dança das Sombras - Sangue", "Caçada Rápida - Sangue", "Badalo Obsoleto", "Onisciente - Espírito"]
+      "nome_en": "Wailing Bell",
+      "complementos": ["A Besta - Fuligem", "The Ghost - Fuligem", "O Cão de Caça - Fuligem", "A Serpente - Fuligem", "Guerreiro Cego - Lama", "Teletransporte - Lama", "Caçada Rápida - Lama", "Vendaval - Lama", "Badalo de Ossos", "Guerreiro Cego - Branco", "Teletransporte - Branco", "Dança das Sombras - Branco", "Caçada Rápida - Branco", "Vendaval - Branco", "Onisciente - Sangue", "Dança das Sombras - Sangue", "Caçada Rápida - Sangue", "Vendaval - Sangue", "Onisciente - Espírito", "Badalo Obsoleto"],
+      "complementos_en": ["The Beast - Soot", "The Ghost - Soot", "The Hound - Soot", "The Serpent - Soot", "Blind Warrior - Mud", "Blink - Mud", "Swift Hunt - Mud", "Windstorm - Mud", "Bone Clapper", "Blind Warrior - White", "Blink - White", "Shadow Dance - White", "Swift Hunt - White", "Windstorm - White", "All Seeing - Blood", "Shadow Dance - Blood", "Swift Hunt - Blood", "Windstorm - Blood", "All Seeing - Spirit", "Coxcombed Clapper"]
     }
   ],
   "A Enfermeira": [
     {
       "nome": "Ultimo Suspiro de Spencer",
-      "complementos": ["Pente Fino Branco", "Flanela Xadrez", "Colher de Metal", "Cavalo de Madeira", "Tesouro do Garoto Catatônico", "Relógio de Bolso", "Lembrança do Homem Mau", "Cinto Escuro", "Bracelete Sem Brilho", "Suspiro Ansioso", "Respiração Ofegante", "Respiração Espasmódica", "Respiração Atáxica", "Arfada Frágil", "Último Suspiro do Homem Mau", "Úlimo Suspiro de Kavanagh", "Último Suspiro de Jenner", "Último Sopro de Campbell", "Marcador de Página Rasgado", "Caixa de Fósforo"]
+      "nome_en": "Spencer's Last Breath",
+      "complementos": ["Colher de Metal", "Flanela Xadrez", "Pente Fino Branco", "Cavalo de Madeira", "Lembrança do Homem Mau", "Tesouro do Garoto Catatônico", "Cinto Escuro", "Bracelete Sem Brilho", "Relógio de Bolso", "Suspiro Ansioso", "Respiração Atáxica", "Arfada Frágil", "Respiração Ofegante", "Respiração Espasmódica", "Último Suspiro do Homem Mau", "Último Sopro de Campbell", "Último Suspiro de Jenner", "Úlimo Suspiro de Kavanagh", "Caixa de Fósforo", "Marcador de Página Rasgado"],
+      "complementos_en": ["Metal Spoon", "Plaid Flannel", "White Nit Comb", "Wooden Horse", "Bad Man Keepsake", "Catatonic Boys Treasure", "Dark Cincture", "Dull Bracelet", "Pocket Watch", "Anxious Gasp", "Ataxic Respiration", "Fragile Wheeze", "Heavy Panting", "Spasmodic Breath", "Bad Mans Last Breath", "Campbells Last Breath", "Jenners Last Breath", "Kavanaghs Last Breath", "Matchbox", "Torn Bookmark"]
     }
   ],
   "A Onryō": [
     {
       "nome": "Dilúvio do Medo",
-      "complementos": ["Placa da Cabana", "Jornal Velho", "Espelho da Mãe", "Cópia da Fita", "Relógi9o de Reiko", "Rede de Pesca de Yoichi", "Punhado de Cabelo", "Pedra de Poço", "Pano Encharcado", "Água de Poço", "Unhas Ensanguentadas", "Pente da Mãe", "Desenho do Anel", "Cata-Vento Frágil", "Videocassete", "Telefone", "Painel de Edição de Fitas", "Foto Distorcida", "Fita Iridescente", "Controle Remoto"]
+      "nome_en": "Deluge of Fear",
+      "complementos": ["Placa da Cabana", "Espelho da Mãe", "Jornal Velho", "Cópia da Fita", "Punhado de Cabelo", "Relógi9o de Reiko", "Pano Encharcado", "Pedra de Poço", "Rede de Pesca de Yoichi", "Unhas Ensanguentadas", "Pente da Mãe", "Cata-Vento Frágil", "Desenho do Anel", "Água de Poço", "Foto Distorcida", "Painel de Edição de Fitas", "Telefone", "Videocassete", "Fita Iridescente", "Controle Remoto"],
+      "complementos_en": ["Cabin Sign", "Mothers Mirror", "Old Newspaper", "Videotape Copy", "Clump of Hair", "Reikos Watch", "Sea-Soaked Cloth", "Well Stone", "Yoichis Fishing Net", "Bloody Fingernails", "Mothers Comb", "Rickety Pinwheel", "Ring Drawing", "Well Water", "Distorted Photo", "Tape Editing Deck", "Telephone", "VCR", "Iridescent Videotape", "Remote Control"]
     }
   ],
   "O Mercenário": [
     {
       "nome": "O Redentor",
-      "complementos": ["Óleo de Cobra", "Trapo de Polimento com Cuspe", "Corrente Instável", "Cinturão de Munição Modificado", "Tabaco de Mascar", "Prego Enferrujado", "Folhas Venenosas de Carvalho", "Esmaga-Queixo", "Distintivo de Xerife", "Lata de Óleo", "Galhos de Espinheira-da-Virgínia", "Dente de Ouro de Bayshore", "Chaves do Carcereiro", "Cartaz de Procura-se", "Uísque Gold Creek", "Corrente de Prisioneiro", "Charuto de Bayshore", "Arame Farpado", "Moeda Iridescente", "Ferro de Hellshire"]
+      "nome_en": "The Redeemer",
+      "complementos": ["Cinturão de Munição Modificado", "Corrente Instável", "Óleo de Cobra", "Trapo de Polimento com Cuspe", "Tabaco de Mascar", "Esmaga-Queixo", "Distintivo de Xerife", "Folhas Venenosas de Carvalho", "Prego Enferrujado", "Dente de Ouro de Bayshore", "Galhos de Espinheira-da-Virgínia", "Lata de Óleo", "Cartaz de Procura-se", "Chaves do Carcereiro", "Arame Farpado", "Charuto de Bayshore", "Uísque Gold Creek", "Corrente de Prisioneiro", "Ferro de Hellshire", "Moeda Iridescente"],
+      "complementos_en": ["Modified Ammo Belt", "Rickety Chain", "Snake Oil", "Spit Polish Rag", "Chewing Tobacco", "Jaw Smasher", "Marshals Badge", "Poison Oak Leaves", "Rusted Spike", "Bayshores Gold Tooth", "Honey Locust Thorn", "Tin Oil Can", "Wanted Poster", "Wardens Keys", "Barbed Wire", "Bayshores Cigar", "Gold Creek Whiskey", "Prison Chain", "Hellshire Iron", "Iridescent Coin"]
     }
   ],
   "O Palhaço": [
     {
       "nome": "Tônico da Peça Final",
-      "complementos": ["Pena de Tordo", "Luvas de Desfile sem Dedos", "Garrafa Comemorativa", "Fita Pornô", "Rolha de Garrafa Grossa", "Pena de Estorninho", "Lata de Querosene", "Jarra de Solvente", "Garrafa de Refrigerante Grudenta", "Palmilhas Fedidas", "Garrafas de Clorofórmio", "Frasco de Alvejante", "Espírito de Galhada", "Éter 15 Porcento", "Kit de Maquiagem Berrante", "Garrafa de Gin Barata", "Caixa de Charutos", "Dedo Mindinho da Ruiva", "Dedo do Meio Tatuado"]
+      "nome_en": "The Afterpiece Tonic",
+      "complementos": ["Luvas de Desfile sem Dedos", "Garrafa Comemorativa", "Pena de Tordo", "Fita Pornô", "Lata de Querosene", "Jarra de Solvente", "Pena de Estorninho", "Garrafa de Refrigerante Grudenta", "Rolha de Garrafa Grossa", "Garrafas de Clorofórmio", "Frasco de Alvejante", "Palmilhas Fedidas", "Espírito de Galhada", "Garrafa de Gin Barata", "Caixa de Charutos", "Éter 15 Porcento", "Kit de Maquiagem Berrante", "Dedo Mindinho da Ruiva", "Dedo do Meio Tatuado"],
+      "complementos_en": ["Fingerless Parade Gloves", "Party Bottle", "Robin Feather", "VHS Porn", "Kerosene Can", "Solvent Jug", "Starling Feather", "Sticky Soda Bottle", "Thick Cork Stopper", "Bottle of Chloroform", "Flask of Bleach", "Smelly Inner Soles", "Spirit of Hartshorn", "Sulphuric Acid Vial", "Cheap Gin Bottle", "Cigar Box", "Ether 15 Vol%", "Garish Make-Up Kit", "Redheads Pinkie Finger", "Tattoos Middle Finger"]
     }
   ],
   "A Legião": [
     {
       "nome": "Fúria Bestial",
-      "complementos": ["Régua Arranhada", "Pulseira da Amizade", "Pin Smiley", "Lista de Travessuras", "Régua Entalhada", "Pílulas para Não Dormir", "Pin Smiley Destruído", "Fita de Coletânea da Julie", "Esboço de Mural", "Óculos de Sol Estiloso", "Pin da Legião", "Livro de Esboços Roubado", "Fita de Coletânea do Joey", "Fita de Coletânea da Susie", "Lâmina Imunda", "Fita de Coletânea do Frank", "Estudo de Punhaladas", "Amigos para Sempre", "Fita de Coletânea Fumegante", "Bóton Iridescente"]
+      "nome_en": "Feral Frenzy",
+      "complementos": ["Pulseira da Amizade", "Lista de Travessuras", "Régua Arranhada", "Pin Smiley", "Pin Smiley Destruído", "Régua Entalhada", "Fita de Coletânea da Julie", "Esboço de Mural", "Pílulas para Não Dormir", "Fita de Coletânea do Joey", "Livro de Esboços Roubado", "Óculos de Sol Estiloso", "Fita de Coletânea da Susie", "Pin da Legião", "Amigos para Sempre", "Lâmina Imunda", "Fita de Coletânea do Frank", "Estudo de Punhaladas", "Fita de Coletânea Fumegante", "Bóton Iridescente"],
+      "complementos_en": ["Friendship Bracelet", "Mischief List", "Scratched Ruler", "Smiley Face Pin", "Defaced Smiley Pin", "Etched Ruler", "Julies Mix Tape", "Mural Sketch", "Never-Sleep Pills", "Joeys Mix Tape", "Stolen Sketch Book", "Stylish Sunglasses", "Susies Mix Tape", "The Legion Pin", "BFFs", "Filthy Blade", "Franks Mix Tape", "Stab Wounds Study", "Fuming Mix Tape", "Iridescent Button"]
     }
   ],
   "O Animatrônico": [
     {
       "nome": "Medo de Fazbear",
-      "complementos": ["Propaganda de Precisa-se de Ajuda", "Prato de Papel Engordurado", "Pizza Estragada", "Menu do Restaurante", "Telefone do Escritório", "Serrpentina de Papel", "Insígnia de Segurança", "Cortina Rasgada", "Chapéu de Festa", "Homem Roxo Desenhado", "Gancho de Foxy", "Cordas da Guitarra da Bonnie", "Chapéu de Freddy", "Babador da Chica", "CPU ENDO", "Cartaz: Comemore!", "Bolsa de Espólios", "Acessar Painel", "Resquíscio Iridescente", "Moeda-Faz"]
+      "nome_en": "Fazbear's Fright",
+      "complementos": ["Prato de Papel Engordurado", "Propaganda de Precisa-se de Ajuda", "Menu do Restaurante", "Pizza Estragada", "Telefone do Escritório", "Chapéu de Festa", "Cortina Rasgada", "Insígnia de Segurança", "Serrpentina de Papel", "Cordas da Guitarra da Bonnie", "Babador da Chica", "Gancho de Foxy", "Chapéu de Freddy", "Homem Roxo Desenhado", "Acessar Painel", "Cartaz: Comemore!", "CPU ENDO", "Bolsa de Espólios", "Moeda-Faz", "Resquíscio Iridescente"],
+      "complementos_en": ["Greasy Paper Plate", "Help Wanted Ad", "Restaurant Menu", "Rotten Pizza", "Office Phone", "Party Hat", "Ripped Curtain", "Security Guards Badge", "Streamers", "Bonnies Guitar Strings", "Chicas Bib", "Foxys Hook", "Freddys Hat", "Purple Guy Drawing", "Access Panel", "Celebrate! Poster", "Endo CPU", "Loot Bag", "Faz-Coin", "Iridescent Remnant"]
     }
   ],
   "O Trapaça": [
     {
       "nome": "Topo das Paradas",
-      "complementos": ["Lâminas dos Velhos Tempos", "Fios Infernais", "Bolsa dos Segredos", "Acordes de Matar", "Tequila Pedraluna", "Single Na Mira", "Sapatos do Coração Enjaulado", "Lâmina da Sorte", "Autógrafo do Ji-Woon", "Relógio da Espera", "Pulseira de Estripador", "Matança Melódica", "Latinha de Fizz-Spin", "Echerpe Ensanguentada", "Álbum À Beira do Renascimento", "Single em Pedaços", "Lâminas Retráteis", "Abotoadura de Diamante", "Fotografia Iridescente", "Compilação Agonia da Morte"]
+      "nome_en": "Showstopper",
+      "complementos": ["Fios Infernais", "Acordes de Matar", "Lâminas dos Velhos Tempos", "Bolsa dos Segredos", "Echerpe Ensanguentada", "Sapatos do Coração Enjaulado", "Autógrafo do Ji-Woon", "Lâmina da Sorte", "Tequila Pedraluna", "Latinha de Fizz-Spin", "Matança Melódica", "Single Na Mira", "Pulseira de Estripador", "Relógio da Espera", "Single em Pedaços", "Abotoadura de Diamante", "Álbum À Beira do Renascimento", "Lâminas Retráteis", "Compilação Agonia da Morte", "Fotografia Iridescente"],
+      "complementos_en": ["Inferno Wires", "Killing Part Chords", "Memento Blades", "Trick Pouch", "Bloody Boa", "Caged Heart Shoes", "Ji-Woons Autograph", "Lucky Blade", "Tequila Moonrock", "Fizz-Spin Soda", "Melodious Murder", "On Target Single", "Ripper Brace", "Waiting For You Watch", "Cut Thru U Single", "Diamond Cufflinks", "Edge of Revival Album", "Trick Blades", "Death Throes Compilation", "Iridescent Photocard"]
     }
   ],
   "A Praga": [
     {
       "nome": "Purgação do Mal",
-      "complementos": ["Selo de Calcário", "Incenso de Olíbano", "Fragmento da Tabuleta de Oração", "Bálsamo de Cura", "Selo de Hematita", "Poção Emética", "Maçã Abençoada", "Extrato Potente", "Amuleto Profilático", "Óleo de Massagem", "Unguento Incensado", "Maçã Cinzenta", "Emético Infectado", "Amuleto do Exorcismo", "Tabuleta de Adoração", "Emético Maléfico", "Dedo Decepado", "Amuleto do Devoto", "Selo Iridescente", "Incenso Negro"]
+      "nome_en": "Vile Purge",
+      "complementos": ["Bálsamo de Cura", "Selo de Calcário", "Incenso de Olíbano", "Fragmento da Tabuleta de Oração", "Maçã Abençoada", "Poção Emética", "Selo de Hematita", "Extrato Potente", "Amuleto Profilático", "Maçã Cinzenta", "Amuleto do Exorcismo", "Unguento Incensado", "Emético Infectado", "Óleo de Massagem", "Amuleto do Devoto", "Dedo Decepado", "Emético Maléfico", "Tabuleta de Adoração", "Incenso Negro", "Selo Iridescente"],
+      "complementos_en": ["Healing Salve", "Limestone Seal", "Olibanum Incense", "Prayer Tablet Fragment", "Blessed Apple", "Emetic Potion", "Haematite Seal", "Potent Tincture", "Prophylactic Amulet", "Ashen Apple", "Exorcism Amulet", "Incensed Ointment", "Infected Emetic", "Rubbing Oil", "Devotees Amulet", "Severed Toe", "Vile Emetic", "Worship Tablet", "Black Incense", "Iridescent Seal"]
     }
   ],
   "A Draga": [
     {
       "nome": "Reino da Escuridão",
-      "complementos": ["Tábua", "Comprimidos de Cafeína", "Capuz de Seguidor", "Almofariz", "Telha Caída", "Purificador de Ar", "Crânio de Mau Pensador", "Cartas Queimadas", "Calendário da Haddie", "Travesseiro Destruído", "Pedra da Preocupação", "Escritura Ottomarianas", "Capacete de Guerra", "Boneca Quebrada", "Microfone de Lapela", "Lâmina de Aragem", "Gravador de Campo", "Chave de Embarcação", "Tábua Iridescente", "Faca Sacrificial"]
+      "nome_en": "Reign of Darkness",
+      "complementos": ["Comprimidos de Cafeína", "Capuz de Seguidor", "Almofariz", "Tábua", "Purificador de Ar", "Cartas Queimadas", "Telha Caída", "Calendário da Haddie", "Crânio de Mau Pensador", "Boneca Quebrada", "Travesseiro Destruído", "Escritura Ottomarianas", "Capacete de Guerra", "Pedra da Preocupação", "Chave de Embarcação", "Gravador de Campo", "Microfone de Lapela", "Lâmina de Aragem", "Tábua Iridescente", "Faca Sacrificial"],
+      "complementos_en": ["Caffeine Tablets", "Followers Cowl", "Mortar and Pestle", "Wooden Plank", "Air Freshener", "Burnt Letters", "Fallen Shingle", "Haddies Calendar", "Malthinkers Skull", "Broken Doll", "Destroyed Pillow", "Ottomarian Writing", "War Helmet", "Worry Stone", "Boat Key", "Field Recorder", "Lavalier Microphone", "Tilling Blade", "Iridescent Wooden Plank", "Sacrificial Knife"]
     }
   ],
   "O Senhor das Trevas": [
     {
       "nome": "Transformação Vampírica",
-      "complementos": ["Garra de Cérbero", "Engrenagem da Torre do Relógio", "Diadema de Rubi", "Chapéu do Viajante", "Medalhão do Lobo Branco", "Cálice de Sangue", "Colar de Moonstone", "Botas Aladas", "Bilhete Mágico", "Óculos de Sol", "Relógio de bolso", "Pena de Sílfide", "Força do Eco", "Boneca Assassina", "Presa de Warg", "Lápis-Lazúli", "Cubo de Zoe", "Cabelo de Medusa", "Escudo do Alucard", "Anel do Vlad Iridescente"]
+      "nome_en": "Vampiric Shift",
+      "complementos": ["Garra de Cérbero", "Engrenagem da Torre do Relógio", "Diadema de Rubi", "Chapéu do Viajante", "Cálice de Sangue", "Bilhete Mágico", "Colar de Moonstone", "Medalhão do Lobo Branco", "Botas Aladas", "Força do Eco", "Boneca Assassina", "Relógio de bolso", "Óculos de Sol", "Pena de Sílfide", "Cubo de Zoe", "Lápis-Lazúli", "Cabelo de Medusa", "Presa de Warg", "Escudo do Alucard", "Anel do Vlad Iridescente"],
+      "complementos_en": ["Cerberus Talon", "Clock Tower Gear", "Ruby Circlet", "Travellers Hat", "Blood-Filled Goblet", "Magical Ticket", "Moonstone Necklace", "White Wolf Medallion", "Winged Boots", "Force of Echo", "Killer Doll", "Pocket Watch", "Sunglasses", "Sylph Feather", "Cube of Zoe", "Lapis Lazuli", "Medusas Hair", "Wargs Fang", "Alucards Shield", "Iridescent Ring of Vlad"]
     }
   ],
   "O Oni": [
     {
       "nome": "Ira dos Yamaoka",
-      "complementos": ["Unha do Pé Escurecida", "Sakazuki Rachada", "Luminária de Papel", "Corda Apodrecida", "Saihai Lascado", "Maedate Polido", "Leão de Tinta", "Faixa Ensanguentada", "Espada Infantil de Madeira", "Wakizashi Despedaçada", "Talismã Kanai-Anzen", "Sashimono Yamaoka", "Máscara de Madeira de Oni", "Coque Escalpelado", "Tenugui Encharcado de Lágrimas", "Presa de Leão", "Muleta de Akito", "Casco Lascado", "Luva Ensanguentada de Renjiro", "Brasão Iridescente de Família"]
+      "nome_en": "Yamaoka's Wrath",
+      "complementos": ["Unha do Pé Escurecida", "Sakazuki Rachada", "Luminária de Papel", "Corda Apodrecida", "Faixa Ensanguentada", "Espada Infantil de Madeira", "Saihai Lascado", "Leão de Tinta", "Maedate Polido", "Talismã Kanai-Anzen", "Coque Escalpelado", "Wakizashi Despedaçada", "Máscara de Madeira de Oni", "Sashimono Yamaoka", "Muleta de Akito", "Presa de Leão", "Casco Lascado", "Tenugui Encharcado de Lágrimas", "Brasão Iridescente de Família", "Luva Ensanguentada de Renjiro"],
+      "complementos_en": ["Blackened Toenail", "Cracked Sakazuki", "Paper Lantern", "Rotting Rope", "Bloody Sash", "Childs Wooden Sword", "Chipped Saihai", "Ink Lion", "Polished Maedate", "Kanai-Anzen Talisman", "Scalped Topknot", "Shattered Wakizashi", "Wooden Oni Mask", "Yamaoka Sashimono", "Akitos Crutch", "Lion Fang", "Splintered Hull", "Tear-Soaked Tenugui", "Iridescent Family Crest", "Renjiros Bloody Glove"]
     }
   ],
   "O Nemesis": [
     {
       "nome": "Vírus T",
-      "complementos": ["Seringa Danificada", "Pulseira de Visitante", "Manual de Combate da S.T.A.R.S", "Intestino do Brian", "Sangue do Marvin", "Pulseira de Administrador", "Olho do Mikhail", "Injeção de Adrenalina", "Coração de Zumbi", "Vinhas da Planta 43", "Língua de Liker", "Injeção de Serotonina", "Cruor d Tirano", "Amostra de Vírus T", "Tinteiro Seco", "Sanduíche da Jill", "Parasita NE-A", "Moeda de Recuperação Quebrada", "Distintivo S.T.A.R.S. Quebrado", "Distintivo da Umbrella Iridescente"]
+      "nome_en": "T-Virus",
+      "complementos": ["Intestino do Brian", "Seringa Danificada", "Manual de Combate da S.T.A.R.S", "Pulseira de Visitante", "Pulseira de Administrador", "Injeção de Adrenalina", "Sangue do Marvin", "Olho do Mikhail", "Coração de Zumbi", "Língua de Liker", "Vinhas da Planta 43", "Injeção de Serotonina", "Amostra de Vírus T", "Cruor d Tirano", "Moeda de Recuperação Quebrada", "Tinteiro Seco", "Sanduíche da Jill", "Parasita NE-A", "Distintivo da Umbrella Iridescente", "Distintivo S.T.A.R.S. Quebrado"],
+      "complementos_en": ["Brians Intestine", "Damaged Syringe", "S.T.A.R.S. Field Combat Manual", "Visitor Wristband", "Admin Wristband", "Adrenaline Injector", "Marvins Blood", "Mikhails Eye", "Zombie Heart", "Licker Tongue", "Plant 43 Vines", "Serotonin Injector", "T-Virus Sample", "Tyrant Gore", "Broken Recovery Coin", "Depleted Ink Ribbon", "Jills Sandwich", "Ne-α Parasite", "Iridescent Umbrella Badge", "Shattered S.T.A.R.S. Badge"]
     }
   ],
   "A Porca": [
     {
       "nome": "Batismo do Jigsaw",
-      "complementos": ["Seringa Quebrada", "Lâminas Interligadas", "Cinta de Combate", "Arquivo Médico de John", "Testamento", "Máscara Facial", "Lâminas Utilitárias", "Graxa de Oficina", "Arame Farpado", "Toxina de Lenta Liberação", "Espinhos Metálicos Enferrujados", "Esboço de Projeto do Jigsaw", "Conjunto de Regras Número 2", "Bols de Engrenagens", "Segredo de Amanda", "Esboço do Jigsaw", "Cronômetro Modificado", "Caixote de Engrenagens", "Fita de Vídeo", "Carta de Amanda"]
+      "nome_en": "Jigsaw's Baptism",
+      "complementos": ["Cinta de Combate", "Lâminas Interligadas", "Arquivo Médico de John", "Seringa Quebrada", "Máscara Facial", "Testamento", "Arame Farpado", "Lâminas Utilitárias", "Graxa de Oficina", "Bols de Engrenagens", "Esboço de Projeto do Jigsaw", "Conjunto de Regras Número 2", "Espinhos Metálicos Enferrujados", "Toxina de Lenta Liberação", "Segredo de Amanda", "Caixote de Engrenagens", "Esboço do Jigsaw", "Cronômetro Modificado", "Carta de Amanda", "Fita de Vídeo"],
+      "complementos_en": ["Combat Straps", "Interlocking Razor", "Johns Medical File", "Shattered Syringe", "Face Mask", "Last Will", "Razor Wires", "Utility Blades", "Workshop Grease", "Bag of Gears", "Jigsaws Annotated Plan", "Rules Set No.2", "Rusty Attachments", "Slow-Release Toxin", "Amandas Secret", "Crate of Gears", "Jigsaws Sketch", "Tampered Timer", "Amandas Letter", "Video Tape"]
     }
   ],
   "A Bruxa": [
     {
       "nome": "Catalisador Escurecido",
-      "complementos": ["Água do Pântano", "Mosca Morta", "Colar de Corda", "Casca de Ovo Cintilante", "Água Ensanguentada", "Salix Caprea", "Meia Casca de Ovo", "Colar Cipreste", "Asas de Libélula", "Ovo de Tartaruga Quebrado", "Lama Ensanguentada", "Grinalda de Salgueiro", "Colar de Orquídeas do Pântano", "Cigarra Seca", "Orelha Desfigurada", "Mão com Cicatrizes", "Coração de Vovó", "Algemas Enferrujadas", "Trapo Hortelã", "Sapato Ensopado"]
+      "nome_en": "Blackened Catalyst",
+      "complementos": ["Água do Pântano", "Mosca Morta", "Casca de Ovo Cintilante", "Colar de Corda", "Água Ensanguentada", "Colar Cipreste", "Asas de Libélula", "Meia Casca de Ovo", "Salix Caprea", "Lama Ensanguentada", "Ovo de Tartaruga Quebrado", "Cigarra Seca", "Colar de Orquídeas do Pântano", "Grinalda de Salgueiro", "Orelha Desfigurada", "Coração de Vovó", "Algemas Enferrujadas", "Mão com Cicatrizes", "Trapo Hortelã", "Sapato Ensopado"],
+      "complementos_en": ["Bog Water", "Dead Fly Mud", "Powdered Eggshell", "Rope Necklet", "Bloodied Water", "Cypress Necklet", "Dragonfly Wings", "Half Eggshell", "Pussy Willow Catkins", "Bloodied Mud", "Cracked Turtle Egg", "Dried Cicada", "Swamp Orchid Necklet", "Willow Wreath", "Disfigured Ear", "Grandmas Heart", "Rusty Shackles", "Scarred Hand", "Mint Rag", "Waterlogged Shoe"]
     }
   ],
   "O Cenobita": [
     {
       "nome": "Evocação da Dor",
-      "complementos": ["Vela Ardente", "Tira de Couro", "Prego Entortado", "Grilos Enérgicos", "Órgãos Liquefeitos", "Televisão Piscante", "Refeição Estragada", "Rato Empalado", "Luvas Contorcidas", "Sangue de Larry", "Restos de Larry", "Pilar da Tortura", "Fatia de Frank", "Coração de Frank", "Lente Preta Engordurada", "Fio Perfurante", "Dor Primordial", "Dente do Tagarela", "Presa do Engenheiro", "Configuração do Lamento Iridescente"]
+      "nome_en": "Summons of Pain",
+      "complementos": ["Prego Entortado", "Vela Ardente", "Tira de Couro", "Grilos Enérgicos", "Televisão Piscante", "Órgãos Liquefeitos", "Rato Empalado", "Refeição Estragada", "Luvas Contorcidas", "Coração de Frank", "Sangue de Larry", "Restos de Larry", "Fatia de Frank", "Pilar da Tortura", "Dente do Tagarela", "Lente Preta Engordurada", "Fio Perfurante", "Dor Primordial", "Presa do Engenheiro", "Configuração do Lamento Iridescente"],
+      "complementos_en": ["Bent Nail", "Burning Candle", "Leather Strip", "Lively Crickets", "Flickering Television", "Liquified Gore", "Skewered Rat", "Spoiled Meal", "Wriggling Maggots", "Franks Heart", "Larrys Blood", "Larrys Remains", "Slice of Frank", "Torture Pillar", "Chatterers Tooth", "Greasy Black Lens", "Impaling Wire", "Original Pain", "Engineers Fang", "Iridescent Lament Configuration"]
     }
   ],
   "O Cavaleiro": [
     {
       "nome": "Guardia Compagnia",
-      "complementos": ["Tabardo Esfarrapado", "Pão Seco", "Mapa do Reino", "Hidromel Saqueado", "Lâmina Tratada", "Grilhões de Aço Frio", "Convocação de Guerra", "Carne Seca de Cavalo", "Cabeça de Machado de Batalha", "Tocha da Vigia da Cidade", "Suporte Afiado", "Máscara de Ferro Lúgubre", "Cabo Quebrado", "Alicate de Serralheiro", "Sinos do Carcereiro", "Pederneira de Aço", "Martelo de Ferreiro", "Emplastro Curativo", "Estandarte da Companhia Iridescente", "Contrato do Cavaleiro"]
+      "nome_en": "Guardia Compagnia",
+      "complementos": ["Pão Seco", "Mapa do Reino", "Hidromel Saqueado", "Tabardo Esfarrapado", "Cabeça de Machado de Batalha", "Convocação de Guerra", "Grilhões de Aço Frio", "Carne Seca de Cavalo", "Lâmina Tratada", "Cabo Quebrado", "Máscara de Ferro Lúgubre", "Alicate de Serralheiro", "Suporte Afiado", "Tocha da Vigia da Cidade", "Martelo de Ferreiro", "Pederneira de Aço", "Emplastro Curativo", "Sinos do Carcereiro", "Estandarte da Companhia Iridescente", "Contrato do Cavaleiro"],
+      "complementos_en": ["Gritty Lump", "Map of the Realm", "Pillaged Mead", "Tattered Tabard", "Battle Axe Head", "Call to Arms", "Cold Steel Manacles", "Dried Horsemeat", "Treated Blade", "Broken Hilt", "Grim Iron Mask", "Ironworkers Tongs", "Sharpened Mount", "Town Watchs Torch", "Blacksmiths Hammer", "Flint and Steel", "Healing Poultice", "Jailers Chimes", "Iridescent Company Banner", "Knights Contract"]
     }
   ],
   "O Flagelo": [
     {
       "nome": "Corrupção Podre",
-      "complementos": ["Monóculo Lascado", "Dedaleira", "Comprimido de Placebo", "Composto Sete", "Rato Podre", "Pó de Pústula", "Notas Rasgadas", "Espinho de Cancro", "Bile da Praga", "Tônico de Rosa", "Sais do Umbral", "Frasco de Adrenalina", "Corvo Podre", "Composto Vinte Um", "Produto Químico da Alma", "Pedra da Invocação", "Diário de Vigo", "Anel do Alquimista", "Etiqueta de Laboratório Iridescente", "Composto Trinta e Três"]
+      "nome_en": "Blighted Corruption",
+      "complementos": ["Monóculo Lascado", "Composto Sete", "Dedaleira", "Comprimido de Placebo", "Rato Podre", "Espinho de Cancro", "Bile da Praga", "Pó de Pústula", "Notas Rasgadas", "Frasco de Adrenalina", "Corvo Podre", "Composto Vinte Um", "Tônico de Rosa", "Sais do Umbral", "Anel do Alquimista", "Produto Químico da Alma", "Pedra da Invocação", "Diário de Vigo", "Composto Trinta e Três", "Etiqueta de Laboratório Iridescente"],
+      "complementos_en": ["Chipped Monocle", "Compound Seven", "Foxglove", "Placebo Tablet", "Blighted Rat", "Canker Thorn", "Plague Bile", "Pustula Dust", "Shredded Notes", "Adrenaline Vial", "Blighted Crow", "Compound Twenty-One", "Rose Tonic", "Umbra Salts", "Alchemists Ring", "Soul Chemical", "Summoning Stone", "Vigos Journal", "Compound Thirty-Three", "Iridescent Blight Tag"]
     }
   ],
   "O Ghoul": [
     {
       "nome": "Terror de um olho só",
-      "complementos": ["Taiyaki", "O Ovo de Cabra Negra", "Carteira de Kaneki", "Avental de Anteiku", "Lenço Ensanguentado", "Guarda-Chuva de Hinami", "Fones de Ouvido do Hide", "Corrente Quebrada", "Bolsa do Kaneki", "Óculos da Rize", "Manto da Árvore Aogiri", "Luva do Mado", "Lirio-Aranha Vermelha", "Gravata de Amon", "Crachá de CCG", "Centopéia de Cabela Vermelha", "Café Fresco", "Aparato de Tortura", "Tapa-olho Iridescente", "Máscara de Yamori"]
+      "nome_en": "One-Eyed Terror",
+      "complementos": ["Avental de Anteiku", "Carteira de Kaneki", "Taiyaki", "O Ovo de Cabra Negra", "Lenço Ensanguentado", "Corrente Quebrada", "Fones de Ouvido do Hide", "Guarda-Chuva de Hinami", "Bolsa do Kaneki", "Gravata de Amon", "Manto da Árvore Aogiri", "Luva do Mado", "Lirio-Aranha Vermelha", "Óculos da Rize", "Crachá de CCG", "Café Fresco", "Centopéia de Cabela Vermelha", "Aparato de Tortura", "Tapa-olho Iridescente", "Máscara de Yamori"],
+      "complementos_en": ["Anteiku Apron", "Kanekis Wallet", "Taiyaki", "The Black Goats Egg", "Blood-Stained Handkerchief", "Broken Chain", "Hides Headphones", "Hinamis Umbrella", "Kanekis Satchel", "Amons Necktie", "Aogiri Tree Robe", "Mados Glove", "Red Spider Lily", "Rizes Glasses", "CCG ID Card", "Fresh Coffee", "Red-Headed Centipede", "Torture Apparatus", "Iridescent Eye Patch", "Yamoris Mask"]
     }
   ],
   "O Espírito": [
     {
       "nome": "Assombração dos Yamaoka",
-      "complementos": ["Zõri", "Tsuru", "Pente de Bambu Presenteado", "Amuleto Shiawase", "Talismã de Kaiun", "Relógio Quebrado da Rin", "Fita de Cabelo Branca", "Boné Enlameado da Gincana", "Bonsai Juniperus", "Óculos Maternos", "Uchiwa", "Senko Hanabi", "Katana Tsuba", "Flauta Enferrujada", "Wakizashi Saya", "Furin", "Flor de Cerejeira Seca", "Amuleto Yakuyoke", "Xícara de Chá Kintsugi", "Anel de Mãe e Filha"]
+      "nome_en": "Yamaoka's Haunting",
+      "complementos": ["Pente de Bambu Presenteado", "Tsuru", "Amuleto Shiawase", "Zõri", "Bonsai Juniperus", "Talismã de Kaiun", "Boné Enlameado da Gincana", "Relógio Quebrado da Rin", "Fita de Cabelo Branca", "Katana Tsuba", "Óculos Maternos", "Flauta Enferrujada", "Senko Hanabi", "Uchiwa", "Flor de Cerejeira Seca", "Furin", "Wakizashi Saya", "Amuleto Yakuyoke", "Xícara de Chá Kintsugi", "Anel de Mãe e Filha"],
+      "complementos_en": ["Gifted Bamboo Comb", "Origami Crane", "Shiawase Amulet", "Zōri", "Juniper Bonsai", "Kaiun Talisman", "Muddy Sports Day Cap", "Rins Broken Watch", "White Hair Ribbon", "Katana Tsuba", "Mothers Glasses", "Rusty Flute", "Senko Hanabi", "Uchiwa", "Dried Cherry Blossom", "Furin", "Wakizashi Saya", "Yakuyoke Amulet", "Kintsugi Teacup", "Mother-Daughter Ring"]
     }
   ],
   "A Mestra da Matilha": [
     {
       "nome": "Cheiro de Sangue",
-      "complementos": ["Piche Pegajoso", "Osso de Criatura", "Livro de Treinamento", "Coco Verde", "Pargo Defumado", "Malaguetas", "Luneta", "Corda Entrelaçada", "Cevada", "Sino de Treinamento", "Mapa Inacabado", "Coleira com Rebites", "Carne Gordurosa", "Cantil", "Peitoral de Couro", "Lata de Pólvora", "Espicha", "Carranca do Navio", "Romance Rasgado", "Manivela Iridescente"]
+      "nome_en": "Deadly Cane",
+      "complementos": ["Osso de Criatura", "Piche Pegajoso", "Livro de Treinamento", "Coco Verde", "Cevada", "Malaguetas", "Corda Entrelaçada", "Pargo Defumado", "Luneta", "Carne Gordurosa", "Coleira com Rebites", "Sino de Treinamento", "Mapa Inacabado", "Cantil", "Lata de Pólvora", "Peitoral de Couro", "Espicha", "Carranca do Navio", "Manivela Iridescente", "Romance Rasgado"],
+      "complementos_en": ["Creatures Bone", "Sticky Pitch", "Trainers Book", "Young Coconut", "Barley Meal", "Belaying Pins", "Knotted Rope", "Smoked Snapper", "Spyglass", "Fatty Meat", "Spiked Collar", "Training Bell", "Unfinished Map", "Waterskin", "Gunpowder Tin", "Leather Harness", "Marlinspike", "Ship Figurehead", "Iridescent Wheel Handle", "Torn Novel"]
     }
   ],
   "O Pesadelo": [
     {
       "nome": "Demônio dos Sonhos",
-      "complementos": ["Desenho de Criança", "Camisa de Lã", "Bloco de Ovelha", "Ancinho de Jardim", "Vestido Verde", "Rascunho da Nancy", "Protótipo de Garras", "Corda Resistente", "Bloco de Gato", "Vestido Azul", "Obra-Prima de Nancy", "Diluidor de Tinta", "Corda de Pular", "Bloco de Unicórnio", "Frasco de Comprimido", "Foto da Turma", "Corrente de Balanço", "Bloco Z", "Pincel Vermelho", "Caixa Negra"]
+      "nome_en": "Dream Demon",
+      "complementos": ["Ancinho de Jardim", "Desenho de Criança", "Bloco de Ovelha", "Camisa de Lã", "Bloco de Gato", "Vestido Verde", "Rascunho da Nancy", "Corda Resistente", "Protótipo de Garras", "Vestido Azul", "Corda de Pular", "Obra-Prima de Nancy", "Diluidor de Tinta", "Bloco de Unicórnio", "Bloco Z", "Foto da Turma", "Frasco de Comprimido", "Corrente de Balanço", "Caixa Negra", "Pincel Vermelho"],
+      "complementos_en": ["Garden Rake", "Kids Drawing", "Sheep Block", "Wool Shirt", "Cat Block", "Green Dress", "Nancys Sketch", "Outdoor Rope", "Prototype Claws", "Blue Dress", "Jump Rope", "Nancys Masterpiece", "Paint Thinner", "Unicorn Block", "Z Block", "Class Photo", "Pill Bottle", "Swing Chains", "Black Box", "Red Paint Brush"]
     }
   ],
   "O Desconhecido": [
     {
       "nome": "VDX",
-      "complementos": ["Tentativa de Esboço", "Pé de Coelho", "Olho Perfurado", "Foto Borrada", "Último Registro Conhecido", "Mochila Rasgada", "Mapa da Vítima", "Dispositivo de Origem Sigilosa", "Caderno de Teorias", "Relógio de Hipnose", "Pôster de Film Trash", "Molde de Pegada", "Matéria de Capa", "Caixa de Desaparecimento", "Máscara Caseira", "Frasco de Soro", "Cartucho de Jogo Obscuro", "Caixa de Leite Descartada", "Relatorrio da OSS Iridescente", "Capturado pela Escuridão"]
+      "nome_en": "UVX",
+      "complementos": ["Foto Borrada", "Olho Perfurado", "Pé de Coelho", "Tentativa de Esboço", "Dispositivo de Origem Sigilosa", "Último Registro Conhecido", "Caderno de Teorias", "Mochila Rasgada", "Mapa da Vítima", "Pôster de Film Trash", "Molde de Pegada", "Matéria de Capa", "Relógio de Hipnose", "Caixa de Desaparecimento", "Caixa de Leite Descartada", "Máscara Caseira", "Cartucho de Jogo Obscuro", "Frasco de Soro", "Capturado pela Escuridão", "Relatorrio da OSS Iridescente"],
+      "complementos_en": ["Blurry Photo", "Punctured Eyeball", "Rabbits Foot", "Sketch Attempt", "Device of Undisclosed Origin", "Last Known Recording", "Notebook of Theories", "Slashed Backpack", "Victims Map", "B-Movie Poster", "Footprint Cast", "Front-Page Article", "Hypnotists Watch", "Vanishing Box", "Discarded Milk Carton", "Homemade Mask", "Obscure Game Cartridge", "Serum Vial", "Captured by the Dark", "Iridescent OSS Report"]
     }
   ],
   "O Demogorgon": [
     {
       "nome": "Do Abismo",
-      "complementos": ["Fígado de Rato", "Coração Negro", "Cauda de Rato", "Abóbora Podre", "Óculos da Barb", "Vísceras de Miauzinha", "Tripa Verde Apodrecida", "Teias Viscosas", "Cobertura Pegajosa", "Vinhas Espinhosas", "Refrigerante da Eleven", "Pulmão de Cervo", "Isqueiro de Latão", "Cogumelo Violeta", "Resina do Mundo Invertido", "Ovo Desconhecido", "Cogumelo Vermelho", "Apito de Salva-Vidas", "Musgo Vermelho", "Líquen Leproso"]
+      "nome_en": "Of the Abyss",
+      "complementos": ["Coração Negro", "Fígado de Rato", "Cauda de Rato", "Abóbora Podre", "Óculos da Barb", "Vísceras de Miauzinha", "Tripa Verde Apodrecida", "Cobertura Pegajosa", "Teias Viscosas", "Isqueiro de Latão", "Pulmão de Cervo", "Refrigerante da Eleven", "Vinhas Espinhosas", "Cogumelo Violeta", "Apito de Salva-Vidas", "Ovo Desconhecido", "Resina do Mundo Invertido", "Cogumelo Vermelho", "Líquen Leproso", "Musgo Vermelho"],
+      "complementos_en": ["Black Heart", "Rat Liver", "Rat Tail", "Rotten Pumpkin", "Barbs Glasses", "Mews Guts", "Rotten Green Tripe", "Sticky Lining", "Viscous Webbing", "Brass Case Lighter", "Deer Lung", "Elevens Soda", "Thorny Vines", "Violet Waxcap", "Lifeguard Whistle", "Unknown Egg", "Upside Down Resin", "Vermilion Webcap", "Leprose Lichen", "Red Moss"]
     }
   ],
   "O Carrasco": [
     {
       "nome": "Ritos de Julgamento",
-      "complementos": ["Tira Preta", "Borboleta Morta", "Anel de Cobre", "Anel de Chumbo", "Tecido de Onça", "Fita Esquecida", "Caixa de Música da Cinderela", "Cabeça de Lança", "Boneca de Cera", "Pé de Manequim", "Pintura de Homem em Chamas", "Fotografia da Seita de Valtiel", "Dia de Neblina, Restos de Julgamento", "Chapa do Opressor", "Ovo Escarlate", "Ovo Cor de Ferrugem", "Livro Cerimonial Carmesim", "Livro das Memórias Perdidas", "Selo Iridescente de Metatron", "Cálice de Obsidiana"]
+      "nome_en": "Rites of Judgement",
+      "complementos": ["Tira Preta", "Anel de Cobre", "Borboleta Morta", "Anel de Chumbo", "Caixa de Música da Cinderela", "Fita Esquecida", "Tecido de Onça", "Cabeça de Lança", "Boneca de Cera", "Pintura de Homem em Chamas", "Pé de Manequim", "Dia de Neblina, Restos de Julgamento", "Chapa do Opressor", "Fotografia da Seita de Valtiel", "Livro Cerimonial Carmesim", "Livro das Memórias Perdidas", "Ovo Cor de Ferrugem", "Ovo Escarlate", "Selo Iridescente de Metatron", "Cálice de Obsidiana"],
+      "complementos_en": ["Black Strap", "Copper Ring", "Dead Butterfly", "Lead Ring", "Cinderella Music Box", "Forgotten Videotape", "Leopard-Print Fabric", "Spearhead", "Wax Doll", "Burning Man Painting", "Mannequin Foot", "Misty Day, Remains of Judgement", "Tablet of the Oppressor", "Valtiel Sect Photograph", "Crimson Ceremony Book", "Lost Memories Book", "Rust-Coloured Egg", "Scarlet Egg", "Iridescent Seal of Metatron", "Obsidian Goblet"]
     }
   ],
   "O Médico": [
     {
       "nome": "Faíscas de Carter",
-      "complementos": ["Eletrodo Mofado", "Cavaleiro de Bordo", "Ordem - Classe I", "Calma - Classe I", "Eletrodo Polido", "Restrição - Classe II", "Ordem - Classe II", "Disciplina - Classe II", "Calma - Classe II", "Fita Estragada", "Fita de Entrevista", "Eletrodo de Estímulo Elevado", "Restrição - Classe III", "Disciplina - Classe III", "Restrição - Anotações do Carter", "Ordem - Anotações do Carter", "Disciplina - Anotações do Carter", "Calma - Anotações do Carter", "Rei Iridescente", "Rainha Iridescente"]
+      "nome_en": "Carter's Spark",
+      "complementos": ["Calma - Classe I", "Ordem - Classe I", "Cavaleiro de Bordo", "Eletrodo Mofado", "Calma - Classe II", "Disciplina - Classe II", "Ordem - Classe II", "Restrição - Classe II", "Eletrodo Polido", "Disciplina - Classe III", "Restrição - Classe III", "Eletrodo de Estímulo Elevado", "Fita de Entrevista", "Fita Estragada", "Calma - Anotações do Carter", "Disciplina - Anotações do Carter", "Ordem - Anotações do Carter", "Restrição - Anotações do Carter", "Rei Iridescente", "Rainha Iridescente"],
+      "complementos_en": ["Calm - Class I", "Order - Class I", "Maple Knight", "Mouldy Electrode", "Calm - Class II", "Discipline - Class II", "Order - Class II", "Restraint - Class II", "Polished Electrode", "Discipline - Class III", "Restraint - Class III", "High Stimulus Electrode", "Interview Tape", "Scrapped Tape", "Calm - Carters Notes", "Discipline - Carters Notes", "Order - Carters Notes", "Restraint - Carters Notes", "Iridescent King", "Iridescent Queen"]
     }
   ],
   "O Ghost Face": [
     {
       "nome": "Mortalha da Noite",
-      "complementos": ["Perfume Barato", "Fósforos do Walleyes", "Compilação de Manchetes", "A Boa Filadélfia", "Tiras Afiveláveis", "Mapa Marcado", "Lente Teleobjetiva", "Diário de Olsen", "Agenda de Olsen", "Perfume Duradouro", "Clipe de Cinto para Faca", "Carteira de Olsen", "Caneta Mordida", "Bainha de Couro para Faca", "Rotina Detalhada da Vítima", "Monóculo de Visão Noturna", "Carteira de Motorista", "Bainha de Faca para Perna", "Câmera de Segurança Externa", "Ghost Face Flagrado na Fita"]
+      "nome_en": "Night Shroud",
+      "complementos": ["A Boa Filadélfia", "Perfume Barato", "Compilação de Manchetes", "Fósforos do Walleyes", "Tiras Afiveláveis", "Mapa Marcado", "Agenda de Olsen", "Diário de Olsen", "Lente Teleobjetiva", "Caneta Mordida", "Clipe de Cinto para Faca", "Perfume Duradouro", "Bainha de Couro para Faca", "Carteira de Olsen", "Carteira de Motorista", "Bainha de Faca para Perna", "Monóculo de Visão Noturna", "Rotina Detalhada da Vítima", "Ghost Face Flagrado na Fita", "Câmera de Segurança Externa"],
+      "complementos_en": ["Philly", "Cheap Cologne", "Headline Cut-Outs", "Walleyes Matchbook", "Cinch Straps", "Marked Map", "Olsens Address Book", "Olsens Journal", "Telephoto Lens", "Chewed Pen", "Knife Belt Clip", "Lasting Perfume", "Leather Knife Sheath", "Olsens Wallet", "Drivers License", "Drop-Leg Knife Sheath", "Night Vision Monocular", "Victims Detailed Routine", "Ghost Face Caught on Tape", "Outdoor Security Camera"]
     }
   ],
   "A Krasue": [
     {
       "nome": "Carne Sem Corpo",
-      "complementos": ["Tiara Quebrada", "Rato Azarado", "Primeiro Libretto", "Losango Pegajoso", "Pedaço de Malai", "Partitura Amassada", "Parasita Contorcido", "Olho de Porco", "Metrônomo Defeituoso", "Mão de Janjira", "Lenço Manchado", "Jornal Emoldurado", "Faca Cega", "Binóculo de Teatro", "Suíno Podre", "Restos de Lorenza", "Elixir Misterioso", "Cetro da Rainha", "Vestido Rasgado", "Cabeça de Galinha"]
+      "nome_en": "Unbodied Flesh",
+      "complementos": ["Tiara Quebrada", "Primeiro Libretto", "Rato Azarado", "Losango Pegajoso", "Pedaço de Malai", "Partitura Amassada", "Metrônomo Defeituoso", "Olho de Porco", "Parasita Contorcido", "Faca Cega", "Jornal Emoldurado", "Mão de Janjira", "Lenço Manchado", "Binóculo de Teatro", "Restos de Lorenza", "Elixir Misterioso", "Cetro da Rainha", "Suíno Podre", "Cabeça de Galinha", "Vestido Rasgado"],
+      "complementos_en": ["Broken Tiara", "First Libretto", "Luckless Mouse", "Sticky Lozenge", "Chunk of Malai", "Crumpled Sheet Music", "Defective Metronome", "Pigs Eye", "Wriggling Parasite", "Dulled Knife", "Framed Newspaper", "Janjiras Hand", "Spattered Handkerchief", "Theatre Binoculars", "Lorenzas Remains", "Mysterious Elixir", "Queens Sceptre", "Rotten Swine", "Chicken Head", "Shredded Gown"]
     }
   ],
   "O Número Um": [
     {
       "nome": "Cobaia Nº 001",
-      "complementos": ["Rádio de Meados do Século","Mural de Vitral","Labirinto de Contas","Id do Auxiliar de Enfermagem","Toca-Fitas Destruído","Ponteiros do Relógio","Patins Ensanguentado","Foguete de Pulso Despedaçado","Comunicador Estripado","Óculos de Pizza","Tentáculo de Pescoço","Navalha do Victor","Chapéu de Eletrodo","Certidão de Óbito Falsificada","Skate Quebrado","Restos de Coelho","Coleira de Eletrochoque","Aranha Viúva Negra","Peça de Xadrez","Chip Soteria Iridescente"]
+      "nome_en": "Test Subject #001",
+      "complementos": ["Labirinto de Contas", "Rádio de Meados do Século", "Id do Auxiliar de Enfermagem", "Mural de Vitral", "Patins Ensanguentado", "Ponteiros do Relógio", "Comunicador Estripado", "Foguete de Pulso Despedaçado", "Toca-Fitas Destruído", "Chapéu de Eletrodo", "Certidão de Óbito Falsificada", "Tentáculo de Pescoço", "Óculos de Pizza", "Navalha do Victor", "Aranha Viúva Negra", "Skate Quebrado", "Coleira de Eletrochoque", "Restos de Coelho", "Peça de Xadrez", "Chip Soteria Iridescente"],
+      "complementos_en": ["Bead Maze", "Mid-Century Radio", "Orderly ID", "Stained Glass Mural", "Bloody Roller Skate", "Clock Hands", "Gutted Supercom", "Shattered Wrist Rocket", "Smashed Cassette Deck", "Electrode Cap", "Forged Death Certificate", "Neck Tendril", "Pizza Goggles", "Victors Razor Blade", "Black Widow Spider", "Broken Skateboard", "Electroshock Collar", "Rabbit Remains", "Chess Piece", "Iridescent Soteria Chip"]
     }
   ],
   "O Matador": [
     {
       "nome": "Mal Onipresente",
-      "complementos": ["Sapato de Enfermeira","Roda Amassada","Garra de Jardinagem","Agulha de Tricô","Sorriso Sangrento","Saco de Dormir","Língua-de-Sogra","Lixo Tóxico","Café do Legista","Remela","Pedra de Sauna","Fragmentos de Espelho","Dois Pregos","Alumínio Marcado","Saca-Rolhas Desaparecido","Revista Ensanguentada","Fusível Queimado","Distintivo do Delegado","Motor de Barco Iridescente","Dinheiro Sujo"]
+      "nome_en": "Omnipresent Evil",
+      "complementos": ["Roda Amassada", "Garra de Jardinagem", "Agulha de Tricô", "Sapato de Enfermeira", "Sorriso Sangrento", "Café do Legista", "Língua-de-Sogra", "Saco de Dormir", "Lixo Tóxico", "Remela", "Alumínio Marcado", "Fragmentos de Espelho", "Pedra de Sauna", "Dois Pregos", "Revista Ensanguentada", "Fusível Queimado", "Distintivo do Delegado", "Saca-Rolhas Desaparecido", "Dinheiro Sujo", "Motor de Barco Iridescente"],
+      "complementos_en": ["Bent Wheel", "Garden Claw", "Knitting Needle", "Orderlys Shoe", "Bloody Smile", "Coroners Coffee", "Party Noisemaker", "Sleeping Bag", "Toxic Waste", "Eye Goop", "Imprinted Aluminum", "Mirror Shards", "Sauna Rock", "Two Nails", "Bloody Magazine", "Burnt Fuse", "Deputys Badge", "Missing Corkscrew", "Dirty Money", "Iridescent Boat Motor"]
     }
   ],
   "O Julgamento": [
     {
       "nome": "A Vontade dos Deuses",
-      "complementos": ["Marca de Herege","Desafio de Koenrad","Crânio de Buscador","Apoio para Oração","Telereceptor da Aurora","Marca do Adepto","Grilhões Magnetizados","Chifre de Guerra do Confessor","Chama Imortal","Ícone Alado Sagrado","Vidro Superaquecido","Venda dos Devotos","Tocha Elétrica","Ordem da Inquisição","Olhos de Gerhardt","Detonadores Improvisados","Correntes do Herege","Coroa do Destruidor","Pena de Obsidiana","Espelho dos Criadores"]
+      "nome_en": "Will of the Gods",
+      "complementos": ["Marca de Herege", "Desafio de Koenrad", "Apoio para Oração", "Crânio de Buscador", "Telereceptor da Aurora", "Chifre de Guerra do Confessor", "Grilhões Magnetizados", "Marca do Adepto", "Chama Imortal", "Venda dos Devotos", "Tocha Elétrica", "Ícone Alado Sagrado", "Ordem da Inquisição", "Vidro Superaquecido", "Correntes do Herege", "Coroa do Destruidor", "Olhos de Gerhardt", "Detonadores Improvisados", "Espelho dos Criadores", "Pena de Obsidiana"],
+      "complementos_en": ["Heretics Mark", "Koenrads Gauntlet", "Prayer Kneeler", "Searchers Skull", "Auroras Telereceptor", "Confessors War Horn", "Magnetised Manacles", "Mark of the Adherent", "Undying Flame", "Blindfold of the Devoted", "Electric Torch", "Holy Winged Icon", "Order of Inquisition", "Superheated Glass", "Chains of the Heretic", "Crown of the Destroyer", "Eyes of Gerhardt", "Improvised Detonators", "Mirror of the Creators", "Obsidian Feather"]
     }
   ]
 }
-
-
-
-
