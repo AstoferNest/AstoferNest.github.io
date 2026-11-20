@@ -713,6 +713,17 @@ html:not(.dark) .dbd-char-col::after {
 }
 
 
+/* Borda dourada no Item/Poder e nos Add-ons quando travados */
+.dbd-items-zone:has(.bd-lock.locked) #displayItemBox,
+.dbd-items-zone:has(.bd-lock.locked) #displayAddon1,
+.dbd-items-zone:has(.bd-lock.locked) #displayAddon2,
+.dbd-items-zone:has(.bd-lock.locked) #crItemBox,
+.dbd-items-zone:has(.bd-lock.locked) #crAddon1,
+.dbd-items-zone:has(.bd-lock.locked) #crAddon2 {
+  border-color: var(--accent-lock) !important;
+  box-shadow: 0 0 12px rgba(212, 163, 74, 0.25);
+}
+
 /* ================= RESPONSIVIDADE MOBILE ================= */
 @media (max-width: 767px) {
   /* 1. Respiro lateral mais enxuto */
