@@ -1,0 +1,47 @@
+/* ====== Roleta de Classes ====== */
+
+/* Bordinha do losango na cor da classe (segue o formato do losango). --cc é definida pelo JS */
+.cr-ring {
+  --cc: #888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter:
+    drop-shadow(2px 0 0 var(--cc))
+    drop-shadow(-2px 0 0 var(--cc))
+    drop-shadow(0 2px 0 var(--cc))
+    drop-shadow(0 -2px 0 var(--cc))
+    drop-shadow(0 0 8px var(--cc));
+}
+
+/* Etiqueta da classe */
+.cr-chip {
+  --cc: #888;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  padding: 1px 9px;
+  border-radius: 999px;
+  background: var(--cc);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, .25);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--cc) 55%, transparent);
+}
+.cr-chip small {
+  font-size: 10px;
+  font-weight: 700;
+  opacity: .85;
+  padding-left: 5px;
+  border-left: 1px solid rgba(255, 255, 255, .35);
+}
+
+.cr-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
