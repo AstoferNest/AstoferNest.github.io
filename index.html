@@ -763,13 +763,14 @@
                     for (const tipo of Object.keys(itemsData.surv)) {
                         const found = itemsData.surv[tipo].find(it => h4(fmt(it.nome)) === part(5));
                         if (found) {
+                            const pairs = addonPairs(found);
                             item = {
-                                namePt: found.nome, nameEn: found.nome,
+                                namePt: found.nome, nameEn: found.nome_en || found.nome,
                                 rel: 'itens/surv/' + fmt(found.nome) + '.png',
                                 icon: ITEM_TYPE_ICON[tipo] || 'fa-toolbox',
-                                addons: addonCodes.map(c => found.complementos.find(a => h4(fmt(a)) === c))
+                                addons: addonCodes.map(c => pairs.find(a => h4(fmt(a.pt)) === c))
                                     .filter(Boolean)
-                                    .map(a => ({ namePt: a, nameEn: a, rel: 'itens/surv/complementos/' + fmt(a) + '.png' }))
+                                    .map(a => ({ namePt: a.pt, nameEn: a.en, rel: 'itens/surv/complementos/' + fmt(a.pt) + '.png' }))
                             };
                             break;
                         }
@@ -779,13 +780,14 @@
                 const entry = itemsData.kill[character.namePt.toLowerCase().trim()];
                 const poder = entry && entry[0];
                 if (poder) {
+                    const pairs = addonPairs(poder);
                     item = {
-                        namePt: poder.nome, nameEn: poder.nome,
+                        namePt: poder.nome, nameEn: poder.nome_en || poder.nome,
                         rel: 'itens/kill/poderes/' + fmt(poder.nome) + '.png',
                         icon: 'fa-skull',
-                        addons: addonCodes.map(c => poder.complementos.find(a => h4(fmt(a)) === c))
+                        addons: addonCodes.map(c => pairs.find(a => h4(fmt(a.pt)) === c))
                             .filter(Boolean)
-                            .map(a => ({ namePt: a, nameEn: a, rel: 'itens/kill/' + fmt(character.namePt) + '/' + fmt(a) + '.png' }))
+                            .map(a => ({ namePt: a.pt, nameEn: a.en, rel: 'itens/kill/' + fmt(character.namePt) + '/' + fmt(a.pt) + '.png' }))
                     };
                 }
             }
