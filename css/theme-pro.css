@@ -84,11 +84,6 @@ body {
   max-width: 100% !important;
 }
 
-main.max-w-7xl {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
-
 .border {
   border-width: 1px !important;
 }
@@ -600,53 +595,91 @@ html:not(.dark) .dbd-seg-btn.is-kill.is-active {
 /* ================= RETRATO ATMOSFÉRICO (ESTILO MOCKUP) ================= */
 .dbd-char-col {
   position: relative;
-  padding: 1.5rem 1.25rem 1.75rem !important;
+  padding: 0 !important;
+  min-height: 390px;
   overflow: hidden;
+  justify-content: flex-end !important;
   background:
-    radial-gradient(ellipse 85% 65% at 50% 35%, rgba(107, 163, 190, 0.14) 0%, transparent 72%),
-    radial-gradient(circle at 50% 100%, rgba(0, 0, 0, 0.75) 0%, transparent 65%),
-    var(--bg-inset) !important;
+    radial-gradient(ellipse 90% 55% at 50% 25%, rgba(130, 165, 185, 0.22) 0%, transparent 70%),
+    radial-gradient(ellipse 70% 45% at 20% 40%, rgba(255, 255, 255, 0.06) 0%, transparent 65%),
+    radial-gradient(ellipse 70% 45% at 85% 60%, rgba(107, 163, 190, 0.10) 0%, transparent 65%),
+    #0e1116 !important;
 }
 
-/* Moldura interna fina igual ao design */
+/* Moldura interna fina (efeito card AAA) */
 .dbd-char-col::before {
   content: "";
   position: absolute;
-  inset: 12px;
-  border: 1px solid var(--border-subtle);
+  inset: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-md);
   pointer-events: none;
-  z-index: 1;
+  z-index: 3;
 }
 
-/* Remove o fundo de pergaminho só no palco principal e faz o retrato fundir na névoa */
+/* Degradê escuro na base para destacar o nome e fundir o recorte do personagem */
+.dbd-char-col::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(11, 12, 15, 0.96) 0%,
+    rgba(11, 12, 15, 0.65) 26%,
+    transparent 55%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Retrato ocupa toda a altura/largura da coluna com zoom ajustado */
 .dbd-char-col .char-card {
-  background-image: none !important;
-  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.55));
+  position: absolute !important;
+  inset: 0;
   width: 100% !important;
-  max-width: 240px;
-  margin: 0 auto;
+  height: 100% !important;
+  max-width: none !important;
+  aspect-ratio: auto !important;
+  background-image: none !important;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.6));
+  z-index: 1;
 }
 
 .dbd-char-col .char-card img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: bottom center;
-  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+  object-fit: cover;
+  object-position: center 20%;
+  transform: scale(1.12) translateY(8px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 68%, transparent 98%);
+  mask-image: linear-gradient(to bottom, #000 68%, transparent 98%);
 }
 
-/* Sobrepõe nome, função e cadeado na base esfumada do retrato */
+/* Nome, função e cadeado ancorados na base */
 .dbd-char-col > div:last-child {
   position: relative;
-  z-index: 2;
-  margin-top: -3.25rem !important;
+  z-index: 4;
+  width: 100%;
+  padding: 0 1.25rem 1.35rem;
+  margin-top: 0 !important;
 }
 
 /* Ajuste para o Tema Claro */
 html:not(.dark) .dbd-char-col {
   background:
-    radial-gradient(ellipse 85% 65% at 50% 35%, rgba(44, 110, 143, 0.12) 0%, transparent 72%),
-    var(--bg-inset) !important;
+    radial-gradient(ellipse 90% 55% at 50% 25%, rgba(44, 110, 143, 0.18) 0%, transparent 70%),
+    #e5e8ee !important;
+}
+html:not(.dark) .dbd-char-col::after {
+  background: linear-gradient(
+    to top,
+    rgba(242, 243, 245, 0.96) 0%,
+    rgba(242, 243, 245, 0.65) 26%,
+    transparent 55%
+  );
+}
+
+/* Corrige o espaçamento vertical das abas Builds Destaque e Todos os Perks */
+.space-y-5 > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 1.25rem;
 }
