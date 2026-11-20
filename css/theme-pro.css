@@ -563,3 +563,30 @@ html:not(.dark) .dbd-seg-btn.is-kill.is-active {
 #tagClear {
   color: var(--accent-survivor) !important;
 }
+
+
+/* ================= AJUSTES FINAIS: HEADER EM 1 LINHA + LUPA ================= */
+
+/* Header tudo lado a lado em desktop */
+@media (min-width: 1180px) {
+  .dbd-header > div {
+    flex-wrap: nowrap !important;
+    gap: 1rem !important;
+  }
+  .dbd-nav {
+    flex-wrap: nowrap !important;
+    gap: 0.15rem;
+  }
+  .dbd-tab {
+    padding: 0.65rem 0.65rem;
+    font-size: 0.74rem;
+    white-space: nowrap;
+  }
+}
+
+/* Centraliza perfeitamente a lupa nos campos de busca (#pgSearch e #inputSearch) */
+.relative > .fa-magnifying-glass {
+  top: 50% !important;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
