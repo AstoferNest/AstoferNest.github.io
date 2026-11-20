@@ -11,6 +11,7 @@
 
         Parâmetros (na URL):
           role=survivor | killer     lado da build (padrão: survivor)
+          mode=normal | classes      modo normal ou 1 perk por classe
           spin=0                     desliga a animação de roleta
           names=0                    esconde os nomes
           scale=1.5                  tamanho (1 = 100%)
@@ -19,7 +20,7 @@
 
         Exemplos:
           overlay.html?role=survivor
-          overlay.html?role=killer&scale=1.25&names=0
+          overlay.html?role=killer&mode=classes&scale=1.25
     -->
     <style>
         html, body {
@@ -101,6 +102,32 @@
             width: 92%;
             height: 92%;
         }
+
+        /* borda colorida da classe no modo classes */
+        .ov-perk-frame.has-class {
+            --cc: #888;
+            filter:
+                drop-shadow(2px 0 0 var(--cc))
+                drop-shadow(-2px 0 0 var(--cc))
+                drop-shadow(0 2px 0 var(--cc))
+                drop-shadow(0 -2px 0 var(--cc))
+                drop-shadow(0 0 8px var(--cc));
+        }
+        .ov-class-chip {
+            --cc: #888;
+            display: inline-block;
+            margin-top: 4px;
+            padding: 1px 8px;
+            border-radius: 999px;
+            background: var(--cc);
+            color: #fff;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
         .ov-name { font-size: 13px; font-weight: 700; line-height: 1.15; margin-top: 4px; color: #e5e5e5; }
         #stage.nonames .ov-name, #stage.nonames .ov-char-name { display: none; }
 
@@ -150,11 +177,23 @@
     // ---------- Parâmetros ----------
     const q = new URLSearchParams(location.search);
     const ROLE = q.get('role') === 'killer' ? 'killer' : 'survivor';
+    const MODE = q.get('mode') === 'classes' ? 'classes' : 'normal';
     const SPIN = q.get('spin') !== '0';
     const NAMES = q.get('names') !== '0';
     const SCALE = parseFloat(q.get('scale')) || 1;
     const LAYOUT = q.get('layout') === 'v' ? 'v' : 'h';
     const AUTO = Math.max(0, parseInt(q.get('auto'), 10) || 0);
+
+    // ---------- Classes (mesmas do class-roulette.js) ----------
+    const SLOTS = {
+        survivor: ['Healer', 'Tank', 'Suporte', 'Objetivo'],
+        killer:   ['Assassino', 'Controlador', 'Batedor', 'Tank']
+    };
+    const COLORS = {
+        Tank: '#3b82f6', Healer: '#22c55e', Batedor: '#f97316', Suporte: '#eab308',
+        Assassino: '#b3121c', Controlador: '#a8683a', Objetivo: '#a8683a'
+    };
+    const INK = { Suporte: '#1a1400' };
 
     // ---------- Caminhos (iguais aos do site) ----------
     const JSON_DIR = 'json/';
@@ -166,6 +205,7 @@
     const perkSlug = s => s.toString().toLowerCase().normalize('NFD').replace(/ /g, '').replace(/'/g, '').replace(/-/g, '').replace(/&/g, 'and').replace(/!/g, '').replace(/:/g, '').replace(/\p{Diacritic}/gu, '');
     const charPhotoSlug = s => s.toLowerCase().replace(/\s+/g, '-');
     const cleanChar = c => c.replace(/Perk ensinável de /gi, '').trim();
+    const norm = s => (s || '').toString().toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').trim();
     const GENERAL_NAME = 'perk ensinável geral';
     const pick = a => a[Math.floor(Math.random() * a.length)];
     const shuffle = a => { const r = [...a]; for (let i = r.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [r[i], r[j]] = [r[j], r[i]]; } return r; };
@@ -173,7 +213,7 @@
     const imgs = rel => IMG_REMOTE ? [encodeURI(IMG_LOCAL + rel), encodeURI(IMG_REMOTE + rel)] : [encodeURI(IMG_LOCAL + rel)];
 
     // imagem com cadeia de fallback (local -> remoto -> some)
-    const imgTag = (rel, cls) => `<img ${cls ? `class="${cls}" ` : ''}src="${imgs(rel)[0]}" data-srcs="${esc(imgs(rel).join('|'))}" data-idx="0" alt="">`;
+    const imgTag = (rel, cls, styleAttr) => `<img ${cls ? `class="${cls}" ` : ''}${styleAttr ? `style="${esc(styleAttr)}" ` : ''}src="${imgs(rel)[0]}" data-srcs="${esc(imgs(rel).join('|'))}" data-idx="0" alt="">`;
     document.addEventListener('error', e => {
         const el = e.target;
         if (!(el instanceof HTMLImageElement) || !el.dataset.srcs) return;
@@ -195,7 +235,11 @@
         const names = [...new Set(pk.perks.map(p => cleanChar(p.character)).filter(n => n.toLowerCase() !== GENERAL_NAME))]
             .sort((a, b) => a.localeCompare(b));
         data.chars = names.map(n => ({ name: n, rel: 'personagens/' + charPhotoSlug(n) + '.png' }));
-        data.perks = pk.perks.map(p => ({ name: p.perk_name, rel: type + '/iconperks-' + perkSlug(p.perk_name) + '.png' }));
+        data.perks = pk.perks.map(p => ({
+            name: p.perk_name,
+            classe: p.classe_rpg || '',
+            rel: type + '/iconperks-' + perkSlug(p.perk_name) + '.png'
+        }));
         data.itemsSurv = is;
         data.itemsKill = {};
         Object.keys(ik).forEach(k => { data.itemsKill[k.toLowerCase().trim()] = ik[k]; });
@@ -220,9 +264,20 @@
         };
     }
 
+    function rollPerks() {
+        if (MODE === 'classes') {
+            const slots = SLOTS[ROLE];
+            const pools = slots.map(cls => data.perks.filter(p => norm(p.classe) === norm(cls)));
+            if (pools.every(pool => pool.length > 0)) {
+                return slots.map((cls, i) => ({ ...pick(pools[i]), slotClass: cls }));
+            }
+        }
+        return shuffle(data.perks).slice(0, 4);
+    }
+
     function rollBuild() {
         const character = pick(data.chars);
-        return { character, perks: shuffle(data.perks).slice(0, 4), item: rollItem(character) };
+        return { character, perks: rollPerks(), item: rollItem(character) };
     }
 
     // ---------- Render ----------
@@ -249,11 +304,22 @@
             </div>
             <div class="ov-sep"></div>
             <div class="ov-perks">
-                ${b.perks.map(p => `
+                ${b.perks.map(p => {
+                    const cls = p.slotClass || '';
+                    const color = cls ? (COLORS[cls] || '#888') : '';
+                    const ink = cls ? (INK[cls] || '#fff') : '';
+                    const frameCls = cls ? 'ov-perk-frame has-class' : 'ov-perk-frame';
+                    const frameStyle = cls ? `--cc:${color}` : '';
+                    const chipHtml = cls
+                        ? `<span class="ov-class-chip" style="--cc:${color};color:${ink}">${esc(cls)}</span>`
+                        : '';
+                    return `
                     <div class="ov-perk">
-                        <div class="ov-perk-frame">${imgTag('perk_purple.png')}${imgTag(p.rel, 'ov-icon')}</div>
+                        <div class="${frameCls}" style="${esc(frameStyle)}">${imgTag('perk_purple.png')}${imgTag(p.rel, 'ov-icon')}</div>
                         <div class="ov-name">${esc(p.name)}</div>
-                    </div>`).join('')}
+                        ${chipHtml}
+                    </div>`;
+                }).join('')}
             </div>
             <div class="ov-sep"></div>
             <div class="ov-items">
