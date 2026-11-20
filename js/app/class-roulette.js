@@ -115,10 +115,10 @@
         Object.keys(LABELS).forEach(id => { const el = $(id); if (el) el.textContent = t(LABELS[id][0], LABELS[id][1]); });
     }
 
-    // ---------- HTML da aba (mesmo desenho da Roleta principal) ----------
+// ---------- HTML da aba (alinhado ao novo Design System) ----------
     const slotHtml = i => `
         <div id="crSlot${i}" class="flex flex-col items-center text-center group">
-            <div id="crRing${i}" class="cr-ring my-4">
+            <div id="crRing${i}" class="cr-ring my-2">
                 <div id="crDiamond${i}" class="perk-diamond is-empty">
                     <div class="perk-diamond-inner" id="crInner${i}">
                         <img id="crImg${i}" src="" class="w-full h-full object-contain hidden">
@@ -126,130 +126,127 @@
                     </div>
                 </div>
             </div>
-            <span id="crName${i}" class="text-sm font-bold text-neutral-300 line-clamp-2 w-36">Slot ${i + 1}</span>
+            <span id="crName${i}" class="text-xs font-bold text-neutral-300 line-clamp-2 w-36 mt-1">Slot ${i + 1}</span>
             <span id="crChip${i}" class="cr-chip"></span>
             <button type="button" id="crLockPerk${i}" class="bd-lock" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
         </div>`;
 
     const PANE_HTML = `
-        <div class="bg-dbd-card px-4 py-3 rounded-xl border border-neutral-800 shadow-xl flex flex-wrap items-center gap-x-4 gap-y-3">
-            <div class="flex items-center gap-2">
-                <button id="crRoleSurvBtn" type="button" class="px-4 py-2 rounded-lg border-2 border-dbd-cyan bg-dbd-cyan/10 text-dbd-cyan text-xs font-bold flex items-center justify-center gap-2 transition hover:bg-dbd-cyan/20">
-                    <img src="./css/img/surv.png" style="width:35px"> <span>Survivor</span>
+        <div class="dbd-control-bar">
+            <div class="dbd-segmented">
+                <button id="crRoleSurvBtn" type="button" class="dbd-seg-btn is-surv is-active">
+                    <img src="./css/img/surv.png" alt=""> <span>Survivor</span>
                 </button>
-                <button id="crRoleKillBtn" type="button" class="px-4 py-2 rounded-lg border-2 border-neutral-800 text-neutral-400 text-xs font-bold flex items-center justify-center gap-2 transition hover:border-dbd-red hover:text-dbd-red">
-                    <img src="./css/img/killer.png" style="width:35px"> <span>Killer</span>
+                <button id="crRoleKillBtn" type="button" class="dbd-seg-btn is-kill">
+                    <img src="./css/img/killer.png" alt=""> <span>Killer</span>
                 </button>
             </div>
-            <div class="hidden md:block w-px h-8 bg-neutral-800"></div>
-            <div class="flex flex-wrap items-center gap-2">
-                <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer hover:text-white bg-neutral-900/80 px-3 py-2 rounded-lg border border-neutral-800">
-                    <input type="checkbox" id="crChkChar" checked class="w-4 h-4 accent-dbd-red rounded">
-                    <i class="fa-solid fa-user-gear text-dbd-muted"></i> <span id="crLblChar">Randomizar Personagem</span>
+
+            <div class="dbd-toggle-group">
+                <label class="dbd-toggle">
+                    <input type="checkbox" id="crChkChar" checked>
+                    <span id="crLblChar">Randomizar Personagem</span>
                 </label>
-                <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer hover:text-white bg-neutral-900/80 px-3 py-2 rounded-lg border border-neutral-800">
-                    <input type="checkbox" id="crChkItems" checked class="w-4 h-4 accent-dbd-red rounded">
-                    <i class="fa-solid fa-box-open text-dbd-muted"></i> <span id="crLblItems">Item / Poder + Addons</span>
+                <label class="dbd-toggle">
+                    <input type="checkbox" id="crChkItems" checked>
+                    <span id="crLblItems">Item / Poder + Addons</span>
                 </label>
-                <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer hover:text-white bg-neutral-900/50 px-3 py-2 rounded-lg border border-neutral-800">
-                    <input type="checkbox" id="crChkSound" checked class="w-4 h-4 accent-dbd-red rounded">
-                    <i class="fa-solid fa-volume-high text-dbd-muted"></i> <span id="crLblSound">Efeito Sonoro de Roleta</span>
+                <label class="dbd-toggle">
+                    <input type="checkbox" id="crChkSound" checked>
+                    <span id="crLblSound">Efeito Sonoro</span>
                 </label>
             </div>
-            <div class="flex items-center gap-4 ml-auto">
-                <button id="crBtnSpin" type="button" class="px-7 py-3 bg-dbd-red hover:bg-dbd-redHover text-white font-black text-sm uppercase tracking-widest rounded-xl shadow-lg shadow-dbd-red/40 glow-pulse transition flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-dice-five text-lg"></i> <span id="crLblSpin">GIRAR ROLETA DE CLASSES</span>
+
+            <div class="flex items-center gap-3 ml-auto">
+                <button id="crBtnSpin" type="button" class="dbd-spin-btn">
+                    <i class="fa-solid fa-dice-five"></i> <span id="crLblSpin">GIRAR ROLETA DE CLASSES</span>
                 </button>
             </div>
         </div>
 
-        <div class="bg-dbd-card px-4 py-3 rounded-xl border border-neutral-800 shadow-xl flex flex-wrap items-center gap-3">
-            <span class="text-[10px] font-bold uppercase text-dbd-muted flex items-center gap-2">
-                <i class="fa-solid fa-layer-group text-dbd-cyan"></i> <span id="crLblHint">Sempre 1 perk de cada classe:</span>
-            </span>
+        <div class="dbd-control-bar" style="padding:0.65rem 1rem">
+            <span class="dbd-section-label" id="crLblHint">Sempre 1 perk de cada classe:</span>
             <div id="crLegend" class="cr-legend"></div>
         </div>
 
-        <div class="bg-dbd-card p-6 md:p-8 rounded-xl border border-neutral-800 flex flex-col justify-between fog-overlay shadow-2xl min-h-[640px]">
-            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-neutral-800 pb-3">
-                <h2 class="text-sm font-black text-white uppercase tracking-wider" id="crLblResult">Resultado por Classes</h2>
-                <div class="flex items-center gap-2">
-                    <button type="button" id="crSave" class="px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-xs font-bold rounded border border-neutral-700 text-white flex items-center gap-1.5 transition">
-                        <i class="fa-solid fa-floppy-disk text-dbd-cyan"></i> <span id="crBtnSave">Salvar Build</span>
+        <div class="dbd-stage">
+            <div class="dbd-stage-head">
+                <h2 class="text-base font-bold text-white uppercase tracking-wider" id="crLblResult">Resultado por Classes</h2>
+                <div class="flex flex-wrap items-center gap-2">
+                    <button type="button" id="crSave" class="dbd-action-btn">
+                        <i class="fa-solid fa-floppy-disk"></i> <span id="crBtnSave">Salvar Build</span>
                     </button>
-                    <button type="button" id="crImage" class="px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-xs font-bold rounded border border-neutral-700 text-white flex items-center gap-1.5 transition">
-                        <i class="fa-solid fa-image text-dbd-cyan"></i> <span id="crBtnImg">Imagem</span>
+                    <button type="button" id="crImage" class="dbd-action-btn">
+                        <i class="fa-solid fa-image"></i> <span id="crBtnImg">Imagem</span>
                     </button>
-                    <button type="button" id="crLink" class="px-3 py-1.5 bg-dbd-red hover:bg-dbd-redHover text-xs font-bold rounded border border-neutral-700 text-white flex items-center gap-1.5 transition">
+                    <button type="button" id="crLink" class="dbd-action-btn is-primary">
                         <i class="fa-solid fa-link"></i> <span id="crBtnLink">Compartilhar Link</span>
                     </button>
                 </div>
             </div>
 
-            <div class="my-6 flex-grow flex items-center">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full items-stretch">
+            <div class="dbd-stage-body">
+                <div class="dbd-char-col space-y-4">
+                    <div id="crCharFrame" class="char-card w-52 relative flex items-center justify-center text-dbd-cyan">
+                        <img id="crCharImg" src="" alt="Character" class="w-full h-full object-contain hidden">
+                        <i id="crCharIcon" class="fa-solid fa-user-ninja text-8xl text-neutral-600"></i>
+                    </div>
+                    <div>
+                        <h3 id="crCharName" class="text-2xl font-bold text-white uppercase tracking-wide">--</h3>
+                        <span id="crCharRole" class="text-xs text-dbd-cyan font-bold uppercase tracking-widest block mt-0.5">Survivor</span>
+                        <div><button type="button" id="crLockChar" class="bd-lock" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button></div>
+                    </div>
+                </div>
 
-                    <div class="lg:col-span-4 flex flex-col items-center justify-center text-center space-y-4 bg-neutral-950/80 p-6 rounded-xl border border-neutral-800 shadow-inner">
-                        <div id="crCharFrame" class="char-card w-52 md:w-64 relative flex items-center justify-center text-dbd-cyan">
-                            <img id="crCharImg" src="" alt="Character" class="w-full h-full object-contain hidden">
-                            <i id="crCharIcon" class="fa-solid fa-user-ninja text-8xl text-neutral-600"></i>
-                        </div>
-                        <div>
-                            <h3 id="crCharName" class="text-2xl font-black text-white uppercase tracking-wide">--</h3>
-                            <span id="crCharRole" class="text-xs text-dbd-cyan font-bold uppercase tracking-wider">Survivor</span>
-                            <div><button type="button" id="crLockChar" class="bd-lock" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button></div>
+                <div class="dbd-loadout-col">
+                    <div class="dbd-perks-zone">
+                        <label class="dbd-section-label mb-3 block text-center md:text-left" id="crLblPerks">Vantagens (1 por classe)</label>
+                        <div class="grid grid-cols-2 xl:grid-cols-4 gap-4 items-start justify-items-center">
+                            ${[0, 1, 2, 3].map(slotHtml).join('')}
                         </div>
                     </div>
 
-                    <div class="lg:col-span-8 flex flex-col gap-4">
-                        <div class="bg-neutral-950/80 p-5 rounded-xl border border-neutral-800 flex-grow">
-                            <label class="block text-xs font-bold text-dbd-muted uppercase text-center md:text-left" id="crLblPerks">Vantagens (1 por classe)</label>
-                            <div class="grid grid-cols-2 xl:grid-cols-4 gap-x-4 items-start justify-items-center">
-                                ${[0, 1, 2, 3].map(slotHtml).join('')}
+                    <div class="dbd-items-zone">
+                        <div class="flex items-center gap-4">
+                            <div id="crItemBox" class="w-20 h-20 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center text-dbd-cyan overflow-hidden p-1.5 shrink-0">
+                                <img id="crItemImg" src="" class="w-full h-full object-contain hidden">
+                                <i id="crItemIcon" class="fa-solid fa-toolbox text-3xl"></i>
+                            </div>
+                            <div>
+                                <div class="dbd-section-label" id="crLblItemTitle">Item / Poder</div>
+                                <div id="crItemName" class="text-sm font-bold text-white mt-0.5">Nenhum</div>
+                                <button type="button" id="crLockItem" class="bd-lock" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
                             </div>
                         </div>
-
-                        <div class="bg-neutral-950/80 p-4 rounded-xl border border-neutral-800 flex flex-wrap items-center justify-between gap-4">
-                            <div class="flex items-center gap-4">
-                                <div id="crItemBox" class="w-24 h-24 rounded-xl bg-neutral-900 border border-neutral-700 flex items-center justify-center text-dbd-cyan overflow-hidden p-1.5 shrink-0">
-                                    <img id="crItemImg" src="" class="w-full h-full object-contain hidden">
-                                    <i id="crItemIcon" class="fa-solid fa-toolbox text-4xl"></i>
+                        <div class="flex items-start gap-4">
+                            <div class="flex flex-col items-center w-24 text-center gap-1.5">
+                                <div id="crAddon1" class="w-16 h-16 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 p-1.5" title="Add-on 1">
+                                    <img id="crAddonImg1" src="" class="w-full h-full object-contain hidden">
+                                    <i class="fa-solid fa-puzzle-piece text-lg"></i>
                                 </div>
-                                <div>
-                                    <div class="text-[11px] text-dbd-muted uppercase font-bold" id="crLblItemTitle">Item / Poder</div>
-                                    <div id="crItemName" class="text-base font-bold text-white">Nenhum</div>
-                                    <button type="button" id="crLockItem" class="bd-lock" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
-                                </div>
+                                <span id="crAddonName1" class="text-[11px] font-semibold text-neutral-400 line-clamp-2">Add-on 1</span>
                             </div>
-                            <div class="flex items-start gap-4">
-                                <div class="flex flex-col items-center w-28 text-center gap-1.5">
-                                    <div id="crAddon1" class="w-20 h-20 rounded-xl bg-neutral-900 border border-neutral-700 flex items-center justify-center text-neutral-400 p-1.5" title="Add-on 1">
-                                        <img id="crAddonImg1" src="" class="w-full h-full object-contain hidden">
-                                        <i class="fa-solid fa-puzzle-piece text-xl"></i>
-                                    </div>
-                                    <span id="crAddonName1" class="text-[11px] font-semibold text-neutral-300 line-clamp-2">Add-on 1</span>
+                            <div class="flex flex-col items-center w-24 text-center gap-1.5">
+                                <div id="crAddon2" class="w-16 h-16 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 p-1.5" title="Add-on 2">
+                                    <img id="crAddonImg2" src="" class="w-full h-full object-contain hidden">
+                                    <i class="fa-solid fa-puzzle-piece text-lg"></i>
                                 </div>
-                                <div class="flex flex-col items-center w-28 text-center gap-1.5">
-                                    <div id="crAddon2" class="w-20 h-20 rounded-xl bg-neutral-900 border border-neutral-700 flex items-center justify-center text-neutral-400 p-1.5" title="Add-on 2">
-                                        <img id="crAddonImg2" src="" class="w-full h-full object-contain hidden">
-                                        <i class="fa-solid fa-puzzle-piece text-xl"></i>
-                                    </div>
-                                    <span id="crAddonName2" class="text-[11px] font-semibold text-neutral-300 line-clamp-2">Add-on 2</span>
-                                </div>
+                                <span id="crAddonName2" class="text-[11px] font-semibold text-neutral-400 line-clamp-2">Add-on 2</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="text-xs text-neutral-500 text-center border-t border-neutral-800/80 pt-3">
-                <i class="fa-solid fa-circle-info text-dbd-cyan"></i> <span id="crTip">Os filtros do Acervo de Conteúdo também valem aqui.</span>
+            <div class="dbd-stage-foot">
+                <span id="crTip">Os filtros do Acervo de Conteúdo também valem aqui.</span>
             </div>
         </div>
+
         <!-- HISTÓRICO -->
         <div class="bg-dbd-card p-5 rounded-xl border border-neutral-800 space-y-3 shadow-xl">
             <div style="display:flex;justify-content:space-between;align-items:center;gap:.5rem;flex-wrap:wrap">
-                <h3 class="text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
+                <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
                     <i class="fa-solid fa-clock-rotate-left text-dbd-cyan"></i> <span id="crHistTitle">Histórico de Sorteios</span>
                     <span id="crHistoryCount" class="bd-badge surv">0</span>
                 </h3>
@@ -262,7 +259,7 @@
 
         <!-- OVERLAY OBS (MODO STREAMER) -->
         <details class="bd-details">
-            <summary><i class="fa-solid fa-tv" style="color:#a855f7"></i> <span id="crObsTitle">Overlay para OBS (Modo Streamer)</span></summary>
+            <summary><i class="fa-solid fa-tv" style="color:var(--accent-purple)"></i> <span id="crObsTitle">Overlay para OBS (Modo Streamer)</span></summary>
             <p class="bd-hint" id="crObsHint" style="margin-bottom:.9rem"></p>
             <div class="bd-form-grid">
                 <div class="bd-span-2">
@@ -303,6 +300,7 @@
                 </div>
             </div>
         </details>`;
+    
 
     // ---------- Legenda (chips das 4 classes + quantos perks elegíveis) ----------
     function renderLegend() {
@@ -398,18 +396,19 @@
         updateLocks();
     }
 
-    // ---------- Lado ----------
+
+// ---------- Lado ----------
     function setCrRole(role) {
         if (crSpinning || role === crRole) return;
         crRole = role;
         crResult = null;
         resetLocks();
         $('crRoleSurvBtn').className = role === 'survivor'
-            ? "px-4 py-2 rounded-lg border-2 border-dbd-cyan bg-dbd-cyan/10 text-dbd-cyan text-xs font-bold flex items-center justify-center gap-2 transition hover:bg-dbd-cyan/20"
-            : "px-4 py-2 rounded-lg border-2 border-neutral-800 text-neutral-400 text-xs font-bold flex items-center justify-center gap-2 transition hover:border-dbd-cyan hover:text-dbd-cyan";
+            ? "dbd-seg-btn is-surv is-active"
+            : "dbd-seg-btn is-surv";
         $('crRoleKillBtn').className = role === 'killer'
-            ? "px-4 py-2 rounded-lg border-2 border-dbd-red bg-dbd-red/10 text-dbd-red text-xs font-bold flex items-center justify-center gap-2 transition hover:bg-dbd-red/20"
-            : "px-4 py-2 rounded-lg border-2 border-neutral-800 text-neutral-400 text-xs font-bold flex items-center justify-center gap-2 transition hover:border-dbd-red hover:text-dbd-red";
+            ? "dbd-seg-btn is-kill is-active"
+            : "dbd-seg-btn is-kill";
         render(null);
         renderLegend();
     }
