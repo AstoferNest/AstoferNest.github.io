@@ -1,82 +1,72 @@
 /* ====== Roleta de Classes ====== */
 
+/* Bordinha do losango na cor da classe (segue o formato do losango). --cc é definida pelo JS */
 .cr-ring {
---cc: #888;
-display: flex;
-align-items: center;
-justify-content: center;
-transition: transform 0.2s ease;
-filter:
-drop-shadow(2px 0 0 var(--cc))
-drop-shadow(-2px 0 0 var(--cc))
-drop-shadow(0 2px 0 var(--cc))
-drop-shadow(0 -2px 0 var(--cc))
-drop-shadow(0 0 10px var(--cc));
-}
-
-.ui-perk-slot:hover .cr-ring {
-transform: scale(1.06);
+  --cc: #888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter:
+    drop-shadow(2px 0 0 var(--cc))
+    drop-shadow(-2px 0 0 var(--cc))
+    drop-shadow(0 2px 0 var(--cc))
+    drop-shadow(0 -2px 0 var(--cc))
+    drop-shadow(0 0 8px var(--cc));
 }
 
 /* Etiqueta da classe */
 .cr-chip {
---cc: #888;
-display: inline-flex;
-align-items: center;
-gap: 5px;
-margin-top: 6px;
-padding: 2px 10px;
-border-radius: 999px;
-background: var(--cc);
-color: #fff;
-font-size: 10px;
-font-weight: 800;
-letter-spacing: .06em;
-text-transform: uppercase;
-border: 1px solid rgba(255, 255, 255, .28);
-box-shadow: 0 2px 10px color-mix(in srgb, var(--cc) 55%, transparent);
-transition: transform 0.15s ease, filter 0.15s ease;
+  --cc: #888;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  padding: 1px 9px;
+  border-radius: 999px;
+  background: var(--cc);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, .25);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--cc) 55%, transparent);
 }
-
-.cr-chip:hover {
-transform: translateY(-1px);
-filter: brightness(1.1);
-}
-
 .cr-chip small {
-font-size: 10px;
-font-weight: 700;
-opacity: .88;
-padding-left: 5px;
-border-left: 1px solid rgba(255, 255, 255, .35);
+  font-size: 10px;
+  font-weight: 700;
+  opacity: .85;
+  padding-left: 5px;
+  border-left: 1px solid rgba(255, 255, 255, .35);
 }
 
 .cr-legend {
-display: flex;
-flex-wrap: wrap;
-gap: .5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
 }
 
+/* Cursor de ajuda nas etiquetas das classes */
 .cr-chip[data-cr-tip] {
-cursor: help;
+  cursor: help;
 }
 
-/* Caixinha de hint da classe */
+/* Caixinha de hint da classe (mesma base de .perk-tip, na cor da classe) */
 .perk-tip.cr-tip {
---cc: #888;
-border-color: var(--cc);
-box-shadow: 0 12px 30px rgba(0, 0, 0, .75), 0 0 16px color-mix(in srgb, var(--cc) 40%, transparent);
+  --cc: #888;
+  border-color: var(--cc);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .65), 0 0 14px color-mix(in srgb, var(--cc) 35%, transparent);
 }
 
 .perk-tip.cr-tip .perk-tip-head {
-background: linear-gradient(
-135deg,
-color-mix(in srgb, var(--cc) 40%, #0b0b0d) 0%,
-color-mix(in srgb, var(--cc) 82%, #0b0b0d) 100%
-);
-border-bottom-color: color-mix(in srgb, var(--cc) 60%, #fff);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--cc) 40%, #0b0b0d) 0%,
+    color-mix(in srgb, var(--cc) 82%, #0b0b0d) 100%
+  );
+  border-bottom-color: color-mix(in srgb, var(--cc) 60%, #fff);
 }
 
 .perk-tip.cr-tip .perk-tip-sub {
-color: rgba(255, 255, 255, .85);
+  color: rgba(255, 255, 255, .82);
 }
