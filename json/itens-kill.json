@@ -43,7 +43,7 @@
     {
       "nome": "A Brincadeira Acabou",
       "nome_en": "Playtime's Over",
-      "complementos": ["Olhos de Boneco", "Caixa do Cara Legal", "Luz Estroboscópica", "Bisturi Minúsculo", "Chave de Fenda Automática", "Faca de Entalhe Elétrica", "Spray Capilar e Vela", "Corda de Pular", "Furadeira Elétrica", "TV Portátil", "Venendo de Rato", "Tênis de Corrida", "Travesseiro de Seda", "Régua", "Fragmentos de Espelho", "Pilha de Pregos", "Sacola Plástica", "Navalha Reta", "Capacete", "Amuleto Iridescente"],
+      "complementos": ["Olhos de Boneco", "Caixa do Cara Legal", "Luz Estroboscópica", "Bisturi Minúsculo", "Chave de Fenda Automática", "Faca de Entalhe Elétrica", "Spray Capilar e Vela", "Corda de Pular", "Furadeira Elétrica", "TV Portátil", "Veneno de Rato", "Tênis de Corrida", "Travesseiro de Seda", "Régua", "Fragmentos de Espelho", "Pilha de Pregos", "Sacola Plástica", "Navalha Reta", "Capacete", "Amuleto Iridescente"],
       "complementos_en": ["Doll Eyes", "Good Guy Box", "Strobing Light", "Tiny Scalpel", "Automatic Screwdriver", "Electric Carving Knife", "Hair Spray & Candle", "Jump Rope", "Power Drill", "Portable TV", "Rat Poison", "Running Shoes", "Silk Pillow", "Yardstick", "Mirror Shards", "Pile of Nails", "Plastic Bag", "Straight Razor",   "Hard Hat", "Iridescent Amulet"]
     }
   ],
@@ -75,7 +75,7 @@
     {
       "nome": "Perseguição Oculta",
       "nome_en": "Hidden Pursuit",
-      "complementos": ["Rações de Cereais", "Pássaro Bebedor", "Ovomorfo", "Relógio da Ripley", "Entranhas do Ash", "Boné do Brett", "Fone da Tripulação", "Mapa Estelar da Lambert", "Bastão de Luz", "Capacete de Emergência", "Capacete do Kane", "Pele Fundida", "Machadinha Multiuso", "Faixa do Parker", "Caixa de Transporte", "Arma de Arpão", "Pino de Autodestruição", "Teclado Simiótico", "Sangue Ácido", "Aguilhão Improvisado"],
+      "complementos": ["Rações de Cereais", "Pássaro Bebedor", "Ovomorfo", "Relógio da Ripley", "Entranhas do Ash", "Boné do Brett", "Fone da Tripulação", "Mapa Estelar da Lambert", "Bastão de Luz", "Capacete de Emergência", "Capacete do Kane", "Pele Fundida", "Machadinha Multiuso", "Faixa do Parker", "Caixa de Transporte", "Arma de Arpão", "Pino de Autodestruição", "Teclado Semiótico", "Sangue Ácido", "Aguilhão Improvisado"],
       "complementos_en": ["Cereal Rations", "Drinking Bird", "Ovomorph", "Ripley's Watch", "Ash's Innards", "Brett's Cap",  "Crew Headset", "Lambert's Star Map", "Light Wand", "Emergency Helmet", "Kane's Helmet",  "Moulted Skin", "Multipurpose Hatchet",  "Parker's Headband", "Cat Carrier", "Harpoon Gun", "Self-Destruct Bolt", "Semiotic Keyboard", "Acidic Blood", "Improvised Cattle Prod"]
     }
   ],
@@ -113,9 +113,9 @@
   ],
   "A Enfermeira": [
     {
-      "nome": "Ultimo Suspiro de Spencer",
+      "nome": "Último Suspiro de Spencer",
       "nome_en": "Spencer's Last Breath",
-      "complementos": ["Colher de Metal", "Flanela Xadrez", "Pente Fino Branco", "Cavalo de Madeira", "Lembrança do Homem Mau", "Tesouro do Garoto Catatônico", "Cinto Escuro", "Bracelete Sem Brilho", "Relógio de Bolso", "Suspiro Ansioso", "Respiração Atáxica", "Arfada Frágil", "Respiração Ofegante", "Respiração Espasmódica", "Último Suspiro do Homem Mau", "Último Sopro de Campbell", "Último Suspiro de Jenner", "Úlimo Suspiro de Kavanagh", "Caixa de Fósforo", "Marcador de Página Rasgado"],
+      "complementos": ["Colher de Metal", "Flanela Xadrez", "Pente Fino Branco", "Cavalo de Madeira", "Lembrança do Homem Mau", "Tesouro do Garoto Catatônico", "Cinto Escuro", "Bracelete Sem Brilho", "Relógio de Bolso", "Suspiro Ansioso", "Respiração Atáxica", "Arfada Frágil", "Respiração Ofegante", "Respiração Espasmódica", "Último Suspiro do Homem Mau", "Último Sopro de Campbell", "Último Suspiro de Jenner", "Último Suspiro de Kavanagh", "Caixa de Fósforo", "Marcador de Página Rasgado"],
       "complementos_en": ["Metal Spoon", "Plaid Flannel", "White Nit Comb", "Wooden Horse", "Bad Man Keepsake", "Catatonic Boys Treasure", "Dark Cincture", "Dull Bracelet", "Pocket Watch", "Anxious Gasp", "Ataxic Respiration", "Fragile Wheeze", "Heavy Panting", "Spasmodic Breath", "Bad Mans Last Breath", "Campbells Last Breath", "Jenners Last Breath", "Kavanaghs Last Breath", "Matchbox", "Torn Bookmark"]
     }
   ],
@@ -123,7 +123,7 @@
     {
       "nome": "Dilúvio do Medo",
       "nome_en": "Deluge of Fear",
-      "complementos": ["Placa da Cabana", "Espelho da Mãe", "Jornal Velho", "Cópia da Fita", "Punhado de Cabelo", "Relógi9o de Reiko", "Pano Encharcado", "Pedra de Poço", "Rede de Pesca de Yoichi", "Unhas Ensanguentadas", "Pente da Mãe", "Cata-Vento Frágil", "Desenho do Anel", "Água de Poço", "Foto Distorcida", "Painel de Edição de Fitas", "Telefone", "Videocassete", "Fita Iridescente", "Controle Remoto"],
+      "complementos": ["Placa da Cabana", "Espelho da Mãe", "Jornal Velho", "Cópia da Fita", "Punhado de Cabelo", "Relógio de Reiko", "Pano Encharcado", "Pedra de Poço", "Rede de Pesca de Yoichi", "Unhas Ensanguentadas", "Pente da Mãe", "Cata-Vento Frágil", "Desenho do Anel", "Água de Poço", "Foto Distorcida", "Painel de Edição de Fitas", "Telefone", "Videocassete", "Fita Iridescente", "Controle Remoto"],
       "complementos_en": ["Cabin Sign", "Mothers Mirror", "Old Newspaper", "Videotape Copy", "Clump of Hair", "Reikos Watch", "Sea-Soaked Cloth", "Well Stone", "Yoichis Fishing Net", "Bloody Fingernails", "Mothers Comb", "Rickety Pinwheel", "Ring Drawing", "Well Water", "Distorted Photo", "Tape Editing Deck", "Telephone", "VCR", "Iridescent Videotape", "Remote Control"]
     }
   ],
@@ -155,7 +155,7 @@
     {
       "nome": "Medo de Fazbear",
       "nome_en": "Fazbear's Fright",
-      "complementos": ["Prato de Papel Engordurado", "Propaganda de Precisa-se de Ajuda", "Menu do Restaurante", "Pizza Estragada", "Telefone do Escritório", "Chapéu de Festa", "Cortina Rasgada", "Insígnia de Segurança", "Serrpentina de Papel", "Cordas da Guitarra da Bonnie", "Babador da Chica", "Gancho de Foxy", "Chapéu de Freddy", "Homem Roxo Desenhado", "Acessar Painel", "Cartaz: Comemore!", "CPU ENDO", "Bolsa de Espólios", "Moeda-Faz", "Resquíscio Iridescente"],
+      "complementos": ["Prato de Papel Engordurado", "Propaganda de Precisa-se de Ajuda", "Menu do Restaurante", "Pizza Estragada", "Telefone do Escritório", "Chapéu de Festa", "Cortina Rasgada", "Insígnia de Segurança", "Serpentina de Papel", "Cordas da Guitarra da Bonnie", "Babador da Chica", "Gancho de Foxy", "Chapéu de Freddy", "Homem Roxo Desenhado", "Acessar Painel", "Cartaz: Comemore!", "CPU ENDO", "Bolsa de Espólios", "Moeda-Faz", "Resquício Iridescente"],
       "complementos_en": ["Greasy Paper Plate", "Help Wanted Ad", "Restaurant Menu", "Rotten Pizza", "Office Phone", "Party Hat", "Ripped Curtain", "Security Guards Badge", "Streamers", "Bonnies Guitar Strings", "Chicas Bib", "Foxys Hook", "Freddys Hat", "Purple Guy Drawing", "Access Panel", "Celebrate! Poster", "Endo CPU", "Loot Bag", "Faz-Coin", "Iridescent Remnant"]
     }
   ],
@@ -203,7 +203,7 @@
     {
       "nome": "Vírus T",
       "nome_en": "T-Virus",
-      "complementos": ["Intestino do Brian", "Seringa Danificada", "Manual de Combate da S.T.A.R.S", "Pulseira de Visitante", "Pulseira de Administrador", "Injeção de Adrenalina", "Sangue do Marvin", "Olho do Mikhail", "Coração de Zumbi", "Língua de Liker", "Vinhas da Planta 43", "Injeção de Serotonina", "Amostra de Vírus T", "Cruor d Tirano", "Moeda de Recuperação Quebrada", "Tinteiro Seco", "Sanduíche da Jill", "Parasita NE-A", "Distintivo da Umbrella Iridescente", "Distintivo S.T.A.R.S. Quebrado"],
+      "complementos": ["Intestino do Brian", "Seringa Danificada", "Manual de Combate da S.T.A.R.S", "Pulseira de Visitante", "Pulseira de Administrador", "Injeção de Adrenalina", "Sangue do Marvin", "Olho do Mikhail", "Coração de Zumbi", "Língua de Liker", "Vinhas da Planta 43", "Injeção de Serotonina", "Amostra de Vírus T", "Cruor de Tirano", "Moeda de Recuperação Quebrada", "Tinteiro Seco", "Sanduíche da Jill", "Parasita NE-A", "Distintivo da Umbrella Iridescente", "Distintivo S.T.A.R.S. Quebrado"],
       "complementos_en": ["Brians Intestine", "Damaged Syringe", "S.T.A.R.S. Field Combat Manual", "Visitor Wristband", "Admin Wristband", "Adrenaline Injector", "Marvins Blood", "Mikhails Eye", "Zombie Heart", "Licker Tongue", "Plant 43 Vines", "Serotonin Injector", "T-Virus Sample", "Tyrant Gore", "Broken Recovery Coin", "Depleted Ink Ribbon", "Jills Sandwich", "Ne-α Parasite", "Iridescent Umbrella Badge", "Shattered S.T.A.R.S. Badge"]
     }
   ],
@@ -211,7 +211,7 @@
     {
       "nome": "Batismo do Jigsaw",
       "nome_en": "Jigsaw's Baptism",
-      "complementos": ["Cinta de Combate", "Lâminas Interligadas", "Arquivo Médico de John", "Seringa Quebrada", "Máscara Facial", "Testamento", "Arame Farpado", "Lâminas Utilitárias", "Graxa de Oficina", "Bols de Engrenagens", "Esboço de Projeto do Jigsaw", "Conjunto de Regras Número 2", "Espinhos Metálicos Enferrujados", "Toxina de Lenta Liberação", "Segredo de Amanda", "Caixote de Engrenagens", "Esboço do Jigsaw", "Cronômetro Modificado", "Carta de Amanda", "Fita de Vídeo"],
+      "complementos": ["Cinta de Combate", "Lâminas Interligadas", "Arquivo Médico de John", "Seringa Quebrada", "Máscara Facial", "Testamento", "Arame Farpado", "Lâminas Utilitárias", "Graxa de Oficina", "Bolsa de Engrenagens", "Esboço de Projeto do Jigsaw", "Conjunto de Regras Número 2", "Espinhos Metálicos Enferrujados", "Toxina de Lenta Liberação", "Segredo de Amanda", "Caixote de Engrenagens", "Esboço do Jigsaw", "Cronômetro Modificado", "Carta de Amanda", "Fita de Vídeo"],
       "complementos_en": ["Combat Straps", "Interlocking Razor", "Johns Medical File", "Shattered Syringe", "Face Mask", "Last Will", "Razor Wires", "Utility Blades", "Workshop Grease", "Bag of Gears", "Jigsaws Annotated Plan", "Rules Set No.2", "Rusty Attachments", "Slow-Release Toxin", "Amandas Secret", "Crate of Gears", "Jigsaws Sketch", "Tampered Timer", "Amandas Letter", "Video Tape"]
     }
   ],
@@ -251,7 +251,7 @@
     {
       "nome": "Terror de um olho só",
       "nome_en": "One-Eyed Terror",
-      "complementos": ["Avental de Anteiku", "Carteira de Kaneki", "Taiyaki", "O Ovo de Cabra Negra", "Lenço Ensanguentado", "Corrente Quebrada", "Fones de Ouvido do Hide", "Guarda-Chuva de Hinami", "Bolsa do Kaneki", "Gravata de Amon", "Manto da Árvore Aogiri", "Luva do Mado", "Lirio-Aranha Vermelha", "Óculos da Rize", "Crachá de CCG", "Café Fresco", "Centopéia de Cabela Vermelha", "Aparato de Tortura", "Tapa-olho Iridescente", "Máscara de Yamori"],
+      "complementos": ["Avental de Anteiku", "Carteira de Kaneki", "Taiyaki", "O Ovo de Cabra Negra", "Lenço Ensanguentado", "Corrente Quebrada", "Fones de Ouvido do Hide", "Guarda-Chuva de Hinami", "Bolsa do Kaneki", "Gravata de Amon", "Manto da Árvore Aogiri", "Luva do Mado", "Lírio-Aranha Vermelha", "Óculos da Rize", "Crachá de CCG", "Café Fresco", "Centopéia de Cabeça Vermelha", "Aparato de Tortura", "Tapa-olho Iridescente", "Máscara de Yamori"],
       "complementos_en": ["Anteiku Apron", "Kanekis Wallet", "Taiyaki", "The Black Goats Egg", "Blood-Stained Handkerchief", "Broken Chain", "Hides Headphones", "Hinamis Umbrella", "Kanekis Satchel", "Amons Necktie", "Aogiri Tree Robe", "Mados Glove", "Red Spider Lily", "Rizes Glasses", "CCG ID Card", "Fresh Coffee", "Red-Headed Centipede", "Torture Apparatus", "Iridescent Eye Patch", "Yamoris Mask"]
     }
   ],
@@ -283,7 +283,7 @@
     {
       "nome": "VDX",
       "nome_en": "UVX",
-      "complementos": ["Foto Borrada", "Olho Perfurado", "Pé de Coelho", "Tentativa de Esboço", "Dispositivo de Origem Sigilosa", "Último Registro Conhecido", "Caderno de Teorias", "Mochila Rasgada", "Mapa da Vítima", "Pôster de Film Trash", "Molde de Pegada", "Matéria de Capa", "Relógio de Hipnose", "Caixa de Desaparecimento", "Caixa de Leite Descartada", "Máscara Caseira", "Cartucho de Jogo Obscuro", "Frasco de Soro", "Capturado pela Escuridão", "Relatorrio da OSS Iridescente"],
+      "complementos": ["Foto Borrada", "Olho Perfurado", "Pé de Coelho", "Tentativa de Esboço", "Dispositivo de Origem Sigilosa", "Último Registro Conhecido", "Caderno de Teorias", "Mochila Rasgada", "Mapa da Vítima", "Pôster de Film Trash", "Molde de Pegada", "Matéria de Capa", "Relógio de Hipnose", "Caixa de Desaparecimento", "Caixa de Leite Descartada", "Máscara Caseira", "Cartucho de Jogo Obscuro", "Frasco de Soro", "Capturado pela Escuridão", "Relatorio da OSS Iridescente"],
       "complementos_en": ["Blurry Photo", "Punctured Eyeball", "Rabbits Foot", "Sketch Attempt", "Device of Undisclosed Origin", "Last Known Recording", "Notebook of Theories", "Slashed Backpack", "Victims Map", "B-Movie Poster", "Footprint Cast", "Front-Page Article", "Hypnotists Watch", "Vanishing Box", "Discarded Milk Carton", "Homemade Mask", "Obscure Game Cartridge", "Serum Vial", "Captured by the Dark", "Iridescent OSS Report"]
     }
   ],
