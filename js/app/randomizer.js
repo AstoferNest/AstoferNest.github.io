@@ -2151,7 +2151,10 @@ async function copyObsLink(which) {
     const kwRx = new RegExp('(?<![\\p{L}])(' + Object.keys(kwMap).sort((a, b) => b.length - a.length).join('|') + ')(?![\\p{L}])', 'giu');
 
     function descToHtml(text) {
-        const lines = esc(text).replace(/\{[^}]*\}/g, '<b>X</b>').split('\n');
+        const lines = esc(text)
+            .replace(/&lt;(\/?)i&gt;/gi, '<$1i>')      // libera só <i> e </i>
+            .replace(/\{[^}]*\}/g, '<b>X</b>')
+            .split('\n');
         let html = '', inList = false;
         lines.forEach(raw => {
             const ln = raw.trim();
