@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Randomizador de Perks de Assassino e Sobreviventes | Randomizador Dead by Daylight</title>
-    <meta name="description" content="Curte uma roleta de Perks, esse randomizador gera perks aleatórios para Dead by Daylight.">
+    <title>Roleta de Perks | Dead by Daylight Loadout Generator</title>
+    <meta name="description" content="Curte uma roleta de Perks? Esse randomizador gera builds e desafios aleatórios para Dead by Daylight.">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#1a1a2e">
+    <meta name="theme-color" content="#0d0f14">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -15,36 +15,43 @@
     <link rel="apple-touch-icon" href="css/img/favicon.png">
     <link rel="shortcut icon" href="css/img/favicon.png">
 
-    <meta property="st:section" content="Curte uma roleta de Perks, esse randomizador gera perks aleatórios para Dead by Daylight.">
-    <meta name="twitter:title" content="Randomizador de Perks de Assassino e Sobreviventes | randomizador Dead by Daylight">
-    <meta name="twitter:description" content="Curte uma roleta de Perks, esse randomizador gera perks aleatórios para Dead by Daylight.">
+    <meta property="st:section" content="Curte uma roleta de Perks? Esse randomizador gera perks aleatórios para Dead by Daylight.">
+    <meta name="twitter:title" content="Roleta de Perks | Randomizador Dead by Daylight">
+    <meta name="twitter:description" content="Curte uma roleta de Perks? Esse randomizador gera perks aleatórios para Dead by Daylight.">
+
+    <!-- Google Fonts: Inter & Rajdhani para estética Gamer Pro -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <link rel="stylesheet" href="css/randomizer.css">
     <link rel="stylesheet" href="css/classes.css">
-    <!-- Estilos das abas "Builds Destaque" e "Criar Build" -->
     <link rel="stylesheet" href="css/builds.css">
 </head>
 <body class="bg-dbd-bg text-dbd-text min-h-screen flex flex-col font-sans transition-colors duration-200 antialiased selection:bg-dbd-red selection:text-white">
 
     <!-- HEADER / NAVIGATION BAR -->
-    <header class="border-b border-neutral-800 bg-neutral-900/90 backdrop-blur sticky top-0 z-40 shadow-xl">
+    <header class="ui-header sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
 
             <!-- Logo & Brand -->
-            <div class="flex items-center space-x-3">
-                <img src="./css/img/random.png" style="width:60px">
-                <div>
-                    <h1 class="text-xl font-black tracking-wider text-white uppercase flex items-center gap-2">
-                        <span class="text-dbd-red">ROLETA</span>  DE PERKS
-                    </h1>
-                    <p class="text-xs text-dbd-muted" id="txtSubtitle">Gerador de Build aleatória para Dead by Daylight</p>
+            <a href="#" onclick="switchTab('main'); return false;" class="flex items-center space-x-3 group focus:outline-none">
+                <div class="ui-logo-wrap">
+                    <img src="./css/img/random.png" alt="Logo" class="w-11 h-11 object-contain transition-transform duration-300 group-hover:rotate-12">
                 </div>
-            </div>
+                <div>
+                    <h1 class="ui-brand-title text-xl md:text-2xl font-black tracking-wider text-white uppercase flex items-center gap-1.5 leading-none">
+                        <span class="text-dbd-red">ROLETA</span> DE PERKS
+                    </h1>
+                    <p class="text-[11px] text-dbd-muted mt-0.5" id="txtSubtitle">Gerador de Build aleatória para Dead by Daylight</p>
+                </div>
+            </a>
 
             <!-- Navigation Tabs -->
-            <nav class="flex flex-wrap items-center bg-neutral-950 p-1 rounded-lg border border-neutral-800" style="flex-wrap:wrap;gap:2px">
+            <nav class="ui-nav flex flex-wrap items-center p-1 rounded-xl" aria-label="Navegação principal">
                 <button onclick="switchTab('main')" id="tabMainBtn" class="px-4 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-2 bg-dbd-red text-white shadow">
                     <i class="fa-solid fa-dice"></i> <span id="navRandomizer">Modo Roleta</span>
                 </button>
@@ -55,24 +62,24 @@
                     <i class="fa-solid fa-hammer"></i> <span id="navBuilder">Criar Build</span>
                 </button>
                 <button onclick="switchTab('pool')" id="tabPoolBtn" class="px-4 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-2 text-dbd-muted hover:text-white">
-                    <i class="fa-solid fa-boxes-stacked"></i> <span id="navPool">Seletor de Conteúdo</span>
+                    <i class="fa-solid fa-boxes-stacked"></i> <span id="navPool">Acervo de Conteúdo</span>
                 </button>
                 <button onclick="switchTab('perks')" id="tabPerksBtn" class="px-4 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-2 text-dbd-muted hover:text-white">
                     <i class="fa-solid fa-gem"></i> <span id="navPerks">Todos os Perks</span>
                 </button>
                 <button onclick="switchTab('saved')" id="tabSavedBtn" class="px-4 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-2 text-dbd-muted hover:text-white">
                     <i class="fa-solid fa-bookmark"></i> <span id="navSaved">Builds Salvas</span>
-                    <span id="savedCountBadge" class="ml-1 bg-neutral-800 text-[10px] px-1.5 py-0.5 rounded-full text-dbd-cyan">0</span>
+                    <span id="savedCountBadge" class="ml-0.5 bg-neutral-800 text-[10px] px-1.5 py-0.5 rounded-full text-dbd-cyan font-mono">0</span>
                 </button>
             </nav>
 
             <!-- Language & Theme Controls -->
-            <div class="flex items-center space-x-3">
-                <div class="flex items-center bg-neutral-950 rounded border border-neutral-800 p-0.5 text-xs font-bold">
-                    <button id="langPtBtn" onclick="setLanguage('pt')" class="px-2.5 py-1 rounded bg-dbd-red text-white">PT</button>
-                    <button id="langEnBtn" onclick="setLanguage('en')" class="px-2.5 py-1 rounded text-neutral-400 hover:text-white">EN</button>
+            <div class="flex items-center space-x-2">
+                <div class="flex items-center bg-neutral-950/90 rounded-lg border border-neutral-800 p-0.5 text-xs font-bold" role="group" aria-label="Idioma">
+                    <button id="langPtBtn" onclick="setLanguage('pt')" class="px-2.5 py-1 rounded-md bg-dbd-red text-white">PT</button>
+                    <button id="langEnBtn" onclick="setLanguage('en')" class="px-2.5 py-1 rounded-md text-neutral-400 hover:text-white">EN</button>
                 </div>
-                <button onclick="toggleTheme()" class="p-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-yellow-400 transition" title="Mudar Tema Dark/Light">
+                <button onclick="toggleTheme()" class="ui-icon-btn p-2 rounded-lg bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-yellow-400 transition" title="Alternar Tema Claro/Escuro" aria-label="Alternar Tema">
                     <i id="themeIcon" class="fa-solid fa-moon text-sm"></i>
                 </button>
             </div>
@@ -80,197 +87,204 @@
         </div>
     </header>
 
-    <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 space-y-5">
 
         <!-- ======================================================== -->
         <!-- TAB 1: STREAMER ROULETTE DASHBOARD                       -->
         <!-- ======================================================== -->
-        <div id="tabMain" class="space-y-4">
+        <div id="tabMain" class="space-y-5">
 
-            <!-- BARRA DE CONFIGURAÇÃO COMPACTA -->
-            <div class="bg-dbd-card px-4 py-3 rounded-xl border border-neutral-800 shadow-xl flex flex-wrap items-center gap-x-4 gap-y-3">
+            <!-- BARRA DE CONTROLE PRINCIPAL -->
+            <div class="ui-panel px-4 py-3.5 rounded-2xl flex flex-wrap items-center gap-x-4 gap-y-3">
 
-                <!-- Lado -->
+                <!-- Seletor de Lado -->
                 <div class="flex items-center gap-2">
-                    <span class="text-[10px] font-bold uppercase text-dbd-muted hidden xl:block" id="lblRole">Função / Lado</span>
-                    <button id="roleSurvBtn" onclick="setRole('survivor')" class="px-4 py-2 rounded-lg border-2 border-dbd-cyan bg-dbd-cyan/10 text-dbd-cyan text-xs font-bold flex items-center justify-center gap-2 transition hover:bg-dbd-cyan/20">
-                        <img src="./css/img/surv.png" style="width:35px"> <span>Survivor</span>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-dbd-muted hidden xl:block" id="lblRole">Lado</span>
+                    <button id="roleSurvBtn" onclick="setRole('survivor')" class="px-4 py-2 rounded-xl border-2 border-dbd-cyan bg-dbd-cyan/10 text-dbd-cyan text-xs font-bold flex items-center justify-center gap-2 transition hover:bg-dbd-cyan/20">
+                        <img src="./css/img/surv.png" alt="Survivor" class="w-7 h-7 object-contain"> <span>Survivor</span>
                     </button>
-                    <button id="roleKillBtn" onclick="setRole('killer')" class="px-4 py-2 rounded-lg border-2 border-neutral-800 text-neutral-400 text-xs font-bold flex items-center justify-center gap-2 transition hover:border-dbd-red hover:text-dbd-red">
-                        <img src="./css/img/killer.png" style="width:35px"> <span>Killer</span>
+                    <button id="roleKillBtn" onclick="setRole('killer')" class="px-4 py-2 rounded-xl border-2 border-neutral-800 text-neutral-400 text-xs font-bold flex items-center justify-center gap-2 transition hover:border-dbd-red hover:text-dbd-red">
+                        <img src="./css/img/killer.png" alt="Killer" class="w-7 h-7 object-contain"> <span>Killer</span>
                     </button>
                 </div>
 
                 <div class="hidden md:block w-px h-8 bg-neutral-800"></div>
 
-                <!-- Elementos da roleta -->
+                <!-- Elementos da Roleta (Pílulas interativas) -->
                 <div class="flex flex-wrap items-center gap-2">
-                    <span class="text-[10px] font-bold uppercase text-dbd-muted hidden xl:block" id="lblIncludeOptions">Elementos da Roleta</span>
-                    <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer hover:text-white bg-neutral-900/80 px-3 py-2 rounded-lg border border-neutral-800">
-                        <input type="checkbox" id="chkCharacter" checked class="w-4 h-4 accent-dbd-red rounded">
-                        <i class="fa-solid fa-user-gear text-dbd-muted"></i> <span id="optCharacter">Randomizar Personagem</span>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-dbd-muted hidden xl:block" id="lblIncludeOptions">Sortear</span>
+                    <label class="ui-toggle-pill">
+                        <input type="checkbox" id="chkCharacter" checked class="w-3.5 h-3.5 accent-dbd-red rounded">
+                        <i class="fa-solid fa-user-gear text-dbd-muted"></i> <span id="optCharacter">Personagem</span>
                     </label>
-                    <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer hover:text-white bg-neutral-900/80 px-3 py-2 rounded-lg border border-neutral-800">
-                        <input type="checkbox" id="chkPerks" checked class="w-4 h-4 accent-dbd-red rounded">
-                        <i class="fa-solid fa-shield-halved text-dbd-muted"></i> <span id="optPerks">Randomizar Perks (4)</span>
+                    <label class="ui-toggle-pill">
+                        <input type="checkbox" id="chkPerks" checked class="w-3.5 h-3.5 accent-dbd-red rounded">
+                        <i class="fa-solid fa-shield-halved text-dbd-muted"></i> <span id="optPerks">Perks (4)</span>
                     </label>
-                    <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer hover:text-white bg-neutral-900/80 px-3 py-2 rounded-lg border border-neutral-800">
-                        <input type="checkbox" id="chkItems" checked class="w-4 h-4 accent-dbd-red rounded">
-                        <i class="fa-solid fa-box-open text-dbd-muted"></i> <span id="optItems">Item / Poder + Addons</span>
+                    <label class="ui-toggle-pill">
+                        <input type="checkbox" id="chkItems" checked class="w-3.5 h-3.5 accent-dbd-red rounded">
+                        <i class="fa-solid fa-box-open text-dbd-muted"></i> <span id="optItems">Item / Poder</span>
                     </label>
-                    <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer hover:text-white bg-neutral-900/50 px-3 py-2 rounded-lg border border-neutral-800" title="Efeito sonoro">
-                        <input type="checkbox" id="chkSound" checked class="w-4 h-4 accent-dbd-red rounded">
-                        <i class="fa-solid fa-volume-high text-dbd-muted"></i> <span id="lblSoundEffect">Efeito Sonoro de Roleta</span>
+                    <label class="ui-toggle-pill" title="Efeito sonoro ao girar">
+                        <input type="checkbox" id="chkSound" checked class="w-3.5 h-3.5 accent-dbd-red rounded">
+                        <i class="fa-solid fa-volume-high text-dbd-muted"></i> <span id="lblSoundEffect">Som</span>
+                    </label>
+                    <label class="ui-toggle-pill" title="Incluir conteúdo em teste (PTB)">
+                        <input type="checkbox" id="chkPtb" checked class="w-3.5 h-3.5 accent-dbd-red rounded">
+                        <i class="fa-solid fa-flask text-red-400"></i> <span id="optPtb">Incluir PTB</span>
                     </label>
                 </div>
 
                 <!-- Ações -->
-                <div class="flex items-center gap-4 ml-auto">
-                    <button onclick="resetFilters()" class="text-xs text-dbd-cyan hover:underline flex items-center gap-1">
-                        <i class="fa-solid fa-rotate-left"></i> <span id="btnResetFilters">Resetar Filtros</span>
+                <div class="flex items-center gap-3 ml-auto">
+                    <button onclick="resetFilters()" class="px-3 py-2 rounded-lg text-xs font-semibold text-dbd-muted hover:text-dbd-cyan hover:bg-neutral-800/60 transition flex items-center gap-1.5" title="Limpar filtros e tags">
+                        <i class="fa-solid fa-rotate-left"></i> <span id="btnResetFilters">Resetar</span>
                     </button>
-                    <button id="btnSpin" onclick="spinRoulette()" class="px-7 py-3 bg-dbd-red hover:bg-dbd-redHover text-white font-black text-sm uppercase tracking-widest rounded-xl shadow-lg shadow-dbd-red/40 glow-pulse transition flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-dice-five text-lg"></i> <span id="lblSpinBtn">GIRAR ROLETA</span>
+                    <button id="btnSpin" onclick="spinRoulette()" class="ui-spin-btn px-7 py-3 bg-dbd-red hover:bg-dbd-redHover text-white font-black text-sm uppercase tracking-widest rounded-xl shadow-lg shadow-dbd-red/40 glow-pulse transition flex items-center justify-center gap-2.5">
+                        <i class="fa-solid fa-dice-five text-lg"></i>
+                        <span id="lblSpinBtn">GIRAR ROLETA</span>
+                        <kbd class="ui-kbd hidden sm:inline-block">Espaço</kbd>
                     </button>
                 </div>
             </div>
 
-            <!-- ROLETA TEMÁTICA (TAGS) -->
-            <div class="bg-dbd-card px-4 py-3 rounded-xl border border-neutral-800 shadow-xl space-y-2">
-                <div class="flex flex-wrap items-center justify-between gap-3">
-                    <span class="text-[10px] font-bold uppercase text-dbd-muted flex items-center gap-2">
-                        <i class="fa-solid fa-tags text-dbd-cyan"></i> <span id="tagTitle">Roleta temática</span>
-                    </span>
-                    <div class="flex flex-wrap items-center gap-3">
-                        <span id="tagStatus" class="text-[11px] font-bold text-dbd-cyan"></span>
-                        <select id="tagMode" class="bd-field" style="width:auto;padding:.25rem .5rem;font-size:.75rem" onchange="setTagMode(this.value)">
-                            <option value="any" id="tagModeAny">Tenha a tag (Ela entre outras)</option>
-                            <option value="all" id="tagModeAll">Todas as tags (Tenha todas marcadas)</option>
-                        </select>
-                        <button type="button" onclick="clearTags()" class="text-xs text-dbd-cyan hover:underline flex items-center gap-1">
-                            <i class="fa-solid fa-xmark"></i> <span id="tagClear">Limpar tags</span>
+            <!-- PALCO DO RESULTADO (LOADOUT) -->
+            <div id="mainStageCard" class="ui-stage role-survivor p-5 md:p-7 rounded-2xl flex flex-col justify-between fog-overlay shadow-2xl min-h-[600px]">
+
+                <!-- Cabeçalho do Resultado -->
+                <div class="flex flex-wrap items-center justify-between gap-3 border-b border-neutral-800/90 pb-4">
+                    <div class="flex items-center gap-2.5">
+                        <span class="ui-stage-dot"></span>
+                        <h2 class="ui-brand-title text-base font-black text-white uppercase tracking-wider" id="lblResultHeader">Resultado do Loadout</h2>
+                        <button type="button" id="btnUnlockAll" onclick="resetLocks()" class="hidden px-2.5 py-1 rounded-md bg-yellow-500/15 border border-yellow-500/40 text-yellow-400 hover:bg-yellow-500/25 text-[11px] font-bold flex items-center gap-1.5 transition" title="Destravar todos os slots">
+                            <i class="fa-solid fa-lock-open"></i> <span id="lblUnlockAll">Destravar tudo</span>
                         </button>
                     </div>
-                </div>
-                <div id="tagChips" class="bd-chips"></div>
-            </div>
 
-            <!-- RESULTADO (LARGURA TOTAL) -->
-            <div class="bg-dbd-card p-6 md:p-8 rounded-xl border border-neutral-800 flex flex-col justify-between fog-overlay shadow-2xl min-h-[640px]">
-
-                <div class="flex flex-wrap items-center justify-between gap-3 border-b border-neutral-800 pb-3">
-                    <div class="flex items-center gap-2">
-                        <h2 class="text-sm font-black text-white uppercase tracking-wider" id="lblResultHeader">Resultado do Loadout</h2>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <button onclick="saveCurrentBuild()" class="px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-xs font-bold rounded border border-neutral-700 text-white flex items-center gap-1.5 transition">
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button onclick="saveCurrentBuild()" class="ui-action-btn">
                             <i class="fa-solid fa-floppy-disk text-dbd-cyan"></i> <span id="btnSaveBuild">Salvar Build</span>
                         </button>
-                        <button onclick="copyShareableBuild()" class="px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-xs font-bold rounded border border-neutral-700 text-white flex items-center gap-1.5 transition">
-                            <i class="fa-solid fa-share-nodes text-dbd-purple"></i> <span id="btnExportBuild">Exportar</span>
+                        <button onclick="copyShareableBuild()" class="ui-action-btn">
+                            <i class="fa-solid fa-code text-purple-400"></i> <span id="btnExportBuild">JSON</span>
                         </button>
-                        <button onclick="shareBuildImage()" class="px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-xs font-bold rounded border border-neutral-700 text-white flex items-center gap-1.5 transition">
-                            <i class="fa-solid fa-image text-dbd-cyan"></i> <span id="btnShareImage">Imagem</span>
+                        <button onclick="shareBuildImage()" class="ui-action-btn">
+                            <i class="fa-solid fa-image text-emerald-400"></i> <span id="btnShareImage">Imagem</span>
                         </button>
-                        <button onclick="shareBuildLink()" class="px-3 py-1.5 bg-dbd-red hover:bg-dbd-redHover text-xs font-bold rounded border border-neutral-700 text-white flex items-center gap-1.5 transition">
+                        <button onclick="shareBuildLink()" class="px-3.5 py-1.5 bg-dbd-red hover:bg-dbd-redHover text-xs font-bold rounded-lg text-white flex items-center gap-1.5 shadow transition">
                             <i class="fa-solid fa-link"></i> <span id="btnShareLink">Compartilhar Link</span>
                         </button>
                     </div>
                 </div>
 
-                <div id="rouletteDisplayArea" class="my-6 flex-grow flex items-center">
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full items-stretch">
+                <!-- Grid Principal: Personagem + Perks + Item -->
+                <div id="rouletteDisplayArea" class="my-5 flex-grow flex items-center">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 w-full items-stretch">
 
-                        <!-- Retrato -->
-                        <div class="lg:col-span-4 flex flex-col items-center justify-center text-center space-y-4 bg-neutral-950/80 p-6 rounded-xl border border-neutral-800 shadow-inner">
-                            <div id="displayCharFrame" class="char-card w-52 md:w-64 relative flex items-center justify-center text-dbd-cyan">
-                                <img id="displayCharImg" src="" alt="Character" class="w-full h-full object-contain hidden">
-                                <i id="displayCharIcon" class="fa-solid fa-user-ninja text-8xl text-neutral-600"></i>
+                        <!-- Coluna Esquerda: Retrato do Personagem -->
+                        <div class="lg:col-span-4 ui-subcard p-6 rounded-2xl flex flex-col items-center justify-center text-center space-y-3 relative">
+                            <div class="absolute top-3 right-3">
+                                <button type="button" id="lockChar" class="bd-lock" onclick="toggleLock('char')" title="Travar Personagem" aria-label="Travar Personagem" aria-pressed="false">
+                                    <i class="fa-solid fa-lock-open"></i>
+                                </button>
                             </div>
-                            <div>
-                                <h3 id="displayCharName" class="text-2xl font-black text-white uppercase tracking-wide">--</h3>
-                                <span id="displayCharRole" class="text-xs text-dbd-cyan font-bold uppercase tracking-wider">Survivor</span>
-                                <div><button type="button" id="lockChar" class="bd-lock" onclick="toggleLock('char')" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button></div>
+                            <div id="displayCharFrame" class="char-card w-48 md:w-56 relative flex items-center justify-center text-dbd-cyan transition-transform duration-300">
+                                <img id="displayCharImg" src="" alt="Character" class="w-full h-full object-contain hidden">
+                                <i id="displayCharIcon" class="fa-solid fa-user-ninja text-7xl text-neutral-600"></i>
+                            </div>
+                            <div class="pt-1">
+                                <span id="displayCharRole" class="ui-role-pill text-[10px] text-dbd-cyan font-extrabold uppercase tracking-widest">Survivor</span>
+                                <h3 id="displayCharName" class="ui-brand-title text-2xl md:text-3xl font-black text-white uppercase tracking-wide mt-1">--</h3>
                             </div>
                         </div>
 
-                        <!-- Perks + Item -->
+                        <!-- Coluna Direita: 4 Perks + Item/Addons -->
                         <div class="lg:col-span-8 flex flex-col gap-4">
 
-                            <div class="bg-neutral-950/80 p-5 rounded-xl border border-neutral-800 flex-grow">
-                                <label class="block text-xs font-bold text-dbd-muted uppercase text-center md:text-left" id="lblPerksHeader">Vantagens (Perks Equipadas)</label>
-                                <div class="grid grid-cols-2 xl:grid-cols-4 gap-x-4 items-start justify-items-center">
-                            <div id="perkBox0" class="flex flex-col items-center text-center group">
-                                <div class="perk-diamond is-empty my-4">
-                                    <div class="perk-diamond-inner" id="perkInner0">
-                                        <img id="perkImg0" src="" class="w-full h-full object-contain hidden">
-                                        <i id="perkIcon0" class="fa-solid fa-shield-halved text-4xl text-purple-300"></i>
-                                    </div>
+                            <!-- Bloco das 4 Vantagens -->
+                            <div class="ui-subcard p-5 rounded-2xl flex-grow flex flex-col justify-between">
+                                <div class="flex items-center justify-between mb-2">
+                                    <label class="text-xs font-bold text-dbd-muted uppercase tracking-wider flex items-center gap-2" id="lblPerksHeader">
+                                        <i class="fa-solid fa-diamond text-purple-400 text-[10px]"></i> Vantagens (Perks Equipadas)
+                                    </label>
+                                    <span class="text-[11px] text-neutral-500 hidden sm:inline" id="lblHoverTip">Passe o mouse para ver detalhes</span>
                                 </div>
-                                <span id="perkName0" class="text-sm font-bold text-neutral-300 line-clamp-2 w-36">Slot 1</span>
-                                <button type="button" id="lockPerk0" class="bd-lock" onclick="toggleLock('perk',0)" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
-                            </div>
-                            <div id="perkBox1" class="flex flex-col items-center text-center group">
-                                <div class="perk-diamond is-empty my-4">
-                                    <div class="perk-diamond-inner" id="perkInner1">
-                                        <img id="perkImg1" src="" class="w-full h-full object-contain hidden">
-                                        <i id="perkIcon1" class="fa-solid fa-bolt text-4xl text-purple-300"></i>
+
+                                <div class="grid grid-cols-2 xl:grid-cols-4 gap-3 items-start justify-items-center my-auto py-2">
+                                    <div id="perkBox0" class="ui-perk-slot flex flex-col items-center text-center group">
+                                        <div class="perk-diamond is-empty my-2">
+                                            <div class="perk-diamond-inner" id="perkInner0">
+                                                <img id="perkImg0" src="" alt="" class="w-full h-full object-contain hidden">
+                                                <i id="perkIcon0" class="fa-solid fa-shield-halved text-4xl text-purple-300"></i>
+                                            </div>
+                                        </div>
+                                        <span id="perkName0" class="text-xs md:text-sm font-bold text-neutral-200 line-clamp-2 w-36 min-h-[2.4rem] flex items-center justify-center">Slot 1</span>
+                                        <button type="button" id="lockPerk0" class="bd-lock" onclick="toggleLock('perk',0)" title="Travar Perk 1" aria-label="Travar Perk 1" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
                                     </div>
-                                </div>
-                                <span id="perkName1" class="text-sm font-bold text-neutral-300 line-clamp-2 w-36">Slot 2</span>
-                                <button type="button" id="lockPerk1" class="bd-lock" onclick="toggleLock('perk',1)" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
-                            </div>
-                            <div id="perkBox2" class="flex flex-col items-center text-center group">
-                                <div class="perk-diamond is-empty my-4">
-                                    <div class="perk-diamond-inner" id="perkInner2">
-                                        <img id="perkImg2" src="" class="w-full h-full object-contain hidden">
-                                        <i id="perkIcon2" class="fa-solid fa-heart-pulse text-4xl text-purple-300"></i>
+
+                                    <div id="perkBox1" class="ui-perk-slot flex flex-col items-center text-center group">
+                                        <div class="perk-diamond is-empty my-2">
+                                            <div class="perk-diamond-inner" id="perkInner1">
+                                                <img id="perkImg1" src="" alt="" class="w-full h-full object-contain hidden">
+                                                <i id="perkIcon1" class="fa-solid fa-bolt text-4xl text-purple-300"></i>
+                                            </div>
+                                        </div>
+                                        <span id="perkName1" class="text-xs md:text-sm font-bold text-neutral-200 line-clamp-2 w-36 min-h-[2.4rem] flex items-center justify-center">Slot 2</span>
+                                        <button type="button" id="lockPerk1" class="bd-lock" onclick="toggleLock('perk',1)" title="Travar Perk 2" aria-label="Travar Perk 2" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
                                     </div>
-                                </div>
-                                <span id="perkName2" class="text-sm font-bold text-neutral-300 line-clamp-2 w-36">Slot 3</span>
-                                <button type="button" id="lockPerk2" class="bd-lock" onclick="toggleLock('perk',2)" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
-                            </div>
-                            <div id="perkBox3" class="flex flex-col items-center text-center group">
-                                <div class="perk-diamond is-empty my-4">
-                                    <div class="perk-diamond-inner" id="perkInner3">
-                                        <img id="perkImg3" src="" class="w-full h-full object-contain hidden">
-                                        <i id="perkIcon3" class="fa-solid fa-eye text-4xl text-purple-300"></i>
+
+                                    <div id="perkBox2" class="ui-perk-slot flex flex-col items-center text-center group">
+                                        <div class="perk-diamond is-empty my-2">
+                                            <div class="perk-diamond-inner" id="perkInner2">
+                                                <img id="perkImg2" src="" alt="" class="w-full h-full object-contain hidden">
+                                                <i id="perkIcon2" class="fa-solid fa-heart-pulse text-4xl text-purple-300"></i>
+                                            </div>
+                                        </div>
+                                        <span id="perkName2" class="text-xs md:text-sm font-bold text-neutral-200 line-clamp-2 w-36 min-h-[2.4rem] flex items-center justify-center">Slot 3</span>
+                                        <button type="button" id="lockPerk2" class="bd-lock" onclick="toggleLock('perk',2)" title="Travar Perk 3" aria-label="Travar Perk 3" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
                                     </div>
-                                </div>
-                                <span id="perkName3" class="text-sm font-bold text-neutral-300 line-clamp-2 w-36">Slot 4</span>
-                                <button type="button" id="lockPerk3" class="bd-lock" onclick="toggleLock('perk',3)" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
-                            </div>
+
+                                    <div id="perkBox3" class="ui-perk-slot flex flex-col items-center text-center group">
+                                        <div class="perk-diamond is-empty my-2">
+                                            <div class="perk-diamond-inner" id="perkInner3">
+                                                <img id="perkImg3" src="" alt="" class="w-full h-full object-contain hidden">
+                                                <i id="perkIcon3" class="fa-solid fa-eye text-4xl text-purple-300"></i>
+                                            </div>
+                                        </div>
+                                        <span id="perkName3" class="text-xs md:text-sm font-bold text-neutral-200 line-clamp-2 w-36 min-h-[2.4rem] flex items-center justify-center">Slot 4</span>
+                                        <button type="button" id="lockPerk3" class="bd-lock" onclick="toggleLock('perk',3)" title="Travar Perk 4" aria-label="Travar Perk 4" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- Item / Poder + Addons -->
-                            <div class="bg-neutral-950/80 p-4 rounded-xl border border-neutral-800 flex flex-wrap items-center justify-between gap-4">
+                            <!-- Bloco Item / Poder + Addons -->
+                            <div class="ui-subcard p-4 rounded-2xl flex flex-wrap items-center justify-between gap-4">
                                 <div class="flex items-center gap-4">
-                                    <div id="displayItemBox" class="w-24 h-24 rounded-xl bg-neutral-900 border border-neutral-700 flex items-center justify-center text-dbd-cyan overflow-hidden p-1.5 shrink-0">
-                                        <img id="displayItemImg" src="" class="w-full h-full object-contain hidden">
-                                        <i id="displayItemIcon" class="fa-solid fa-toolbox text-4xl"></i>
+                                    <div id="displayItemBox" class="ui-item-frame w-20 h-20 md:w-24 md:h-24 rounded-xl flex items-center justify-center text-dbd-cyan overflow-hidden p-1.5 shrink-0">
+                                        <img id="displayItemImg" src="" alt="" class="w-full h-full object-contain hidden">
+                                        <i id="displayItemIcon" class="fa-solid fa-toolbox text-3xl"></i>
                                     </div>
                                     <div>
-                                        <div class="text-[11px] text-dbd-muted uppercase font-bold" id="lblItemTitle">Item / Poder</div>
-                                        <div id="displayItemName" class="text-base font-bold text-white">Nenhum</div>
-                                        <button type="button" id="lockItem" class="bd-lock" onclick="toggleLock('item')" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
+                                        <div class="text-[10px] text-dbd-muted uppercase font-bold tracking-wider" id="lblItemTitle">Item / Poder</div>
+                                        <div id="displayItemName" class="text-base md:text-lg font-extrabold text-white leading-tight mt-0.5">Nenhum</div>
+                                        <button type="button" id="lockItem" class="bd-lock mt-1.5" onclick="toggleLock('item')" title="Travar Item" aria-label="Travar Item" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
                                     </div>
                                 </div>
 
-                                <div class="flex items-start gap-4">
-                                    <div class="flex flex-col items-center w-28 text-center gap-1.5">
-                                        <div id="displayAddon1" class="w-20 h-20 rounded-xl bg-neutral-900 border border-neutral-700 flex items-center justify-center text-neutral-400 p-1.5" title="Add-on 1">
-                                            <img id="displayAddonImg1" src="" class="w-full h-full object-contain hidden">
-                                            <i class="fa-solid fa-puzzle-piece text-xl"></i>
+                                <div class="flex items-start gap-3">
+                                    <div class="flex flex-col items-center w-24 md:w-28 text-center gap-1.5">
+                                        <div id="displayAddon1" class="ui-addon-frame w-16 h-16 md:w-20 md:h-20 rounded-xl flex items-center justify-center text-neutral-400 p-1.5" title="Add-on 1">
+                                            <img id="displayAddonImg1" src="" alt="" class="w-full h-full object-contain hidden">
+                                            <i class="fa-solid fa-puzzle-piece text-lg"></i>
                                         </div>
-                                        <span id="displayAddonName1" class="text-[11px] font-semibold text-neutral-300 line-clamp-2">Add-on 1</span>
+                                        <span id="displayAddonName1" class="text-[11px] font-semibold text-neutral-300 line-clamp-2 leading-tight">Add-on 1</span>
                                     </div>
-                                    <div class="flex flex-col items-center w-28 text-center gap-1.5">
-                                        <div id="displayAddon2" class="w-20 h-20 rounded-xl bg-neutral-900 border border-neutral-700 flex items-center justify-center text-neutral-400 p-1.5" title="Add-on 2">
-                                            <img id="displayAddonImg2" src="" class="w-full h-full object-contain hidden">
-                                            <i class="fa-solid fa-puzzle-piece text-xl"></i>
+                                    <div class="flex flex-col items-center w-24 md:w-28 text-center gap-1.5">
+                                        <div id="displayAddon2" class="ui-addon-frame w-16 h-16 md:w-20 md:h-20 rounded-xl flex items-center justify-center text-neutral-400 p-1.5" title="Add-on 2">
+                                            <img id="displayAddonImg2" src="" alt="" class="w-full h-full object-contain hidden">
+                                            <i class="fa-solid fa-puzzle-piece text-lg"></i>
                                         </div>
-                                        <span id="displayAddonName2" class="text-[11px] font-semibold text-neutral-300 line-clamp-2">Add-on 2</span>
+                                        <span id="displayAddonName2" class="text-[11px] font-semibold text-neutral-300 line-clamp-2 leading-tight">Add-on 2</span>
                                     </div>
                                 </div>
                             </div>
@@ -279,20 +293,23 @@
                     </div>
                 </div>
 
-                <div class="text-xs text-neutral-500 text-center border-t border-neutral-800/80 pt-3 flex flex-wrap items-center justify-between gap-2">
-                    <span><i class="fa-solid fa-circle-info text-dbd-cyan"></i> <span id="txtTip">Acesse a aba 'Acervo de Conteúdo' para desativar itens específicos.</span></span>
-                    <span id="txtPoolStatus" class="text-dbd-cyan font-bold">100% dos Perks Ativos</span>
+                <!-- Rodapé Informativo do Palco -->
+                <div class="text-xs text-neutral-400 border-t border-neutral-800/80 pt-3 flex flex-wrap items-center justify-between gap-2">
+                    <span class="flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle-info text-dbd-cyan"></i>
+                        <span id="txtTip">Use a aba lateral esquerda para filtrar por tags ou o Acervo para bloquear itens.</span>
+                    </span>
+                    <span id="txtPoolStatus" class="px-2.5 py-0.5 rounded-full bg-dbd-cyan/10 border border-dbd-cyan/30 text-dbd-cyan font-bold text-[11px]">100% dos Perks Ativos</span>
                 </div>
 
             </div>
 
-        
-            <!-- HISTÓRICO -->
-            <div class="bg-dbd-card p-5 rounded-xl border border-neutral-800 space-y-3 shadow-xl">
-                <div style="display:flex;justify-content:space-between;align-items:center;gap:.5rem;flex-wrap:wrap">
-                    <h3 class="text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
+            <!-- HISTÓRICO DE SORTEIOS -->
+            <div class="ui-panel p-5 rounded-2xl space-y-3">
+                <div class="flex items-center justify-between gap-2 flex-wrap">
+                    <h3 class="ui-brand-title text-base font-black text-white uppercase tracking-wider flex items-center gap-2">
                         <i class="fa-solid fa-clock-rotate-left text-dbd-cyan"></i> <span id="histTitle">Histórico de Sorteios</span>
-                        <span id="historyCount" class="bd-badge surv">0</span>
+                        <span id="historyCount" class="bd-badge surv font-mono">0</span>
                     </h3>
                     <button type="button" class="bd-btn bd-btn-sm bd-btn-danger" onclick="clearHistory()">
                         <i class="fa-solid fa-trash"></i> <span id="histClear">Limpar histórico</span>
@@ -301,9 +318,9 @@
                 <div id="historyList" class="bd-hist-list"></div>
             </div>
 
-            <!-- OVERLAY OBS -->
+            <!-- OVERLAY OBS (MODO STREAMER) -->
             <details class="bd-details">
-                <summary><i class="fa-solid fa-tv" style="color:#a855f7"></i> <span id="obsTitle">Overlay para OBS</span></summary>
+                <summary><i class="fa-solid fa-tv" style="color:#a855f7"></i> <span id="obsTitle">Overlay para OBS (Modo Streamer)</span></summary>
                 <p class="bd-hint" id="obsHint" style="margin-bottom:.9rem">Adicione cada link como "Fonte de Navegador" no OBS. Cada vez que a página carrega (ou você atualiza a fonte), sai uma build nova. Survivor e Killer são independentes. Clicar na página ou apertar R também sorteia de novo.</p>
                 <div class="bd-form-grid">
                     <div class="bd-span-2">
@@ -348,16 +365,16 @@
         </div>
 
         <!-- ======================================================== -->
-        <!-- TAB: BUILDS DESTAQUE (lista pública, vem do JSON)        -->
+        <!-- TAB: BUILDS DESTAQUE                                     -->
         <!-- ======================================================== -->
         <div id="tabFeatured" class="hidden space-y-6">
-            <div class="bg-dbd-card p-6 rounded-xl border border-neutral-800 space-y-5 shadow-2xl">
+            <div class="ui-panel p-6 rounded-2xl space-y-5">
 
                 <div class="border-b border-neutral-800 pb-4">
-                    <h2 class="text-lg font-black text-white uppercase tracking-wider flex items-center gap-2">
-                        <i class="fa-solid fa-star" style="color:#facc15"></i> <span id="fTitle">Builds Destaque</span>
+                    <h2 class="ui-brand-title text-xl font-black text-white uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-star text-yellow-400"></i> <span id="fTitle">Builds Destaque</span>
                     </h2>
-                    <p class="text-xs text-dbd-muted" id="fSub">Builds recomendadas e selecionadas. Filtre por tipo, veja na roleta ou salve na sua coleção.</p>
+                    <p class="text-xs text-dbd-muted mt-0.5" id="fSub">Builds recomendadas e selecionadas. Filtre por tipo, veja na roleta ou salve na sua coleção.</p>
                 </div>
 
                 <div class="bd-filter-bar">
@@ -387,13 +404,13 @@
         <!-- TAB: CRIAR BUILD MANUAL (+ modo curador)                 -->
         <!-- ======================================================== -->
         <div id="tabBuilder" class="hidden space-y-6">
-            <div class="bg-dbd-card p-6 rounded-xl border border-neutral-800 space-y-6 shadow-2xl">
+            <div class="ui-panel p-6 rounded-2xl space-y-6">
 
                 <div class="border-b border-neutral-800 pb-4">
-                    <h2 class="text-lg font-black text-white uppercase tracking-wider flex items-center gap-2">
+                    <h2 class="ui-brand-title text-xl font-black text-white uppercase tracking-wider flex items-center gap-2">
                         <i class="fa-solid fa-hammer text-dbd-red"></i> <span id="bldTitle">Criar Build Manual</span>
                     </h2>
-                    <p class="text-xs text-dbd-muted" id="bldSub">Escolha o personagem, as 4 perks e o item/poder. Depois salve na sua coleção.</p>
+                    <p class="text-xs text-dbd-muted mt-0.5" id="bldSub">Escolha o personagem, as 4 perks e o item/poder. Depois salve na sua coleção.</p>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -403,10 +420,10 @@
 
                         <div style="display:flex;gap:.5rem;flex-wrap:wrap">
                             <button type="button" id="bldRoleSurvBtn" onclick="setBuilderRole('survivor')" class="bd-role surv active">
-                                <img src="./css/img/surv.png" style="width:30px"> <span>Survivor</span>
+                                <img src="./css/img/surv.png" alt="Survivor" style="width:28px"> <span>Survivor</span>
                             </button>
                             <button type="button" id="bldRoleKillBtn" onclick="setBuilderRole('killer')" class="bd-role kill">
-                                <img src="./css/img/killer.png" style="width:30px"> <span>Killer</span>
+                                <img src="./css/img/killer.png" alt="Killer" style="width:28px"> <span>Killer</span>
                             </button>
                         </div>
 
@@ -487,7 +504,7 @@
                     <div class="bd-form-grid">
                         <div>
                             <label class="bd-label" for="fName" id="fLblName">Nome da build</label>
-                            <input type="text" id="fName" class="bd-field" maxlength="80" placeholder="Ex.: Build Furtiva do Nea">
+                            <input type="text" id="fName" class="bd-field" maxlength="80" placeholder="Ex.: Build Furtiva da Nea">
                         </div>
                         <div>
                             <label class="bd-label" for="fType" id="fLblTypeInput">Tipo</label>
@@ -534,23 +551,23 @@
         </div>
 
         <!-- ======================================================== -->
-        <!-- TAB 2: CHARACTER & PERK POOL MANAGER (ICON / LIST VIEW)  -->
+        <!-- TAB 2: CHARACTER & PERK POOL MANAGER                     -->
         <!-- ======================================================== -->
         <div id="tabPool" class="hidden space-y-6">
 
-            <div class="bg-dbd-card p-6 rounded-xl border border-neutral-800 space-y-6 shadow-2xl">
+            <div class="ui-panel p-6 rounded-2xl space-y-6">
 
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-neutral-800 pb-4">
                     <div>
-                        <h2 class="text-lg font-black text-white uppercase tracking-wider flex items-center gap-2">
+                        <h2 class="ui-brand-title text-xl font-black text-white uppercase tracking-wider flex items-center gap-2">
                             <i class="fa-solid fa-boxes-stacked text-dbd-red"></i> <span id="lblPoolTitle">Acervo de Conteúdo & Filtros</span>
                         </h2>
-                        <p class="text-xs text-dbd-muted" id="lblPoolSub">Clique nos retratos ou vantagens para ativar/desativar (itens cinzas com '✕' não entrarão no sorteio).</p>
+                        <p class="text-xs text-dbd-muted mt-0.5" id="lblPoolSub">Clique nos retratos ou vantagens para ativar/desativar (itens cinzas com '✕' não entrarão no sorteio).</p>
                     </div>
 
-                    <div class="flex flex-wrap items-center gap-3">
+                    <div class="flex flex-wrap items-center gap-2.5">
                         <!-- View Mode Selector -->
-                        <div class="flex bg-neutral-900 p-1 rounded-lg border border-neutral-800">
+                        <div class="flex bg-neutral-950 p-1 rounded-lg border border-neutral-800">
                             <button id="viewIconBtn" onclick="setViewMode('icon')" class="px-3 py-1 rounded text-xs font-bold bg-dbd-panel text-white flex items-center gap-1.5 shadow">
                                 <i class="fa-solid fa-image"></i> <span id="txtModeIcon">Ícones / Retratos</span>
                             </button>
@@ -561,20 +578,20 @@
 
                         <!-- Search Filter -->
                         <div class="relative">
-                            <input type="text" id="inputSearch" onkeyup="filterPoolBySearch()" placeholder="Buscar..." class="bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-1 text-xs text-white focus:outline-none focus:border-dbd-red w-44 pl-8">
-                            <i class="fa-solid fa-magnifying-glass text-neutral-500 text-xs absolute left-2.5 top-2"></i>
+                            <input type="text" id="inputSearch" onkeyup="filterPoolBySearch()" placeholder="Buscar..." class="bg-neutral-950 border border-neutral-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-dbd-red w-44 pl-8">
+                            <i class="fa-solid fa-magnifying-glass text-neutral-500 text-xs absolute left-2.5 top-2.5"></i>
                         </div>
 
-                        <button onclick="toggleAllPool(true)" class="px-3 py-1 bg-neutral-800 hover:bg-neutral-700 text-xs font-bold rounded text-green-400 border border-neutral-700">
+                        <button onclick="toggleAllPool(true)" class="px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-xs font-bold rounded-lg text-green-400 border border-neutral-700 transition">
                             <i class="fa-solid fa-check"></i> <span id="btnSelectAll">Todos</span>
                         </button>
-                        <button onclick="toggleAllPool(false)" class="px-3 py-1 bg-neutral-800 hover:bg-neutral-700 text-xs font-bold rounded text-red-400 border border-neutral-700">
+                        <button onclick="toggleAllPool(false)" class="px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-xs font-bold rounded-lg text-red-400 border border-neutral-700 transition">
                             <i class="fa-solid fa-xmark"></i> <span id="btnDeselectAll">Nenhum</span>
                         </button>
-                        <button onclick="savePoolFilters()" class="px-3 py-1 bg-neutral-800 hover:bg-neutral-700 text-xs font-bold rounded text-cyan-300 border border-neutral-700" title="Guarda esta seleção neste navegador">
+                        <button onclick="savePoolFilters()" class="px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-xs font-bold rounded-lg text-cyan-300 border border-neutral-700 transition" title="Guarda esta seleção neste navegador">
                             <i class="fa-solid fa-floppy-disk"></i> <span id="btnSavePool">Salvar acervo</span>
                         </button>
-                        <button onclick="clearPoolFilters()" class="px-3 py-1 bg-neutral-800 hover:bg-neutral-700 text-xs font-bold rounded text-yellow-400 border border-neutral-700" title="Apaga o acervo salvo e reativa tudo">
+                        <button onclick="clearPoolFilters()" class="px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-xs font-bold rounded-lg text-yellow-400 border border-neutral-700 transition" title="Apaga o acervo salvo e reativa tudo">
                             <i class="fa-solid fa-eraser"></i> <span id="btnClearPool">Limpar salvo</span>
                         </button>
                     </div>
@@ -584,11 +601,15 @@
                 <div>
                     <h3 class="text-xs font-bold text-dbd-muted uppercase tracking-wider mb-3 flex items-center justify-between">
                         <span id="lblPoolCharacters">Personagens Ativos</span>
-                        <span id="charCountTag" class="text-dbd-cyan font-mono">0 / 0</span>
+                        <span id="charCountTag" class="text-dbd-cyan font-mono bg-dbd-cyan/10 px-2.5 py-0.5 rounded-full border border-dbd-cyan/30">0 / 0</span>
                     </h3>
 
                     <div id="characterPoolContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 max-h-[75vh] overflow-y-auto p-1">
-                        <!-- Dynamic Character Cards populated via JS -->
+                        <!-- Skeleton inicial enquanto os dados carregam -->
+                        <div class="col-span-full py-12 text-center text-xs text-dbd-muted flex flex-col items-center gap-3">
+                            <i class="fa-solid fa-spinner fa-spin text-2xl text-dbd-cyan"></i>
+                            <span>Carregando acervo de personagens e perks...</span>
+                        </div>
                     </div>
                 </div>
 
@@ -597,33 +618,33 @@
         </div>
 
         <!-- ======================================================== -->
-        <!-- TAB: GALERIA DE PERKS (só os perks, em duas abas)        -->
+        <!-- TAB: GALERIA DE PERKS                                    -->
         <!-- ======================================================== -->
         <div id="tabPerks" class="hidden space-y-6">
-            <div class="bg-dbd-card p-6 rounded-xl border border-neutral-800 space-y-5 shadow-2xl">
+            <div class="ui-panel p-6 rounded-2xl space-y-5">
 
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-neutral-800 pb-4">
                     <div>
-                        <h2 class="text-lg font-black text-white uppercase tracking-wider flex items-center gap-2">
-                            <i class="fa-solid fa-gem" style="color:#a855f7"></i> <span id="pgTitle">Todos os Perks</span>
-                            <span id="pgCount" class="bd-badge surv">0</span>
+                        <h2 class="ui-brand-title text-xl font-black text-white uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-gem text-purple-400"></i> <span id="pgTitle">Todos os Perks</span>
+                            <span id="pgCount" class="bd-badge surv font-mono">0</span>
                         </h2>
-                        <p class="text-xs text-dbd-muted" id="pgSub">Todos os perks do jogo dentro da moldura roxa, separados por lado.</p>
+                        <p class="text-xs text-dbd-muted mt-0.5" id="pgSub">Todos os perks do jogo dentro da moldura roxa, separados por lado.</p>
                     </div>
                     <div class="relative">
-                        <input type="text" id="pgSearch" placeholder="Buscar perk..." class="bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-dbd-red w-56 pl-8">
+                        <input type="text" id="pgSearch" placeholder="Buscar perk..." class="bg-neutral-950 border border-neutral-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-dbd-red w-56 pl-8">
                         <i class="fa-solid fa-magnifying-glass text-neutral-500 text-xs absolute left-2.5 top-2.5"></i>
                     </div>
                 </div>
 
                 <div style="display:flex;gap:.5rem;flex-wrap:wrap">
                     <button type="button" id="pgRoleKillBtn" onclick="setPerkGalleryRole('killer')" class="bd-role kill active">
-                        <img src="./css/img/killer.png" style="width:30px"> <span id="pgKillLbl">Killer</span>
-                        <span id="pgKillCount" class="bd-badge">0</span>
+                        <img src="./css/img/killer.png" alt="Killer" style="width:28px"> <span id="pgKillLbl">Killer</span>
+                        <span id="pgKillCount" class="bd-badge font-mono">0</span>
                     </button>
                     <button type="button" id="pgRoleSurvBtn" onclick="setPerkGalleryRole('survivor')" class="bd-role surv">
-                        <img src="./css/img/surv.png" style="width:30px"> <span id="pgSurvLbl">Survivor</span>
-                        <span id="pgSurvCount" class="bd-badge">0</span>
+                        <img src="./css/img/surv.png" alt="Survivor" style="width:28px"> <span id="pgSurvLbl">Survivor</span>
+                        <span id="pgSurvCount" class="bd-badge font-mono">0</span>
                     </button>
                 </div>
 
@@ -635,19 +656,19 @@
         <!-- TAB 3: SAVED BUILDS MANAGEMENT                           -->
         <!-- ======================================================== -->
         <div id="tabSaved" class="hidden space-y-6">
-            <div class="bg-dbd-card p-6 rounded-xl border border-neutral-800 space-y-4">
+            <div class="ui-panel p-6 rounded-2xl space-y-4">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-800 pb-4">
                     <div>
-                        <h2 class="text-lg font-bold text-white uppercase flex items-center gap-2">
+                        <h2 class="ui-brand-title text-xl font-black text-white uppercase flex items-center gap-2">
                             <i class="fa-solid fa-bookmark text-dbd-cyan"></i> <span id="txtSavedBuildsTitle">Builds Salvas</span>
                         </h2>
-                        <p class="text-xs text-dbd-muted" id="txtSavedBuildsSub">Sua coleção de combinações favoritas armazenadas localmente.</p>
+                        <p class="text-xs text-dbd-muted mt-0.5" id="txtSavedBuildsSub">Sua coleção de combinações favoritas armazenadas localmente.</p>
                     </div>
                     <div class="flex items-center gap-3">
-                        <button onclick="exportAllBuildsJSON()" class="px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-xs font-bold rounded text-white border border-neutral-700 flex items-center gap-1.5">
+                        <button onclick="exportAllBuildsJSON()" class="px-3.5 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-xs font-bold rounded-lg text-white border border-neutral-700 flex items-center gap-1.5 transition">
                             <i class="fa-solid fa-download text-dbd-cyan"></i> <span id="btnExportJson">Exportar JSON</span>
                         </button>
-                        <button onclick="openImportModal()" class="px-3 py-1.5 bg-dbd-red hover:bg-dbd-redHover text-xs font-bold rounded text-white shadow flex items-center gap-1.5">
+                        <button onclick="openImportModal()" class="px-3.5 py-1.5 bg-dbd-red hover:bg-dbd-redHover text-xs font-bold rounded-lg text-white shadow flex items-center gap-1.5 transition">
                             <i class="fa-solid fa-upload"></i> <span id="btnImportJson">Importar Build</span>
                         </button>
                     </div>
@@ -661,25 +682,35 @@
 
     </main>
 
+    <!-- FOOTER DISCRETO -->
+    <footer class="border-t border-neutral-800/70 py-4 px-4 mt-8 text-center text-[11px] text-neutral-500">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+            <span>Roleta de Perks &mdash; Dead by Daylight Loadout Generator</span>
+            <span class="flex items-center gap-2">
+                <span>Dica: Pressione <kbd class="ui-kbd">Espaço</kbd> para girar a roleta rapidamente</span>
+            </span>
+        </div>
+    </footer>
+
     <!-- IMPORT MODAL -->
     <div id="importModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-dbd-card max-w-md w-full p-6 rounded-xl border border-neutral-800 space-y-4 shadow-2xl">
+        <div class="ui-panel max-w-md w-full p-6 rounded-2xl space-y-4 shadow-2xl">
             <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
                 <h3 class="font-bold text-white uppercase text-sm" id="lblImportTitle">Importar Build Compartilhada</h3>
                 <button onclick="closeImportModal()" class="text-neutral-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <p class="text-xs text-dbd-muted" id="lblImportDesc">Cole o código JSON da build gerada pelo aplicativo abaixo:</p>
-            <textarea id="txtImportCode" rows="4" placeholder='{"role":"survivor","character":{...},"perks":[...]}' class="w-full bg-neutral-950 border border-neutral-700 rounded p-3 text-xs font-mono text-white focus:outline-none focus:border-dbd-red"></textarea>
+            <textarea id="txtImportCode" rows="4" placeholder='{"role":"survivor","character":{...},"perks":[...]}' class="w-full bg-neutral-950 border border-neutral-700 rounded-lg p-3 text-xs font-mono text-white focus:outline-none focus:border-dbd-red"></textarea>
             <div class="flex justify-end gap-2">
-                <button onclick="closeImportModal()" class="px-4 py-1.5 bg-neutral-800 text-xs font-bold rounded text-white">Cancelar</button>
-                <button onclick="confirmImportBuild()" class="px-4 py-1.5 bg-dbd-red hover:bg-dbd-redHover text-xs font-bold rounded text-white shadow">Importar</button>
+                <button onclick="closeImportModal()" class="px-4 py-1.5 bg-neutral-800 text-xs font-bold rounded-lg text-white">Cancelar</button>
+                <button onclick="confirmImportBuild()" class="px-4 py-1.5 bg-dbd-red hover:bg-dbd-redHover text-xs font-bold rounded-lg text-white shadow">Importar</button>
             </div>
         </div>
     </div>
 
     <!-- PERKS JSON IMPORT MODAL -->
     <div id="importPerksJsonModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-dbd-card max-w-lg w-full p-6 rounded-xl border border-neutral-800 space-y-4 shadow-2xl">
+        <div class="ui-panel max-w-lg w-full p-6 rounded-2xl space-y-4 shadow-2xl">
             <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
                 <h3 class="font-bold text-white uppercase text-sm flex items-center gap-2">
                     <i class="fa-solid fa-file-code text-dbd-cyan"></i> Importar Coleção de Perks (JSON)
@@ -687,15 +718,15 @@
                 <button onclick="closePerksJsonModal()" class="text-neutral-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <p class="text-xs text-dbd-muted">Cole o arquivo JSON contendo a lista de vantagens no formato <code>{"perks": [{"perk_name": "...", "character": "..."}]}</code>:</p>
-            <textarea id="txtPerksJsonCode" rows="8" placeholder='{\n  "perks": [\n    {\n      "perk_name": "Chamado da Enfermeira",\n      "character": "Perk ensinável de A Enfermeira"\n    }\n  ]\n}' class="w-full bg-neutral-950 border border-neutral-700 rounded p-3 text-xs font-mono text-white focus:outline-none focus:border-dbd-cyan"></textarea>
+            <textarea id="txtPerksJsonCode" rows="8" placeholder='{\n  "perks": [\n    {\n      "perk_name": "Chamado da Enfermeira",\n      "character": "Perk ensinável de A Enfermeira"\n    }\n  ]\n}' class="w-full bg-neutral-950 border border-neutral-700 rounded-lg p-3 text-xs font-mono text-white focus:outline-none focus:border-dbd-cyan"></textarea>
             <div class="flex justify-between items-center">
-                <select id="selPerksJsonRole" class="bg-neutral-900 border border-neutral-700 rounded p-1.5 text-xs text-white">
+                <select id="selPerksJsonRole" class="bg-neutral-900 border border-neutral-700 rounded-lg p-1.5 text-xs text-white">
                     <option value="killer">Para Assassinos (Killer)</option>
                     <option value="survivor">Para Sobreviventes (Survivor)</option>
                 </select>
                 <div class="flex gap-2">
-                    <button onclick="closePerksJsonModal()" class="px-4 py-1.5 bg-neutral-800 text-xs font-bold rounded text-white">Cancelar</button>
-                    <button onclick="processPerksJsonImport()" class="px-4 py-1.5 bg-dbd-purple hover:bg-purple-800 text-xs font-bold rounded text-white shadow">Carregar Perks</button>
+                    <button onclick="closePerksJsonModal()" class="px-4 py-1.5 bg-neutral-800 text-xs font-bold rounded-lg text-white">Cancelar</button>
+                    <button onclick="processPerksJsonImport()" class="px-4 py-1.5 bg-dbd-purple hover:bg-purple-800 text-xs font-bold rounded-lg text-white shadow">Carregar Perks</button>
                 </div>
             </div>
         </div>
@@ -703,7 +734,7 @@
 
     <!-- IMAGE SHARE MODAL -->
     <div id="imageModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-dbd-card max-w-3xl w-full p-6 rounded-xl border border-neutral-800 space-y-4 shadow-2xl">
+        <div class="ui-panel max-w-3xl w-full p-6 rounded-2xl space-y-4 shadow-2xl">
             <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
                 <h3 class="font-bold text-white uppercase text-sm flex items-center gap-2"><i class="fa-solid fa-image text-dbd-cyan"></i> <span id="imgTitle">Imagem da Build</span></h3>
                 <button onclick="closeImageModal()" class="text-neutral-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
@@ -725,7 +756,6 @@
     <script src="js/app/class-roulette.js"></script>
     <script>
     (function () {
-        // Hash estável de 4 caracteres (base36) a partir de um texto
         function h4(s) {
             let h = 0x811c9dc5;
             for (let i = 0; i < s.length; i++) {
@@ -736,7 +766,6 @@
         }
         const NONE = '----';
 
-        // ---------- Gerar código da build ----------
         function encodeBuild(r) {
             let out = r.role === 'survivor' ? 's' : 'k';
             out += h4(r.character.id);
@@ -744,17 +773,15 @@
 
             const item = r.item || {};
             const hasItem = item.namePt && item.namePt !== 'Nenhum';
-            // Killer: o poder já é definido pelo personagem, então não precisa guardar
             out += (r.role === 'survivor' && hasItem) ? h4(fmt(item.namePt)) : NONE;
 
             const addons = item.addons || [];
             for (let n = 0; n < 2; n++) {
                 out += addons[n] ? h4(fmt(addons[n].namePt)) : NONE;
             }
-            return out; // sempre 33 caracteres
+            return out;
         }
 
-        // ---------- Reconstruir build a partir do código ----------
         function decodeBuild(code) {
             if (code.length !== 33) throw new Error('tamanho inválido');
             const role = code[0] === 's' ? 'survivor' : 'killer';
@@ -807,7 +834,6 @@
             return { role, character, perks, item, date: new Date().toLocaleDateString() };
         }
 
-        // ---------- Botão compartilhar ----------
         async function copyBuildLink(build) {
             let code;
             try {
@@ -831,10 +857,8 @@
             showToast('Link da build copiado!', 'success');
         }
 
-        // Exposto para as Builds Destaque usarem o mesmo botão de link
         window.copyBuildLink = copyBuildLink;
 
-        // Botão da aba "Resultado"
         window.shareBuildLink = function () {
             if (!currentRollResult) {
                 showToast('Gire a roleta antes de compartilhar!', 'error');
@@ -843,14 +867,12 @@
             copyBuildLink(currentRollResult);
         };
 
-        // Botão das builds salvas
         window.shareSavedBuild = function (id) {
             const build = savedBuilds.find(b => b.id === id);
             if (!build) return;
             copyBuildLink(build);
         };
 
-        // ---------- Abrir link recebido ----------
         function applyFromHash() {
             const m = location.hash.match(/^#b=([a-z0-9-]+)$/);
             if (!m) return;
@@ -866,7 +888,6 @@
             }
         }
 
-        // Espera os JSON carregarem antes de aplicar a build
         const originalLoadData = window.loadData;
         window.loadData = async function () {
             await originalLoadData();
