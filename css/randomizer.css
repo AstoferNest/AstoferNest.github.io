@@ -2189,3 +2189,5 @@ html:not(.dark) ::placeholder {
   box-shadow: 0 0 8px rgba(255,0,0,.7);
 }
 .ptb-card { border-color: rgba(255,40,40,.6) !important; }
+
+.perk-tip-body i { font-style: italic; }
