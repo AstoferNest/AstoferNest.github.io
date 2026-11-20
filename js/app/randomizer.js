@@ -161,6 +161,16 @@ async function loadFeatured() {
     }
 }
 
+const ITEM_TYPE_EN = {
+    'Chaves': 'Keys', 'Lanternas': 'Flashlights', 'Mapas': 'Maps',
+    'Kit Médico': 'Med-Kits', 'Caixa de Ferramenta': 'Toolboxes', 'Frasco de Névoa': 'Fog Vials'
+};
+const itemLabel = it => currentLang === 'pt' ? it.nome : (it.nome_en || it.nome);
+const addonPairs = it => (it.complementos || []).map((pt, i) => ({
+    pt,
+    en: (it.complementos_en && it.complementos_en[i]) || pt
+}));
+
 // Sobrevivente: item aleatório + 2 addons. Killer: poder do personagem sorteado + 2 addons dele.
 function rollItem(role, character) {
     if (role === 'survivor') {
@@ -169,18 +179,30 @@ function rollItem(role, character) {
         const tipo = pick(tipos);
         const item = pick(itemsData.surv[tipo]);
         return {
-            namePt: item.nome, nameEn: item.nome, rel: 'itens/surv/' + fmt(item.nome) + '.png',
+            namePt: item.nome,
+            nameEn: item.nome_en || item.nome,
+            rel: 'itens/surv/' + fmt(item.nome) + '.png',
             icon: ITEM_TYPE_ICON[tipo] || 'fa-toolbox',
-            addons: shuffle(item.complementos).slice(0, 2).map(a => ({ namePt: a, nameEn: a, rel: 'itens/surv/complementos/' + fmt(a) + '.png' }))
+            addons: shuffle(addonPairs(item)).slice(0, 2).map(a => ({
+                namePt: a.pt,
+                nameEn: a.en,
+                rel: 'itens/surv/complementos/' + fmt(a.pt) + '.png'
+            }))
         };
     }
     const entry = itemsData.kill[character.namePt.toLowerCase().trim()];
     if (!entry || !entry[0]) return null;
     const poder = entry[0];
     return {
-        namePt: poder.nome, nameEn: poder.nome, rel: 'itens/kill/poderes/' + fmt(poder.nome) + '.png',
+        namePt: poder.nome,
+        nameEn: poder.nome_en || poder.nome,
+        rel: 'itens/kill/poderes/' + fmt(poder.nome) + '.png',
         icon: 'fa-skull',
-        addons: shuffle(poder.complementos).slice(0, 2).map(a => ({ namePt: a, nameEn: a, rel: 'itens/kill/' + fmt(character.namePt) + '/' + fmt(a) + '.png' }))
+        addons: shuffle(addonPairs(poder)).slice(0, 2).map(a => ({
+            namePt: a.pt,
+            nameEn: a.en,
+            rel: 'itens/kill/' + fmt(character.namePt) + '/' + fmt(a.pt) + '.png'
+        }))
     };
 }
 
@@ -1262,24 +1284,36 @@ function getKillerPower(character) {
 // Monta o objeto "item" (mesmo formato do rollItem) a partir de nomes escolhidos
 function makeItemObj(role, character, itemName, addonNames) {
     const wanted = (addonNames || []).filter(Boolean);
+    const resolveAddons = (it, relPrefix) => {
+        const pairs = addonPairs(it);
+        return wanted.map(n => {
+            const hit = pairs.find(a => norm(a.pt) === norm(n) || norm(a.en) === norm(n));
+            const pt = hit ? hit.pt : n;
+            const en = hit ? hit.en : n;
+            return { namePt: pt, nameEn: en, rel: relPrefix + fmt(pt) + '.png' };
+        });
+    };
+
     if (role === 'survivor') {
         const hit = itemName ? findSurvItem(itemName) : null;
         if (!hit) return { ...EMPTY_ITEM };
         const { tipo, found } = hit;
         return {
-            namePt: found.nome, nameEn: found.nome, rel: 'itens/surv/' + fmt(found.nome) + '.png',
+            namePt: found.nome,
+            nameEn: found.nome_en || found.nome,
+            rel: 'itens/surv/' + fmt(found.nome) + '.png',
             icon: ITEM_TYPE_ICON[tipo] || 'fa-toolbox',
-            addons: wanted.map(n => found.complementos.find(a => norm(a) === norm(n)) || n)
-                .map(a => ({ namePt: a, nameEn: a, rel: 'itens/surv/complementos/' + fmt(a) + '.png' }))
+            addons: resolveAddons(found, 'itens/surv/complementos/')
         };
     }
     const poder = getKillerPower(character);
     if (!poder) return { ...EMPTY_ITEM };
     return {
-        namePt: poder.nome, nameEn: poder.nome, rel: 'itens/kill/poderes/' + fmt(poder.nome) + '.png',
+        namePt: poder.nome,
+        nameEn: poder.nome_en || poder.nome,
+        rel: 'itens/kill/poderes/' + fmt(poder.nome) + '.png',
         icon: 'fa-skull',
-        addons: wanted.map(n => poder.complementos.find(a => norm(a) === norm(n)) || n)
-            .map(a => ({ namePt: a, nameEn: a, rel: 'itens/kill/' + fmt(character.namePt) + '/' + fmt(a) + '.png' }))
+        addons: resolveAddons(poder, 'itens/kill/' + fmt(character.namePt) + '/')
     };
 }
 
@@ -1337,10 +1371,13 @@ function populateBuilder() {
     prevPerks.forEach((p, i) => { if (p) $('bldPerk' + i).value = nm(p); });
 
     // itens (somente survivor)
-    const noneLbl = currentLang === 'pt' ? '— Nenhum —' : '— None —';
-    $('bldItem').innerHTML = `<option value="">${noneLbl}</option>` + Object.keys(itemsData.surv).map(tipo =>
-        `<optgroup label="${esc(tipo)}">${itemsData.surv[tipo].map(it => `<option value="${esc(it.nome)}">${esc(it.nome)}</option>`).join('')}</optgroup>`
-    ).join('');
+const noneLbl = currentLang === 'pt' ? '— Nenhum —' : '— None —';
+    $('bldItem').innerHTML = `<option value="">${noneLbl}</option>` + Object.keys(itemsData.surv).map(tipo => {
+        const grp = currentLang === 'pt' ? tipo : (ITEM_TYPE_EN[tipo] || tipo);
+        return `<optgroup label="${esc(grp)}">${itemsData.surv[tipo].map(it =>
+            `<option value="${esc(it.nome)}">${esc(itemLabel(it))}</option>`
+        ).join('')}</optgroup>`;
+    }).join('');
     if (prevItem && findSurvItem(prevItem)) $('bldItem').value = findSurvItem(prevItem).found.nome;
 
     $('bldItemRow').style.display = builderRole === 'survivor' ? '' : 'none';
@@ -1353,11 +1390,11 @@ function populateBuilder() {
 function currentAddonChoices() {
     if (builderRole === 'survivor') {
         const hit = findSurvItem($('bldItem').value);
-        return { power: null, list: hit ? hit.found.complementos : [] };
+        return { power: null, list: hit ? addonPairs(hit.found) : [] };
     }
     const character = charsByRole('killer').find(c => c.id === $('bldChar').value);
     const poder = getKillerPower(character);
-    return { power: poder, list: poder ? poder.complementos : [] };
+    return { power: poder, list: poder ? addonPairs(poder) : [] };
 }
 
 function refreshAddonOptions(keep) {
@@ -1366,13 +1403,15 @@ function refreshAddonOptions(keep) {
     const keepVals = keep || [$('bldAddon1').value, $('bldAddon2').value];
     [1, 2].forEach(n => {
         const sel = $('bldAddon' + n);
-        sel.innerHTML = `<option value="">${noneLbl}</option>` + list.map(a => `<option value="${esc(a)}">${esc(a)}</option>`).join('');
-        const match = list.find(a => norm(a) === norm(keepVals[n - 1]));
-        sel.value = match || '';
+        sel.innerHTML = `<option value="">${noneLbl}</option>` + list.map(a =>
+            `<option value="${esc(a.pt)}">${esc(currentLang === 'pt' ? a.pt : a.en)}</option>`
+        ).join('');
+        const match = list.find(a => norm(a.pt) === norm(keepVals[n - 1]));
+        sel.value = match ? match.pt : '';
         sel.disabled = list.length === 0;
     });
     if (builderRole === 'killer') {
-        $('bldPowerName').textContent = power ? power.nome : (currentLang === 'pt' ? 'Selecione um personagem' : 'Select a character');
+        $('bldPowerName').textContent = power ? itemLabel(power) : (currentLang === 'pt' ? 'Selecione um personagem' : 'Select a character');
     }
 }
 
