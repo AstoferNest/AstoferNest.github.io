@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
     <title>Overlay | Roleta de Perks</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
     <!--
         Overlay para OBS (Fonte de Navegador).
+        Cada vez que a página carrega, sorteia uma build nova.
+
         Parâmetros (na URL):
           role=survivor | killer     lado da build (padrão: survivor)
           mode=normal | classes      modo normal ou 1 perk por classe
@@ -18,111 +15,164 @@
           scale=1.5                  tamanho (1 = 100%)
           layout=v                   layout vertical (padrão: horizontal)
           auto=60                    sorteia sozinho a cada 60 segundos
+
+        Exemplos:
+          overlay.html?role=survivor
+          overlay.html?role=killer&mode=classes&scale=1.25
     -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
+        :root {
+            --ov-bg: rgba(11, 12, 15, 0.88);
+            --ov-inset: rgba(255, 255, 255, 0.04);
+            --ov-border: rgba(255, 255, 255, 0.10);
+            --ov-text: #eceae4;
+            --ov-muted: #8e95a5;
+            --ov-surv: #6ba3be;
+            --ov-kill: #b91c28;
+        }
+
         html, body {
             margin: 0;
             padding: 0;
             background: transparent !important;
             overflow: hidden;
-            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-            color: #ECEAE4;
+            font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+            color: var(--ov-text);
             -webkit-font-smoothing: antialiased;
         }
+
         #stage {
-            --accent: #6BA3BE;
+            position: relative;
             display: inline-flex;
             align-items: center;
             gap: 24px;
-            padding: 16px 24px;
+            padding: 18px 24px;
             margin: 8px;
-            background: rgba(11, 12, 15, 0.88);
-            border: 1px solid rgba(255, 255, 255, 0.10);
-            border-top: 2px solid var(--accent);
+            background: var(--ov-bg);
+            border: 1px solid var(--ov-border);
+            border-top: 2px solid var(--ov-surv);
             border-radius: 6px;
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+            box-shadow: 0 14px 36px rgba(0, 0, 0, 0.55);
             transform-origin: top left;
             cursor: pointer;
             opacity: 0;
-            transition: opacity 0.25s ease;
+            transition: opacity 0.3s ease;
         }
         #stage.ready { opacity: 1; }
         #stage.v { flex-direction: column; }
-        #stage.ov-role-survivor { --accent: #6BA3BE; }
-        #stage.ov-role-killer   { --accent: #B91C28; }
 
-        .ov-sep { width: 1px; align-self: stretch; background: rgba(255, 255, 255, 0.09); }
+        #stage.ov-role-survivor { border-top-color: var(--ov-surv); }
+        #stage.ov-role-killer   { border-top-color: var(--ov-kill); }
+
+        .ov-group { display: flex; align-items: flex-start; gap: 16px; }
+        .ov-sep { width: 1px; align-self: stretch; background: var(--ov-border); }
         #stage.v .ov-sep { width: auto; height: 1px; align-self: stretch; }
 
+        .ov-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            color: var(--ov-muted);
+        }
+        .ov-role-survivor .ov-label.accent,
+        .ov-role-survivor .ov-role-tag { color: var(--ov-surv); }
+        .ov-role-killer .ov-label.accent,
+        .ov-role-killer .ov-role-tag { color: #e0525e; }
+
         /* Personagem */
-        .ov-char { display: flex; flex-direction: column; align-items: center; width: 144px; text-align: center; }
-        .ov-char-img { width: 140px; height: 172px; position: relative; }
-        .ov-char-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+        .ov-char { display: flex; flex-direction: column; align-items: center; width: 146px; text-align: center; }
+        .ov-char-img {
+            width: 142px;
+            height: 174px;
+            position: relative;
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.5));
+        }
+        .ov-char-img img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
         .ov-char-name {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 21px;
-            font-weight: 800;
-            letter-spacing: 0.05em;
+            font-family: "Barlow Condensed", sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
             text-transform: uppercase;
             margin-top: 6px;
             line-height: 1.05;
-            color: #ECEAE4;
+            color: var(--ov-text);
         }
         .ov-role-tag {
             font-size: 10px;
             font-weight: 700;
             letter-spacing: 0.14em;
             text-transform: uppercase;
-            color: var(--accent);
             margin-top: 2px;
         }
 
         /* Perks */
-        .ov-perks { display: flex; gap: 14px; }
+        .ov-perks { display: flex; gap: 12px; }
         .ov-perk { width: 116px; display: flex; flex-direction: column; align-items: center; text-align: center; }
         .ov-perk-frame {
-            width: 114px;
-            height: 114px;
+            width: 112px;
+            height: 112px;
             position: relative;
+            filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45));
         }
-        .ov-perk-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
-        .ov-perk-frame img.ov-icon { inset: 4%; width: 92%; height: 92%; }
+        .ov-perk-frame img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .ov-perk-frame img.ov-icon {
+            inset: 4%;
+            width: 92%;
+            height: 92%;
+        }
 
-        /* Indicador limpo de classe (sem neon exagerado) */
+        /* Indicador sóbrio da classe no modo classes */
         .ov-perk-frame.has-class {
             --cc: #888;
-            filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.5));
-        }
-        .ov-perk-frame.has-class::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 34px;
-            height: 3px;
-            border-radius: 2px;
-            background: var(--cc);
+            padding-bottom: 5px;
+            border-bottom: 2px solid color-mix(in srgb, var(--cc) 80%, transparent);
+            filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.5));
         }
         .ov-class-chip {
             --cc: #888;
             display: inline-block;
-            margin-top: 6px;
+            margin-top: 5px;
             padding: 2px 8px;
             border-radius: 4px;
-            background: color-mix(in srgb, var(--cc) 22%, #1A1D24);
-            color: #ECEAE4;
+            background: color-mix(in srgb, var(--cc) 20%, #0e1015);
+            color: var(--ov-text) !important;
             font-size: 9px;
             font-weight: 700;
-            letter-spacing: 0.07em;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            border: 1px solid color-mix(in srgb, var(--cc) 60%, transparent);
+            border: 1px solid color-mix(in srgb, var(--cc) 55%, transparent);
         }
 
-        .ov-name { font-size: 12px; font-weight: 600; line-height: 1.2; margin-top: 6px; color: #D4D7E0; }
-        #stage.nonames .ov-name, #stage.nonames .ov-char-name { display: none; }
+        .ov-name {
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-top: 6px;
+            color: var(--ov-text);
+        }
+        #stage.nonames .ov-name,
+        #stage.nonames .ov-char-name { display: none; }
 
-        /* Item / Addons */
+        /* Item / Add-ons */
         .ov-items { display: flex; gap: 10px; align-items: flex-start; }
         .ov-slot { width: 92px; display: flex; flex-direction: column; align-items: center; text-align: center; }
         .ov-box {
@@ -131,230 +181,42 @@
             box-sizing: border-box;
             padding: 6px;
             border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--ov-border);
+            background: var(--ov-inset);
             display: flex;
             align-items: center;
             justify-content: center;
         }
         .ov-box img { width: 100%; height: 100%; object-fit: contain; }
-        .ov-box.main { width: 92px; height: 92px; border-color: rgba(255, 255, 255, 0.22); }
+        .ov-box.main { width: 92px; height: 92px; }
         .ov-slot.main { width: 104px; }
 
-        /* Animações refinadas */
+        /* Animações */
         .spinning .ov-char-img,
         .spinning .ov-perk-frame,
-        .spinning .ov-box { animation: ovSpin 0.11s ease-in-out infinite; }
+        .spinning .ov-box { animation: ovSpin 0.12s linear infinite; }
         @keyframes ovSpin {
-            0%   { filter: brightness(0.95); transform: translateY(-2px); }
-            50%  { filter: brightness(1.25); transform: translateY(2px); }
-            100% { filter: brightness(0.95); transform: translateY(-2px); }
+            0%   { filter: brightness(1.0) blur(0.4px); transform: translateY(0); }
+            50%  { filter: brightness(1.3) blur(1.2px); transform: translateY(-2px); }
+            100% { filter: brightness(1.0) blur(0.4px); transform: translateY(0); }
         }
-        .landed .ov-char-img, .landed .ov-perk-frame, .landed .ov-box { animation: ovPop 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+        .landed .ov-char-img,
+        .landed .ov-perk-frame,
+        .landed .ov-box { animation: ovPop 0.35s ease-out; }
         @keyframes ovPop {
             0%   { transform: scale(1.06); filter: brightness(1.3); }
             100% { transform: scale(1);    filter: brightness(1); }
         }
 
-        #err { color: #FCA5A5; font-size: 13px; padding: 12px 16px; background: rgba(11, 12, 15, 0.9); border: 1px solid #B91C28; border-radius: 6px; display: none; margin: 8px; }
+        #err {
+            color: #fca5a5;
+            font-size: 13px;
+            padding: 12px 16px;
+            background: rgba(11, 12, 15, 0.9);
+            border: 1px solid rgba(185, 28, 40, 0.45);
+            border-radius: 6px;
+            display: none;
+            margin: 8px;
+        }
     </style>
 </head>
-<body>
-    <div id="err"></div>
-    <div id="stage"></div>
-
-<script>
-(function () {
-    const q = new URLSearchParams(location.search);
-    const ROLE = q.get('role') === 'killer' ? 'killer' : 'survivor';
-    const MODE = q.get('mode') === 'classes' ? 'classes' : 'normal';
-    const SPIN = q.get('spin') !== '0';
-    const NAMES = q.get('names') !== '0';
-    const SCALE = parseFloat(q.get('scale')) || 1;
-    const LAYOUT = q.get('layout') === 'v' ? 'v' : 'h';
-    const AUTO = Math.max(0, parseInt(q.get('auto'), 10) || 0);
-
-    const SLOTS = {
-        survivor: ['Healer', 'Tank', 'Suporte', 'Objetivo'],
-        killer:   ['Assassino', 'Controlador', 'Batedor', 'Tank']
-    };
-    const COLORS = {
-        Tank: '#3b82f6', Healer: '#22c55e', Batedor: '#f97316', Suporte: '#eab308',
-        Assassino: '#b3121c', Controlador: '#a8683a', Objetivo: '#a8683a'
-    };
-
-    const JSON_DIR = 'json/';
-    const IMG_LOCAL = 'css/img/';
-    const IMG_REMOTE = 'https://astofernest.github.io/perkroulette/css/img/';
-
-    const fmt = s => s.toString().toLowerCase().normalize('NFD').replace(/ /g, '').replace(/'/g, '').replace(/-/g, '').replace(/:/g, '').replace(/\p{Diacritic}/gu, '');
-    const perkSlug = s => s.toString().toLowerCase().normalize('NFD').replace(/ /g, '').replace(/'/g, '').replace(/-/g, '').replace(/&/g, 'and').replace(/!/g, '').replace(/:/g, '').replace(/\p{Diacritic}/gu, '');
-    const charPhotoSlug = s => s.toLowerCase().replace(/\s+/g, '-');
-    const cleanChar = c => c.replace(/Perk ensinável de /gi, '').trim();
-    const norm = s => (s || '').toString().toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').trim();
-    const GENERAL_NAME = 'perk ensinável geral';
-    const pick = a => a[Math.floor(Math.random() * a.length)];
-    const shuffle = a => { const r = [...a]; for (let i = r.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [r[i], r[j]] = [r[j], r[i]]; } return r; };
-    const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-    const imgs = rel => IMG_REMOTE ? [encodeURI(IMG_LOCAL + rel), encodeURI(IMG_REMOTE + rel)] : [encodeURI(IMG_LOCAL + rel)];
-
-    const imgTag = (rel, cls, styleAttr) => `<img ${cls ? `class="${cls}" ` : ''}${styleAttr ? `style="${esc(styleAttr)}" ` : ''}src="${imgs(rel)[0]}" data-srcs="${esc(imgs(rel).join('|'))}" data-idx="0" alt="">`;
-    document.addEventListener('error', e => {
-        const el = e.target;
-        if (!(el instanceof HTMLImageElement) || !el.dataset.srcs) return;
-        const list = el.dataset.srcs.split('|');
-        const n = parseInt(el.dataset.idx, 10) + 1;
-        if (n < list.length) { el.dataset.idx = n; el.src = list[n]; }
-        else el.style.visibility = 'hidden';
-    }, true);
-
-    const data = { chars: [], perks: [], itemsSurv: {}, itemsKill: {} };
-
-    async function load() {
-        const get = n => fetch(JSON_DIR + n + '.json').then(r => { if (!r.ok) throw new Error(n + ' (' + r.status + ')'); return r.json(); });
-        const file = ROLE === 'survivor' ? 'survivor-perks' : 'killer-perks';
-        const [pk, is, ik] = await Promise.all([get(file), get('itens-surv'), get('itens-kill')]);
-        const type = ROLE === 'survivor' ? 'surv' : 'kill';
-
-        const names = [...new Set(pk.perks.map(p => cleanChar(p.character)).filter(n => n.toLowerCase() !== GENERAL_NAME))]
-            .sort((a, b) => a.localeCompare(b));
-        data.chars = names.map(n => ({ name: n, rel: 'personagens/' + charPhotoSlug(n) + '.png' }));
-        data.perks = pk.perks.map(p => ({
-            name: p.perk_name,
-            classe: p.classe_rpg || '',
-            rel: type + '/iconperks-' + perkSlug(p.perk_name) + '.png'
-        }));
-        data.itemsSurv = is;
-        data.itemsKill = {};
-        Object.keys(ik).forEach(k => { data.itemsKill[k.toLowerCase().trim()] = ik[k]; });
-    }
-
-    function rollItem(character) {
-        if (ROLE === 'survivor') {
-            const tipos = Object.keys(data.itemsSurv);
-            if (!tipos.length) return null;
-            const item = pick(data.itemsSurv[pick(tipos)]);
-            return {
-                name: item.nome, rel: 'itens/surv/' + fmt(item.nome) + '.png',
-                addons: shuffle(item.complementos).slice(0, 2).map(a => ({ name: a, rel: 'itens/surv/complementos/' + fmt(a) + '.png' }))
-            };
-        }
-        const entry = data.itemsKill[character.name.toLowerCase().trim()];
-        const poder = entry && entry[0];
-        if (!poder) return null;
-        return {
-            name: poder.nome, rel: 'itens/kill/poderes/' + fmt(poder.nome) + '.png',
-            addons: shuffle(poder.complementos).slice(0, 2).map(a => ({ name: a, rel: 'itens/kill/' + fmt(character.name) + '/' + fmt(a) + '.png' }))
-        };
-    }
-
-    function rollPerks() {
-        if (MODE === 'classes') {
-            const slots = SLOTS[ROLE];
-            const pools = slots.map(cls => data.perks.filter(p => norm(p.classe) === norm(cls)));
-            if (pools.every(pool => pool.length > 0)) {
-                return slots.map((cls, i) => ({ ...pick(pools[i]), slotClass: cls }));
-            }
-        }
-        return shuffle(data.perks).slice(0, 4);
-    }
-
-    function rollBuild() {
-        const character = pick(data.chars);
-        return { character, perks: rollPerks(), item: rollItem(character) };
-    }
-
-    const stage = document.getElementById('stage');
-    stage.classList.add('ov-role-' + ROLE);
-    if (LAYOUT === 'v') stage.classList.add('v');
-    if (!NAMES) stage.classList.add('nonames');
-    stage.style.zoom = SCALE;
-
-    function render(b) {
-        const item = b.item;
-        const addons = item ? item.addons : [];
-        const slot = (o, extra) => `
-            <div class="ov-slot ${extra || ''}">
-                <div class="ov-box ${extra || ''}">${o ? imgTag(o.rel) : ''}</div>
-                <div class="ov-name">${o ? esc(o.name) : ''}</div>
-            </div>`;
-
-        stage.innerHTML = `
-            <div class="ov-char">
-                <div class="ov-char-img">${imgTag('personagens/fundo_pdbd.png')}${imgTag(b.character.rel)}</div>
-                <div class="ov-char-name">${esc(b.character.name)}</div>
-                <div class="ov-role-tag">${ROLE.toUpperCase()}</div>
-            </div>
-            <div class="ov-sep"></div>
-            <div class="ov-perks">
-                ${b.perks.map(p => {
-                    const cls = p.slotClass || '';
-                    const color = cls ? (COLORS[cls] || '#888') : '';
-                    const frameCls = cls ? 'ov-perk-frame has-class' : 'ov-perk-frame';
-                    const frameStyle = cls ? `--cc:${color}` : '';
-                    const chipHtml = cls
-                        ? `<span class="ov-class-chip" style="--cc:${color}">${esc(cls)}</span>`
-                        : '';
-                    return `
-                    <div class="ov-perk">
-                        <div class="${frameCls}" style="${esc(frameStyle)}">${imgTag('perk_purple.png')}${imgTag(p.rel, 'ov-icon')}</div>
-                        <div class="ov-name">${esc(p.name)}</div>
-                        ${chipHtml}
-                    </div>`;
-                }).join('')}
-            </div>
-            <div class="ov-sep"></div>
-            <div class="ov-items">
-                ${slot(item, 'main')}
-                ${slot(addons[0])}
-                ${slot(addons[1])}
-            </div>`;
-    }
-
-    let busy = false;
-    function roll() {
-        if (busy || !data.chars.length) return;
-        busy = true;
-        stage.classList.remove('landed');
-
-        if (!SPIN) {
-            render(rollBuild());
-            stage.classList.add('ready', 'landed');
-            busy = false;
-            return;
-        }
-
-        let steps = 22, speed = 50;
-        stage.classList.add('spinning');
-        const step = () => {
-            render(rollBuild());
-            stage.classList.add('ready');
-            steps--;
-            if (steps > 0) {
-                speed += 14;
-                setTimeout(step, speed);
-            } else {
-                stage.classList.remove('spinning');
-                stage.classList.add('landed');
-                busy = false;
-            }
-        };
-        step();
-    }
-
-    stage.addEventListener('click', roll);
-    document.addEventListener('keydown', e => { if (e.key === 'r' || e.key === 'R') roll(); });
-
-    load().then(() => {
-        roll();
-        if (AUTO > 0) setInterval(roll, AUTO * 1000);
-    }).catch(e => {
-        console.error(e);
-        const el = document.getElementById('err');
-        el.style.display = 'block';
-        el.textContent = 'Não foi possível carregar os dados: ' + e.message + '. Abra por http:// e mantenha a pasta json/ ao lado deste arquivo.';
-    });
-})();
-</script>
-</body>
-</html>
