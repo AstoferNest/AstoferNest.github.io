@@ -6,10 +6,7 @@
       "perk_name_en": "A Nurse's Calling",
       "descricao": "Enquanto estiver a 28/30/32 m de Sobreviventes que estejam curando ou sendo curados, você vê a aura deles.",
       "descricao_en": "Within 28/30/32m of Survivors who are healing or being healed, you see their Auras.",
-      "dota_role": [
-        "Scout / Visão",
-        "Anti-Cura / Dreno"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "aura",
         "cura"
@@ -21,10 +18,7 @@
       "perk_name_en": "Agitation",
       "descricao": "Ao carregar um Sobrevivente:\n-  Você recebe 14/16/18% de Celeridade.\n- Seu Raio de Terror é 12 m maior.",
       "descricao_en": "While carrying a Survivor:\n- You gain 14/16/18% Haste.\n- Your Terror Radius is 12m larger.",
-      "dota_role": [
-        "Tank / Resistência",
-        "Suporte / Utilitário"
-      ],
+      "classe_rpg": "Tank",
       "tags": [
         "celeridade",
         "raio de terror",
@@ -37,9 +31,7 @@
       "perk_name_en": "Bamboozle",
       "descricao": "Sempre que você pular por uma janela, ela fica bloqueada para Sobreviventes por 8/12/16 s.\n\nVocê salta 5/10/15% mais rápido com pulo básico de janelas.\n\nSomente uma janela pode ser bloqueada por vez.",
       "descricao_en": "Whenever you vault a Window, it is blocked for Survivors for 8/12/16s.\n\nYou basic-vault Windows 5/10/15% faster.\n\nOnly 1 Window can be blocked at a time.",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "janela",
         "bloqueio"
@@ -51,9 +43,7 @@
       "perk_name_en": "Barbecue & Chilli",
       "descricao": "Sempre que enganchar um Sobrevivente por 5 s, você pode ver as Auras de todos os Sobreviventes a pelo menos 60/50/40 m de distância do Sobrevivente enganchado.",
       "descricao_en": "Whenever you hook a Survivor, for 5s, you see the Auras of all Survivors who are at least 60/50/40m away from the hooked Survivor.",
-      "dota_role": [
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "aura",
         "gancho"
@@ -65,9 +55,7 @@
       "perk_name_en": "Beast of Prey",
       "descricao": "Sempre que você receber Sede de Sangue, ganhe Indetectável por 30/35/40 s.",
       "descricao_en": "Whenever you gain Bloodlust, gain Undetectable for 30/35/40s.",
-      "dota_role": [
-        "Assassino / Furtividade"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "indetectável",
         "sede de sangue",
@@ -80,10 +68,7 @@
       "perk_name_en": "Bitter Murmur",
       "descricao": "Sempre que um gerador é concluído, você vê as auras de Sobreviventes a 20 m dele por 10 s.\n\nQuando todos os geradores são concluídos, você vê as auras de todos os Sobreviventes por 16/18/20 s.",
       "descricao_en": "Whenever a Generator is completed, you see the Auras of Survivors within 20m of it for 10s.\n\nWhen all Generators are completed, you see the Auras of all Survivors for 16/18/20s.",
-      "dota_role": [
-        "Scout / Visão",
-        "Carry / Late Game"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "aura",
         "gerador",
@@ -96,10 +81,7 @@
       "perk_name_en": "Blood Echo",
       "descricao": "Sempre que você engancha um Sobrevivente, por 20/25/30 s, todos os Sobreviventes feridos:\n- Ganham Exaustão.\n- Ganham Hemorragia.",
       "descricao_en": "Whenever you hook a Survivor, for 20/25/30s, all injured Survivors:\n- Gain Exhausted.\n- Gain Hemorrhage.",
-      "dota_role": [
-        "Anti-Cura / Dreno",
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "exaustão",
         "hemorragia",
@@ -113,10 +95,7 @@
       "perk_name_en": "Blood Warden",
       "descricao": "Quando um portão de saída abre, uma vez por partida, quando você engancha um Sobrevivente, as duas saídas são bloqueadas por 40/50/60 s.\n\nVocê vê as auras dos Sobreviventes nos limites de saída.",
       "descricao_en": "When an Exit Gate is opened, once per trial, when you hook a Survivor, both Exits are blocked for 40/50/60s.\n\nYou see the Auras of Survivors within Exit Thresholds.",
-      "dota_role": [
-        "Controle / Lockdown",
-        "Carry / Late Game"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "aura",
         "portão",
@@ -131,9 +110,7 @@
       "perk_name_en": "Bloodhound",
       "descricao": "Poças de Sangue brilham mais e duram 2/3/4 s a mais.",
       "descricao_en": "Pools of Blood are brighter and last 2/3/4s longer.",
-      "dota_role": [
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "rastro"
       ]
@@ -144,9 +121,7 @@
       "perk_name_en": "Brutal Strength",
       "descricao": "Seu ataque básico quebra barricadas e paredes destrutíveis e danifica geradores 10/15/20% mais rápido.",
       "descricao_en": "You basic-break Pallets and Breakable Walls, and damage Generators 10/15/20% faster.",
-      "dota_role": [
-        "Tank / Resistência"
-      ],
+      "classe_rpg": "Tank",
       "tags": [
         "chute",
         "barricada",
@@ -159,9 +134,7 @@
       "perk_name_en": "Corrupt Intervention",
       "descricao": "Quando a partida começa, os 3 geradores mais distantes de você ficam bloqueados por 80/100/120 s ou até um Sobrevivente ser derrubado.",
       "descricao_en": "When the trial starts, the 3 farthest Generators from you are blocked for 80/100/120s, or until you down a Survivor.",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "gerador",
         "bloqueio",
@@ -174,9 +147,7 @@
       "perk_name_en": "Coulrophobia",
       "descricao": "Sobreviventes dentro do seu Raio de Terror:\n- Curam 20/25/30% mais lentamente.\n- Enquanto curam, Testes de Perícia básicos giram 50% mais rápido.",
       "descricao_en": "Survivors within your Terror Radius:\n- Heal 20/25/30% slower.\n- While healing, basic Skill Checks spin 50% faster.",
-      "dota_role": [
-        "Anti-Cura / Dreno"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "teste de perícia",
         "cura",
@@ -190,10 +161,7 @@
       "perk_name_en": "Coup de Grâce",
       "descricao": "Toda vez que um gerador for concluído, Coup de Grâce ficará mais forte e você ganhará 2 pontos de progressão, até o máximo de 5.\n\nConsuma um ponto de progressão para aumentar a distância da sua próxima investida em 70/75/80%.",
       "descricao_en": "Each time a generator is completed, Coup de Grâce grows in power. Gain 2 tokens, with a maximum of 5 tokens.\n\nConsume one token to increase the distance of your next lunge attack by 70/75/80%.",
-      "dota_role": [
-        "Nuker / Burst",
-        "Carry / Late Game"
-      ],
+      "classe_rpg": "Assassino",
       "tags": [
         "gerador",
         "ataque",
@@ -206,9 +174,7 @@
       "perk_name_en": "Claustrophobia",
       "descricao": "A cada vez que um gerador for reparado, todas as janelas e locais de pulo ficam bloqueados para todos os Sobreviventes pelos próximos 30 s.",
       "descricao_en": "Each time a generator is repaired, all windows and vault locations are blocked for all Survivors for the next 30 seconds.",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "gerador",
         "janela",
@@ -221,9 +187,7 @@
       "perk_name_en": "Dark Devotion",
       "descricao": "Quando a Obsessão recebe dano, por 35/40/45 s:\n- Seu Raio de Terror é definido para 40 m:\n- A Obsessão fica com seu Raio de Terror.\n- Você recebe Indetectável.",
       "descricao_en": "Whenever the Obsession takes damage, for 35/40/45s:\n- Your Terror Radius is set to 40m.\n- The Obsession has your Terror Radius.\n- You gain Undetectable.",
-      "dota_role": [
-        "Assassino / Furtividade"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "indetectável",
         "raio de terror",
@@ -237,9 +201,7 @@
       "perk_name_en": "Dead Man's Switch",
       "descricao": "Sempre que você engancha um Sobrevivente, a próxima vez que um Sobrevivente parar de reparar um gerador por mais de 2 s, ele fica bloqueado por 30/35/40 s. Tempo de recarga: 30/35/40 s.",
       "descricao_en": "Whenever you hook a Survivor, the next time any Survivor stops repairing a Generator for more than 2s, it is blocked for 30/35/40s. Cooldown: 30/35/40s.",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "gerador",
         "gancho",
@@ -252,10 +214,7 @@
       "perk_name_en": "Deathbound",
       "descricao": "Sempre que um Sobrevivente termina de curar outro Sobrevivente, o que curou grita. Em seguida, até a pessoa que curou receber dano, enquanto ela estiver a pelo menos 12/8/4 m do Sobrevivente curado:\n- Quem curou recebe Alheio.\n- Quem curou vê a aura do Sobrevivente curado.\n\nSó se aplica a um Sobrevivente por vez.",
       "descricao_en": "Whenever a Survivor finishes healing another, the healer screams. Then, until the healer takes damage, while they are at least 12/8/4m away from the healed Survivor:\n- The healer gains Oblivious.\n- The healer sees the healed Survivor's Aura.\n\nThis can only apply to one Survivor at a time.",
-      "dota_role": [
-        "Anti-Cura / Dreno",
-        "Assassino / Furtividade"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "alheio",
         "cura",
@@ -269,9 +228,7 @@
       "perk_name_en": "Deerstalker",
       "descricao": "A cada 40/35/30 s, o Sobrevivente com menor tempo de perseguição vê sua Aura por 4 s.\n\nEnquanto um Sobrevivente ver a sua Aura, você vê a dele.",
       "descricao_en": "Every 40/35/30s, the Survivor with the least time in chase sees your Aura for 4s.\n\nWhile a Survivor sees your Aura, you see their Aura.",
-      "dota_role": [
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "aura",
         "perseguição"
@@ -283,9 +240,7 @@
       "perk_name_en": "Discordance",
       "descricao": "A 64/96/128 m de você, quando um gerador é reparado por pelo menos dois Sobreviventes, você recebe um alerta.\n\nEnquanto esse gerador estiver sendo reparado por pelo menos dois Sobreviventes, você vê a aura dele. Isso termina 4 s após o gerador não ser mais reparado por pelo menos dois Sobreviventes.",
       "descricao_en": "Within 64/96/128m of you, whenever a Generator is being repaired by at least 2 Survivors, you are alerted.\n\nWhile that Generator is being repaired by at least 2 Survivors, you see its Aura. When it is no longer being repaired by at least 2 Survivors, this ends after 4s.",
-      "dota_role": [
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "aura",
         "gerador",
@@ -299,10 +254,7 @@
       "perk_name_en": "Distressing",
       "descricao": "Sobreviventes dentro do seu Raio de Terror reparam 6/7/8% mais lentamente.\n\nSeu Raio de Terror é 30% maior.",
       "descricao_en": "Survivors within your Terror Radius repair 6/7/8% slower.\n\nYour Terror Radius is 30% larger.",
-      "dota_role": [
-        "Controle / Lockdown",
-        "Suporte / Utilitário"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "reparo",
         "raio de terror"
@@ -314,10 +266,7 @@
       "perk_name_en": "Dragon's Grip",
       "descricao": "Sempre que você causar dano a um gerador, pelos próximos 30 s, o primeiro Sobrevivente que reparar aquele gerador:\n- Grita e você recebe um alerta da posição dele por 4 s.\n- Fica Exposto por 60 s.\n\nTempo de recarga: 60/45/30 s.",
       "descricao_en": "Whenever you damage a Generator, for the next 30s, the first Survivor that repairs that Generator:\n- They scream, then you are alerted to their position for 4s.\n- They gain Exposed for 60s.\n\nCooldown: 60/45/30s.",
-      "dota_role": [
-        "Nuker / Burst",
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Assassino",
       "tags": [
         "exposto",
         "gerador",
@@ -332,10 +281,7 @@
       "perk_name_en": "Dying Light",
       "descricao": "Sempre que você enganchar um Sobrevivente que não é a Obsessão, receba 1 Ponto de Progressão.\n\nEnquanto a Obsessão estiver viva, para cada Ponto de Progressão:\n- Os outros Sobreviventes curam 2/2,5/3% mais lentamente.\n- Os outros Sobreviventes reparam 2/2,5/3% mais lentamente.\n- Os outros Sobreviventes sabotam ganchos 2/2,5/3% mais lentamente.\n\nA Obsessão:\n- Cura outros Sobreviventes 33% mais rápido.\n- Desengancha outros Sobreviventes 33% mais rápido.",
       "descricao_en": "Whenever you hook a Survivor that is not the Obsession, earn 1 token.\n\nWhile the Obsession is alive, for each Token:\n- Other Survivors heal 2/2.5/3% slower.\n- Other Survivors repair 2/2.5/3% slower.\n- Other Survivors sabotage Hooks 2/2.5/3% slower.\n\nThe Obsession:\n- Heals other Survivors 33% faster.\n- Unhooks other Survivors 33% faster.",
-      "dota_role": [
-        "Anti-Cura / Dreno",
-        "Carry / Late Game"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "cura",
         "reparo",
@@ -350,9 +296,7 @@
       "perk_name_en": "Enduring",
       "descricao": "Enquanto não estiver carregando um Sobrevivente, atordoamentos causados por barricadas são 40/45/50% mais curtos.",
       "descricao_en": "While not carrying a Survivor, Pallet-stuns are 40/45/50% shorter.",
-      "dota_role": [
-        "Tank / Resistência"
-      ],
+      "classe_rpg": "Tank",
       "tags": [
         "barricada",
         "imunidade"
@@ -364,10 +308,7 @@
       "perk_name_en": "Fire Up",
       "descricao": "Sempre que um gerador for concluído, obtenha 1 Ponto de Progressão, podendo acumular até 5.\n\nPara cada Ponto de Progressão:\n- Você quebra barricadas e paredes destrutíveis com básico 6/7/8% mais rápido.\n- Você danifica geradores 6/7/8% mais rápido.\n- Você pega e solta Sobreviventes 6/7/8% mais rápido.\n- Você pula sobre janelas com pulo básico 6/7/8% mais rápido.",
       "descricao_en": "Whenever a Generator is completed, earn 1 Token, up to 5.\n\nFor each Token:\n- You basic-break Pallets and Breakable Walls 6/7/8% faster.\n- You damage Generators 6/7/8% faster.\n- You pick-up and drop Survivors 6/7/8% faster.\n- You basic-vault Windows 6/7/8% faster.",
-      "dota_role": [
-        "Carry / Late Game",
-        "Tank / Resistência"
-      ],
+      "classe_rpg": "Tank",
       "tags": [
         "gerador",
         "barricada",
@@ -381,9 +322,7 @@
       "perk_name_en": "Forced Penance",
       "descricao": "Sempre que um Sobrevivente tomar um acerto de proteção, ele recebe Quebrado por 60/70/80 s.",
       "descricao_en": "Whenever a Survivor takes a protection hit, they gain Broken for 60/70/80s.",
-      "dota_role": [
-        "Anti-Cura / Dreno"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "quebrado",
         "anti-cura"
@@ -395,10 +334,7 @@
       "perk_name_en": "Franklin's Demise",
       "descricao": "A 32/48/64 m, você pode ver as Auras de itens no chão.",
       "descricao_en": "Within 32/48/64m, you see the Auras of dropped items.",
-      "dota_role": [
-        "Scout / Visão",
-        "Suporte / Utilitário"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "aura",
         "item"
@@ -410,9 +346,7 @@
       "perk_name_en": "Furtive Chase",
       "descricao": "Sempre que você engancha a Obsessão:\n- Você recebe 10% de Celeridade por 14/16/18 s.\n- Você recebe Indetectável por 14/16/18 s.\n\nSempre que a Obsessão é desenganchada, o Sobrevivente que a desenganchou se torna a Obsessão.",
       "descricao_en": "Whenever you hook the Obsession:\n- You gain 10% Haste for 14/16/18s.\n- You gain Undetectable for 14/16/18s.\n\nWhenever the Obsession is unhooked, the Survivor who unhooked them becomes the Obsession.",
-      "dota_role": [
-        "Assassino / Furtividade"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "celeridade",
         "indetectável",
@@ -428,9 +362,7 @@
       "perk_name_en": "Gearhead",
       "descricao": "Sempre que um Sobrevivente recebe dano, pelos próximos 30 s, sempre que um Sobrevivente que está reparando um gerador conseguir um Teste de Perícia básico bom, você vê a aura dele por 6/7/8 s.",
       "descricao_en": "Whenever a Survivor takes damage, for the next 30s, whenever a Survivor repairing a Generator hits a good basic Skill Check, you see their Aura for 6/7/8s.",
-      "dota_role": [
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "aura",
         "gerador",
@@ -444,10 +376,7 @@
       "perk_name_en": "Hangman's Trick",
       "descricao": "Ao carregar um Sobrevivente, você vê as auras de Sobreviventes a 12/14/16 m de um Gancho do Tormento.\n\nSempre que um Sobrevivente começa a sabotar um gancho, você recebe um alerta.",
       "descricao_en": "While carrying a Survivor, you see the Auras of Survivors within 12/14/16m of Scourge Hooks.\n\nWhenever a Survivor starts sabotaging a Hook, you are alerted.",
-      "dota_role": [
-        "Scout / Visão",
-        "Suporte / Utilitário"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "aura",
         "gancho",
@@ -461,9 +390,7 @@
       "perk_name_en": "Hex: Blood Favour",
       "descricao": "Sempre que um Sobrevivente saudável fica ferido pelo seu ataque básico, barricadas levantadas a 32 m dele ficam bloqueadas por 13/14/15 s.",
       "descricao_en": "Whenever a healthy Survivor becomes injured by your basic-attack, Upright Pallets within 32m of them are blocked for 13/14/15s.",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "barricada",
         "ataque",
@@ -478,10 +405,7 @@
       "perk_name_en": "Hex: Devour Hope",
       "descricao": "Sempre que um Sobrevivente é desenganchado enquanto você estiver a pelo menos 24 m de distância, receba 1 Ponto de Progressão, podendo acumular até 5.\n- 2 Pontos de Progressão | 10 s após enganchar um Sobrevivente, receba 3/4/5% de Celeridade por 10 s.\n- 3 Pontos de Progressão | Os Sobreviventes recebem Exposto.\n- 5 Pontos de Progressão | Você pode matar Sobreviventes derrubados.",
       "descricao_en": "Whenever a Survivor is unhooked while you are at least 24m away, earn 1 Token, up to 5:\n- 2 Tokens | 10s after hooking a Survivor, gain 3/4/5% Haste for 10s.\n- 3 Tokens | Survivors gain Exposed.\n- 5 Tokens | You can Kill downed Survivors.",
-      "dota_role": [
-        "Nuker / Burst",
-        "Carry / Late Game"
-      ],
+      "classe_rpg": "Assassino",
       "tags": [
         "exposto",
         "celeridade",
@@ -498,9 +422,7 @@
       "perk_name_en": "Hex: Haunted Ground",
       "descricao": "Quando um dos Totens Enfeitiçados for abençoado ou purificado:\n- Todos os Sobreviventes recebem Exposto por 40/50/60 s.\n- O outro Totem é apagado.",
       "descricao_en": "When either of those Hex Totems is blessed or cleansed:\n- All Survivors gain Exposed for 40/50/60s.\n- The other Totem is extinguished.",
-      "dota_role": [
-        "Nuker / Burst"
-      ],
+      "classe_rpg": "Assassino",
       "tags": [
         "exposto",
         "totem",
@@ -514,10 +436,7 @@
       "perk_name_en": "Hex: Huntress Lullaby",
       "descricao": "Sempre que você enganchar um Sobrevivente, receba 1 ponto de progressão. Para cada ponto de progressão, o aviso de Testes de Perícia básicos aparece depois e as zonas de sucesso são menores.\n\nQuando tiver 5 pontos de progressão, Testes de Perícia básicos não aparecem.\n\nSempre que um Sobrevivente falhar em um Teste de Perícia básico, ele perde 2/4/6% mais progresso.",
       "descricao_en": "Whenever you hook a Survivor, earn 1 Token. For each Token, Basic Skill Check warnings appear later and good success zones are smaller.\n\nWhile you have 5 Tokens, Basic Skill Check warnings don't appear.\n\nWhenever a Survivor misses a basic Skill Check, they lose 2/4/6% more progress.",
-      "dota_role": [
-        "Controle / Lockdown",
-        "Carry / Late Game"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "gancho",
         "teste de perícia",
@@ -532,10 +451,7 @@
       "perk_name_en": "Hex: No One Escapes Death",
       "descricao": "Quando todos os geradores forem concluídos, um Totem Simples acende:\n- Sobreviventes recebem Exposto.\n- Você ganha 2/3/4% de Celeridade.\n\nNum raio de 4 m, os Sobreviventes veem a aura do Totem Enfeitiçado, expandindo para 24 m ao longo de 30 s.",
       "descricao_en": "When all Generators are completed, a Dull Totem ignites:\n- Survivors gain Exposed.\n- You gain 2/3/4% Haste.\n\nWithin 4m, Survivors see the Hex Totem's Aura, expanding to 24m over 30s.",
-      "dota_role": [
-        "Nuker / Burst",
-        "Carry / Late Game"
-      ],
+      "classe_rpg": "Assassino",
       "tags": [
         "exposto",
         "celeridade",
@@ -553,10 +469,7 @@
       "perk_name_en": "Hex: Retribution",
       "descricao": "Sempre que um Sobrevivente começa a abençoar ou purificar um Totem, ele ganha Alheio por 40/50/60 s.\n\nSempre que um Totem Enfeitiçado é abençoado ou purificado, você vê as auras de todos os Sobreviventes por 20 s.",
       "descricao_en": "Whenever a Survivor starts blessing or cleansing a Totem, they gain Oblivious for 40/50/60s.\n\nWhenever a Hex Totem is blessed or cleansed, you see the Auras of all Survivors for 20s.",
-      "dota_role": [
-        "Scout / Visão",
-        "Assassino / Furtividade"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "alheio",
         "aura",
@@ -571,9 +484,7 @@
       "perk_name_en": "Hex: Ruin",
       "descricao": "Enquanto um gerador não for reparado, ele regride com 100/125/150% de velocidade.",
       "descricao_en": "While a Generator is not being repaired, it regresses at 100/125/150% speed.",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "gerador",
         "reparo",
@@ -588,9 +499,7 @@
       "perk_name_en": "Hex: The Third Seal",
       "descricao": "Sempre que você causar dano a um Sobrevivente, ele ganha Cegueira.\n\nEste efeito é aplicado em até 2/3/4 Sobreviventes.",
       "descricao_en": "Whenever you damage a Survivor with a basic or special-attack, they gain Blindness.\n\nThis applies for up to 2/3/4 Survivors.",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "cegueira",
         "feitiço",
@@ -603,10 +512,7 @@
       "perk_name_en": "Hex: Thrill of the Hunt",
       "descricao": "Quando você engancha um Sobrevivente, todos os Totens Enfeitiçados são bloqueados por 4/5/6 s para cada Totem Enfeitiçado aceso.",
       "descricao_en": "When you hook a Survivor, block all Hex Totems for 4/5/6s for each lit Hex Totem.",
-      "dota_role": [
-        "Controle / Lockdown",
-        "Suporte / Utilitário"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "totem",
         "totem enfeitiçado",
@@ -621,10 +527,7 @@
       "perk_name_en": "Hex: Undying",
       "descricao": "Quando outro Totem Enfeitiçado for abençoado ou purificado, ele substitui este Totem e mantém todos os Pontos de Progressão que ele tinha.\n\nVocê vê as Auras de Sobreviventes a 2/3/4 m de Totens Simples.",
       "descricao_en": "When another Hex Totem is blessed or cleansed, it replaces this one and keeps any Tokens it had.\n\nYou see the Auras of Survivors within 2/3/4m of Dull Totems.",
-      "dota_role": [
-        "Suporte / Utilitário",
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "aura",
         "totem",
@@ -638,9 +541,7 @@
       "perk_name_en": "Hoarder",
       "descricao": "Os Sobreviventes revelam onde estão ao interagirem com um baú ou ao pegarem um item a até 32/48/64 m de você.\n\nA partida começa com até 2 Baús adicionais no cenário.",
       "descricao_en": "Survivors reveal their location when they interact with a chest or when they pick up an item within 32/48/64 meters of your location.\n\nThe trial begins with up to 2 additional Chests in the environment.",
-      "dota_role": [
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "baú",
         "item",
@@ -653,9 +554,7 @@
       "perk_name_en": "I'm All Ears",
       "descricao": "Sempre que um Sobrevivente entrar ou sair rápido de um Armário ou fizer pulos rápidos ou médios a 48 m de você, você vê a aura dele por 8 s. Tempo de recarga: 60/45/30 s.",
       "descricao_en": "Whenever a Survivor fast-enters or fast-exits a Locker, or medium or fast-vaults within 48m of you, you see their Aura for 8s. Cooldown: 60/45/30s.",
-      "dota_role": [
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "aura",
         "armário",
@@ -669,10 +568,7 @@
       "perk_name_en": "Infectious Fright",
       "descricao": "Sempre que um Sobrevivente for derrubado, Sobreviventes em seu Raio de Terror gritam e você recebe um alerta por 4/5/6 s.",
       "descricao_en": "Whenever a Survivor is downed, Survivors within your Terror Radius scream and you are alerted for 4/5/6s.",
-      "dota_role": [
-        "Scout / Visão",
-        "Nuker / Burst"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "raio de terror",
         "grito",
@@ -685,9 +581,7 @@
       "perk_name_en": "Insidious",
       "descricao": "Após ficar ocioso por 2 s, receba Indetectável. Sempre que você age, isso termina após 6/7/8 s.",
       "descricao_en": "After being idle for 2s, gain Undetectable. Whenever you act, this ends after 6/7/8s.",
-      "dota_role": [
-        "Assassino / Furtividade"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "indetectável",
         "furtividade"
@@ -699,9 +593,7 @@
       "perk_name_en": "Iron Grasp",
       "descricao": "Ao carregar um Sobrevivente:\n- Ele se debate 10/11/12% mais lentamente.\n- Ele se debate de forma 75% mais fraca.",
       "descricao_en": "While carrying a Survivor:\n- They wiggle 10/11/12% slower.\n- Their wiggle is 75% weaker.",
-      "dota_role": [
-        "Tank / Resistência"
-      ],
+      "classe_rpg": "Tank",
       "tags": [
         "debater",
         "carregar"
@@ -713,10 +605,7 @@
       "perk_name_en": "Iron Maiden",
       "descricao": "Sempre que um Sobrevivente sai de um armário:\n- Ele recebe Exposto por 30 s.\n- Ele grita e você recebe um alerta da localização dele por 4 s.\n\nVocê abre armários 30/40/50% mais rápido.",
       "descricao_en": "Whenever a Survivor exits a Locker:\n- They gain Exposed for 30s.\n- They scream, then you are alerted to their location for 4s.\n\nYou open Lockers 30/40/50% faster.",
-      "dota_role": [
-        "Nuker / Burst",
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Assassino",
       "tags": [
         "exposto",
         "armário",
@@ -729,9 +618,7 @@
       "perk_name_en": "Knock Out",
       "descricao": "- Quando um Sobrevivente derrubar uma barricada, ele se move 10 m para longe dela dentro de 6 s e ganha 20% de Lentidão por 2/3/4 s.\nLentidão reduz a velocidade de movimento do Sobrevivente.",
       "descricao_en": "- When a Survivor drops a pallet, if they move 10 meters away from it within 6 seconds, they gain 20% Hindered for 2/3/4 seconds.\nHindered reduces Survivor movement speed.",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "lentidão",
         "barricada",
@@ -744,10 +631,7 @@
       "perk_name_en": "Lightborn",
       "descricao": "Sempre que um Sobrevivente tentar cegar você, veja a aura dele por 6/8/10 s.\n\nVocê não pode ficar cego.",
       "descricao_en": "Whenever a Survivor attempts to blind you, you see their Aura for 6/8/10s.\n\nYou cannot be blinded.",
-      "dota_role": [
-        "Tank / Resistência",
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Tank",
       "tags": [
         "aura",
         "imunidade"
@@ -759,9 +643,7 @@
       "perk_name_en": "Mad Grit",
       "descricao": "Ao carregar um Sobrevivente:\n- Sempre que você erra um ataque básico, seu tempo de recarga é 100% mais curto.\n- Sempre que você causa dano a um Sobrevivente com um ataque básico, o Sobrevivente carregado não recebe progresso ao se debater por 2/3/4 s.",
       "descricao_en": "While carrying a Survivor:\n- Whenever you miss a basic-attack, your cooldown is 100% shorter.\n- Whenever you damage a Survivor with a basic attack, the carried Survivor gains no wiggle progress for 2/3/4s.",
-      "dota_role": [
-        "Tank / Resistência"
-      ],
+      "classe_rpg": "Tank",
       "tags": [
         "ataque",
         "tempo de recarga",
@@ -775,9 +657,7 @@
       "perk_name_en": "Make Your Choice",
       "descricao": "Sempre que um Sobrevivente se desengancha ou desengancha outro enquanto você estiver a pelo menos 32 m de distância:\n- Eles gritam.\n- Eles recebem Exposto por 40/50/60 s.\n\nTempo de recarga: 40/50/60 s.",
       "descricao_en": "Whenever a Survivor unhooks another or themselves while you are at least 32m away:\n- They scream.\n- They gain Exposed for 40/50/60s.\n\nCooldown: 40/50/60s.",
-      "dota_role": [
-        "Nuker / Burst"
-      ],
+      "classe_rpg": "Assassino",
       "tags": [
         "exposto",
         "gancho",
@@ -791,9 +671,7 @@
       "perk_name_en": "Fearmonger",
       "descricao": "Sobreviventes que estiverem reparando geradores sofrerão o efeito dos estados Exaustão e Cegueira. Se o Sobrevivente já estiver sob Exaustão, o tempo do efeito será interrompido.\n\nAmbos os efeitos perdurarão por 5 s após o Sobrevivente parar o reparo.\n\nCegueira impede os Sobreviventes de verem auras.\nExaustão impede os Sobreviventes de ativarem vantagens exaustivas.",
       "descricao_en": "Any Survivor repairing a generator suffers from the Blindness and Exhausted status effect. If the Survivor is already Exhausted, their status effect's timer will be paused.\n\nBoth status effects linger for 5 seconds after stopping repairs.\n\nBlindness prevents Survivors from seeing auras.\nExhausted prevents Survivors from activating exhausting perks.",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "exaustão",
         "cegueira",
@@ -807,9 +685,7 @@
       "perk_name_en": "Monitor & Abuse",
       "descricao": "Enquanto persegue um Sobrevivente, seu Raio de Terror é 5/10/15% maior.\n\nEnquanto não persegue um Sobrevivente, seu Raio de Terror é 15/20/25% menor.",
       "descricao_en": "While chasing a Survivor, your Terror Radius is 5/10/15% bigger.\n\nWhile not chasing a Survivor, your Terror Radius is 15/20/25% smaller.",
-      "dota_role": [
-        "Assassino / Furtividade"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "raio de terror",
         "furtividade"
@@ -821,9 +697,7 @@
       "perk_name_en": "Monstrous Shrine",
       "descricao": "Sempre que você estiver a pelo menos 24 m de um Sobrevivente em um Gancho do Tormento, qualquer gerador que não estiver sendo reparado regredirá a 150/175/200% da velocidade.",
       "descricao_en": "While you are at least 24m away from a Survivor on a Scourge Hook, any Generator that isn't being repaired regresses at 150/175/200% speed.",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "gerador",
         "reparo",
@@ -838,10 +712,7 @@
       "perk_name_en": "Nemesis",
       "descricao": "Sempre que um Sobrevivente se torna a Obsessão:\n- Ele recebe Alheio por 40/50/60 s.\n- Você vê a aura dele por 8 s.",
       "descricao_en": "Whenever a Survivor becomes the Obsession:\n- They gain Oblivious for 40/50/60s.\n- You see their Aura for 8s.",
-      "dota_role": [
-        "Assassino / Furtividade",
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "alheio",
         "aura",
@@ -854,9 +725,7 @@
       "perk_name_en": "Oppression",
       "descricao": "Ao danificar um gerador, até 4 outros geradores aleatórios começam a regredir.\n\nSe um desses geradores estiver sendo reparado, aciona um Teste de Perícia difícil para cada um dos Sobreviventes que o estiverem reparando.\n\n<i>Opressão</i> tem um tempo de recarga de 45/40/35 s.",
       "descricao_en": "When you damage a generator, up to 4 other random generators also begin regressing.\n\nIf the affected generators are being repaired, any Survivors repairing them receive a difficult Skill Check.\n\nOppression has a cooldown of 45/40/35 seconds.",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "gerador",
         "reparo",
@@ -871,9 +740,7 @@
       "perk_name_en": "Overcharge",
       "descricao": "Sempre que você causa dano a um gerador:\n- Sua velocidade de regressão aumenta de 85% para 130% ao longo dos próximos 30 s.\n- O próximo Sobrevivente que começar a reparar recebe um Teste de Perícia especial. Se falhar, ele perde mais 2/3/4% de progresso.",
       "descricao_en": "Whenever you damage a Generator:\n- Its regression speed will go from 85% to 130% over the next 30s.\n- The next Survivor who starts repairing it gets a special Skill Check. If they miss it, they lose 2/3/4% more progress.",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "gerador",
         "reparo",
@@ -887,10 +754,7 @@
       "perk_name_en": "Overwhelming Presence",
       "descricao": "Sempre que um Sobrevivente usa um item a 32 m de você, ele recebe Exaustão por 15 s.\n\nSempre que um Sobrevivente a 32 m de você recebe Exaustão, você vê a aura do Sobrevivente com Exaustão mais próximo por 2/3/4 s. Tempo de recarga: 25 s.",
       "descricao_en": "Whenever a Survivor uses an item within 32m of you, they gain Exhausted for 15s.\n\nWhenever a Survivor within 32m of you gains Exhausted, you see the closest Exhausted Survivor's Aura for 2/3/4s. Cooldown: 25s.",
-      "dota_role": [
-        "Controle / Lockdown",
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "exaustão",
         "aura",
@@ -904,10 +768,7 @@
       "perk_name_en": "Play with Your Food",
       "descricao": "Sempre que você parar de perseguir a Obsessão, ganhe 1 ponto de progressão, até um máximo de 3. Tempo de recarga: 10 s.\n\nPara cada ponto de progressão, receba 3/4/5% de Celeridade.\n\nSempre que atacar, você perde 1 ponto de progressão.",
       "descricao_en": "Whenever you stop chasing the Obsession, you earn 1 Token, up to 3. Cooldown: 10s.\n\nFor each Token, gain 3/4/5% Haste.\n\nWhenever you attack, lose 1 Token.",
-      "dota_role": [
-        "Assassino / Furtividade",
-        "Carry / Late Game"
-      ],
+      "classe_rpg": "Tank",
       "tags": [
         "celeridade",
         "perseguição",
@@ -922,10 +783,7 @@
       "perk_name_en": "Pop Goes the Weasel",
       "descricao": "Sempre que você enganchar um Sobrevivente, pelos próximos 35/40/45 s, quando você causar dano a um gerador, ele explode e perde mais 15% de progresso.",
       "descricao_en": "Whenever you hook a Survivor, for the next 35/40/45s, when you damage a Generator, it explodes and loses 15% more progress.",
-      "dota_role": [
-        "Controle / Lockdown",
-        "Nuker / Burst"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "gerador",
         "gancho",
@@ -938,9 +796,7 @@
       "perk_name_en": "Predator",
       "descricao": "Quando parar de perseguir um Sobrevivente, você vê a Aura dele por 4 s. Tempo de recarga: 60/50/40 s.",
       "descricao_en": "When you stop chasing a Survivor, you see their Aura for 4s. Cooldown: 60/50/40s.",
-      "dota_role": [
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "aura",
         "perseguição",
@@ -953,11 +809,7 @@
       "perk_name_en": "Rancor",
       "descricao": "Sempre que um gerador é concluído:\n- Você recebe um alerta da posição de todos os Sobreviventes por 3 s.\n- A Obsessão vê sua aura por 5/4/3 s.\n\nQuando todos os geradores forem concluídos:\n- A Obsessão recebe Exposto.\n- Você pode matar a Obsessão.",
       "descricao_en": "Whenever a Generator is completed:\n- You are alerted to the position of all Survivors for 3s.\n- The Obsession sees your Aura for 5/4/3s.\n\nWhen all Generators are completed:\n- The Obsession gains Exposed.\n- You can Kill the Obsession.",
-      "dota_role": [
-        "Nuker / Burst",
-        "Carry / Late Game",
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Assassino",
       "tags": [
         "exposto",
         "gerador",
@@ -972,10 +824,7 @@
       "perk_name_en": "Remember Me",
       "descricao": "Sempre que a Obsessão receber dano, ganhe 1 Ponto de Progressão, podendo acumular até 3/4/5.\n\nPara cada Ponto de Progressão, Sobreviventes que não forem a Obsessão abrem portões de saída 30% mais lentamente.",
       "descricao_en": "Whenever the Obsession takes damage, you earn 1 Token, up to 3/4/5.\n\nFor each Token, Survivors who are not the Obsession open Exit Gates 30% slower.",
-      "dota_role": [
-        "Controle / Lockdown",
-        "Carry / Late Game"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "portão",
         "obsessão",
@@ -988,10 +837,7 @@
       "perk_name_en": "Save the Best for Last",
       "descricao": "Sempre que você causar dano a um Sobrevivente que não seja a Obsessão com um ataque básico, receba 1 ponto de progressão, podendo acumular até 6/7/8.\n\nPara cada ponto de progressão, o tempo de recarga do seu ataque básico bem-sucedido é 5% mais curto.\n\nSempre que a Obsessão receber dano, perca 2 pontos de progressão.\n\nEnquanto a Obsessão estiver morta, você não pode receber pontos de progressão.",
       "descricao_en": "Whenever you damage a Survivor who is not the Obsession with a basic-attack, you earn 1 Token, up to 6/7/8.\n\nFor each Token, your successful basic-attack cooldown is 5% shorter.\n\nWhenever the Obsession takes damage, lose 2 Tokens.\n\nWhile the Obsession is dead, you cannot earn Tokens.",
-      "dota_role": [
-        "Nuker / Burst",
-        "Carry / Late Game"
-      ],
+      "classe_rpg": "Assassino",
       "tags": [
         "obsessão",
         "ataque",
@@ -1004,10 +850,7 @@
       "perk_name_en": "Shadowborn",
       "descricao": "Sempre que ficar cego, receba 6/8/10% de Celeridade por 10 s.",
       "descricao_en": "Whenever you are blinded, gain 6/8/10% Haste for 10s.",
-      "dota_role": [
-        "Tank / Resistência",
-        "Assassino / Furtividade"
-      ],
+      "classe_rpg": "Tank",
       "tags": [
         "celeridade",
         "velocidade"
@@ -1019,9 +862,7 @@
       "perk_name_en": "Sloppy Butcher",
       "descricao": "Sempre que você causar dano a um Sobrevivente com um ataque básico:\n- Ele recebe Hemorragia por 90 s.\n- Ele recebe Dilacerado por 90 s.\n\nSobreviventes com Hemorragia perdem progresso de cura 50/75/100% mais rápido.",
       "descricao_en": "Whenever you damage a Survivor with a basic-attack:\n- They gain Hemorrhage for 90s.\n- They gain Mangled for 90s.\n\nSurvivors with Hemorrhage lose healing progress 50/75/100% faster.",
-      "dota_role": [
-        "Anti-Cura / Dreno"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "hemorragia",
         "dilacerado",
@@ -1036,9 +877,7 @@
       "perk_name_en": "Spies from the Shadows",
       "descricao": "Sempre que um Sobrevivente assusta um corvo a 36/38/40 m de você, você recebe um alerta. Tempo de recarga: 3 s.",
       "descricao_en": "Whenever a Survivor scares a Crow within 36/38/40m of you, you are alerted. Cooldown: 3s.",
-      "dota_role": [
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "notificação",
         "tempo de recarga"
@@ -1050,9 +889,7 @@
       "perk_name_en": "Spirit Fury",
       "descricao": "Após quebrar 4/3/2 barricadas, quando você for atordoado por uma barricada, a barricada é destruída.",
       "descricao_en": "After you break 4/3/2 Pallets, when you are Pallet-stunned, the Pallet is destroyed.",
-      "dota_role": [
-        "Tank / Resistência"
-      ],
+      "classe_rpg": "Tank",
       "tags": [
         "barricada",
         "imunidade"
@@ -1064,9 +901,7 @@
       "perk_name_en": "Stridor",
       "descricao": "A respiração dos Sobreviventes é 15/20/25% mais alta e os Gemidos de Dor são 30/40/50% mais altos.",
       "descricao_en": "Survivors' breathing noises are 15/20/25% louder and their Grunts of Pain are 30/40/50% louder.",
-      "dota_role": [
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "ruído"
       ]
@@ -1077,9 +912,7 @@
       "perk_name_en": "Jolt",
       "descricao": "Deixar um Sobrevivente no estado Morrendo com um <i>ataque básico</i> fará todos os geradores em um raio de alcance de 32 m explodirem instantaneamente e começarem a regredir. Geradores afetados por <i>Sobrecarga</i> imediatamente perdem 8% do progresso.",
       "descricao_en": "Putting a Survivor into the dying state with a basic attack causes all generators within a 32-meter radius to explode instantly and begin regressing. Generators affected by Jolt immediately lose 8% of their progress.",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "gerador",
         "ataque",
@@ -1092,10 +925,7 @@
       "perk_name_en": "Surveillance",
       "descricao": "Sempre que um gerador para de regredir, você vê a aura dele por 8/12/16 s.\n\nRuídos de reparo de geradores podem ser ouvidos a mais 8 m de distância.",
       "descricao_en": "Whenever a Generator stops regressing, you see its Aura for 8/12/16s.\n\nGenerator repair noises can be heard from 8m farther away.",
-      "dota_role": [
-        "Scout / Visão",
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "aura",
         "gerador",
@@ -1109,9 +939,7 @@
       "perk_name_en": "Territorial Imperative",
       "descricao": "Sempre que um Sobrevivente entrar no porão enquanto você estiver a 24 m dele, você pode ver a aura dele por 4/5/6 s. Tempo de recarga: 45 s.",
       "descricao_en": "Whenever a Survivor enters the Basement while you are 24m away from it, you see their Aura for 4/5/6s. Cooldown: 45s.",
-      "dota_role": [
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "aura",
         "porão",
@@ -1124,10 +952,7 @@
       "perk_name_en": "Thanatophobia",
       "descricao": "Para cada Sobrevivente ferido, derrubado ou enganchado, todos os Sobreviventes:\n- Purificam totens1/1,5/2% mais lentamente.\n- Reparam 1/1,5/2% mais lentamente.\n- Sabotam ganchos 1/1,5/2% mais lentamente.\n\nEnquanto houver quatro Sobreviventes feridos, derrubados ou enganchados, todas as ações acima são 12% ainda mais lentas.",
       "descricao_en": "For each injured, downed, or hooked Survivor, all Survivors:\n- Cleanse Totems 1/1.5/2% slower.\n- Repair 1/1.5/2% slower.\n- Sabotage Hooks 1/1.5/2% slower.\n\nWhile 4 Survivors are either injured, downed or hooked, all above actions are additionally 12% slower.",
-      "dota_role": [
-        "Anti-Cura / Dreno",
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "reparo",
         "totem",
@@ -1141,10 +966,7 @@
       "perk_name_en": "Thrilling Tremors",
       "descricao": "Sempre que você pega um Sobrevivente, todos os geradores que não estão sendo reparados ficam bloqueados por 16 s. Tempo de recarga: 40/35/30 s.",
       "descricao_en": "Whenever you pick-up a Survivor, all Generators not being repaired are blocked for 16s. Cooldown: 40/35/30s.",
-      "dota_role": [
-        "Controle / Lockdown",
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "gerador",
         "bloqueio",
@@ -1158,10 +980,7 @@
       "perk_name_en": "Tinkerer",
       "descricao": "A primeira vez que cada gerador alcançar 70% de progresso:\n- Você recebe Indetectável por 12/14/16 s.\n- Você recebe um alerta.",
       "descricao_en": "The first time each Generator has 70% progress:\n- You gain Undetectable for 12/14/16s.\n- You are alerted.",
-      "dota_role": [
-        "Assassino / Furtividade",
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "indetectável",
         "gerador",
@@ -1175,9 +994,7 @@
       "perk_name_en": "Trail of Torment",
       "descricao": "Sempre que você causa dano a um gerador, até ele parar de regredir:\n- Você recebe Indetectável.\n- Sobreviventes veem a aura daquele gerador.\n\nTempo de recarga: 60/45/30 s.",
       "descricao_en": "Cooldown: 60/45/30s.",
-      "dota_role": [
-        "Assassino / Furtividade"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "indetectável",
         "gerador",
@@ -1191,9 +1008,7 @@
       "perk_name_en": "Unnerving Presence",
       "descricao": "Sobreviventes dentro do seu Raio de Terror recebem 10% a mais de Testes de Perícia básicos.\n\nA zona boa de Testes de Perícia é 40/50/60% menor.",
       "descricao_en": "Survivors within your Terror Radius get 10% more basic Skill Checks.\n\nThe good zone of basic Skill Checks is 40/50/60% smaller.",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "teste de perícia",
         "raio de terror"
@@ -1205,9 +1020,7 @@
       "perk_name_en": "Unrelenting",
       "descricao": "O tempo de recarga de ataques básicos desperdiçados é 30/35/40% menor.\n\nO tempo de recarga de ataques básicos bem-sucedidos é 10% menor.",
       "descricao_en": "Your missed basic-attack cooldown is 30/35/40% shorter.\n\nYour successful basic-attack cooldown is 10% shorter.",
-      "dota_role": [
-        "Nuker / Burst"
-      ],
+      "classe_rpg": "Assassino",
       "tags": [
         "ataque",
         "tempo de recarga"
@@ -1219,10 +1032,7 @@
       "perk_name_en": "Whispers",
       "descricao": "Enquanto estiver a até 28/26/24 m de um Sobrevivente, você ouvirá sussurros aleatórios.\n\nEnquanto estiver a mais de 28/26/24 m de um Sobrevivente, receba 5% de Celeridade.",
       "descricao_en": "While within 28/26/24m of a Survivor, you randomly hear whispers.\n\nWhile more than 28/26/24m away from a Survivor, gain 5% Haste.",
-      "dota_role": [
-        "Scout / Visão",
-        "Assassino / Furtividade"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "celeridade",
         "velocidade"
@@ -1234,9 +1044,7 @@
       "perk_name_en": "Zanshin Tactics",
       "descricao": "A 32 m, você vê as auras de barricadas e de janelas.\n\nSempre que um Sobrevivente derruba uma barricada, você vê a aura dele por 3/4/5 s.",
       "descricao_en": "Within 32m, you see the Auras of Pallets and windows.\n\nWhenever a Survivor drops a Pallet, you see their Aura for 3/4/5s.",
-      "dota_role": [
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "aura",
         "barricada",
@@ -1249,9 +1057,7 @@
       "perk_name_en": "Hex: Crowd Control",
       "descricao": "Quando um Sobrevivente realiza um pulo rápido, o pulo é bloqueado pela Entidade. Isso é aplicado em até 4/5/6 pulos.\n\n<i>Os efeitos do Feitiço permanecerão enquanto o Totem correspondente estiver ativo.</i>",
       "descricao_en": "When a Survivor performs a rushed vault, the vault becomes blocked by The Entity. This applies for up to 4/5/6 vaults.\n\nThe Hex effects persist as long as the related Hex Totem is standing.",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "totem",
         "janela",
@@ -1266,10 +1072,7 @@
       "perk_name_en": "No Way Out",
       "descricao": "<i>Sem Saída</i> acumula um Ponto de Progressão quando você engancha um Sobrevivente pela primeira vez.Quando os portões de saída forem energizados, <i>Sem Saída</i> se ativará.\n- Quando um Sobrevivente interage com uma alavanca do portão de saída, você recebe uma notificação ruidosa. A Entidade bloqueia as alavancas dos portões de saída por 12 s, mais 6/9/12 s adicionais para cada Ponto de Progressão que você tiver.",
       "descricao_en": "After hooking a Survivor for the first time, No Way Out gains a token. Once the exit gates have been powered, No Way Out activates.\n- When a Survivor interacts with an exit gate switch, you receive a loud noise notification. The Entity then blocks both exit gate switches for 12 seconds, plus an additional 6/9/12 seconds for each token in your possession.",
-      "dota_role": [
-        "Controle / Lockdown",
-        "Carry / Late Game"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "portão",
         "gancho",
@@ -1285,9 +1088,7 @@
       "perk_name_en": "Starstruck",
       "descricao": "Enquanto você carrega um Sobrevivente, todos os outros dentro do seu Raio de Terror sofrem do efeito do estado Exposto.\nO efeito persiste por 26/28/30 s nos Sobreviventes que deixam o seu Raio de Terror, assim como nos que estão dentro desse raio de alcance no momento em que você engancha ou solta o Sobrevivente que está carregando.\n<i>Deslumbre</i> entra em recarga por 60 s depois que você solta um Sobrevivente.\n\nExposto faz os Sobreviventes serem derrubados por ataques básicos mesmo que não estejam feridos.",
       "descricao_en": "While carrying a Survivor, any other Survivors within your Terror Radius suffer from the Exposed status effect.\nThe effect persists for 26/28/30 seconds on Survivors who leave your Terror Radius, as well as those within the radius when you hook or release the carried Survivor.\nStarstruck has a cooldown of 60 seconds once a Survivor is no longer carried.\n\nExposed Survivors will be downed by basic attacks even if uninjured.",
-      "dota_role": [
-        "Nuker / Burst"
-      ],
+      "classe_rpg": "Assassino",
       "tags": [
         "exposto",
         "gancho",
@@ -1303,10 +1104,7 @@
       "perk_name_en": "Lethal Pursuer",
       "descricao": "- No começo da partida, a aura dos Sobreviventes se revela para você por 7/8/9 s.\n- Sempre que a aura de um Sobrevivente aparecer por um tempo, a duração cresce em 2 s.\n\"Ele sabe o que quer e não vai parar enquanto não conseguir.\" — Carlos Oliveira",
       "descricao_en": "- At the start of the trial, the auras of all Survivors are revealed to you for 7/8/9 seconds.\n- Any time a Survivor's aura is shown for a period of time, its duration is increased by 2 seconds.\n\"...it knows what it wants and won't stop till it gets it.\" —Carlos Oliveira",
-      "dota_role": [
-        "Scout / Visão",
-        "Suporte / Utilitário"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "aura",
         "início de jogo"
@@ -1318,9 +1116,7 @@
       "perk_name_en": "Hysteria",
       "descricao": "Sempre que um Sobrevivente saudável ficar ferido por qualquer meio, todos os Sobreviventes feridos sofrerão do efeito do estado Alheio por 30/35/40 s.\n<I>Histeria</i> só ocorre uma vez a cada 20 s.\n\nAlheio impede os Sobreviventes de ouvirem ou serem afetados pelo raio de terror do Assassino.",
       "descricao_en": "Whenever a healthy Survivor becomes injured by any means, all injured Survivors suffer from the Oblivious status effect for 30/35/40 seconds.\n<I>Hysteria can only trigger once every 20 seconds.\n\nOblivious prevents Survivors from hearing or being affected by the Killer's Terror Radius.",
-      "dota_role": [
-        "Assassino / Furtividade"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "alheio",
         "raio de terror",
@@ -1333,10 +1129,7 @@
       "perk_name_en": "Eruption",
       "descricao": "Após chutar um gerador, a aura deste fica destacada em amarelo.\n\n- Sempre que um Sobrevivente fica no estado Morrendo, todos os geradores afetados explodem, o que faz com que percam 10% de progresso e comecem a regredir.\n- Os Sobreviventes que estiverem reparando um gerador no momento da explosão irão gritar e revelar suas auras por 8/10/12 s.\n<i>Erupção</i> tem um tempo de recarga de 30 s.",
       "descricao_en": "After kicking a generator, its aura is highlighted in yellow.\n\n- Whenever a Survivor enters the dying state, every affected generator explodes, losing 10% worth of progress, and starts to regress.\n- Any Survivor repairing a generator when it explodes will scream and reveal their aura for 8/10/12 seconds.\nEruption has a cooldown of 30 seconds.",
-      "dota_role": [
-        "Controle / Lockdown",
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "aura",
         "gerador",
@@ -1352,9 +1145,7 @@
       "perk_name_en": "Deadlock",
       "descricao": "Depois que um gerador é reparado, a Entidade bloqueia o gerador com mais progresso por 15/20/25 s. Você o enxerga com uma aura branca durante esse tempo.",
       "descricao_en": "After a generator is repaired, The Entity blocks the generator with the most progress for 15/20/25 seconds. You see its white aura during this time",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "aura",
         "gerador",
@@ -1368,10 +1159,7 @@
       "perk_name_en": "Hex: Plaything",
       "descricao": "Quando você engancha um Sobrevivente pela primeira vez, ele fica Amaldiçoado, e o <i>Feitiço: Vítima do Destino</i> é ativado em um Totem Simples. O Sobrevivente Amaldiçoado sofre do efeito do estado Alheio até que o <i>Feitiço: Vítima do Destino</i> seja purificado.\n\n<i>Feitiço: Vítima do Destino</i> revela a aura do totem para o Sobrevivente Amaldiçoado quando está a 24/20/16 m dele. Nos primeiros 90 s, apenas o Sobrevivente Amaldiçoado pode purificar o totem.\n\nAlheio impede os Sobreviventes de ouvirem ou serem afetados pelo raio de terror do Assassino.",
       "descricao_en": "The first time you hook a Survivor, they become Cursed and Hex: Fortune’s Fool activates on a Dull Totem. The Cursed Survivor suffers from the Oblivious status effect until Hex: Fortune’s Fool is cleansed.\n\nHex: Fortune’s Fool's totem aura is revealed to the Cursed Survivor when within 24/20/16 meters of it. For the first 90 seconds, only the Cursed Survivor can cleanse the totem.\n\nOblivious prevents Survivors from hearing or being affected by the Killer's Terror Radius.",
-      "dota_role": [
-        "Assassino / Furtividade",
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "alheio",
         "totem",
@@ -1388,10 +1176,7 @@
       "perk_name_en": "Scourge Hook: Gift of Pain",
       "descricao": "No começo da partida, 4 ganchos aleatórios se transformarão em Ganchos do Tormento. Você verá as auras desses ganchos realçadas em branco.\n\nSobreviventes desenganchados de um Gancho do Tormento sofrerão dos efeitos do estado Hemorragia e Dilacerado por 90 s. Da primeira vez que forem curados, esses Sobreviventes sofrerão uma penalidade de 10/13/16% em ações de cura e reparo até que acabem feridos de novo.\n\nHemorragia faz o progresso da cura regredir enquanto não houver cura ativa e aumenta os rastros de sangue deixados por Sobreviventes feridos. Isso dura por um determinado período ou até a cura completa.\nDilacerado aumenta em 25% o tempo necessário para se curar e dura até que seja completamente curado.",
       "descricao_en": "At the start of the trial, 4 random hooks are changed into scourge hooks. You see their auras in white.\n\nWhen a Survivor is unhooked from a scourge hook, they suffer from the Hemorrhage and Mangled status effect for 90 seconds. The first time the Survivor is healed, they suffer a 10/13/16% speed penalty to healing and repairing actions until injured again.\n\nHemorrhage regresses healing progress when not healing, and increases blood trails left by injured survivors. This lasts for a set duration or until fully healed.\nMangled increases time required to heal by 25% and lasts for a set duration or until fully healed.",
-      "dota_role": [
-        "Anti-Cura / Dreno",
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "hemorragia",
         "dilacerado",
@@ -1410,10 +1195,7 @@
       "perk_name_en": "Grim Embrace",
       "descricao": "Ganhe um ponto de progressão sempre que enganchar um Sobrevivente pela primeira vez. Ao se distanciar 16 m do gancho, todos os geradores ficam bloqueados por 6/8/10 s.\n\nCom 4 pontos de progressão, ao se distanciar 16 m do gancho, a Entidade bloqueia todos os geradores por 40 s. A aura da Obsessão é revelada por 10 s.\n\nEm seguida, <i>Abraço Sinistro</i> é desativado.\n\nO Assassino só pode ficar obcecado por um Sobrevivente de cada vez.",
       "descricao_en": "Each time a Survivor is hooked for the first time, gain a token. When moving 16 meters away from the hook, all generators are blocked for 6/8/10 seconds.\n\nUpon reaching 4 tokens, when moving 16 meters away from the hook, The Entity instead blocks all generators for 40 seconds. The Obsession's aura is revealed to you for 10 seconds.\n\nThen, Grim Embrace deactivates.\n\nThe Killer can only be obsessed with one Survivor at a time.",
-      "dota_role": [
-        "Controle / Lockdown",
-        "Carry / Late Game"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "aura",
         "gerador",
@@ -1428,10 +1210,7 @@
       "perk_name_en": "Scourge Hook: Pain Resonance",
       "descricao": "No começo da partida, 4 ganchos aleatórios se transformarão em Ganchos do Tormento. Você verá as auras deles realçadas em branco.\n\nVocê começa a partida com 4 pontos de progressão, 1 para cada Sobrevivente. Se um gerador estiver disponível quando o Sobrevivente for enganchado em um Gancho do Tormento, você perde 1 ponto de progressão. O gerador com mais progresso explode, perdendo instantaneamente 10/15/20% de progresso e começará a regredir. Os Sobreviventes que estiverem reparando o gerador gritarão.\n\nApós você perder todos os pontos de progressão, Ressonância da Dor é desativada pelo resto da Partida.",
       "descricao_en": "At the start of the trial, 4 random hooks are changed into scourge hooks. You see their auras in white.\n\nYou start the Trial with 4 tokens, 1 for each Survivor. If a generator is available when that Survivor is hooked on a scourge hook, lose 1 token. The generator with the most progress explodes, instantly losing 10/15/20% progress, and will start to regress. Survivors repairing the generator will scream.\n\nOnce you have no tokens, Pain Resonance deactivates for the rest of the Trial.",
-      "dota_role": [
-        "Controle / Lockdown",
-        "Nuker / Burst"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "aura",
         "gerador",
@@ -1448,10 +1227,7 @@
       "perk_name_en": "Hex: Pentimento",
       "descricao": "Enquanto um Totem estiver Reavivado, Sobreviventes Curam e Reparam 20% mais devagar +1/2/3% para cada Totem Reavivado adicional.\n\nSe todos os cincos Totens forem Reavivados simultaneamente, todos os Totens ficam bloqueados pela Entidade permanentemente.\n\nSobreviventes amaldiçoados por esta vantagem enxergam as auras de Totens Reavivados a até 16 m.",
       "descricao_en": "While a Totem is Rekindled, Survivors Heal and Repair 20% slower +1/2/3% for each additional Rekindled Totem.\n\nIf all five totems are Rekindled simultaneously, all Totems are permanently blocked by The Entity.\n\nSurvivors cursed by this perk see the auras of Rekindled Totems within 16 meters.",
-      "dota_role": [
-        "Controle / Lockdown",
-        "Anti-Cura / Dreno"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "reparo",
         "cura",
@@ -1468,9 +1244,7 @@
       "perk_name_en": "Scourge Hook: Floods of Rage",
       "descricao": "Ao começo da partida, 4 ganchos aleatórios se transformarão em Ganchos do Tormento. Você verá as auras deles realçadas em branco.\n\nQuando um Sobrevivente for desenganchado de um Gancho do Tormento, todos os outros Sobreviventes terão as auras reveladas por 5/6/7 s.",
       "descricao_en": "At the start of the trial, 4 random hooks are changed into scourge hooks. You see their auras in white.\n\nWhen a Survivor is unhooked from a scourge hook, all other Survivors have their auras revealed for 5/6/7 seconds.",
-      "dota_role": [
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "aura",
         "gancho",
@@ -1483,10 +1257,7 @@
       "perk_name_en": "Call of Brine",
       "descricao": "Quando você danifica um gerador, a vantagem se ativa por 90 s.\n\nO gerador regride em 30/40/50% da velocidade normal de regressão e fica com a aura exposta para você em amarelo.\n\nSempre que um Sobrevivente concluir um Bom Teste de Perícia num gerador afetado pela vantagem, você receberá uma notificação ruidosa.",
       "descricao_en": "After damaging a generator this perk becomes active for 90 seconds.\n\nThe generator regresses at 30/40/50% of the normal regression speed and you can see its aura in yellow.\n\nEach time a Survivor completes a good Skill Check on a generator affected by this perk, you receive a loud noise notification.",
-      "dota_role": [
-        "Controle / Lockdown",
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "aura",
         "gerador",
@@ -1502,9 +1273,7 @@
       "perk_name_en": "Merciless Storm",
       "descricao": "Quando um gerador chegar a 90% de progresso, os Sobreviventes trabalhando nele enfrentarão Testes de Perícia contínuos. Se errarem ou pararem de reparar, o gerador será bloqueado pela Entidade por 16/18/20 s.\n\nA <i>Tormenta Implacável</i> só se ativa uma vez por gerador por partida.",
       "descricao_en": "When a generator reaches 90% progress, Survivors working on the generator will be faced with continuous Skill Checks. If they miss or stop repairing, the generator is blocked by the Entity for 16/18/20 seconds.\n\nMerciless Storm can only trigger once per generator per trial.",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "gerador",
         "reparo",
@@ -1518,10 +1287,7 @@
       "perk_name_en": "Dissolution",
       "descricao": "3 s após ferir um Sobrevivente por qualquer meio, a Dissolução se ativa por 13/14/15 s. Com a Dissolução ativa, se um Sobrevivente realizar um pulo rápido sobre uma barricada dentro do seu Raio de Terror, a Entidade quebrará a barricada ao fim do salto, desativando a Dissolução.",
       "descricao_en": "3 seconds after injuring a Survivor by any means, Dissolution activates for 13/14/15 seconds. While Dissolution is active, if a Survivor fast vaults over a pallet inside of your Terror Radius, The Entity will break the pallet at the end of the vault, and Dissolution deactivates.",
-      "dota_role": [
-        "Tank / Resistência",
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "barricada",
         "janela",
@@ -1534,9 +1300,7 @@
       "perk_name_en": "Darkness Revealed",
       "descricao": "Quando você vasculha armários, as auras de todos os Sobreviventes a 8 m de todos os armários ficam expostas para você por 6/7/8 s.\n\n<i>Escuridão Revelada</i> tem um tempo de recarga de 30 s.",
       "descricao_en": "When you search a locker, the auras of all Survivors within 8 meters of any lockers are revealed to you for 6/7/8 seconds.\n\nDarkness Revealed has a cooldown of 30 seconds.",
-      "dota_role": [
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "aura",
         "armário",
@@ -1549,10 +1313,7 @@
       "perk_name_en": "Septic Touch",
       "descricao": "Os Sobreviventes sofrem do efeito dos estados Cegueira e Exaustão ao realizarem a ação de cura dentro do seu Raio de Terror.\n\nOs efeitos persistem por 20/25/30 s após a ação de cura ser interrompida por qualquer meio.\n\nCegueira impede os Sobreviventes de verem auras.\nExaustão impede os Sobreviventes de ativarem vantagens exaustivas.",
       "descricao_en": "Whenever a Survivor performs the healing action within your Terror Radius, that Survivor suffers from Blindness and Exhausted.\n\nThese effects linger for 20/25/30 seconds after a healing action is interrupted by any means.\n\nBlindness prevents Survivors from seeing auras.\nExhausted prevents Survivors from activating exhausting perks.",
-      "dota_role": [
-        "Anti-Cura / Dreno",
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "exaustão",
         "cegueira",
@@ -1567,10 +1328,7 @@
       "perk_name_en": "Shattered Hope",
       "descricao": "Sempre que um Totem é abençoado, purificado ou destruído:\n- Totens Simples ficam bloqueados por 16/18/20 s.\n- Totens Enfeitiçados ficam bloqueados por 16/18/20 s.\n- Veja a aura de Totens Abençoados por 16/18/20 s.",
       "descricao_en": "Whenever a Totem is blessed, cleansed or destroyed:\n- Dull Totems are blocked for 16/18/20s.\n- Hex Totems are blocked for 16/18/20s.\n- See Boon Totems' Auras for 16/18/20s.",
-      "dota_role": [
-        "Controle / Lockdown",
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "aura",
         "totem",
@@ -1585,10 +1343,7 @@
       "perk_name_en": "Superior Anatomy",
       "descricao": "A vantagem se ativará quando um Sobrevivente realizar um pulo rápido dentro de um raio de 12 m de você. Da próxima vez que você pular por uma janela, a velocidade de pulo aumentará em 30/35/40%.\n\nA vantagem deixará de fazer efeito quando você pular por uma janela.\n\nTempo de recarga de 20 s.",
       "descricao_en": "When a Survivor performs a fast vault within 12 meters  of you, this perk activates. The next time you vault a window, your vaulting speed is increased by 30/35/40%.\n\nThis perk deactivates after vaulting a window.\n\nThis perk has a 20 second cooldown.",
-      "dota_role": [
-        "Assassino / Furtividade",
-        "Tank / Resistência"
-      ],
+      "classe_rpg": "Tank",
       "tags": [
         "janela",
         "tempo de recarga"
@@ -1600,9 +1355,7 @@
       "perk_name_en": "Awakened Awareness",
       "descricao": "Ao carregar um Sobrevivente, você enxerga a aura dos outros a até 16/18/20 m de você.",
       "descricao_en": "When carrying a Survivor, you can see the aura of other Survivors within 16/18/20 meters of your position.",
-      "dota_role": [
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "aura",
         "carregar"
@@ -1614,10 +1367,7 @@
       "perk_name_en": "Terminus",
       "descricao": "A vantagem se ativa quando os portões de saída são energizados. Enquanto Terminus estiver ativo, Sobreviventes enganchados, feridos ou derrubados recebem o efeito do estado Quebrado até os portões de saída se abrirem.\n\nQuando os portões estiverem abertos, os Sobreviventes ficarão Quebrados por mais 35/40/45 s.\n\nQuebrado impede que Sobreviventes sejam curados.",
       "descricao_en": "When exit gates are powered, this perk activates. While Terminus is active, injured, downed and hooked Survivors are inflicted with the Broken status effect until exit gates are open.\n\nWhen exit gates are open, Survivors will stay Broken for an additional 35/40/45 seconds.\n\nBroken prevents Survivors from being healed.",
-      "dota_role": [
-        "Anti-Cura / Dreno",
-        "Carry / Late Game"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "quebrado",
         "cura",
@@ -1633,9 +1383,7 @@
       "perk_name_en": "Nowhere to Hide",
       "descricao": "Quando você danifica um gerador, revela a aura de todos os Sobreviventes de pé em um raio de 24 m da sua posição por 3/4/5 s.",
       "descricao_en": "Whenever you damage a Generator, reveal the Aura of all Survivors standing within 24 meters of your position for 3/4/5 seconds.",
-      "dota_role": [
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "aura",
         "gerador"
@@ -1647,10 +1395,7 @@
       "perk_name_en": "Hex: Face the Darkness",
       "descricao": "Ferir um Sobrevivente por qualquer meio acende um Totem Simples, ativando o Feitiço.\n\nEnquanto o Feitiço estiver ativo, todos os outros Sobreviventes fora do seu Raio de Terror gritarão a cada 35/30/25 s, revelando suas posições e auras por 2 s.\n\nQuando o Sobreviventes entrar no estado Morrendo ou ficar saudável, o Totem Enfeitiçado ficará Simples de novo e a vantagem se desativará.\n\n<i>Se o Totem for purificado, a vantagem ficará permanentemente desativada.</i>",
       "descricao_en": "Injuring a Survivor by any means lights a Dull Totem, activating the Hex.\n\nWhile the Hex is active, all other Survivors outside of your Terror Radius will scream every 35/30/25 seconds, revealing their positions and auras for 2 seconds.\n\nWhen the Survivor enters the dying state or becomes healthy, the Hex totem becomes dull again and this perk deactivates.\n\nIf the Hex totem is cleansed, this perk is permanently disabled.",
-      "dota_role": [
-        "Scout / Visão",
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "aura",
         "totem",
@@ -1666,10 +1411,7 @@
       "perk_name_en": "Hubris",
       "descricao": "Sempre que você é atordoado por um Sobrevivente, esse Sobrevivente sofre do efeito do estado Exposto por 20/25/30 s.\n\n<i>Soberba</i> tem o tempo de recarga de 20 s.\n\nExposto faz os Sobreviventes serem derrubados por ataques básicos mesmo que não estejam feridos.",
       "descricao_en": "Whenever you are stunned by a Survivor, that Survivor suffers from the Exposed status effect for 20/25/30 seconds.\n\nHubris has a cooldown of 20 seconds.\n\nExposed Survivors will be downed by basic attacks even if uninjured.",
-      "dota_role": [
-        "Nuker / Burst",
-        "Tank / Resistência"
-      ],
+      "classe_rpg": "Assassino",
       "tags": [
         "exposto",
         "ataque",
@@ -1682,10 +1424,7 @@
       "perk_name_en": "Game Afoot",
       "descricao": "A vantagem se ativa quando você está perseguindo a Obsessão.\n\nConcede a você 10% do efeito do estado de Celeridade por 8/9/10 s ao danificar geradores e destruir paredes ou barricadas.\n\nSempre que você acertar com um ataque básico o Sobrevivente com o maior tempo na perseguição, ele se torna a Obsessão.\n\nO Assassino só pode ficar obcecado por um Sobrevivente de cada vez.\nCeleridade aumenta a velocidade de movimento do Assassino\n\n\"Talvez o próximo seja um desafio de verdade...\" – Adriana Imai",
       "descricao_en": "While you are chasing the Obsession, this perk activates.\n\nDamaging generators and breaking walls or pallets gives you a 10% Haste Status for 8/9/10 seconds.\n\nWhenever you hit the Survivor with the total most time in chase with a basic attack, they become the obsession.\n\nThe Killer can only be obsessed with one Survivor at a time.\nHaste increases Killer movement speed.",
-      "dota_role": [
-        "Assassino / Furtividade",
-        "Tank / Resistência"
-      ],
+      "classe_rpg": "Tank",
       "tags": [
         "celeridade",
         "gerador",
@@ -1702,9 +1441,7 @@
       "perk_name_en": "Leverage",
       "descricao": "Quando um Sobrevivente realiza uma ação de desenganchar, sua velocidade de cura é reduzida em 20/25/30% por 60 s.\n\n\"Ótimo. Agora podemos ir para o abate.\" – Adriana Imai",
       "descricao_en": "When a Survivor performs the unhook action, their healing speed is reduced by 20/25/30% for 60 seconds.",
-      "dota_role": [
-        "Anti-Cura / Dreno"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "cura",
         "gancho",
@@ -1717,10 +1454,7 @@
       "perk_name_en": "THWACK!",
       "descricao": "<i>POF!</i> começa com 3 pontos de progressão.\n\nQuebrar uma barricada ou parede quebrável consome um ponto.\n\nSobreviventes dentro de um raio de 36 m gritam e suas auras são reveladas por 4/5/6 s.\n\nQuando enganchar um Sobrevivente, recupere 1 ponto.\n\n\"Todos aqueles que se colocavam no caminho dela temiam o seu poderoso POF!\" – Sonhadores Sombrios, Edição nº3",
       "descricao_en": "THWACK! starts with 3 tokens.\n\nWhen breaking a pallet or breakable wall, consume a token.\n\nSurvivors within 36 meters scream, and their auras are revealed for 4/5/6 seconds.\n\nWhen hooking a Survivor, regain 1 token.",
-      "dota_role": [
-        "Scout / Visão",
-        "Tank / Resistência"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "aura",
         "barricada",
@@ -1734,9 +1468,7 @@
       "perk_name_en": "Forced Hesitation",
       "descricao": "Quando um Sobrevivente entra no estado Morrendo por qualquer meio, todos os outros Sobreviventes num raio de 16 m de alcance dele sofrerão o efeito do estado Lentidão por 10 s, tendo a velocidade de movimento reduzida em 20%.\n\nEsta vantagem tem um tempo de recarga de 40/35/30 s.\n\nLentidão reduz a velocidade de movimento do Sobrevivente.",
       "descricao_en": "When a Survivor is put into the dying state by any means, all other Survivors standing within a 16 meter range around them suffer from the Hindered status effect for 10 seconds, reducing their movement speed by 20%.\n\nThis perk goes on cooldown for 40/35/30 seconds.\n\nHindered reduces Survivor movement speed.",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "lentidão",
         "tempo de recarga",
@@ -1749,9 +1481,7 @@
       "perk_name_en": "Genetic Limits",
       "descricao": "Sempre que perder um estado de saúde, um Sobrevivente sofrerá do efeito do estado Exaustão por 6/7/8 s.\n\nExaustão impede os Sobreviventes de ativarem vantagens exaustivas.",
       "descricao_en": "Anytime a Survivor loses a health state, they suffer from the Exhausted status effect for 6/7/8 seconds.\n\nExhausted prevents Survivors from activating exhausting perks.",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "exaustão"
       ]
@@ -1762,9 +1492,7 @@
       "perk_name_en": "Machine Learning",
       "descricao": "Sempre que danificar um gerador, ele fica Comprometido. Apenas um gerador pode ficar Comprometido por vez.\n\nQuando o gerador Comprometido é concluído, você ganha Indetectável e 8% de Celeridade por 40/50/60 s.\n\nIndetectável esconde a Aura, o Raio de Terror e a Luz Vermelha do Assassino.\nCeleridade aumenta a velocidade de movimento do Assassino.",
       "descricao_en": "When you damage a generator, it becomes Compromised. Only one generator can be Compromised at a time.\n\nWhen the Compromised generator is completed, you gain Undetectable and 8% Haste for 40/50/60 seconds.\n\nUndetectable hides the Killer's aura, Terror Radius, and Red Stain.\nHaste increases Killer movement speed.",
-      "dota_role": [
-        "Assassino / Furtividade"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "celeridade",
         "indetectável",
@@ -1779,10 +1507,7 @@
       "perk_name_en": "Alien Instinct",
       "descricao": "A vantagem se ativa quando você engancha um Sobrevivente.\n\nVocê pode ver a aura do Sobrevivente ferido mais distante por 8 s e ele fica Alheio por 40/50/60 s.\n\nAlheio impede os Sobreviventes de ouvirem ou serem afetados pelo raio de terror do Assassino.",
       "descricao_en": "This perk activates when you hook a Survivor.\n\nYou see the aura of the farthest injured Survivor for 8 seconds and that Survivor is Oblivious for 40/50/60 seconds.\n\nOblivious prevents Survivors from hearing or being affected by the Killer's Terror Radius.",
-      "dota_role": [
-        "Scout / Visão",
-        "Assassino / Furtividade"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "alheio",
         "aura",
@@ -1797,10 +1522,7 @@
       "perk_name_en": "Rapid Brutality",
       "descricao": "Enquanto persegue um Sobrevivente, você não pode ganhar Sede de Sangue.\n\nAcertar um Sobrevivente com um ataque básico concede a você 5% de Celeridade por 8/9/10 s.\n\nCeleridade aumenta a velocidade de movimento do Assassino.",
       "descricao_en": "While chasing a Survivor, you cannot gain Bloodlust.\n\nHitting a Survivor with a basic attack gives you 5% Haste for 8/9/10 seconds.\n\nHaste increases Killer movement speed.",
-      "dota_role": [
-        "Nuker / Burst",
-        "Assassino / Furtividade"
-      ],
+      "classe_rpg": "Tank",
       "tags": [
         "celeridade",
         "ataque",
@@ -1813,10 +1535,7 @@
       "perk_name_en": "Ultimate Weapon",
       "descricao": "Quando você abre um armário, Sobreviventes a até 40 m dele gritam, revelando suas posições e recebendo Cegueira por 30 s.\n\nEsta vantagem tem um tempo de recarga de 55/50/45 s.\n\nCegueira impede os Sobreviventes de verem auras.",
       "descricao_en": "When you open a locker, all Survivors within 40 meters of the locker scream and reveal their position, then gain Blindness for 30 seconds.\n\nThis perk goes on cooldown for 55/50/45 seconds.\n\nBlindness prevents Survivors from seeing auras.",
-      "dota_role": [
-        "Scout / Visão",
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "cegueira",
         "armário",
@@ -1830,10 +1549,7 @@
       "perk_name_en": "Hex: Two Can Play",
       "descricao": "Ao ser atordoado ou cegado por Sobreviventes 4/3/2 vezes, se não houver Totens Enfeitiçados associados a <i>Feitiço: Dois Podem Jogar</i>, um Totem Simples se torna um Totem Enfeitiçado.\n\nSobreviventes que atordoarem ou cegarem você são cegados por 1,5 s. Não afeta Sobreviventes carregados.\n\n<i>Os efeitos do Feitiço permanecerão enquanto o Totem correspondente estiver ativo.</i>\n\n\"De agora em diante, chega de ser o Cara Legal.\" – Chucky",
       "descricao_en": "Anytime you are stunned or blinded by any Survivor 4/3/2 times, if there is no Hex Totem associated with Hex: Two Can Play, a Dull Totem becomes a Hex Totem.\n\nSurvivors who stun or blind you are blinded for 1.5 seconds. This does not affect carried Survivors.\n\nThe Hex effects persist as long as the related Hex Totem is standing.",
-      "dota_role": [
-        "Tank / Resistência",
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Tank",
       "tags": [
         "cegueira",
         "totem",
@@ -1847,10 +1563,7 @@
       "perk_name_en": "Friends 'til the End",
       "descricao": "Você fica obcecado por um Sobrevivente.\n\nQuando você engancha um Sobrevivente que não é a Obsessão, a Obsessão fica Exposta por 20 s e sua aura é revelada por 6/8/10 s.\n\nQuando você engancha a Obsessão, outro Sobrevivente aleatório grita e revela sua posição, tornando-se a Obsessão.\n\nO Assassino só pode ficar obcecado por um Sobrevivente de cada vez.\nExposto faz os Sobreviventes serem derrubados por ataques básicos mesmo que não estejam feridos.",
       "descricao_en": "You become obsessed with one Survivor.\n\nWhen you hook a Survivor that is not the Obsession, the Obsession becomes Exposed for 20 seconds and reveals their aura for 6/8/10 seconds.\n\nWhen you hook the Obsession, another random Survivor screams and reveals their position and becomes the Obsession.\n\nThe Killer can only be obsessed with one Survivor at a time.\nExposed Survivors will be downed by basic attacks even if uninjured",
-      "dota_role": [
-        "Nuker / Burst",
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Assassino",
       "tags": [
         "exposto",
         "aura",
@@ -1865,10 +1578,7 @@
       "perk_name_en": "Batteries Included",
       "descricao": "Quando estiver a até 16 m de um gerador concluído, você ganha 5% de Celeridade.\n\nO bônus de velocidade de movimento permanece por 1/3/5 s após você sair da área do gerador.\n\nCeleridade aumenta a velocidade de movimento do Assassino.\n\n\"Surpresa! Sentiu minha falta, Andy?\" – Chucky",
       "descricao_en": "When within 16 meters of a completed generator, you have 5% Haste.\n\nThe movement speed bonus lingers for 1/3/5 seconds after leaving the generator's range.\n\nHaste increases Killer movement speed.",
-      "dota_role": [
-        "Carry / Late Game",
-        "Assassino / Furtividade"
-      ],
+      "classe_rpg": "Tank",
       "tags": [
         "celeridade",
         "gerador",
@@ -1881,9 +1591,7 @@
       "perk_name_en": "Unbound",
       "descricao": "Essa vantagem é ativada por 26/28/30 s depois que um Sobrevivente é ferido por qualquer meio.\n\nDepois de pular uma janela, você ganha 5% de Celeridade por 25 s.\n\nCeleridade aumenta a velocidade de movimento do Assassino",
       "descricao_en": "This perk activates for 26/28/30 seconds after a Survivor becomes injured by any means.\n\nAfter vaulting a window, you gain 5% Haste for 25 seconds.\n\nHaste increases Killer movement speed.",
-      "dota_role": [
-        "Assassino / Furtividade"
-      ],
+      "classe_rpg": "Tank",
       "tags": [
         "celeridade",
         "janela",
@@ -1896,9 +1604,7 @@
       "perk_name_en": "Undone",
       "descricao": "Quando um Sobrevivente erra um Teste de Perícia de cura ou reparo, ganha 3 pontos de progressão, até um máximo de 3.\n\nCaso tenha pontos de progressão, você consumirá todos eles quando realizar a ação de danificar um gerador. Para cada ponto de progressão consumido, o gerador perde 8/9/10% do progresso total e fica bloqueado por 8/9/10 s. O gerador começa a regredir assim que é desbloqueado.\n\nEssa vantagem tem um tempo de recarga de 60 s.",
       "descricao_en": "When a Survivor misses a healing or repair Skill Check, gain 3 tokens, up to 3.\n\nWhen you perform the damage action on a generator, if you have any tokens, consume all of them. For each token consumed, the generator loses 8/9/10% total progress and then becomes blocked for 8/9/10 second. Then, once the generator is unblocked, it starts regressing.\n\nThis perk goes on cooldown for 60 seconds.",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "cura",
         "gerador",
@@ -1915,9 +1621,7 @@
       "perk_name_en": "Unforeseen",
       "descricao": "Ao realizar a ação de danificar um gerador, o seu Raio de Terror é transferido para o gerador por 22/26/30 s e o raio de alcance é redefinido para 32 m.\n\nVocê recebe o efeito do estado Indetectável durante esse período.\n\nEm seguida, a vantagem passa a ter 30 s de tempo de recarga.\n\nIndetectável esconde a Aura, o Raio de Terror e a Luz Vermelha do Assassino.",
       "descricao_en": "When you perform the damage action on a generator, your Terror Radius transfers to the generator for 22/26/30 seconds and its radius is set to 32 meters.\n\nYou gain Undetectable for that duration.\n\nThen, this perk goes on cooldown for 30 seconds.\n\nUndetectable hides the Killer's aura, Terror Radius, and Red Stain.",
-      "dota_role": [
-        "Assassino / Furtividade"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "indetectável",
         "gerador",
@@ -1932,9 +1636,7 @@
       "perk_name_en": "Dark Arrogance",
       "descricao": "Aumenta em 25% a duração do efeito do estado Cegueira por qualquer meio e a duração do atordoamento causado por barricadas.\n\nAumenta em 15/20/25% a velocidade do salto normal.",
       "descricao_en": "Increases the duration you are blinded by any means and the duration of pallet stuns by 25%.\n\nIncreases regular vault speed by 15/20/25%.",
-      "dota_role": [
-        "Tank / Resistência"
-      ],
+      "classe_rpg": "Tank",
       "tags": [
         "janela"
       ]
@@ -1945,9 +1647,7 @@
       "perk_name_en": "Languid Touch",
       "descricao": "Quando um Sobrevivente a até 36 m de você assusta um corvo, ele sofre o efeito do estado Exaustão por 6/8/10 s.\n\n<i>Toque Mórbido</i> tem um tempo de recarga de 5 s.\n\nExaustão impede os Sobreviventes de ativarem vantagens exaustivas.",
       "descricao_en": "When a Survivor within 36 meters of you scares a crow, they suffer from the Exhausted status effect for 6/8/10 seconds.\n\nLanguid Touch has a cooldown of 5 seconds.\n\nExhausted prevents Survivors from activating exhausting perks.",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "exaustão",
         "tempo de recarga"
@@ -1959,10 +1659,7 @@
       "perk_name_en": "Weave Attunement",
       "descricao": "Quando um item se esgota pela primeira vez, ele é derrubado. Você enxerga as auras de itens derrubados.\n\nA aura de Sobreviventes a até 12 m de itens derrubados aparece para você. Os Sobreviventes afetados enxergam a aura do item.\n\nQuando o Sobrevivente pega um item, sofre o efeito do estado Alheio por 20/25/30 s.\n\nAlheio impede os Sobreviventes de ouvirem ou serem afetados pelo raio de terror do Assassino.",
       "descricao_en": "When an item becomes depleted for the first time, it is dropped. You see the auras of dropped items.\n\nSurvivors within 12 meters of dropped items have their auras revealed to you. Affected Survivors see the item's aura.\n\nWhen a Survivor picks up a Survivor item, they suffer from the Oblivious status effect for 20/25/30 seconds.\n\nOblivious prevents Survivors from hearing or being affected by the Killer's Terror Radius.",
-      "dota_role": [
-        "Scout / Visão",
-        "Assassino / Furtividade"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "alheio",
         "aura",
@@ -1977,10 +1674,7 @@
       "perk_name_en": "Dominance",
       "descricao": "A primeira vez que um Sobrevivente interagir com cada totem e cada baú, aquele totem ou baú fica bloqueado pela Entidade por 25 s.\n\nAs auras de Totens e baús bloqueados são reveladas para você em branco.",
       "descricao_en": "The first time each totem and each chest is interacted with by a Survivor, that totem or chest is blocked by the Entity for 25 seconds.\n\nThe auras of blocked totems and chests are revealed to you in white.",
-      "dota_role": [
-        "Controle / Lockdown",
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "aura",
         "totem",
@@ -1994,9 +1688,7 @@
       "perk_name_en": "Hex: Wretched Fate",
       "descricao": "Depois que um gerador for reparado, um Totem Simples aleatório vira um Totem Enfeitiçado e amaldiçoa a Obsessão.\n\nA Obsessão sofre uma penalidade de velocidade de reparo de 27/30/33%. Ela também vê a aura deste Totem Enfeitiçado quando dentro de um alcance de 12 m.\n\nEsse efeito persiste até o Totem Enfeitiçado ser purificado.\n\nO Assassino só pode ficar obcecado por um Sobrevivente de cada vez.\n\n\"Então trabalhe, mortal, trabalhe! Seu esforço será em vão!\" – Drácula",
       "descricao_en": "After one generator has been repaired, a random Dull Totem becomes a Hex Totem and curses the Obsession.\n\nThe Obsession suffers a 27/30/33% repair speed penalty. They also see this Hex Totem's aura when within 12 meters.\n\nThis effect persists until the Hex Totem is cleansed.\n\nThe Killer can only be obsessed with one Survivor at a time.",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "gerador",
         "reparo",
@@ -2012,9 +1704,7 @@
       "perk_name_en": "Human Greed",
       "descricao": "Você vê as auras de baús Fechados e as auras de Sobreviventes são reveladas por 3/4/5 s quando entram em um alcance de 8 m.\n\nVocê ganha a habilidade de chutar baús para fechá-los. Esta habilidade tem um tempo de recarga de 10 s.\n\n\"Venham depressa, todos vocês, venham ver o que o destino os aguarda.\"\n– Drácula",
       "descricao_en": "You see the auras of Unopened chests and Survivors' auras are revealed for 3/4/5 seconds when they enter a 8-meter range.\n\nYou also gain the ability to kick chests to close them. This ability has a 10-second cooldown.",
-      "dota_role": [
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "aura",
         "baú",
@@ -2027,9 +1717,7 @@
       "perk_name_en": "All Shaking Thunder",
       "descricao": "Quando você cai de uma altura, a distância da sua investida aumenta em 75% por 15/20/25 s.\n\nEsta vantagem tem um tempo de recarga de 5 s.\n\n\"Vá. Fuja. Conte a seus amigos que estou chegando.\" – Portia Maye",
       "descricao_en": "After you fall from a height, your lunge attack distance is increased by 75% for 15/20/25 seconds.\n\nThis perk has a 5-second cooldown.",
-      "dota_role": [
-        "Nuker / Burst"
-      ],
+      "classe_rpg": "Assassino",
       "tags": [
         "ataque",
         "alcance",
@@ -2042,9 +1730,7 @@
       "perk_name_en": "No Quarter",
       "descricao": "Quando um Sobrevivente chega a 75% do progresso de uma autocura, ele passa por Testes de Perícia contínuos.\n\nSe a cura for interrompida ou ele errar em algum dos Testes de Perícia, o Sobrevivente sofre do efeito de estado Quebrado por 20/25/30 s.\n\nQuebrado impede que Sobreviventes sejam curados.\n\n\"Mais uma saraivada no costado! Não parem até o mar levá-los!\"\n– Portia Maye",
       "descricao_en": "When a Survivor reaches 75% healing progress while self-healing, they are faced with continuous Skill Checks.\n\nIf one of these Skill Checks is missed or the heal is interrupted, the Survivor suffers from the Broken status effect for 20/25/30 seconds.\n\nBroken prevents Survivors from being healed.",
-      "dota_role": [
-        "Anti-Cura / Dreno"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "quebrado",
         "cura",
@@ -2058,10 +1744,7 @@
       "perk_name_en": "Scourge Hook: Jagged Compass",
       "descricao": "Ao começo da partida, até 4 ganchos aleatórios se transformarão em Ganchos do Tormento. Você verá as auras deles realçadas em branco.\n\nToda vez que um Sobrevivente é desenganchado, o gancho vira um Gancho do Tormento.\n\nAo enganchar um Sobrevivente em um deles, a aura do gerador com mais progresso aparece em amarelo por 6/8/10 s.\n\n\"Lançar âncora! Eu vou traçar uma nova rota.\" – Portia Maye",
       "descricao_en": "At the start of the trial, up to 4 random hooks are changed into scourge hooks. You see their auras in white.\n\nWhen a Survivor is unhooked from a hook, it becomes a scourge hook.\n\nWhen you hook a Survivor on a scourge hook, the aura of the generator with the most progress is revealed in yellow for 6/8/10 seconds.",
-      "dota_role": [
-        "Scout / Visão",
-        "Suporte / Utilitário"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "aura",
         "gerador",
@@ -2075,10 +1758,7 @@
       "perk_name_en": "Forever Entwined",
       "descricao": "Quando um Sobrevivente recebe dano, ganha 1 ponto de progressão, até 6/7/8.\n\nPara cada ponto de progressão, você pega, solta e engancha Sobreviventes 4% mais rápido.\n\n\"Você disse que ia me devorar, não disse? Então não tem o direito de reclamar se eu devorar você.\" – Ken Kaneki",
       "descricao_en": "When a Survivor takes damage, gain 1 token, up to 6/7/8.\n\nFor each token, you pick up, drop and hook Survivors 4% faster.",
-      "dota_role": [
-        "Tank / Resistência",
-        "Carry / Late Game"
-      ],
+      "classe_rpg": "Assassino",
       "tags": [
         "gancho",
         "carregar"
@@ -2090,10 +1770,7 @@
       "perk_name_en": "Hex: Nothing But Misery",
       "descricao": "Após causar dano aos Sobreviventes 4 vezes com ataques básicos, um Totem Simples se torna um Totem Enfeitiçado, amaldiçoando todos os Sobreviventes.\n\nQuando você causar dano a Sobrevivente com um ataque básico, ele ganha 5% de Lentidão por 10/12,5/15 s.\n\n<i>O efeito dura até o Totem Enfeitiçado ser purificado.</i>\n\nLentidão reduz a velocidade de movimento do Sobrevivente.\n\n\"Toda irregularidade do mundo é consequência da falta de atitude de alguém.\" – Ken Kaneki",
       "descricao_en": "After you damage Survivors 4 times with basic attacks, a Dull Totem becomes a Hex Totem, cursing all Survivors.\n\nWhen you damage a Survivor with a basic attack, they gain 5% Hindered for 10/12.5/15 seconds.\n\nThe effects last until the Hex Totem is cleansed.\n\nHindered reduces Survivor movement speed.",
-      "dota_role": [
-        "Controle / Lockdown",
-        "Carry / Late Game"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "lentidão",
         "totem",
@@ -2109,10 +1786,7 @@
       "perk_name_en": "None Are Free",
       "descricao": "Quando enganchar um Sobrevivente pela primeira vez, ganha 1 ponto de progressão, até 4.\n\nQuando todos os geradores forem concluídos, para cada ponto de progressão, todas as janelas e barricadas de pé ficam bloqueadas por 12/14/16 s.\n\n\"Não sou eu que estou errado. O que está errado é o mundo!\"\n– Ken Kaneki",
       "descricao_en": "When you hook a Survivor for the first time, gain 1 token, up to 4.\n\nWhen all generators are completed, for each token, all windows and upright pallets are blocked for 12/14/16 seconds.",
-      "dota_role": [
-        "Controle / Lockdown",
-        "Carry / Late Game"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "gerador",
         "barricada",
@@ -2128,9 +1802,7 @@
       "perk_name_en": "Phantom Fear",
       "descricao": "Quando um Sobrevivente em seu Raio de Terror olha para você, ele grita e você enxerga a aura dele por 2 s.\n\nEsta vantagem tem um tempo de recarga de 80/70/60 s.\n\n\"Excelente. Seus gritos me deleitam.\" – Springtrap",
       "descricao_en": "When a Survivor within your Terror Radius looks at you, they scream and you see their aura for 2 seconds.\n\nThis perk has a 80/70/60-second cooldown.",
-      "dota_role": [
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "aura",
         "raio de terror",
@@ -2144,10 +1816,7 @@
       "perk_name_en": "Haywire",
       "descricao": "As alavancas do portão de saída com pelo menos 80% de progresso regridem numa taxa de 80/90/100% da velocidade de abertura do portão.\n\nEnquanto regridem, os Sobreviventes veem as luzes do portão de saída piscar de forma aleatória.\n\n\"Não haverá redenção para você.\" – Springtrap",
       "descricao_en": "Exit gate switches with at least 80% progress regress at a rate of 80/90/100% of gate opening speed.\n\nWhile they are regressing, Survivors see the exit gate lights flicker randomly.",
-      "dota_role": [
-        "Controle / Lockdown",
-        "Carry / Late Game"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "portão",
         "regressão",
@@ -2160,9 +1829,7 @@
       "perk_name_en": "Help Wanted",
       "descricao": "Quando você danificar um Gerador, ele ficará Comprometido. Apenas um Gerador pode ficar Comprometido por vez.\n\nQuando o gerador Comprometido for concluído, o tempo de recarga para seus ataques básicos bem-sucedidos será 25% mais rápido por 70/80/90 s.\n\n\"Você só acha que está no controle...\" – Springtrap",
       "descricao_en": "When you damage a generator, it becomes Compromised. Only one generator can be Compromised at a time.\n\nWhen the Compromised generator is completed, your successful basic attack cooldowns are 25% faster for 70/80/90 seconds.",
-      "dota_role": [
-        "Nuker / Burst"
-      ],
+      "classe_rpg": "Assassino",
       "tags": [
         "gerador",
         "ataque",
@@ -2175,10 +1842,7 @@
       "perk_name_en": "Ravenous",
       "descricao": "Sempre que você enganchar um Sobrevivente pela primeira vez, ganhe 1 ponto de progressão, até um máximo de 4.\n\nQuando tiver 4 pontos de progressão, todos os Sobreviventes gritam e são afetados por Exposto por 80/85/90 s.\n\nExposto faz os Sobreviventes serem derrubados por ataques básicos mesmo que não estejam feridos.",
       "descricao_en": "Whenever you hook a Survivor for the first time, gain 1 token, up to a maximum of 4.\n\nWhen you have 4 tokens, all Survivors scream and are inflicted with Exposed for 80/85/90 seconds.\n\nExposed Survivors are downed by basic attacks, even if uninjured.",
-      "dota_role": [
-        "Nuker / Burst",
-        "Carry / Late Game"
-      ],
+      "classe_rpg": "Assassino",
       "tags": [
         "exposto",
         "gancho",
@@ -2191,9 +1855,7 @@
       "perk_name_en": "Wandering Eye",
       "descricao": "Sempre que começar a perseguir um Sobrevivente, revela as auras de todos os outros Sobreviventes feridos dentro de 20 m por 5 s.\n\nEsta vantagem tem um tempo de recarga de 40/35/30 s.",
       "descricao_en": "Whenever you start chasing a Survivor, reveal the auras of all other injured Survivors within 20 meters for 5 seconds.\n\nThis perk has a 40/35/30-second cooldown.",
-      "dota_role": [
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "aura",
         "perseguição",
@@ -2206,10 +1868,7 @@
       "perk_name_en": "Hex: Overture of Doom",
       "descricao": "Gera um Totem Enfeitiçado que amaldiçoa o gerador mais distante e revela sua aura em amarelo.\n\nQuando um Sobrevivente reparar o gerador amaldiçoado por 5 s, você ganha Indetectável e seu Raio de Terror é aplicado ao gerador por 20/25/30 s.\n\nQuando o gerador amaldiçoado for reparado, o seguinte gerador mais distante é amaldiçoado.\n\nIndetectável esconde a aura, o Raio de Terror e a Luz Vermelha do Assassino.",
       "descricao_en": "Spawns a Hex Totem that curses the farthest generator and reveals its aura in yellow.\n\nWhen a Survivor repairs the cursed generator for 5 seconds, you gain Undetectable and your Terror Radius is applied to the generator for 20/25/30 seconds.\n\nWhen the cursed generator is repaired, the next farthest generator is cursed.\n\nUndetectable hides the Killer's aura, Terror Radius, and Red Stain.",
-      "dota_role": [
-        "Assassino / Furtividade",
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "indetectável",
         "aura",
@@ -2228,9 +1887,7 @@
       "perk_name_en": "Turn Back the Clock",
       "descricao": "Após enganchar um Sobrevivente, por 40/50/60 s, aperte o <i>botão de Habilidade 1</i> para fazer um gerador-alvo no seu campo de visão a até 20 m explodir, perder 10% de progresso e começar a regredir.",
       "descricao_en": "After hooking a Survivor, for 40/50/60 seconds, press the Ability button 1 to make a target generator you can see within 20 meters explode, lose 10% progress and start regressing.",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "gerador",
         "gancho",
@@ -2243,10 +1900,7 @@
       "perk_name_en": "Secret Project",
       "descricao": "Quando um Totem é abençoado ou purificado, bloqueia um gerador aleatório por 20/25/30 s.\n\nQuando um ou mais geradores são bloqueados, você recebe Indetectável por 30 s.\n\nIndetectável esconde a aura, o Raio de Terror e a Luz Vermelha do Assassino.",
       "descricao_en": "When a totem is blessed or cleansed, block a random unblocked generator for 20/25/30 seconds.\n\nWhen 1 or more generators become blocked, you gain Undetectable for 30 seconds.\n\nUndetectable hides the Killer's aura, Terror Radius, and Red Stain.",
-      "dota_role": [
-        "Assassino / Furtividade",
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "indetectável",
         "gerador",
@@ -2261,11 +1915,7 @@
       "perk_name_en": "Hex: Hive Mind",
       "descricao": "A primeira vez que enganchar qualquer Sobrevivente, um Totem Simples se torna um Totem Enfeitiçado.\n\nGeradores ficam destacados; a intensidade das auras do gerador revela o progresso do reparo.\n\nQuando restar 1 gerador, todos os geradores restantes explodem, perdem 6/8/10% de progresso, começam a regredir e o Totem Enfeitiçado se torna Simples.",
       "descricao_en": "The first time you hook any Survivor, a Dull Totem becomes a Hex Totem.\n\nGenerators are highlighted; the intensity of the generator's auras reveals their repair progress.\n\nWhen 1 generator remains, all remaining generators explode, lose 6/8/10% progress and start regressing, and the Hex Totem becomes dull.",
-      "dota_role": [
-        "Scout / Visão",
-        "Controle / Lockdown",
-        "Carry / Late Game"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "aura",
         "gerador",
@@ -2284,10 +1934,7 @@
       "perk_name_en": "Silent Shadow",
       "descricao": "Ao enganchar um Sobrevivente, você ganha Indetectável por 11/12/13 s.\n\nQuando todos os geradores forem concluídos, você ganha Indetectável.",
       "descricao_en": "Whenever you hook a Survivor, you gain Undetectable for 11/12/13s.\n\nWhen all Generators are completed, you gain Undetectable.",
-      "dota_role": [
-        "Assassino / Furtividade",
-        "Carry / Late Game"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "indetectável",
         "gerador",
@@ -2302,10 +1949,7 @@
       "perk_name_en": "Rampage",
       "descricao": "Sempre que você quebrar uma barricada ou parede destrutível com básico, você ganha 1 ponto de progressão, podendo acumular até 13.\n\nSempre que ficar cego ou atordoado por uma barricada, pelos próximos 13 s, você ganha 1% de Celeridade para cada ponto de progressão. Tempo de recarga: 30/25/20.",
       "descricao_en": "Whenever you basic-break a Pallet or Breakable Wall, you earn 1 Token, up to 13.\n\nWhenever you are blinded or Pallet-stunned, for the next 13s you gain 1% Haste for each Token. Cooldown: 30/25/20.",
-      "dota_role": [
-        "Tank / Resistência",
-        "Carry / Late Game"
-      ],
+      "classe_rpg": "Tank",
       "tags": [
         "celeridade",
         "barricada",
@@ -2319,9 +1963,7 @@
       "perk_name_en": "Hex: Scared to Death",
       "descricao": "Após enganchar 3 Sobreviventes diferentes, um Totem Simples acende.\n\nAo perseguir um Sobrevivente, sempre que você quebrar uma barricada com básico, Sobreviventes a até 13 m:\n- Gritam.\n- Ganham 11/12/13% de Lentidão por 3 s.",
       "descricao_en": "After you hook 3 different Survivors, a Dull Totem ignites.\n\nWhile chasing a Survivor, whenever you basic-break a Pallet, Survivors within 13m:\n- Scream.\n- Gain 11/12/13% Hindered for 3s.",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "lentidão",
         "totem",
@@ -2339,9 +1981,7 @@
       "perk_name_en": "Lay Waste",
       "descricao": "Sempre que você causa dano a um gerador, para cada carga que ele tinha, ele regride 2% mais rápido. Tempo de recarga: 55/50/45 s.",
       "descricao_en": "Whenever you damage a Generator, for each Charge it has, it regresses 2% faster. Cooldown: 55/50/45s.",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Controlador",
       "tags": [
         "gerador",
         "regressão",
@@ -2354,9 +1994,7 @@
       "perk_name_en": "Celestial Witness",
       "descricao": "A cada 30 s, se a Obsessão estiver a pelo menos 40 m de distância de você, poderá ver a aura dela por 2/2,5/3 s. Caso contrário, o Sobrevivente mais distante se torna a Obsessão.",
       "descricao_en": "Every 30s, if the Obsession is at least 40m away from you, you see their Aura for 2/2.5/3s. Otherwise, the farthest Survivor becomes the Obsession.",
-      "dota_role": [
-        "Scout / Visão"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "aura",
         "obsessão"
@@ -2368,9 +2006,7 @@
       "perk_name_en": "Hex: Under Your Thumb",
       "descricao": "Sempre que um Sobrevivente correndo recebe Celeridade a até 32 m de você, você recebe um alerta.\n\nSobreviventes não podem receber mais do que 25/20/15% de Celeridade de uma vez.",
       "descricao_en": "Whenever a running Survivor gains Haste within 32m of you, you are alerted.\n\nRunning Survivors cannot gain more than 25/20/15% Haste at a time.",
-      "dota_role": [
-        "Controle / Lockdown"
-      ],
+      "classe_rpg": "Batedor",
       "tags": [
         "celeridade",
         "notificação",
