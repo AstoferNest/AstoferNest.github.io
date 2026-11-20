@@ -45,3 +45,28 @@
   flex-wrap: wrap;
   gap: .5rem;
 }
+
+/* Cursor de ajuda nas etiquetas das classes */
+.cr-chip[data-cr-tip] {
+  cursor: help;
+}
+
+/* Caixinha de hint da classe (mesma base de .perk-tip, na cor da classe) */
+.perk-tip.cr-tip {
+  --cc: #888;
+  border-color: var(--cc);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .65), 0 0 14px color-mix(in srgb, var(--cc) 35%, transparent);
+}
+
+.perk-tip.cr-tip .perk-tip-head {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--cc) 40%, #0b0b0d) 0%,
+    color-mix(in srgb, var(--cc) 82%, #0b0b0d) 100%
+  );
+  border-bottom-color: color-mix(in srgb, var(--cc) 60%, #fff);
+}
+
+.perk-tip.cr-tip .perk-tip-sub {
+  color: rgba(255, 255, 255, .82);
+}
