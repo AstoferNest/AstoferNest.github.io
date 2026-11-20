@@ -460,9 +460,9 @@
 
 // ---------- Tooltip das classes (mesma caixinha de .perk-tip) ----------
     function initClassTooltip() {
-        if ($('crTip')) return;
+        if ($('crClassTip')) return;
         const tip = document.createElement('div');
-        tip.id = 'crTip';
+        tip.id = 'crClassTip';
         tip.className = 'perk-tip cr-tip';
         document.body.appendChild(tip);
         let cur = null;
