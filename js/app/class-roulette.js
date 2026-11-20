@@ -98,7 +98,18 @@
         crBtnLink: ['Compartilhar Link', 'Share Link'],
         crLblPerks: ['Vantagens (1 por classe)', 'Perks (1 per class)'],
         crLblItemTitle: ['Item / Poder', 'Item / Power'],
-        crTip: ['Os filtros do Acervo de Conteúdo também valem aqui.', 'Content Pool filters also apply here.']
+        crTip: ['Os filtros do Acervo de Conteúdo também valem aqui.', 'Content Pool filters also apply here.'],
+        crHistTitle: ['Histórico de Sorteios', 'Roll History'],
+        crHistClear: ['Limpar histórico', 'Clear history'],
+        crObsTitle: ['Overlay para OBS (Modo Streamer)', 'OBS Overlay (Streamer Mode)'],
+        crObsHint: ['Adicione cada link como "Fonte de Navegador" no OBS. Cada vez que a página carrega (ou você atualiza a fonte), sai uma build por classes nova. Clicar na página ou apertar R também sorteia de novo.', 'Add each link as a "Browser Source" in OBS. Every time the page loads (or you refresh the source) a new class build is rolled. Clicking the page or pressing R also rerolls.'],
+        crObsLblSurv: ['Link Survivor', 'Survivor link'],
+        crObsLblKill: ['Link Killer', 'Killer link'],
+        crObsOptSpin: ['Animação de roleta', 'Roulette animation'],
+        crObsOptNames: ['Mostrar nomes', 'Show names'],
+        crObsLblScale: ['Tamanho', 'Size'],
+        crObsLblLayout: ['Layout', 'Layout'],
+        crObsLblAuto: ['Sortear sozinho a cada (s, 0 = não)', 'Auto-roll every (s, 0 = off)']       
     };
     function applyLabels() {
         Object.keys(LABELS).forEach(id => { const el = $(id); if (el) el.textContent = t(LABELS[id][0], LABELS[id][1]); });
@@ -234,7 +245,64 @@
             <div class="text-xs text-neutral-500 text-center border-t border-neutral-800/80 pt-3">
                 <i class="fa-solid fa-circle-info text-dbd-cyan"></i> <span id="crTip">Os filtros do Acervo de Conteúdo também valem aqui.</span>
             </div>
-        </div>`;
+        </div>
+        <!-- HISTÓRICO -->
+        <div class="bg-dbd-card p-5 rounded-xl border border-neutral-800 space-y-3 shadow-xl">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:.5rem;flex-wrap:wrap">
+                <h3 class="text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
+                    <i class="fa-solid fa-clock-rotate-left text-dbd-cyan"></i> <span id="crHistTitle">Histórico de Sorteios</span>
+                    <span id="crHistoryCount" class="bd-badge surv">0</span>
+                </h3>
+                <button type="button" id="crHistClearBtn" class="bd-btn bd-btn-sm bd-btn-danger">
+                    <i class="fa-solid fa-trash"></i> <span id="crHistClear">Limpar histórico</span>
+                </button>
+            </div>
+            <div id="crHistoryList" class="bd-hist-list"></div>
+        </div>
+
+        <!-- OVERLAY OBS (MODO STREAMER) -->
+        <details class="bd-details">
+            <summary><i class="fa-solid fa-tv" style="color:#a855f7"></i> <span id="crObsTitle">Overlay para OBS (Modo Streamer)</span></summary>
+            <p class="bd-hint" id="crObsHint" style="margin-bottom:.9rem"></p>
+            <div class="bd-form-grid">
+                <div class="bd-span-2">
+                    <label class="bd-label" for="crObsLinkSurv" id="crObsLblSurv">Link Survivor</label>
+                    <div class="bd-url-row">
+                        <input type="text" id="crObsLinkSurv" class="bd-field" readonly onclick="this.select()">
+                        <button type="button" id="crObsCopySurv" class="bd-btn" title="Copiar"><i class="fa-solid fa-copy"></i></button>
+                        <a class="bd-btn" id="crObsOpenSurv" target="_blank" rel="noopener" title="Abrir"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </div>
+                <div class="bd-span-2">
+                    <label class="bd-label" for="crObsLinkKill" id="crObsLblKill">Link Killer</label>
+                    <div class="bd-url-row">
+                        <input type="text" id="crObsLinkKill" class="bd-field" readonly onclick="this.select()">
+                        <button type="button" id="crObsCopyKill" class="bd-btn" title="Copiar"><i class="fa-solid fa-copy"></i></button>
+                        <a class="bd-btn" id="crObsOpenKill" target="_blank" rel="noopener" title="Abrir"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="bd-opts">
+                <label class="bd-check"><input type="checkbox" id="crObsSpin" checked> <span id="crObsOptSpin">Animação de roleta</span></label>
+                <label class="bd-check"><input type="checkbox" id="crObsNames" checked> <span id="crObsOptNames">Mostrar nomes</span></label>
+                <div>
+                    <label class="bd-label" for="crObsScale" id="crObsLblScale">Tamanho</label>
+                    <select id="crObsScale" class="bd-field">
+                        <option value="0.75">75%</option><option value="1" selected>100%</option><option value="1.25">125%</option><option value="1.5">150%</option><option value="2">200%</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="bd-label" for="crObsLayout" id="crObsLblLayout">Layout</label>
+                    <select id="crObsLayout" class="bd-field">
+                        <option value="h" selected>Horizontal</option><option value="v">Vertical</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="bd-label" for="crObsAuto" id="crObsLblAuto">Sortear sozinho a cada (s, 0 = não)</label>
+                    <input type="number" id="crObsAuto" class="bd-field" min="0" max="3600" value="0" style="width:7rem">
+                </div>
+            </div>
+        </details>`;
 
     // ---------- Legenda (chips das 4 classes + quantos perks elegíveis) ----------
     function renderLegend() {
@@ -433,6 +501,8 @@
                 btn.disabled = false;
                 btn.classList.remove('opacity-50', 'cursor-not-allowed');
                 render(crResult, false, parts);
+                addCrHistory(crResult);
+                beep(880);               
                 beep(880);
                 showToast(t('Novo Loadout por classes gerado!', 'New class loadout generated!'), 'success');
             }
@@ -521,6 +591,104 @@
         document.addEventListener('scroll', hide, true);
     }   
 
+
+// ---------- Histórico da Roleta de Classes ----------
+    const CR_HIST_KEY = 'dbd_class_history';
+    let crHistory = [];
+    try { crHistory = JSON.parse(localStorage.getItem(CR_HIST_KEY) || '[]'); } catch (e) { crHistory = []; }
+
+    function addCrHistory(result) {
+        crHistory.unshift({
+            id: Date.now(),
+            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            role: result.role,
+            character: result.character,
+            perks: result.perks,
+            item: result.item,
+            classes: result.classes,
+            date: result.date
+        });
+        crHistory = crHistory.slice(0, HISTORY_MAX);
+        try { localStorage.setItem(CR_HIST_KEY, JSON.stringify(crHistory)); } catch (e) {}
+        renderCrHistory();
+    }
+
+    function renderCrHistory() {
+        const box = $('crHistoryList');
+        if (!box) return;
+        $('crHistoryCount').textContent = crHistory.length;
+        if (!crHistory.length) {
+            box.innerHTML = `<div class="bd-hint">${t('Nenhum sorteio ainda. Gire a roleta!', 'No rolls yet. Spin the roulette!')}</div>`;
+            return;
+        }
+        box.innerHTML = crHistory.map((h, i) => {
+            const perks = h.perks.map(p => `
+                <div class="perk-diamond perk-diamond-xs" data-perk="${esc(p.id)}">
+                    <div class="perk-diamond-inner">${imgTag(entryImgs(p), 'w-full h-full object-contain', p.icon || 'fa-shield-halved', 'text-purple-200 text-xs')}</div>
+                </div>`).join('');
+            const it = h.item || EMPTY_ITEM;
+            return `
+            <button type="button" class="bd-hist" data-cr-hist="${i}" title="${t('Voltar para esta build', 'Restore this build')}">
+                <span class="bd-badge ${h.role === 'survivor' ? 'surv' : 'kill'}">${h.role === 'survivor' ? 'SURV' : 'KILL'}</span>
+                <div class="char-card w-11 shrink-0${ptbCls(h.character)} flex items-center justify-center text-dbd-cyan text-lg">
+                    ${imgTag(entryImgs(h.character), 'w-full h-full object-contain', h.character.icon || 'fa-user', 'text-lg')}
+                </div>
+                <div class="bd-hist-info">
+                    <div class="bd-hist-name">${esc(nm(h.character))}</div>
+                    <div class="bd-hist-sub">${esc(nm(it))}</div>
+                </div>
+                <div class="bd-hist-perks">${perks}</div>
+                <span class="bd-hist-time">${esc(h.time || '')}</span>
+            </button>`;
+        }).join('');
+    }
+
+    function clearCrHistory() {
+        crHistory = [];
+        try { localStorage.removeItem(CR_HIST_KEY); } catch (e) {}
+        renderCrHistory();
+        showToast(t('Histórico limpo!', 'History cleared!'), 'info');
+    }
+
+    // ---------- Links do Overlay para OBS ----------
+    function crObsUrl(role) {
+        const q = new URLSearchParams();
+        q.set('role', role);
+        q.set('mode', 'classes');
+        if (!$('crObsSpin').checked) q.set('spin', '0');
+        if (!$('crObsNames').checked) q.set('names', '0');
+        const scale = $('crObsScale').value;
+        if (scale && scale !== '1') q.set('scale', scale);
+        if ($('crObsLayout').value === 'v') q.set('layout', 'v');
+        const auto = parseInt($('crObsAuto').value, 10);
+        if (auto > 0) q.set('auto', auto);
+        return new URL('overlay.html', location.href).href.split('#')[0] + '?' + q.toString();
+    }
+
+    function updateCrObsLinks() {
+        if (!$('crObsLinkSurv')) return;
+        const s = crObsUrl('survivor'), k = crObsUrl('killer');
+        $('crObsLinkSurv').value = s;
+        $('crObsLinkKill').value = k;
+        $('crObsOpenSurv').href = s;
+        $('crObsOpenKill').href = k;
+    }
+
+    async function copyCrObsLink(which) {
+        const text = $(which === 'surv' ? 'crObsLinkSurv' : 'crObsLinkKill').value;
+        try {
+            await navigator.clipboard.writeText(text);
+        } catch (e) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            ta.remove();
+        }
+        showToast(t('Link do overlay copiado!', 'Overlay link copied!'), 'success');
+    }   
+
     // ---------- Montagem ----------
     function init() {
         if ($('tabClasses') || !$('tabMain') || !$('tabMainBtn')) return;
@@ -549,6 +717,23 @@
         $('crLockChar').addEventListener('click', () => toggleLock('char'));
         $('crLockItem').addEventListener('click', () => toggleLock('item'));
         [0, 1, 2, 3].forEach(i => $('crLockPerk' + i).addEventListener('click', () => toggleLock('perk', i)));
+         $('crHistClearBtn').addEventListener('click', clearCrHistory);
+        $('crHistoryList').addEventListener('click', e => {
+            const b = e.target.closest('[data-cr-hist]');
+            if (!b) return;
+            const h = crHistory[parseInt(b.dataset.crHist, 10)];
+            if (!h) return;
+            if (h.role !== crRole) setCrRole(h.role);
+            crResult = h;
+            render(crResult);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        $('crObsCopySurv').addEventListener('click', () => copyCrObsLink('surv'));
+        $('crObsCopyKill').addEventListener('click', () => copyCrObsLink('kill'));
+        ['crObsSpin', 'crObsNames', 'crObsScale', 'crObsLayout', 'crObsAuto'].forEach(id => {
+            $(id).addEventListener('change', updateCrObsLinks);
+        });       
 
         // idioma e abertura da aba
         const origLang = window.setLanguage;
@@ -567,6 +752,8 @@
         applyLabels();
         render(null);
         renderLegend();
+        renderCrHistory();
+        updateCrObsLinks();
         initClassTooltip();
     }
 
