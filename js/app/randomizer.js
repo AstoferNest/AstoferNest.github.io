@@ -595,6 +595,32 @@ function switchTab(tab) {
     updateTagDrawerForTab();
 }
 
+function resetResultDisplay() {
+    const defaultIcons = ['fa-shield-halved', 'fa-bolt', 'fa-heart-pulse', 'fa-eye'];
+
+    $('displayCharName').innerText = '--';
+    $('displayCharRole').innerText = currentRole.toUpperCase();
+    setImg($('displayCharImg'), [], 'fa-user-ninja', 'text-8xl text-neutral-600');
+    $('displayCharFrame').classList.remove('is-ptb', 'spinning-reel');
+
+    [0, 1, 2, 3].forEach(i => {
+        $(`perkName${i}`).innerText = `Slot ${i + 1}`;
+        setImg($(`perkImg${i}`), [], defaultIcons[i], 'text-4xl text-purple-300');
+        const diamond = $(`perkInner${i}`).parentElement;
+        diamond.classList.add('is-empty');
+        diamond.removeAttribute('data-perk');
+    });
+
+    $('displayItemName').innerText = currentLang === 'pt' ? 'Nenhum' : 'None';
+    setImg($('displayItemImg'), [], 'fa-toolbox', 'text-3xl');
+
+    [1, 2].forEach(n => {
+        $(`displayAddonName${n}`).innerText = `Add-on ${n}`;
+        $(`displayAddon${n}`).title = `Add-on ${n}`;
+        setImg($(`displayAddonImg${n}`), [], 'fa-puzzle-piece', 'text-lg');
+    });
+}
+
 function setRole(role) {
     currentRole = role;
     resetLocks();
@@ -608,6 +634,13 @@ function setRole(role) {
         killBtn.className = "dbd-seg-btn is-kill is-active";
         survBtn.className = "dbd-seg-btn is-surv";
     }
+
+    // Se trocou de lado manualmente, volta o palco para o estado vazio inicial
+    if (!currentRollResult || currentRollResult.role !== role) {
+        currentRollResult = null;
+        resetResultDisplay();
+    }
+
     renderPool();
 }
 
