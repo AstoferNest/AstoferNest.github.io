@@ -696,3 +696,18 @@ html:not(.dark) .dbd-char-col::after {
 .dbd-char-col .bd-char-locked {
   outline: none !important;
 }
+
+/* Tamanho correto do Item/Poder (maior) e dos Add-ons (menores) */
+#displayItemBox,
+#crItemBox {
+  width: 96px !important;
+  height: 96px !important;
+}
+
+#displayAddon1,
+#displayAddon2,
+#crAddon1,
+#crAddon2 {
+  width: 74px !important;
+  height: 74px !important;
+}
