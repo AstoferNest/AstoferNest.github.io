@@ -4,7 +4,7 @@
       "nome": "Motosserra do Bubba",
       "nome_en": "Bubba's Chainsaw",
       "complementos": ["Lixa de Motosserra", "Vela de Ignição", "Limitador de Velocidade", "Óleo Vegetal", "Chili", "Silenciador Caseiro", "Marcas de Faca", "Barra de Guia Longa", "Bomba de Pressão", "Correntes Sujas", "Corrente Terrível", "Lubrificante", "As Marcas da Besta", "A Graxa", "Chili Premiado", "Ancinho de Profundidade", "Chassi Leve", "Corrente Enferrujada", "Guia de Aprimoramento de Carburador", "Carne Iridescente"],
-      "complementos_en": ["Chainsaw File", "Spark Plug", "Speed Limiter", "Deviousness", "Health State", "Vegetable Oil", "Chilli", "Homemade Muffler", "Knife Scratches", "Long Guide Bar", "Primer Bulb", "Begrimed Chains", "Item", "Grisly Chains", "Mangled", "Shop Lubricant", "Auras", "Terror Radius", "The Beast's Marks", "The Grease", "Award-winning Chilli", "Depth Gauge Rake", "Light Chassis", "Rusted Chains", "Broken", "Carburettor Tuning Guide", "Iridescent Flesh"]
+      "complementos_en": ["Chainsaw File", "Spark Plug", "Speed Limiter", "Vegetable Oil", "Chilli", "Homemade Muffler", "Knife Scratches", "Long Guide Bar", "Primer Bulb", "Begrimed Chains",  "Grisly Chains",  "Shop Lubricant", "The Beast's Marks", "The Grease", "Award-winning Chilli", "Depth Gauge Rake", "Light Chassis", "Rusted Chains", "Carburettor Tuning Guide", "Iridescent Flesh"]
     }
   ],
   "A Artista": [
@@ -12,7 +12,7 @@
       "nome": "Pássaros do Tormento",
       "nome_en": "Birds of Torment",
       "complementos": ["Milho Choclo", "Pinturas a Óleo", "Piche Espesso", "Obituário Vibrante", "Desenho Automático", "Carniça Apodrecida", "Corvo em Natureza-Morta", "Agonia Indefinida", "Tecido Aveludado", "Pedaço de Carvão", "A Tinta Mais Escura", "Ó Angústia, Ó Amante", "Sino de Prata", "Ninho Espinhoso", "Ovo de Tinta", "Sapatinho de Matias", "Mãos Decepadas", "Língua Decepada", "Jardim da Putrefação", "Pluma Iridescente"],
-      "complementos_en": ["Choclo Corn", "Oil Paints", "Killer Instinct", "Thick Tar", "Vibrant Obituary", "Automatic Drawing", "Festering Carrion", "Still Life Crow", "Untitled Agony", "Hindered", "Velvet Fabric", "Auras", "Charcoal Stick", "Darkest Ink", "Blindness", "O Grief, O Lover", "Exhausted", "Silver Bell", "Oblivious", "Thorny Nest", "Haemorrhage", "Mangled", "Ink Egg", "Matias' Baby Shoes", "Severed Hands", "Severed Tongue", "Garden of Rot", "Exposed", "Iridescent Feather", "Undetectable"]
+      "complementos_en": ["Choclo Corn", "Oil Paints", "Thick Tar", "Vibrant Obituary", "Automatic Drawing", "Festering Carrion", "Still Life Crow", "Untitled Agony", "Velvet Fabric", "Charcoal Stick", "Darkest Ink", "O Grief, O Lover", "Silver Bell",  "Thorny Nest", "Ink Egg", "Matias' Baby Shoes", "Severed Hands", "Severed Tongue", "Garden of Rot", "Iridescent Feather"]
     }
   ],
   "Os Gêmeos": [
@@ -20,7 +20,7 @@
       "nome": "Vínculo de Sangue",
       "nome_en": "Blood Bond",
       "complementos": ["Estatueta de Gato", "Leite Azedo", "Unha de Criancinha", "Espada de Brinquedo", "Dente de Leite", "Capuz Preto Ensanguentado", "Olho de Gato", "Candelabro Cerimonial", "Luva de Madeleine", "Cachecol de Madeleine", "Agulha Enferrujada", "Chorume do Esgoto", "Biscoito Dormido", "Chocalho Pesado", "Gota de Perfume", "Ensopado da Floresta", "Pião de Madeira", "Soldado Victor", "Pingente Iridescente", "Pano do Silêncio"],
-      "complementos_en": ["Cat Figurine", "Soured Milk", "Tiny Fingernail", "Toy Sword", "Baby Teeth", "Blindness", "Bloody Black Hood", "Cat's Eye", "Ceremonial Candelabrum", "Madeleine's Glove", "Madeleine's Scarf", "Rusted Needle", "Haemorrhage", "Sewer Sludge", "Stale Biscuit", "Weighty Rattle", "Broken", "Drop of Perfume", "Oblivious", "Forest Stew", "Spinning Top", "Item", "Victor's Soldier", "Auras", "Iridescent Pendant", "Exposed", "Silencing Cloth", "Undetectable"]
+      "complementos_en": ["Cat Figurine", "Soured Milk", "Tiny Fingernail", "Toy Sword", "Baby Teeth",  "Bloody Black Hood", "Cat's Eye", "Ceremonial Candelabrum", "Madeleine's Glove", "Madeleine's Scarf", "Rusted Needle",  "Sewer Sludge", "Stale Biscuit", "Weighty Rattle",  "Drop of Perfume",  "Forest Stew", "Spinning Top",  "Victor's Soldier",  "Iridescent Pendant", "Silencing Cloth"]
     }
   ],
   "O Caçador": [
@@ -28,7 +28,7 @@
       "nome": "Armadilha de Urso",
       "nome_en": "Bear Trap",
       "complementos": ["Óleo de Urso", "Coberta Improvisada", "Mandíbulas Acolchoadas", "Mandíbulas Serrilhadas", "Mandíbulas Enferrujadas", "Luvas do Caçador", "Kit de 4 Molas Espirais", "Borras de Café", "Mandíbulas Alongadas", "Tijolo de Cera", "Ferramentas de Fixação", "Mola Secundária", "Garrafa de Alcatrão", "Mochila de Caçador", "Pedra de Amolar", "Mola Oleosa", "Armadilha de Tensão", "Saco do Caçador", "Mola Ensanguentada", "Pedra Iridescente"],
-      "complementos_en": ["Bear Oil", "Makeshift Wrap", "Padded Jaws", "Bloodpoints", "Serrated Jaws", "Rusted Jaws", "Trapper Gloves", "4-Coil Spring Kit", "Coffee Grounds", "Haste", "Lengthened Jaws", "Deep Wound", "Haemorrhage", "Wax Brick", "Fastening Tools", "Mangled", "Secondary Coil", "Tar Bottle", "Trapper Bag", "Honing Stone", "Dying State", "Oily Coil", "Aura", "Tension Spring", "Trapper Sack", "Bloody Coil", "Injured State", "Iridescent Stone"]
+      "complementos_en": ["Bear Oil", "Makeshift Wrap", "Padded Jaws", "Serrated Jaws", "Rusted Jaws", "Trapper Gloves", "4-Coil Spring Kit", "Coffee Grounds", "Lengthened Jaws",  "Wax Brick", "Fastening Tools",  "Secondary Coil", "Tar Bottle", "Trapper Bag", "Honing Stone", "Oily Coil", "Tension Spring", "Trapper Sack", "Bloody Coil", "Iridescent Stone"]
     }
   ],
   "A Negociante de Crânios": [
@@ -36,7 +36,7 @@
       "nome": "Olhos no Céu",
       "nome_en": "Eyes in the Sky",
       "complementos": ["Adi Valente Número 1", "Melhoria de Alta Corrente", "Holofote de Alta Potência", "Alto-Falante Ultrassônico", "Iluminação Ajustável", "Modo de Economia de Energia", "Alto-falantes Shotgun", "Microfone Remoto Estéreo", "Supercarga", "Gerador de Ruído Marrom", "Melhoria de Infravermelho", "Parafuso-Solto", "Vidro Moído", "Processo de Mira Vital", "Predição de Movimento Avançada", "Leitura Geográfica", "Protótipo de Rotor", "Estroboscópios Randomizados", "Baterias Expiradas", "Manuscrito Não Publicado Iridescente"],
-      "complementos_en": ["Adi Valente Issue 1", "Skill Checks", "High-Current Upgrade", "High-Power Floodlight", "Blindness", "Ultrasonic Speaker", "Adaptive Lighting", "Undetectable", "Low-Power Mode", "Shotgun Speakers", "Stereo Remote Mic", "Supercharge", "Brown Noise Generator", "Oblivious", "Infrared Upgrade", "Auras", "Loose Screw", "Exhausted", "Powdered Glass", "Haemorrhage", "Mangled", "Vital Targeting Processor", "Hindered", "Advanced Movement Prediction", "Geographical Readout", "Breakable Walls", "Pallets", "Generators", "Windows", "Prototype Rotor", "Randomised Strobes", "Expired Batteries", "Iridescent Unpublished Manuscript", "Terror Radius"]
+      "complementos_en": ["Adi Valente Issue 1", "High-Current Upgrade", "High-Power Floodlight",  "Ultrasonic Speaker", "Adaptive Lighting", "Low-Power Mode", "Shotgun Speakers", "Stereo Remote Mic", "Supercharge", "Brown Noise Generator",  "Infrared Upgrade",  "Loose Screw", "Powdered Glass",   "Vital Targeting Processor", "Advanced Movement Prediction", "Geographical Readout", "Prototype Rotor", "Randomised Strobes", "Expired Batteries", "Iridescent Unpublished Manuscript"]
     }
   ],
   "O Cara Legal": [
@@ -44,7 +44,7 @@
       "nome": "A Brincadeira Acabou",
       "nome_en": "Playtime's Over",
       "complementos": ["Olhos de Boneco", "Caixa do Cara Legal", "Luz Estroboscópica", "Bisturi Minúsculo", "Chave de Fenda Automática", "Faca de Entalhe Elétrica", "Spray Capilar e Vela", "Corda de Pular", "Furadeira Elétrica", "TV Portátil", "Venendo de Rato", "Tênis de Corrida", "Travesseiro de Seda", "Régua", "Fragmentos de Espelho", "Pilha de Pregos", "Sacola Plástica", "Navalha Reta", "Capacete", "Amuleto Iridescente"],
-      "complementos_en": ["Doll Eyes", "Auras", "Windows", "Pallets", "Good Guy Box", "Strobing Light", "Terror Radius", "Tiny Scalpel", "Pools of Blood", "Automatic Screwdriver", "Electric Carving Knife", "Hair Spray & Candle", "Jump Rope", "Power Drill", "Portable TV", "Exit Gates", "Rat Poison", "Running Shoes", "Haste", "Silk Pillow", "Yardstick", "Mirror Shards", "Pile of Nails", "Undetectable", "Plastic Bag", "Exhausted", "Straight Razor", "Haemorrhage", "Mangled", "Hard Hat", "Iridescent Amulet"]
+      "complementos_en": ["Doll Eyes", "Good Guy Box", "Strobing Light", "Tiny Scalpel", "Automatic Screwdriver", "Electric Carving Knife", "Hair Spray & Candle", "Jump Rope", "Power Drill", "Portable TV", "Rat Poison", "Running Shoes", "Silk Pillow", "Yardstick", "Mirror Shards", "Pile of Nails", "Plastic Bag", "Straight Razor",   "Hard Hat", "Iridescent Amulet"]
     }
   ],
   "O Vilão": [
@@ -52,7 +52,7 @@
       "nome": "Salto Virulento",
       "nome_en": "Virulent Bound",
       "complementos": ["Joia de Besouro", "Walkie-Talkie de Ombro do RPD", "Medalhão de Unicórnio", "Tentáculo de Uroboros", "Megafone", "Cálice (Ouro)", "Luvas de Couro", "Medalhão de Leão", "Manivela Solta", "Ovo (Ouro)", "Medalhão de Donzela", "Cofre Portátil", "Erva Vermelha", "Dispositivo de Videoconferência", "Óculos de Sol Potente", "Erva Verde", "Manche de Helicóptero", "Vírus Uroboros", "Frasco de Uroboros Iridescente", "Foto do Laboratório"],
-      "complementos_en": ["Jewel Beetle", "R.P.D. Shoulder Walkie", "Unicorn Medallion", "Uroboros Tendril", "Bullhorn", "Oblivious", "First Aid Spray", "Chalice (Gold)", "Leather Gloves", "Lion Medallion", "Loose Crank", "Egg (Gold)", "Maiden Medallion", "Blindness", "Portable Safe", "Haemorrhage", "Red Herb", "Video Conference Device", "Dark Sunglasses", "Undetectable", "Green Herb", "Helicopter Stick", "Auras", "Uroboros Virus", "Iridescent Uroboros Vial", "Exposed", "Lab Photo", "Breakable Walls", "Pallets"]
+      "complementos_en": ["Jewel Beetle", "R.P.D. Shoulder Walkie", "Unicorn Medallion", "Uroboros Tendril", "Bullhorn", "Chalice (Gold)", "Leather Gloves", "Lion Medallion", "Loose Crank", "Egg (Gold)", "Maiden Medallion",  "Portable Safe",  "Red Herb", "Video Conference Device", "Dark Sunglasses", "Green Herb", "Helicopter Stick",  "Uroboros Virus", "Iridescent Uroboros Vial", "Lab Photo"]
     }
   ],
   "A Singularidade": [
@@ -60,7 +60,7 @@
       "nome": "Instanciação Quântica",
       "nome_en": "Quantum Instantiation",
       "complementos": ["Chaves de Segurança Quebrada", "Ferramenta de Diagnóstico (Reparo)", "Água Pesada", "Lavagem Nutricional", "Braço Androide", "Restos Cremados", "Gel Criogênico", "Luva de Beisebol Infantil", "Sensor Ultrassônico", "Gerador de Hologramas", "Spray de Hiperestesia", "Fios Vivos", "Gel de Nanomáquinas", "Tanque de Oxigênio Gasto", "Manifesto da Tripulação", "Ferramenta de Diagnóstico (Construção)", "Fibras de Plantas Desconhecidas", "Foto da Família Soma", "Formulário de Requisição Negado", "Estilhaço de Cristal Iridescente"],
-      "complementos_en": ["Broken Security Key", "Diagnostic Tool (Repair)", "Heavy Water", "Supply Cases", "Nutritional Slurry", "Android Arm", "Cremated Remains", "Blindness", "Cryo Gel", "Haemorrhage", "Kid's Ball Glove", "Ultrasonic Sensor", "Terror Radius", "Hologram Generator", "Oblivious", "Hyperawareness Spray", "Live Wires", "Nanomachine Gel", "Spent Oxygen Tank", "Exhausted", "Crew Manifest", "Aura", "Diagnostic Tool (Construction)", "Auras", "EMP", "Foreign Plant Fibres", "Pallet", "Soma Family Photo", "Hindered", "Denied Requisition Form", "EMPs", "Iridescent Crystal Shard"]
+      "complementos_en": ["Broken Security Key", "Diagnostic Tool (Repair)", "Heavy Water", "Nutritional Slurry", "Android Arm", "Cremated Remains",  "Cryo Gel",  "Kid's Ball Glove", "Ultrasonic Sensor", "Hologram Generator",  "Hyperawareness Spray", "Live Wires", "Nanomachine Gel", "Spent Oxygen Tank", "Crew Manifest", "Diagnostic Tool (Construction)", "Foreign Plant Fibres", "Soma Family Photo", "Denied Requisition Form", "Iridescent Crystal Shard"]
     }
   ],
   "O Caipira": [
@@ -68,7 +68,7 @@
       "nome": "Motosserra",
       "nome_en": "Chainsaw",
       "complementos": ["Contrapeso", "Bomba de Pressão Quebrada", "Filtro de Ar Abandonado", "Botas de Biqueira de Aço", "Ingestão Obstruída", "Acelerador Lubrificado", "Parafuso de Marcha Lenta", "Óleo de Motor sem Marca", "Estojo Térmico", "Correntes Sujas", "Botas do Papai", "Correntes com Baixo Recuo", "Motor Rústico", "A Combinação dos Thompson", "Silenciador de Ponta", "Pantufas Nojentas", "Correntes LO PRO", "Botas Pontiagudas", "Marcas Iridescentes", "Carburador Tunado"],
-      "complementos_en": ["Counterweight", "Cracked Primer Bulb", "Health State", "Discarded Air Filter", "Steel Toe Boots", "Clogged Intake", "Greased Throttle", "High-Speed Idler Screw", "Off-Brand Motor Oil", "Thermal Casing", "Begrimed Chains", "Haemorrhage", "Mangled", "Dad's Boots", "Low Kickback Chains", "Ragged Engine", "The Thompsons' Mix", "Apex Muffler", "Terror Radius", "Filthy Slippers", "Undetectable", "LoPro Chains", "Breakable Walls", "Pallets", "Deep Wound", "Spiked Boots", "Iridescent Engravings", "Tuned Carburettor"]
+      "complementos_en": ["Counterweight", "Cracked Primer Bulb", "Discarded Air Filter", "Steel Toe Boots", "Clogged Intake", "Greased Throttle", "High-Speed Idler Screw", "Off-Brand Motor Oil", "Thermal Casing", "Begrimed Chains",   "Dad's Boots", "Low Kickback Chains", "Ragged Engine", "The Thompsons' Mix", "Apex Muffler", "Filthy Slippers", "LoPro Chains", "Spiked Boots", "Iridescent Engravings", "Tuned Carburettor"]
     }
   ],
   "O Xenomorfo": [
@@ -76,7 +76,7 @@
       "nome": "Perseguição Oculta",
       "nome_en": "Hidden Pursuit",
       "complementos": ["Rações de Cereais", "Pássaro Bebedor", "Ovomorfo", "Relógio da Ripley", "Entranhas do Ash", "Boné do Brett", "Fone da Tripulação", "Mapa Estelar da Lambert", "Bastão de Luz", "Capacete de Emergência", "Capacete do Kane", "Pele Fundida", "Machadinha Multiuso", "Faixa do Parker", "Caixa de Transporte", "Arma de Arpão", "Pino de Autodestruição", "Teclado Simiótico", "Sangue Ácido", "Aguilhão Improvisado"],
-      "complementos_en": ["Cereal Rations", "Auras", "Remote Flame Turrets", "Drinking Bird", "Killer Instinct", "Ovomorph", "Ripley's Watch", "Ash's Innards", "Brett's Cap", "Remote Flame Turret", "Blindness", "Crew Headset", "Lambert's Star Map", "Light Wand", "Emergency Helmet", "Kane's Helmet", "Mangled", "Moulted Skin", "Exhausted", "Multipurpose Hatchet", "Haemorrhage", "Parker's Headband", "Haste", "Cat Carrier", "Undetectable", "Harpoon Gun", "Self-Destruct Bolt", "Semiotic Keyboard", "Generators", "Acidic Blood", "Health State", "Deep Wound", "Improvised Cattle Prod", "Generator", "Aura"]
+      "complementos_en": ["Cereal Rations", "Drinking Bird", "Ovomorph", "Ripley's Watch", "Ash's Innards", "Brett's Cap",  "Crew Headset", "Lambert's Star Map", "Light Wand", "Emergency Helmet", "Kane's Helmet",  "Moulted Skin", "Multipurpose Hatchet",  "Parker's Headband", "Cat Carrier", "Harpoon Gun", "Self-Destruct Bolt", "Semiotic Keyboard", "Acidic Blood", "Improvised Cattle Prod"]
     }
   ],
   "O Lich": [
@@ -84,7 +84,7 @@
       "nome": "Vil da Escuridão",
       "nome_en": "Vile Darkness",
       "complementos": ["Bola de Cristal", "Pena de Corvo", "Bandana Esfarrapada", "Luva do Trapaça", "Olho de Vidro", "Lanterna da Revelação", "Poção de Velocidade", "Anel de Armazenamento de Feitiços", "Anel de Telecinese", "Botas da Velocidade", "Manto Élfico", "Chifre Ornamentado", "Pérola do Poder", "Cajado do Apodrecimento", "Mochila de Carga", "Manto da Invisibilidade", "Adaga de Dente de Dragão", "Manto de Olhos", "Livro Vil da Escuridão Iridescente", "Espada Vorpal"],
-      "complementos_en": ["Crystal Ball", "Dispelling Sphere", "Killer Instinct", "Raven's Feather", "Fly", "Tattered Headband", "Flight of the Damned", "Trickster's Glove", "Mage Hand", "Pallet", "Glass Eye", "Lantern of Revealing", "Auras", "Potion of Speed", "Ring of Spell Storing", "Ring of Telekinesis", "Boots of Speed", "Haste", "Cloak of Elvenkind", "Terror Radius", "Ornate Horn", "Pearl of Power", "Staff of Withering", "Exhausted", "Bag of Holding", "Oblivious", "Cloak of Invisibility", "Undetectable", "Dragontooth Dagger", "Haemorrhage", "Mangled", "Robe of Eyes", "Treasure Chest", "Iridescent Book of Vile Darkness", "Window", "Vorpal Sword", "Broken", "Pallets"]
+      "complementos_en": ["Crystal Ball", "Raven's Feather", "Tattered Headband", "Trickster's Glove", "Glass Eye", "Lantern of Revealing",  "Potion of Speed", "Ring of Spell Storing", "Ring of Telekinesis", "Boots of Speed", "Cloak of Elvenkind", "Ornate Horn", "Pearl of Power", "Staff of Withering", "Bag of Holding",  "Cloak of Invisibility", "Dragontooth Dagger", "Robe of Eyes", "Iridescent Book of Vile Darkness", "Vorpal Sword"]
     }
   ],
   "A Caçadora": [
@@ -92,7 +92,7 @@
       "nome": "Machadinha de Caça",
       "nome_en": "Hunting Hatchets",
       "complementos": ["Toxina de Amanita", "Cabo Enfaixado", "Pedra Áspera", "Pano Amarelado", "Laço de Couro", "Trança de Grama de Maná", "Cabo de Carvalho", "Ferradura Brilhante", "Lâmina Pesada", "Luvas de Camurça", "Lenço de Flores", "Raiz de Rosa", "Lâmina Enferrujada", "Mistura Venenosa", "Lâmina Contaminada", "Mistura Brilhante", "Cinto de Infantaria", "Raposa de Madeira", "Lâmina Iridescente", "Grevas de Soldado"],
-      "complementos_en": ["Amanita Toxin", "Blindness", "Bandaged Haft", "Coarse Stone", "Yellowed Cloth", "Leather Loop", "Haste", "Manna Grass Braid", "Oak Haft", "Shiny Pin", "Weighted Head", "Incapacitated", "Deerskin Gloves", "Lockers", "Flower Babushka", "Rose Root", "Rusty Head", "Mangled", "Venomous Concoction", "Exhausted", "Begrimed Head", "Haemorrhage", "Glowing Concoction", "Aura", "Infantry Belt", "Wooden Fox", "Undetectable", "Iridescent Head", "Dying State", "Soldier's Puttee"]
+      "complementos_en": ["Amanita Toxin",  "Bandaged Haft", "Coarse Stone", "Yellowed Cloth", "Leather Loop", "Manna Grass Braid", "Oak Haft", "Shiny Pin", "Weighted Head", "Deerskin Gloves", "Flower Babushka", "Rose Root", "Rusty Head",  "Venomous Concoction", "Begrimed Head",  "Glowing Concoction", "Infantry Belt", "Wooden Fox", "Iridescent Head", "Soldier's Puttee"]
     }
   ],
   "O Vulto": [
@@ -100,7 +100,7 @@
       "nome": "Maldade Encarnada",
       "nome_en": "Evil Within",
       "complementos": ["Fio Loiro", "Bilhete do Namorado", "Flor Memorial", "Brincos Cafonas", "Coelho Morto", "Tufo de Cabelo Perfumado", "Fragmento de Vidro", "Escova de Cabelo", "Bijuteria", "Laço de Cabelo", "Memorial de J.MYERS", "Caixa de Bijuterias", "Diário de Judith", "Caco de Espelho", "Mecha de Cabelo", "Fragmento Reflexivo", "Pedaço de Lápide", "Espelho de Maquiagem", "Lápide de Judith", "Espelho Arranhado"],
-      "complementos_en": ["Blond Hair", "Boyfriend's Memo", "Memorial Flower", "Tacky Earrings", "Dead Rabbit", "Terror Radius", "Fragrant Tuft of Hair", "Exposed", "Glass Fragment", "Hair Brush", "Pallet", "Jewellery", "Hair Bow", "J. Myers Memorial", "Jewellery Box", "Judith's Journal", "Obsession", "Mirror Shard", "Lock of Hair", "Reflective Fragment", "Health State", "Tombstone Piece", "Undetectable", "Vanity Mirror", "Auras", "Judith's Tombstone", "Scratched Mirror", "Brutality", "Deviousness"]
+      "complementos_en": ["Blond Hair", "Boyfriend's Memo", "Memorial Flower", "Tacky Earrings", "Dead Rabbit", "Fragrant Tuft of Hair", "Glass Fragment", "Hair Brush", "Jewellery", "Hair Bow", "J. Myers Memorial", "Jewellery Box", "Judith's Journal", "Mirror Shard", "Lock of Hair", "Reflective Fragment", "Tombstone Piece", "Vanity Mirror",  "Judith's Tombstone", "Scratched Mirror"]
     }
   ],
   "O Espectro": [
@@ -139,7 +139,7 @@
     {
       "nome": "Tônico da Peça Final",
       "nome_en": "The Afterpiece Tonic",
-      "complementos": ["Luvas de Desfile sem Dedos", "Garrafa Comemorativa", "Pena de Tordo", "Fita Pornô", "Lata de Querosene", "Jarra de Solvente", "Pena de Estorninho", "Garrafa de Refrigerante Grudenta", "Rolha de Garrafa Grossa", "Garrafas de Clorofórmio", "Frasco de Alvejante", "Palmilhas Fedidas", "Espírito de Galhada", "Garrafa de Gin Barata", "Caixa de Charutos", "Éter 15 Porcento", "Kit de Maquiagem Berrante", "Dedo Mindinho da Ruiva", "Dedo do Meio Tatuado"],
+      "complementos": ["Luvas de Desfile sem Dedos", "Garrafa Comemorativa", "Pena de Tordo", "Fita Pornô", "Lata de Querosene", "Jarra de Solvente", "Pena de Estorninho", "Garrafa de Refrigerante Grudenta", "Rolha de Garrafa Grossa", "Garrafas de Clorofórmio", "Frasco de Alvejante", "Palmilhas Fedidas", "Espírito de Galhada","Frasco de Ácido Sulfúrico", "Garrafa de Gin Barata", "Caixa de Charutos", "Éter 15 Porcento", "Kit de Maquiagem Berrante", "Dedo Mindinho da Ruiva", "Dedo do Meio Tatuado"],
       "complementos_en": ["Fingerless Parade Gloves", "Party Bottle", "Robin Feather", "VHS Porn", "Kerosene Can", "Solvent Jug", "Starling Feather", "Sticky Soda Bottle", "Thick Cork Stopper", "Bottle of Chloroform", "Flask of Bleach", "Smelly Inner Soles", "Spirit of Hartshorn", "Sulphuric Acid Vial", "Cheap Gin Bottle", "Cigar Box", "Ether 15 Vol%", "Garish Make-Up Kit", "Redheads Pinkie Finger", "Tattoos Middle Finger"]
     }
   ],
