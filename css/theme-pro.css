@@ -683,3 +683,16 @@ html:not(.dark) .dbd-char-col::after {
 .space-y-5 > :not([hidden]) ~ :not([hidden]) {
   margin-top: 1.25rem;
 }
+
+
+/* Borda dourada na moldura interna quando o personagem está travado */
+.dbd-char-col:has(.bd-char-locked)::before {
+  border-color: var(--accent-lock);
+  border-width: 2px;
+  box-shadow: inset 0 0 18px rgba(212, 163, 74, 0.22);
+}
+
+/* Remove o outline antigo que ficava cortado fora da coluna */
+.dbd-char-col .bd-char-locked {
+  outline: none !important;
+}
