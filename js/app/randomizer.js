@@ -14,8 +14,8 @@ let isSpinning = false;
 
 // ====== Builds Destaque / Construtor ======
 let builderRole = 'survivor';
-let featuredBuilds = [];
-let featuredDrafts = JSON.parse(localStorage.getItem('dbd_featured_drafts') || '[]');
+let featuredBuilds = [];                                   // vindas do servidor (json/builds-destaque.json)
+let featuredDrafts = JSON.parse(localStorage.getItem('dbd_featured_drafts') || '[]'); // rascunho do curador
 let featuredFilter = { type: '', role: '', text: '' };
 
 // ====== Travas / histórico / acervo salvo ======
@@ -25,13 +25,16 @@ let rollHistory = [];
 try { rollHistory = JSON.parse(localStorage.getItem('dbd_history') || '[]'); } catch (e) { rollHistory = []; }
 const POOL_KEY = 'dbd_pool_filters';
 
-// ====== Caminhos ======
+// ====== Caminhos (se a página ficar fora da raiz do projeto, ajuste BASE, ex.: '../') ======
 const BASE = '';
 const JSON_DIR = BASE + 'json/';
 const IMG_LOCAL = BASE + 'css/img/';
+// Fallback caso a imagem não exista localmente (o mesmo host que o streaming-mode.js do zip usa). '' desativa.
 const IMG_REMOTE = 'https://astofernest.github.io/perkroulette/css/img/';
 
+// Imagens dos losangos (css/img/perk_purple.png e perk_empty.png) via variáveis CSS
 (function () {
+    // URLs absolutas: o CSS agora está em css/, então caminhos relativos seriam resolvidos a partir dele
     const layers = f => [IMG_LOCAL + f, IMG_REMOTE ? IMG_REMOTE + f : null].filter(Boolean)
         .map(u => `url("${new URL(u, document.baseURI).href}")`).join(', ');
     document.documentElement.style.setProperty('--perk-purple', layers('perk_purple.png'));
@@ -51,6 +54,7 @@ const isPtb = o => !!o && ptbIds.has(o.id);
 const ptbCls = o => isPtb(o) ? ' is-ptb' : '';
 const includePtb = () => { const el = $('chkPtb'); return !el || el.checked; };
 
+// Perks usam data-perk em todo lugar, então a aura é gerada por CSS dinâmico (sem mexer em cada template)
 function applyPtbStyles() {
     let st = $('ptbDynStyle');
     if (!st) { st = document.createElement('style'); st.id = 'ptbDynStyle'; document.head.appendChild(st); }
@@ -63,21 +67,28 @@ function applyPtbStyles() {
     if (chk && chk.closest('label')) chk.closest('label').style.display = ptbIds.size ? '' : 'none';
 }
 
+// Sugestões de tipos de build (o curador também pode digitar um tipo novo)
 const DEFAULT_BUILD_TYPES = ['Furtivo', 'Gen rush', 'Perseguição', 'Informação', 'Cura', 'Controle de mapa', 'Meta', 'Meme / Troll'];
 
+// ====== Formato dos nomes de arquivo (igual ao app.js / streaming-mode.js do zip) ======
+// itens, addons, poderes e pasta do killer
 const fmt = s => s.toString().toLowerCase().normalize('NFD').replace(/ /g, '').replace(/'/g, '').replace(/-/g, '').replace(/:/g, '').replace(/\p{Diacritic}/gu, '');
+// ícones de perk: iconperks-<slug>.png
 const perkSlug = s => s.toString().toLowerCase().normalize('NFD').replace(/ /g, '').replace(/'/g, '').replace(/-/g, '').replace(/&/g, 'and').replace(/!/g, '').replace(/:/g, '').replace(/\p{Diacritic}/gu, '');
+// retrato do personagem: minúsculas, espaços -> hífen (mantém acentos)
 const charPhotoSlug = s => s.toLowerCase().replace(/\s+/g, '-');
 const cleanChar = c => c.replace(/Perk ensinável de /gi, '').trim();
 const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 const shuffle = arr => [...arr].sort(() => 0.5 - Math.random());
 
+// helpers novos
 const $ = id => document.getElementById(id);
 const esc = s => (s == null ? '' : String(s)).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const norm = s => (s || '').toString().toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').trim();
 const nm = o => (currentLang === 'pt' ? o.namePt : o.nameEn);
 const slugId = s => norm(s).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'build';
 
+// rel = caminho relativo a css/img/ ; devolve [local, remoto]
 const imgPaths = rel => IMG_REMOTE ? [encodeURI(IMG_LOCAL + rel), encodeURI(IMG_REMOTE + rel)] : [encodeURI(IMG_LOCAL + rel)];
 const entryImgs = e => e.image ? [e.image] : (e.rel ? imgPaths(e.rel) : []);
 
@@ -92,6 +103,7 @@ function buildCharacters(perks, role) {
         id: fmt(n), namePt: n, nameEn: n,
         rel: 'personagens/' + charPhotoSlug(n) + '.png',
         icon: role === 'survivor' ? 'fa-user' : 'fa-skull',
+        // PTB se algum perk marcar character_ptb, ou se TODOS os perks dele forem PTB
         ptb: own[n].some(p => p.character_ptb === true) || own[n].every(p => p.ptb === true)
     }));
 }
@@ -111,9 +123,9 @@ function buildPerks(perks, role) {
             charName: c,
             desc: p.descricao || '',
             descEn: p.descricao_en || '',
-            ptb: p.ptb === true,
+            ptb: p.ptb === true,     
             classe: p.classe_rpg || '',
-            tags: Array.isArray(p.tags) ? p.tags : null,
+            tags: Array.isArray(p.tags) ? p.tags : null,   // opcional: sobrescreve a detecção automática de tags
             rel: type + '/iconperks-' + perkSlug(p.perk_name) + '.png',
             icon: role === 'survivor' ? 'fa-shield-halved' : 'fa-skull'
         };
@@ -133,9 +145,10 @@ async function loadData() {
     ptbIds = new Set([...initialData.survivors, ...initialData.killers,
         ...initialData.survivorPerks, ...initialData.killerPerks]
         .filter(x => x.ptb).map(x => x.id));
-    applyPtbStyles();
+    applyPtbStyles();    
 }
 
+// Builds Destaque: arquivo opcional no servidor. Se não existir, a lista fica vazia.
 async function loadFeatured() {
     try {
         const r = await fetch(JSON_DIR + 'builds-destaque.json', { cache: 'no-cache' });
@@ -148,6 +161,7 @@ async function loadFeatured() {
     }
 }
 
+// Sobrevivente: item aleatório + 2 addons. Killer: poder do personagem sorteado + 2 addons dele.
 function rollItem(role, character) {
     if (role === 'survivor') {
         const tipos = Object.keys(itemsData.surv);
@@ -170,6 +184,7 @@ function rollItem(role, character) {
     };
 }
 
+// Troca de imagem com cadeia de fallback: local -> remoto -> ícone FontAwesome
 function imgTag(cands, cls, fa, faCls) {
     if (!cands.length) return `<i class="fa-solid ${fa} ${faCls}"></i>`;
     return `<img src="${cands[0]}" data-srcs="${cands.join('|')}" data-idx="0" data-fa="${fa}" data-fa-cls="${faCls}" loading="lazy" class="${cls}"><i class="fa-solid ${fa} ${faCls} hidden"></i>`;
@@ -195,6 +210,7 @@ document.addEventListener('error', e => {
     else handleImageError(el, el.dataset.fa);
 }, true);
 
+
 const i18n = {
     pt: {
         subtitle: "Gerador Inteligente de Loadouts para Dead by Daylight",
@@ -208,22 +224,20 @@ const i18n = {
         navSaved: "Builds Salvas",
         navAdmin: "Cadastro / Admin",
         lblConfigTitle: "Configurações do Sorteio",
-        btnResetFilters: "Resetar",
-        lblRole: "Lado",
-        lblIncludeOptions: "Sortear",
-        optCharacter: "Personagem",
-        optPerks: "Perks (4)",
-        optItems: "Item / Poder",
-        lblSoundEffect: "Som",
+        btnResetFilters: "Resetar Filtros",
+        lblRole: "Função / Lado",
+        lblIncludeOptions: "Elementos da Roleta",
+        optCharacter: "Randomizar Personagem",
+        optPerks: "Randomizar Perks (4)",
+        optItems: "Item / Poder + Addons",
+        lblSoundEffect: "Efeito Sonoro de Roleta",
         lblSpinBtn: "GIRAR ROLETA",
         lblResultHeader: "Resultado do Loadout",
-        lblUnlockAll: "Destravar tudo",
-        lblHoverTip: "Passe o mouse para ver detalhes",
         btnSaveBuild: "Salvar Build",
-        btnExportBuild: "JSON",
+        btnExportBuild: "Exportar",
         lblPerksHeader: "Vantagens (Perks Equipadas)",
         lblItemTitle: "Item / Poder",
-        txtTip: "Use a aba lateral esquerda para filtrar por tags ou o Acervo para bloquear itens.",
+        txtTip: "Acesse a aba 'Acervo de Conteúdo' para desativar itens específicos.",
         lblPoolTitle: "Acervo de Conteúdo & Filtros",
         lblPoolSub: "Clique nos retratos ou vantagens para ativar/desativar (itens cinzas com '✕' não entrarão no sorteio).",
         txtModeIcon: "Ícones / Retratos",
@@ -235,13 +249,21 @@ const i18n = {
         txtSavedBuildsSub: "Sua coleção de combinações favoritas armazenadas localmente.",
         btnExportJson: "Exportar JSON",
         btnImportJson: "Importar Build",
+        txtAdminTitle: "Painel de Cadastros & Repositório",
+        txtAdminSub: "Cadastre novos personagens, vantagens ou itens e baixe o banco JSON atualizado para commit no repositório.",
+        btnExportDatabase: "Baixar JSON do Repositório",
+        txtAdminFormTitle: "Cadastrar Novo Elemento",
+        btnAddSubmit: "Cadastrar Elemento",
+        txtCustomEntriesTitle: "Itens Cadastrados Localmente",
         lblImportTitle: "Importar Build Compartilhada",
         lblImportDesc: "Cole o código JSON da build gerada pelo aplicativo abaixo:",
+        // Builds Destaque
         fTitle: "Builds Destaque",
         fSub: "Builds recomendadas e selecionadas. Filtre por tipo, veja na roleta ou salve na sua coleção.",
         fLblType: "Tipo de build",
         fLblRole: "Lado",
         fLblSearch: "Buscar",
+        // Construtor
         bldTitle: "Criar Build Manual",
         bldSub: "Escolha o personagem, as 4 perks e o item/poder. Depois salve na sua coleção.",
         bldLblChar: "Personagem",
@@ -254,6 +276,7 @@ const i18n = {
         bldBtnShow: "Ver na Roleta",
         bldBtnClear: "Limpar",
         bldPreviewTitle: "Pré-visualização",
+        // Curador
         lblCurator: "Modo curador: gerar JSON de Builds Destaque",
         lblCuratorHint: "Monte a build acima, preencha os dados abaixo e adicione ao rascunho. Quando terminar, baixe o JSON e suba para a pasta json/ do seu servidor/GitHub.",
         fLblName: "Nome da build",
@@ -265,12 +288,13 @@ const i18n = {
         fBtnDownload: "Baixar builds-destaque.json",
         fBtnCopy: "Copiar JSON",
         fBtnClearDrafts: "Limpar rascunho",
+        // Novos recursos
         btnShareImage: "Imagem",
         histTitle: "Histórico de Sorteios",
         histClear: "Limpar histórico",
         btnSavePool: "Salvar acervo",
         btnClearPool: "Limpar salvo",
-        obsTitle: "Overlay para OBS (Modo Streamer)",
+        obsTitle: "Overlay para OBS",
         obsHint: "Adicione cada link como \"Fonte de Navegador\" no OBS. Cada vez que a página carrega (ou você atualiza a fonte), sai uma build nova. Survivor e Killer são independentes. Clicar na página ou apertar R também sorteia de novo.",
         obsLblSurv: "Link Survivor",
         obsLblKill: "Link Killer",
@@ -282,15 +306,16 @@ const i18n = {
         imgTitle: "Imagem da Build",
         imgBtnDownload: "Baixar PNG",
         imgBtnCopy: "Copiar imagem",
+        // Roleta temática
         tagTitle: "Filtrar por tags",
         tagClear: "Limpar tags",
         tagModeAny: "Qualquer tag",
         tagModeAll: "Todas as tags",
-        optPtb: "Incluir PTB",
+        optPtb: "Incluir PTB",        
     },
     en: {
         subtitle: "Dead by Daylight Streamer Loadout Generator",
-        navRandomizer: "Roulette Mode",
+        navRandomizer: "Randomization Mode",
         navFeatured: "Featured Builds",
         navBuilder: "Create Build",
         navPool: "Content Pool",
@@ -300,22 +325,20 @@ const i18n = {
         navSaved: "Saved Builds",
         navAdmin: "Registration / Admin",
         lblConfigTitle: "Randomizer Settings",
-        btnResetFilters: "Reset",
+        btnResetFilters: "Reset Filters",
         lblRole: "Role",
-        lblIncludeOptions: "Roll",
-        optCharacter: "Character",
-        optPerks: "Perks (4)",
-        optItems: "Item / Power",
-        lblSoundEffect: "Sound",
+        lblIncludeOptions: "Roulette Elements",
+        optCharacter: "Randomize Character",
+        optPerks: "Randomize Perks (4)",
+        optItems: "Item / Power + Addons",
+        lblSoundEffect: "Roulette Sound Effect",
         lblSpinBtn: "SPIN ROULETTE",
         lblResultHeader: "Loadout Result",
-        lblUnlockAll: "Unlock all",
-        lblHoverTip: "Hover perks to view details",
         btnSaveBuild: "Save Build",
-        btnExportBuild: "JSON",
+        btnExportBuild: "Export Build",
         lblPerksHeader: "Equipped Perks",
         lblItemTitle: "Item / Power",
-        txtTip: "Use the left drawer to filter by tags or Content Pool to disable specific items.",
+        txtTip: "Go to 'Content Pool' tab to disable specific characters or perks.",
         lblPoolTitle: "Content Pool & Filters",
         lblPoolSub: "Click portraits or perks to enable/disable them (gray items with '✕' won't be rolled).",
         txtModeIcon: "Icons / Portraits",
@@ -327,6 +350,12 @@ const i18n = {
         txtSavedBuildsSub: "Your collection of favorite loadouts stored locally.",
         btnExportJson: "Export JSON",
         btnImportJson: "Import Build",
+        txtAdminTitle: "Registration & Repo Manager",
+        txtAdminSub: "Register new perks/items and download updated database JSON for GitHub repo.",
+        btnExportDatabase: "Download Repo JSON",
+        txtAdminFormTitle: "Register New Entry",
+        btnAddSubmit: "Register Entry",
+        txtCustomEntriesTitle: "Locally Registered Entries",
         lblImportTitle: "Import Shared Build",
         lblImportDesc: "Paste the build JSON code generated by the app below:",
         fTitle: "Featured Builds",
@@ -362,7 +391,7 @@ const i18n = {
         histClear: "Clear history",
         btnSavePool: "Save pool",
         btnClearPool: "Clear saved",
-        obsTitle: "OBS Overlay (Streamer Mode)",
+        obsTitle: "OBS Overlay",
         obsHint: "Add each link as a \"Browser Source\" in OBS. Every time the page loads (or you refresh the source) a new build is rolled. Survivor and Killer are independent. Clicking the page or pressing R also rerolls.",
         obsLblSurv: "Survivor link",
         obsLblKill: "Killer link",
@@ -374,11 +403,12 @@ const i18n = {
         imgTitle: "Build Image",
         imgBtnDownload: "Download PNG",
         imgBtnCopy: "Copy image",
+        // Themed roulette
         tagTitle: "Filter by tags",
         tagClear: "Clear tags",
         tagModeAny: "Any tag",
         tagModeAll: "All tags",
-        optPtb: "Include PTB",
+        optPtb: "Include PTB",        
     }
 };
 
@@ -394,21 +424,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderHistory();
     updateLockUI();
     updateObsLinks();
-
-    // Atalho de teclado: Barra de Espaço gira a roleta na aba ativa
-    document.addEventListener('keydown', e => {
-        if (e.code !== 'Space') return;
-        const tag = (e.target && e.target.tagName) || '';
-        if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || e.target.isContentEditable) return;
-        if (currentTab === 'main') {
-            e.preventDefault();
-            spinRoulette();
-        } else if (currentTab === 'classes' && typeof window.spinClassRoulette === 'function') {
-            e.preventDefault();
-            window.spinClassRoulette();
-        }
-    });
-
     try {
         await loadData();
         renderPool();
@@ -438,11 +453,11 @@ function handleImageError(imgEl, fallbackFaIcon) {
 function showToast(message, type = 'info') {
     const container = document.getElementById('toastContainer');
     const toast = document.createElement('div');
-    toast.className = `px-4 py-3 rounded-xl shadow-2xl text-xs font-bold text-white flex items-center gap-2 pointer-events-auto border backdrop-blur-md transform transition-all duration-300 translate-y-2 opacity-0 ${
-        type === 'success' ? 'bg-emerald-950/90 border-emerald-500/70' :
-        type === 'error' ? 'bg-red-950/90 border-red-500/70' : 'bg-neutral-900/95 border-neutral-700'
+    toast.className = `px-4 py-3 rounded-lg shadow-xl text-xs font-bold text-white flex items-center gap-2 pointer-events-auto border transform transition-all duration-300 translate-y-2 opacity-0 ${
+        type === 'success' ? 'bg-emerald-900 border-emerald-500' :
+        type === 'error' ? 'bg-red-950 border-dbd-red' : 'bg-neutral-900 border-neutral-700'
     }`;
-    toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check text-emerald-400' : type === 'error' ? 'fa-circle-exclamation text-red-400' : 'fa-circle-info text-dbd-cyan'}"></i> <span>${esc(message)}</span>`;
+    toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check text-emerald-400' : type === 'error' ? 'fa-circle-exclamation text-dbd-red' : 'fa-circle-info text-dbd-cyan'}"></i> <span>${esc(message)}</span>`;
     container.appendChild(toast);
 
     setTimeout(() => {
@@ -477,11 +492,11 @@ function updateLanguageUI() {
     }
 
     if (currentLang === 'pt') {
-        document.getElementById('langPtBtn').className = "px-2.5 py-1 rounded-md bg-dbd-red text-white font-bold";
-        document.getElementById('langEnBtn').className = "px-2.5 py-1 rounded-md text-neutral-400 hover:text-white font-bold";
+        document.getElementById('langPtBtn').className = "px-2.5 py-1 rounded bg-dbd-red text-white font-bold";
+        document.getElementById('langEnBtn').className = "px-2.5 py-1 rounded text-neutral-400 hover:text-white font-bold";
     } else {
-        document.getElementById('langEnBtn').className = "px-2.5 py-1 rounded-md bg-dbd-red text-white font-bold";
-        document.getElementById('langPtBtn').className = "px-2.5 py-1 rounded-md text-neutral-400 hover:text-white font-bold";
+        document.getElementById('langEnBtn').className = "px-2.5 py-1 rounded bg-dbd-red text-white font-bold";
+        document.getElementById('langPtBtn').className = "px-2.5 py-1 rounded text-neutral-400 hover:text-white font-bold";
     }
 }
 
@@ -502,7 +517,8 @@ function applyTheme() {
     }
 }
 
-// ====== Galeria de Perks ======
+
+// ====== Galeria de Perks (aba "Todos os Perks") ======
 let perkGalleryRole = 'killer';
 let perkGalleryText = '';
 
@@ -532,7 +548,7 @@ function renderPerkGallery() {
     const list = roleList
         .filter(p => !q || norm(p.namePt).includes(q) || norm(p.nameEn).includes(q))
         .filter(matchesTags);
-    renderTagChips();
+    renderTagChips();   // atualiza contagens do menu lateral para o lado da galeria
     $('pgCount').textContent = list.length;
 
     if (!list.length) {
@@ -556,8 +572,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 const TABS = ['main', 'featured', 'builder', 'pool', 'perks', 'saved'];
-const TAB_BTN_OFF = "px-4 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-2 text-dbd-muted hover:text-white";
-const TAB_BTN_ON = "px-4 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-2 bg-dbd-red text-white shadow";
+const TAB_BTN_OFF = "px-4 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-2 text-dbd-muted hover:text-white";
+const TAB_BTN_ON = "px-4 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-2 bg-dbd-red text-white shadow";
 
 function switchTab(tab) {
     const cap = t => t.charAt(0).toUpperCase() + t.slice(1);
@@ -584,19 +600,13 @@ function setRole(role) {
     resetLocks();
     const survBtn = document.getElementById('roleSurvBtn');
     const killBtn = document.getElementById('roleKillBtn');
-    const stage = document.getElementById('mainStageCard');
-
-    if (stage) {
-        stage.classList.toggle('role-survivor', role === 'survivor');
-        stage.classList.toggle('role-killer', role === 'killer');
-    }
 
     if (role === 'survivor') {
-        survBtn.className = "px-4 py-2 text-xs rounded-xl border-2 border-dbd-cyan bg-dbd-cyan/10 text-dbd-cyan font-bold flex items-center justify-center gap-2 transition hover:bg-dbd-cyan/20";
-        killBtn.className = "px-4 py-2 text-xs rounded-xl border-2 border-neutral-800 text-neutral-400 font-bold flex items-center justify-center gap-2 transition hover:border-dbd-red hover:text-dbd-red";
+        survBtn.className = "px-4 py-2 text-xs rounded-lg border-2 border-dbd-cyan bg-dbd-cyan/10 text-dbd-cyan font-bold flex items-center justify-center gap-2 transition hover:bg-dbd-cyan/20";
+        killBtn.className = "px-4 py-2 text-xs rounded-lg border-2 border-neutral-800 text-neutral-400 font-bold flex items-center justify-center gap-2 transition hover:border-dbd-red hover:text-dbd-red";
     } else {
-        killBtn.className = "px-4 py-2 text-xs rounded-xl border-2 border-dbd-red bg-dbd-red/10 text-dbd-red font-bold flex items-center justify-center gap-2 transition hover:bg-dbd-red/20";
-        survBtn.className = "px-4 py-2 text-xs rounded-xl border-2 border-neutral-800 text-neutral-400 font-bold flex items-center justify-center gap-2 transition hover:border-dbd-cyan hover:text-dbd-cyan";
+        killBtn.className = "px-4 py-2 text-xs rounded-lg border-2 border-dbd-red bg-dbd-red/10 text-dbd-red font-bold flex items-center justify-center gap-2 transition hover:bg-dbd-red/20";
+        survBtn.className = "px-4 py-2 text-xs rounded-lg border-2 border-neutral-800 text-neutral-400 font-bold flex items-center justify-center gap-2 transition hover:border-dbd-cyan hover:text-dbd-cyan";
     }
     renderPool();
 }
@@ -705,7 +715,7 @@ function renderPool() {
         if (isPtb(char)) {
             card.classList.add('ptb-card');
             card.insertAdjacentHTML('afterbegin', '<span class="ptb-tag">PTB</span>');
-        }
+        }        
         charContainer.appendChild(card);
     });
 
@@ -799,14 +809,17 @@ function spinRoulette() {
         return;
     }
 
+    // O que não for sorteado (desmarcado ou travado) é mantido do resultado atual (se for do mesmo lado)
     const prev = (currentRollResult && currentRollResult.role === currentRole) ? currentRollResult : null;
     if (!prev) resetLocks();
 
-    const availableChars = getActiveCharacters().filter(c => !excludedCharacters.has(c.id) && (includePtb() || !isPtb(c)));
-    const availablePerks = getActivePerks().filter(p => !excludedPerks.has(p.id) && matchesTags(p) && (includePtb() || !isPtb(p)));
+     const availableChars = getActiveCharacters().filter(c => !excludedCharacters.has(c.id) && (includePtb() || !isPtb(c)));
+    // Roleta temática: só entram perks que tenham as tags marcadas
+     const availablePerks = getActivePerks().filter(p => !excludedPerks.has(p.id) && matchesTags(p) && (includePtb() || !isPtb(p)));
 
     const rollChar = chkChar && !locks.char;
     const rollSlots = [0, 1, 2, 3].map(i => chkPerks && !locks.perks[i]);
+    // Killer: o poder pertence ao personagem, então muda junto com ele
     const rollItemFlag = (chkItems && !locks.item) || (currentRole === 'killer' && rollChar);
 
     if (!rollChar && !rollSlots.some(Boolean) && !rollItemFlag) {
@@ -814,6 +827,7 @@ function spinRoulette() {
         return;
     }
 
+    // Personagem
     let fixedChar = null;
     if (rollChar) {
         if (!availableChars.length) { showToast("Selecione ao menos 1 personagem ativo no acervo!", "error"); return; }
@@ -825,6 +839,7 @@ function spinRoulette() {
         }
     }
 
+    // Perks: slots fixos mantêm o anterior; slots sem anterior são preenchidos uma vez só
     const fixedPerks = [0, 1, 2, 3].map(i => (!rollSlots[i] && prev && prev.perks[i]) ? prev.perks[i] : null);
     const rollIdx = [0, 1, 2, 3].filter(i => rollSlots[i]);
     const fillIdx = [0, 1, 2, 3].filter(i => !rollSlots[i] && !fixedPerks[i]);
@@ -878,12 +893,6 @@ function spinRoulette() {
             spinBtn.disabled = false;
             spinBtn.classList.remove('opacity-50', 'cursor-not-allowed');
             renderResultDisplay(currentRollResult, false, parts);
-            const stage = document.getElementById('mainStageCard');
-            if (stage) {
-                stage.classList.remove('ui-landed');
-                void stage.offsetWidth;
-                stage.classList.add('ui-landed');
-            }
             addToHistory(currentRollResult);
             playBeepSound(880);
             showToast("Novo Loadout gerado!", "success");
@@ -896,11 +905,9 @@ function spinRoulette() {
 function renderResultDisplay(result, isSpinningAnim = false, parts = { char: true, perks: true, items: true }) {
     const charName = currentLang === 'pt' ? result.character.namePt : result.character.nameEn;
     document.getElementById('displayCharName').innerText = charName;
-    const roleEl = document.getElementById('displayCharRole');
-    roleEl.innerText = result.role.toUpperCase();
-    roleEl.style.color = result.role === 'survivor' ? '#22d3ee' : '#f87171';
+    document.getElementById('displayCharRole').innerText = result.role.toUpperCase();
 
-    setImg(document.getElementById('displayCharImg'), entryImgs(result.character), result.character.icon || 'fa-user-ninja', 'text-7xl text-neutral-600');
+    setImg(document.getElementById('displayCharImg'), entryImgs(result.character), result.character.icon || 'fa-user-ninja', 'text-8xl text-neutral-600');
     document.getElementById('displayCharIcon').classList.toggle('hidden', entryImgs(result.character).length > 0);
     document.getElementById('displayCharFrame').classList.toggle('spinning-reel', isSpinningAnim && parts.char);
     document.getElementById('displayCharFrame').classList.toggle('is-ptb', isPtb(result.character));
@@ -919,7 +926,7 @@ function renderResultDisplay(result, isSpinningAnim = false, parts = { char: tru
     document.getElementById('displayItemBox').classList.toggle('spinning-reel', isSpinningAnim && parts.items);
     document.getElementById('displayItemName').innerText = currentLang === 'pt' ? item.namePt : item.nameEn;
     const itemCands = entryImgs(item);
-    setImg(document.getElementById('displayItemImg'), itemCands, item.icon || 'fa-toolbox', 'text-3xl text-dbd-cyan');
+    setImg(document.getElementById('displayItemImg'), itemCands, item.icon || 'fa-toolbox', 'text-4xl text-dbd-cyan');
     document.getElementById('displayItemIcon').classList.toggle('hidden', itemCands.length > 0);
 
     [1, 2].forEach(n => {
@@ -930,10 +937,10 @@ function renderResultDisplay(result, isSpinningAnim = false, parts = { char: tru
         if (nameEl) nameEl.innerText = addon ? (currentLang === 'pt' ? addon.namePt : addon.nameEn) : `Add-on ${n}`;
         if (addon) {
             box.title = currentLang === 'pt' ? addon.namePt : addon.nameEn;
-            setImg(img, entryImgs(addon), 'fa-puzzle-piece', 'text-lg text-neutral-400');
+            setImg(img, entryImgs(addon), 'fa-puzzle-piece', 'text-xl text-neutral-400');
         } else {
             box.title = `Add-on ${n}`;
-            setImg(img, [], 'fa-puzzle-piece', 'text-lg text-neutral-400');
+            setImg(img, [], 'fa-puzzle-piece', 'text-xl text-neutral-400');
         }
     });
 }
@@ -999,11 +1006,11 @@ function renderSavedBuilds() {
             </div>
             <div class="flex items-center gap-2 pt-1">
                 ${perkIconsHtml}
-                <button onclick="loadSavedBuild(${build.id})" class="ml-auto px-2.5 py-1 bg-neutral-800 hover:bg-neutral-700 text-[10px] font-bold rounded-lg border border-neutral-700 text-white flex items-center gap-1.5 transition" title="Ver na roleta">
+                <button onclick="loadSavedBuild(${build.id})" class="ml-auto px-2.5 py-1 bg-neutral-800 hover:bg-neutral-700 text-[10px] font-bold rounded border border-neutral-700 text-white flex items-center gap-1.5 transition" title="Ver na roleta">
                     <i class="fa-solid fa-eye text-dbd-cyan"></i>
                 </button>
-                <button onclick="shareSavedBuild(${build.id})" class="px-2.5 py-1 bg-neutral-800 hover:bg-neutral-700 text-[10px] font-bold rounded-lg border border-neutral-700 text-white flex items-center gap-1.5 transition" title="Copiar link da build">
-                    <i class="fa-solid fa-link text-purple-400"></i> Compartilhar
+                <button onclick="shareSavedBuild(${build.id})" class="px-2.5 py-1 bg-neutral-800 hover:bg-neutral-700 text-[10px] font-bold rounded border border-neutral-700 text-white flex items-center gap-1.5 transition" title="Copiar link da build">
+                    <i class="fa-solid fa-link text-dbd-purple"></i> Compartilhar
                 </button>
             </div>
             <button onclick="deleteSavedBuild(${build.id})" class="absolute top-3 right-3 text-neutral-500 hover:text-red-400 text-xs p-1">
@@ -1163,6 +1170,7 @@ function handleAddNewEntry(e) {
     showToast("Item cadastrado localmente!", "success");
 }
 
+
 function deleteCustomEntry(id) {
     customEntries = customEntries.filter(e => e.id !== id);
     localStorage.setItem('dbd_custom_entries', JSON.stringify(customEntries));
@@ -1186,14 +1194,16 @@ function exportUpdatedDatabaseJSON() {
     showToast("JSON do repositório gerado!", "success");
 }
 
+
 /* ==========================================================================
-   HELPERS DE BUSCA
+   HELPERS DE BUSCA (por nome) - usados pelo construtor e pelas Builds Destaque
    ========================================================================== */
 const charsByRole = r => [...(r === 'survivor' ? initialData.survivors : initialData.killers),
     ...customEntries.filter(e => e.category === 'character' && e.role === r)];
 const perksByRole = r => [...(r === 'survivor' ? initialData.survivorPerks : initialData.killerPerks),
     ...customEntries.filter(e => e.category === 'perk' && e.role === r)];
 
+// procura por nome em PT ou EN, ignorando acentos/maiúsculas
 function findByName(list, name) {
     const n = norm(name);
     if (!n) return null;
@@ -1216,6 +1226,7 @@ function getKillerPower(character) {
     return (entry && entry[0]) || null;
 }
 
+// Monta o objeto "item" (mesmo formato do rollItem) a partir de nomes escolhidos
 function makeItemObj(role, character, itemName, addonNames) {
     const wanted = (addonNames || []).filter(Boolean);
     if (role === 'survivor') {
@@ -1239,6 +1250,7 @@ function makeItemObj(role, character, itemName, addonNames) {
     };
 }
 
+// Mostra qualquer build (salva, destaque, criada) na aba da roleta
 function showBuildInRoulette(build) {
     currentRollResult = {
         role: build.role,
@@ -1252,6 +1264,7 @@ function showBuildInRoulette(build) {
     switchTab('main');
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
 
 /* ==========================================================================
    CONSTRUTOR DE BUILD MANUAL
@@ -1275,18 +1288,22 @@ function populateBuilder() {
     if (!$('bldChar')) return;
     if (!initialData.survivors.length && !initialData.killers.length) { renderBuilderPreview(); return; }
 
+    // guarda o estado atual para restaurar (ex.: troca de idioma)
     const prevChar = $('bldChar').value;
     const prevPerks = [0, 1, 2, 3].map(i => findByName(perksByRole(builderRole), $('bldPerk' + i).value));
     const prevItem = $('bldItem').value;
     const prevAddons = [$('bldAddon1').value, $('bldAddon2').value];
 
+    // personagens
     $('bldChar').innerHTML = `<option value="">${currentLang === 'pt' ? '— Selecione o personagem —' : '— Select character —'}</option>` +
         charsByRole(builderRole).map(c => `<option value="${esc(c.id)}">${esc(nm(c))}</option>`).join('');
     if (prevChar && charsByRole(builderRole).some(c => c.id === prevChar)) $('bldChar').value = prevChar;
 
+    // perks (datalist com autocompletar)
     $('bldPerkList').innerHTML = perksByRole(builderRole).map(p => `<option value="${esc(nm(p))}"></option>`).join('');
     prevPerks.forEach((p, i) => { if (p) $('bldPerk' + i).value = nm(p); });
 
+    // itens (somente survivor)
     const noneLbl = currentLang === 'pt' ? '— Nenhum —' : '— None —';
     $('bldItem').innerHTML = `<option value="">${noneLbl}</option>` + Object.keys(itemsData.surv).map(tipo =>
         `<optgroup label="${esc(tipo)}">${itemsData.surv[tipo].map(it => `<option value="${esc(it.nome)}">${esc(it.nome)}</option>`).join('')}</optgroup>`
@@ -1328,6 +1345,7 @@ function refreshAddonOptions(keep) {
 
 function onBuilderChange() {
     refreshAddonOptions();
+    // marca em vermelho perks digitados que não existem na lista
     const perks = perksByRole(builderRole);
     [0, 1, 2, 3].forEach(i => {
         const el = $('bldPerk' + i);
@@ -1383,6 +1401,7 @@ function renderBuilderPreview() {
     box.innerHTML = `${charHtml}<div class="bd-preview-perks">${perksHtml}</div><div class="bd-preview-item">${itemHtml}</div>`;
 }
 
+// Valida e monta a build a partir do formulário
 function buildFromBuilder() {
     const s = readBuilder();
     if (!s.character) { showToast(currentLang === 'pt' ? 'Selecione um personagem!' : 'Select a character!', 'error'); return null; }
@@ -1419,8 +1438,9 @@ function builderClear() {
     setBuilderRole(builderRole, false);
 }
 
+
 /* ==========================================================================
-   BUILDS DESTAQUE
+   BUILDS DESTAQUE (lista pública vinda de json/builds-destaque.json)
    ========================================================================== */
 function stubChar(role, name) {
     return { id: fmt(name), namePt: name, nameEn: name, rel: 'personagens/' + charPhotoSlug(name) + '.png', icon: role === 'survivor' ? 'fa-user' : 'fa-skull' };
@@ -1430,6 +1450,7 @@ function stubPerk(role, name) {
     return { id: type + '_' + perkSlug(name), namePt: name, nameEn: name, rel: type + '/iconperks-' + perkSlug(name) + '.png', icon: role === 'survivor' ? 'fa-shield-halved' : 'fa-skull' };
 }
 
+// Converte uma entrada do JSON (só nomes) em objeto de build completo
 function resolveFeatured(b) {
     const role = b.role === 'killer' ? 'killer' : 'survivor';
     const character = findByName(charsByRole(role), b.character) || stubChar(role, b.character);
@@ -1451,12 +1472,14 @@ function renderFeatured() {
     const chips = $('featuredTypeChips');
     if (!wrap || !chips) return;
 
+    // chips de tipo
     const types = featuredTypes();
     const count = t => featuredBuilds.filter(b => (b.type || '').trim() === t).length;
     const allLbl = currentLang === 'pt' ? 'Todos' : 'All';
     chips.innerHTML = `<button type="button" class="bd-chip ${featuredFilter.type === '' ? 'active' : ''}" data-type="">${allLbl}<small>${featuredBuilds.length}</small></button>` +
         types.map(t => `<button type="button" class="bd-chip ${featuredFilter.type === t ? 'active' : ''}" data-type="${esc(t)}">${esc(t)}<small>${count(t)}</small></button>`).join('');
 
+    // filtro
     const term = norm(featuredFilter.text);
     const list = featuredBuilds.filter(b => {
         if (featuredFilter.type && (b.type || '').trim() !== featuredFilter.type) return false;
@@ -1557,8 +1580,9 @@ function bindFeaturedEvents() {
     });
 }
 
+
 /* ==========================================================================
-   MODO CURADOR
+   MODO CURADOR: gera o builds-destaque.json
    ========================================================================== */
 function persistDrafts() {
     localStorage.setItem('dbd_featured_drafts', JSON.stringify(featuredDrafts));
@@ -1596,6 +1620,7 @@ function addFeaturedDraft() {
         role: b.role,
         character: b.character.namePt,
         perks: b.perks.map(p => p.namePt),
+        // killer: o poder já é do personagem, então só guardamos o item do survivor
         item: (b.role === 'survivor' && hasItem) ? b.item.namePt : '',
         addons: (b.item.addons || []).map(a => a.namePt)
     });
@@ -1668,6 +1693,7 @@ function clearFeaturedDrafts() {
     renderFeaturedDrafts();
 }
 
+
 /* ==========================================================================
    TRAVAR SLOTS
    ========================================================================== */
@@ -1710,11 +1736,8 @@ function updateLockUI() {
     setLockBtn('lockItem', locks.item);
     const li = $('lockItem');
     if (li) li.style.display = currentRole === 'killer' ? 'none' : '';
-
-    const anyLocked = locks.char || locks.item || locks.perks.some(Boolean);
-    const uBtn = $('btnUnlockAll');
-    if (uBtn) uBtn.classList.toggle('hidden', !anyLocked);
 }
+
 
 /* ==========================================================================
    HISTÓRICO DE SORTEIOS
@@ -1780,8 +1803,9 @@ function clearHistory() {
     showToast(currentLang === 'pt' ? 'Histórico limpo!' : 'History cleared!', 'info');
 }
 
+
 /* ==========================================================================
-   SALVAR / LIMPAR ACERVO
+   SALVAR / LIMPAR ACERVO (filtros do Seletor de Conteúdo)
    ========================================================================== */
 function savePoolFilters() {
     try {
@@ -1814,12 +1838,14 @@ function clearPoolFilters() {
     showToast(currentLang === 'pt' ? 'Acervo salvo apagado e tudo reativado!' : 'Saved pool deleted, everything re-enabled!', 'info');
 }
 
+
 /* ==========================================================================
-   COMPARTILHAR COMO IMAGEM
+   COMPARTILHAR COMO IMAGEM (canvas -> PNG)
    ========================================================================== */
-const PERK_ICON_SCALE = 0.92;
+const PERK_ICON_SCALE = 0.92; // tamanho do ícone dentro do losango (1 = ocupa todo o losango; diminua/aumente se precisar)
 let lastImage = { blob: null, url: null, name: 'build.png' };
 
+// tenta cada URL em ordem (local -> remoto); resolve null se nenhuma carregar
 function loadImg(cands) {
     return new Promise(resolve => {
         let i = 0;
@@ -1896,6 +1922,7 @@ async function renderBuildCanvas(b) {
     const perkImgs = others.slice(0, b.perks.length);
     const addonImgs = others.slice(b.perks.length);
 
+    // fundo
     const grad = g.createLinearGradient(0, 0, W, H);
     grad.addColorStop(0, '#0a0a0f');
     grad.addColorStop(1, '#1b1b30');
@@ -1910,6 +1937,7 @@ async function renderBuildCanvas(b) {
     g.textBaseline = 'alphabetic';
     const font = (w, px) => `${w} ${px}px "Segoe UI", Arial, sans-serif`;
 
+    // título
     g.textAlign = 'left';
     g.font = font(900, 30);
     g.fillStyle = '#d1202f';
@@ -1918,6 +1946,7 @@ async function renderBuildCanvas(b) {
     g.fillStyle = '#ffffff';
     g.fillText('DE PERKS', 40 + rw, 58);
 
+    // painel do personagem
     roundRectPath(g, 40, 90, 340, 490, 18);
     g.fillStyle = 'rgba(255,255,255,0.04)';
     g.fill();
@@ -1945,6 +1974,7 @@ async function renderBuildCanvas(b) {
     g.fillStyle = accent;
     g.fillText(b.role.toUpperCase(), 210, 552);
 
+    // perks
     const x0 = 420, areaW = 740, S = 150;
     const gap = (areaW - 4 * S) / 3;
     g.textAlign = 'left';
@@ -1974,6 +2004,7 @@ async function renderBuildCanvas(b) {
         drawCenteredLines(g, nm(p), x + S / 2, y + S + 28, S + gap - 10, 2, 24);
     });
 
+    // item / poder + addons
     g.textAlign = 'left';
     g.font = font(700, 16);
     g.fillStyle = '#a3a3a3';
@@ -2005,6 +2036,7 @@ async function renderBuildCanvas(b) {
         drawCenteredLines(g, nm(a), x + 45, 570, 170, 2, 19);
     });
 
+    // rodapé
     g.textAlign = 'right';
     g.font = font(600, 16);
     g.fillStyle = '#737373';
@@ -2063,8 +2095,9 @@ async function nativeShareBuildImage() {
     if (!lastImage.blob) return;
     try {
         await navigator.share({ files: [new File([lastImage.blob], lastImage.name, { type: 'image/png' })], title: 'Roleta de Perks' });
-    } catch (e) {}
+    } catch (e) { /* usuário cancelou */ }
 }
+
 
 /* ==========================================================================
    LINKS DO OVERLAY PARA OBS
@@ -2106,6 +2139,7 @@ async function copyObsLink(which) {
     showToast(currentLang === 'pt' ? 'Link do overlay copiado!' : 'Overlay link copied!', 'success');
 }
 
+
 /* ===== Tooltip de perk (hover) ===== */
 (function () {
     const GOOD = ['Celeridade', 'Indetectável', 'Resistência', 'Esquiva', 'Haste', 'Undetectable', 'Endurance'];
@@ -2119,7 +2153,7 @@ async function copyObsLink(which) {
 
     function descToHtml(text) {
         const lines = esc(text)
-            .replace(/&lt;(\/?)i&gt;/gi, '<$1i>')
+            .replace(/&lt;(\/?)i&gt;/gi, '<$1i>')      // libera só <i> e </i>
             .replace(/\{[^}]*\}/g, '<b>X</b>')
             .split('\n');
         let html = '', inList = false;
@@ -2182,14 +2216,18 @@ async function copyObsLink(which) {
     });
     document.addEventListener('mousemove', e => {
         if (!cur) return;
-        if (!cur.isConnected) return hide();
+        if (!cur.isConnected) return hide();   // a roleta redesenha os perks enquanto gira
         place(e);
     });
     document.addEventListener('scroll', hide, true);
 })();
 
+
 /* ==========================================================================
    TAGS DE PERKS + ROLETA TEMÁTICA
+   As tags vêm do campo "tags" de cada perk no JSON (qualquer tag nova que você
+   escrever lá aparece sozinha nos filtros). Perks sem "tags" usam detecção
+   automática pelo texto como reserva.
    ========================================================================== */
 const TAG_META = {
     'aura':               { pt: 'Aura',               en: 'Aura',            icon: 'fa-eye' },
@@ -2240,6 +2278,7 @@ const TAG_META = {
     'ptb':                { pt: 'PTB',                en: 'PTB',             icon: 'fa-flask' },
 };
 
+// Reserva: só é usada em perks que NÃO têm "tags" no JSON (ex.: perks importados)
 const AUTO_TAGS = [
     { k: 'cura',      rx: /\bcur(a|as|ar|ado|ada|ados|adas|ando|e|em)\b|kit medico|\bheal(s|ed|ing)?\b/ },
     { k: 'aura',      rx: /\baura/ },
@@ -2258,10 +2297,10 @@ const AUTO_TAGS = [
 const TAGS_KEY = 'dbd_tags_v2';
 let activeTags = new Set();
 try { activeTags = new Set(JSON.parse(localStorage.getItem(TAGS_KEY) || '[]')); } catch (e) {}
-let tagMode = 'any';
+let tagMode = 'any';           // 'any' | 'all'
 let currentTab = 'main';
 const tagCache = new Map();
-const tagLabels = {};
+const tagLabels = {};          // chave normalizada -> texto original visto no JSON
 
 const tagKey = t => norm(t);
 const capFirst = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
@@ -2275,6 +2314,7 @@ function tagInfo(key) {
     };
 }
 
+// Tags do perk = campo "tags" do JSON (se existir); senão, detecção automática
 function perkTags(p) {
     if (tagCache.has(p.id)) return tagCache.get(p.id);
     const set = new Set();
@@ -2300,6 +2340,7 @@ function matchesTags(p) {
     return tagMode === 'all' ? sel.every(x => t.has(x)) : sel.some(x => t.has(x));
 }
 
+// Perks que servem de base para as contagens: o lado da galeria (aba Todos os Perks) ou o lado da roleta
 function tagContextPerks() {
     if (currentTab === 'perks') {
         return [...(perkGalleryRole === 'survivor' ? initialData.survivorPerks : initialData.killerPerks),
@@ -2308,6 +2349,7 @@ function tagContextPerks() {
     return getActivePerks();
 }
 
+// Chips criados a partir das tags que existem nos perks (mais usadas primeiro)
 function tagChipsHtml(perks, selected) {
     const counts = new Map();
     perks.forEach(p => perkTags(p).forEach(k => counts.set(k, (counts.get(k) || 0) + 1)));
@@ -2326,6 +2368,7 @@ function renderTagChips() {
     const perks = tagContextPerks();
     box.innerHTML = tagChipsHtml(perks, activeTags);
 
+    // contador de perks elegíveis (na roleta respeita o acervo; na galeria só as tags)
     const n = perks.filter(p => (currentTab === 'perks' || !excludedPerks.has(p.id)) && matchesTags(p)).length;
     const pt = currentLang === 'pt';
     const st = $('tagStatus');
@@ -2337,6 +2380,7 @@ function renderTagChips() {
         st.style.color = (activeTags.size && currentTab !== 'perks' && n < 4) ? '#ef4444' : '';
     }
 
+    // bolinha com a quantidade de tags ativas na aba lateral
     const badge = $('tagBadge');
     if (badge) {
         badge.textContent = activeTags.size;
@@ -2361,33 +2405,36 @@ function clearTags() {
     renderPerkGallery();
 }
 
+
 /* ==========================================================================
-   MENU LATERAL DE TAGS
+   MENU LATERAL DE TAGS (escondido, só uma aba na lateral esquerda)
+   Criado por aqui mesmo: não precisa de HTML no index.html.
+   Aparece nas abas "Modo Roleta" e "Todos os Perks".
    ========================================================================== */
 const TAG_DRAWER_CSS = `
 #tagDrawer{position:fixed;top:0;left:0;bottom:0;width:320px;max-width:86vw;z-index:45;display:flex;flex-direction:column;
-  background:rgba(16,19,26,.96);backdrop-filter:blur(12px);border-right:1px solid rgba(255,255,255,.1);box-shadow:6px 0 28px rgba(0,0,0,.6);
-  transform:translateX(-100%);transition:transform .25s cubic-bezier(.22,1,.36,1)}
+  background:#1f242d;border-right:1px solid #2f3540;box-shadow:6px 0 24px rgba(0,0,0,.5);
+  transform:translateX(-100%);transition:transform .25s ease}
 #tagDrawer.open{transform:none}
 #tagDrawer.no-tabs{display:none}
-#tagHandle{position:absolute;top:50%;left:100%;transform:translateY(-50%);width:32px;height:110px;
+#tagHandle{position:absolute;top:50%;left:100%;transform:translateY(-50%);width:30px;height:104px;
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;
-  background:rgba(22,26,35,.95);color:#22d3ee;border:1px solid rgba(255,255,255,.12);border-left:none;border-radius:0 12px 12px 0;
-  box-shadow:6px 0 18px rgba(0,0,0,.45);transition:background .15s,width .15s}
-#tagHandle:hover{background:#242a38;width:36px}
+  background:#1f242d;color:#00e5ff;border:1px solid #2f3540;border-left:none;border-radius:0 10px 10px 0;
+  box-shadow:6px 0 14px rgba(0,0,0,.35)}
+#tagHandle:hover{background:#2a303b}
 #tagHandle .tg-chev{font-size:10px;transition:transform .25s ease}
 #tagDrawer.open #tagHandle .tg-chev{transform:rotate(180deg)}
 #tagBadge{min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:#d78056;color:#fff;
   font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center}
-.tg-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.95rem 1rem .65rem;border-bottom:1px solid rgba(255,255,255,.08)}
-.tg-title{font-size:.82rem;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:#fff;display:flex;align-items:center;gap:.5rem}
-.tg-title i{color:#22d3ee}
-#tagClose{color:#9ca3af;padding:.25rem .4rem;cursor:pointer;border-radius:6px}
-#tagClose:hover{color:#fff;background:rgba(255,255,255,.08)}
-.tg-tools{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;padding:.7rem 1rem;border-bottom:1px solid rgba(255,255,255,.08)}
-#tagStatus{flex:1 0 100%;font-size:11px;font-weight:700;color:#22d3ee;min-height:1rem}
+.tg-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.9rem 1rem .6rem;border-bottom:1px solid #2f3540}
+.tg-title{font-size:.8rem;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:#fff;display:flex;align-items:center;gap:.5rem}
+.tg-title i{color:#00e5ff}
+#tagClose{color:#9ca3af;padding:.25rem .4rem;cursor:pointer}
+#tagClose:hover{color:#fff}
+.tg-tools{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;padding:.7rem 1rem;border-bottom:1px solid #2f3540}
+#tagStatus{flex:1 0 100%;font-size:11px;font-weight:700;color:#00e5ff;min-height:1rem}
 #tagMode{width:auto;padding:.25rem .5rem;font-size:.75rem}
-#tagClear{font-size:.75rem;color:#22d3ee;cursor:pointer;display:flex;align-items:center;gap:.25rem;margin-left:auto}
+#tagClear{font-size:.75rem;color:#00e5ff;cursor:pointer;display:flex;align-items:center;gap:.25rem;margin-left:auto}
 #tagClear:hover{text-decoration:underline}
 #tagChips.tg-chips{flex:1;overflow-y:auto;padding:.8rem 1rem 1.2rem;align-content:flex-start}
 html:not(.dark) #tagDrawer,html:not(.dark) #tagHandle{background:#fff;border-color:#e5e7eb;box-shadow:6px 0 20px rgba(0,0,0,.12)}
@@ -2416,6 +2463,7 @@ function toggleTagDrawer() {
     d.classList.contains('open') ? closeTagDrawer() : openTagDrawer();
 }
 
+// A aba lateral só existe na roleta e em "Todos os Perks"
 function updateTagDrawerForTab() {
     const d = $('tagDrawer');
     if (!d) return;
@@ -2428,6 +2476,7 @@ function updateTagDrawerForTab() {
 function initTagDrawer() {
     if ($('tagDrawer')) return;
 
+    // remove a barra de tags antiga do index.html, se você ainda não a apagou (evita ids duplicados)
     const oldChips = $('tagChips');
     if (oldChips) (oldChips.closest('.bg-dbd-card') || oldChips.parentElement).remove();
     const oldPg = $('pgTags');
@@ -2476,7 +2525,7 @@ function initTagDrawer() {
     });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeTagDrawer(); });
 
-    updateLanguageUI();
+    updateLanguageUI();      // traduz os textos que acabaram de ser criados
     updateTagDrawerForTab();
 }
 
