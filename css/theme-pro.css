@@ -81,7 +81,12 @@ body {
 
 /* Restaura largura máxima confortável e bordas de 1px */
 .max-w-7xl {
-  max-width: 80rem !important;
+  max-width: 100% !important;
+}
+
+main.max-w-7xl {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 
 .border {
