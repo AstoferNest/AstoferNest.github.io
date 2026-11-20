@@ -572,8 +572,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 const TABS = ['main', 'featured', 'builder', 'pool', 'perks', 'saved'];
-const TAB_BTN_OFF = "px-4 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-2 text-dbd-muted hover:text-white";
-const TAB_BTN_ON = "px-4 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-2 bg-dbd-red text-white shadow";
+const TAB_BTN_OFF = "dbd-tab";
+const TAB_BTN_ON = "dbd-tab is-active";
 
 function switchTab(tab) {
     const cap = t => t.charAt(0).toUpperCase() + t.slice(1);
@@ -602,11 +602,11 @@ function setRole(role) {
     const killBtn = document.getElementById('roleKillBtn');
 
     if (role === 'survivor') {
-        survBtn.className = "px-4 py-2 text-xs rounded-lg border-2 border-dbd-cyan bg-dbd-cyan/10 text-dbd-cyan font-bold flex items-center justify-center gap-2 transition hover:bg-dbd-cyan/20";
-        killBtn.className = "px-4 py-2 text-xs rounded-lg border-2 border-neutral-800 text-neutral-400 font-bold flex items-center justify-center gap-2 transition hover:border-dbd-red hover:text-dbd-red";
+        survBtn.className = "dbd-seg-btn is-surv is-active";
+        killBtn.className = "dbd-seg-btn is-kill";
     } else {
-        killBtn.className = "px-4 py-2 text-xs rounded-lg border-2 border-dbd-red bg-dbd-red/10 text-dbd-red font-bold flex items-center justify-center gap-2 transition hover:bg-dbd-red/20";
-        survBtn.className = "px-4 py-2 text-xs rounded-lg border-2 border-neutral-800 text-neutral-400 font-bold flex items-center justify-center gap-2 transition hover:border-dbd-cyan hover:text-dbd-cyan";
+        killBtn.className = "dbd-seg-btn is-kill is-active";
+        survBtn.className = "dbd-seg-btn is-surv";
     }
     renderPool();
 }
