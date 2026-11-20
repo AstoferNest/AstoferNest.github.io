@@ -123,7 +123,8 @@ function buildPerks(perks, role) {
             charName: c,
             desc: p.descricao || '',
             descEn: p.descricao_en || '',
-            ptb: p.ptb === true,            
+            ptb: p.ptb === true,     
+            classe: p.classe_rpg || '',
             tags: Array.isArray(p.tags) ? p.tags : null,   // opcional: sobrescreve a detecção automática de tags
             rel: type + '/iconperks-' + perkSlug(p.perk_name) + '.png',
             icon: role === 'survivor' ? 'fa-shield-halved' : 'fa-skull'
