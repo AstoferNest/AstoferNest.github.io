@@ -11,16 +11,16 @@
   "lang": "pt-BR",
   "icons": [
     {
-      "src": "./css/img/random.png",
+      "src": "./css/img/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "./css/img/random.png",
+      "src": "./css/img/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ]
 }
