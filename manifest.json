@@ -2,8 +2,8 @@
   "name": "Roleta de Perks - Dead by Daylight",
   "short_name": "DBD Perks",
   "description": "Curte uma roleta de Perks, esse randomizador gera perks aleatórios para Dead by Daylight.",
-  "start_url": "/DBD/perkroulette/",
-  "scope": "/DBD/perkroulette/",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#0b0c0f",
   "theme_color": "#0b0c0f",
@@ -11,13 +11,13 @@
   "lang": "pt-BR",
   "icons": [
     {
-      "src": "css/img/favicon.png",
+      "src": "./css/img/favicon.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "css/img/favicon.png",
+      "src": "./css/img/favicon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
