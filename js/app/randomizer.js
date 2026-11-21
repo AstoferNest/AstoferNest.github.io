@@ -3550,17 +3550,12 @@ function getTodayFiveChallenges(dateKey) {
 function renderDailyTab() {
     const grid = $('dailyBuildsGrid');
     const listBox = $('dailyChallengesList');
-    const dateLbl = $('dailyDateLabel');
+
     if (!grid || !listBox) return;
 
     grid.className = 'dl-grid';
 
     const dateKey = getTodaySeedKey();
-    if (dateLbl) {
-        dateLbl.textContent = currentLang === 'pt'
-            ? `DATA DO DESAFIO: ${dateKey} · 2 SURVIVOR · 2 KILLER · 1 AMBOS`
-            : `DAILY SEED: ${dateKey} · 2 SURVIVOR · 2 KILLER · 1 BOTH`;
-    }
 
     const survBuild = buildDailyLoadout('survivor', dateKey);
     const killBuild = buildDailyLoadout('killer', dateKey);
