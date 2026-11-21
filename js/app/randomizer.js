@@ -367,6 +367,11 @@ const i18n = {
         lblSpinSquad: "SORTEAR SQUAD",
         lblSaveSquad: "Salvar Squad",
         lblShareSquadImage: "Imagem",
+        navDaily: "Desafios Diários",
+        btnDailySurvToRoulette: "Ver Survivor na Roleta",
+        btnDailyKillToRoulette: "Ver Killer na Roleta",
+        dailyChallengesTitle: "5 Desafios de Hoje",
+        dailyPoolBadge: "100 desafios · 5 por dia",        
     },
     en: {
         subtitle: "Dead by Daylight Streamer Loadout Generator",
@@ -470,7 +475,12 @@ const i18n = {
         lblSquadUniquePerks: "Avoid duplicate perks between players",
         lblSpinSquad: "ROLL SQUAD", 
         lblSaveSquad: "Save Squad",
-        lblShareSquadImage: "Image",        
+        lblShareSquadImage: "Image",
+        navDaily: "Daily Challenges",
+        btnDailySurvToRoulette: "View Survivor in Roulette",
+        btnDailyKillToRoulette: "View Killer in Roulette",
+        dailyChallengesTitle: "Today's 5 Challenges",
+        dailyPoolBadge: "100 challenges · 5 per day",        
     }
 };
 
@@ -489,6 +499,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     updateObsLinks();
     try {
         await loadData();
+        renderDailyTab();
         renderPool();
         populateBuilder();
         renderPerkGallery();
@@ -637,7 +648,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (s) s.addEventListener('input', e => { perkGalleryText = e.target.value; renderPerkGallery(); });
 });
 
-const TABS = ['main', 'squad', 'featured', 'builder', 'pool', 'perks', 'saved'];
+const TABS = ['main', 'daily', 'squad', 'featured', 'builder', 'pool', 'perks', 'saved'];
 const TAB_BTN_OFF = "dbd-tab";
 const TAB_BTN_ON = "dbd-tab is-active";
 
@@ -3304,6 +3315,302 @@ async function shareSquadImage() {
         console.error(e);
         showToast(currentLang === 'pt' ? 'Não foi possível gerar a imagem.' : 'Could not generate the image.', 'error');
     }
+}
+
+/* ==========================================================================
+   DESAFIOS DIÁRIOS (BUILD DO DIA SURVIVOR & KILLER + 5 DESAFIOS / DIA)
+   ========================================================================== */
+const DAILY_CHALLENGES_100 = [
+    { id: 1,  side: 'both',     pt: { title: 'Sem Item', desc: 'Complete a partida sem pegar ou usar item (Survivor) / sem usar poder principal além do ataque básico (Killer).' }, en: { title: 'No Item', desc: 'Finish the match without picking up or using an item (Survivor) / without using your main power beyond basic attacks (Killer).' } },
+    { id: 2,  side: 'survivor', pt: { title: 'Proibido Agachar', desc: 'Termine a partida sem agachar nenhuma vez.' }, en: { title: 'No Crouching', desc: 'Finish the match without crouching at all.' } },
+    { id: 3,  side: 'both',     pt: { title: 'Um Perk por Vez', desc: 'A cada gancho ou gerador concluído, foque na jogabilidade de apenas 1 dos seus perks por vez.' }, en: { title: 'One Perk at a Time', desc: 'After each hook or generator, play around only 1 of your perks at a time.' } },
+    { id: 4,  side: 'both',     pt: { title: 'Sem Cobertura de Terror', desc: 'Jogue sem ativar perks que escondam aura, rastro ou raio de terror.' }, en: { title: 'No Terror Cover', desc: 'Play without triggering perks that hide aura, scratch marks, or terror radius.' } },
+    { id: 5,  side: 'survivor', pt: { title: 'Caçador de Totens', desc: 'Purifique ou abençoe pelo menos 3 totens na partida.' }, en: { title: 'Totem Hunter', desc: 'Cleanse or bless at least 3 totems during the match.' } },
+    { id: 6,  side: 'survivor', pt: { title: 'Sem Barracadas', desc: 'Não derrube nenhuma barricada durante toda a partida.' }, en: { title: 'No Pallets', desc: 'Do not drop any pallets throughout the match.' } },
+    { id: 7,  side: 'killer',   pt: { title: 'Apenas Ataques Básicos', desc: 'Derrube todos os sobreviventes usando apenas ataques básicos (M1).' }, en: { title: 'Basic Attacks Only', desc: 'Down survivors using only basic attacks (M1).' } },
+    { id: 8,  side: 'killer',   pt: { title: 'Sem Acampar', desc: 'Afaste-se pelo menos 24 metros após colocar um sobrevivente no gancho.' }, en: { title: 'No Camping', desc: 'Move at least 24 meters away after hooking a survivor.' } },
+    { id: 9,  side: 'survivor', pt: { title: 'Fim de Jogo Ativo', desc: 'Só conclua o último gerador quando pelo menos um portão ou escotilha estiver em vista.' }, en: { title: 'Active Endgame', desc: 'Only finish the last generator when an exit gate or hatch is in sight.' } },
+    { id: 10, side: 'survivor', pt: { title: 'Furtivo nas Sombras', desc: 'Evite qualquer perseguição longa (máximo de 10 segundos seguidos em chase).' }, en: { title: 'Shadow Stealth', desc: 'Avoid long chases (max 10 seconds in chase at a time).' } },
+    { id: 11, side: 'both',     pt: { title: 'Apenas Perks Ensináveis', desc: 'Use apenas perks ensináveis de personagens (sem perks gerais).' }, en: { title: 'Teachable Perks Only', desc: 'Use only character teachable perks (no general perks).' } },
+    { id: 12, side: 'both',     pt: { title: 'Apenas Perks Gerais', desc: 'Use exclusivamente perks gerais do jogo.' }, en: { title: 'General Perks Only', desc: 'Use exclusively general perks.' } },
+    { id: 13, side: 'survivor', pt: { title: 'Mão Leve', desc: 'Não abra nenhum baú durante a partida.' }, en: { title: 'Light Fingers', desc: 'Do not open any chests during the match.' } },
+    { id: 14, side: 'survivor', pt: { title: 'Curandeiro de Campo', desc: 'Cure companheiros (ou recupere estados críticos) pelo menos 3 vezes.' }, en: { title: 'Field Medic', desc: 'Heal teammates (or recover from dying state) at least 3 times.' } },
+    { id: 15, side: 'killer',   pt: { title: 'Sem Chutar Geradores', desc: 'Não use a ação de chutar/danificar geradores diretamente.' }, en: { title: 'No Gen Kicking', desc: 'Do not directly kick or damage generators.' } },
+    { id: 16, side: 'killer',   pt: { title: 'Pressão de Gancho', desc: 'Coloque cada sobrevivente diferente no gancho pelo menos 1 vez antes de eliminar alguém.' }, en: { title: 'Hook Spread', desc: 'Hook each survivor at least once before eliminating anyone.' } },
+    { id: 17, side: 'both',     pt: { title: 'Apenas Add-ons Comuns', desc: 'Equipe no máximo add-ons de raridade comum ou não use add-ons.' }, en: { title: 'Common Add-ons Only', desc: 'Equip at most common add-ons or no add-ons.' } },
+    { id: 18, side: 'survivor', pt: { title: 'Sem Olhar para Trás', desc: 'Durante perseguições, não gire a câmera para olhar para trás por mais de 1 segundo.' }, en: { title: 'Eyes Forward', desc: 'During chases, avoid looking back for more than 1 second at a time.' } },
+    { id: 19, side: 'survivor', pt: { title: 'Reparo em Dupla', desc: 'Conclua pelo menos 2 geradores trabalhando junto com outro sobrevivente.' }, en: { title: 'Duo Repair', desc: 'Complete at least 2 generators working alongside a teammate.' } },
+    { id: 20, side: 'survivor', pt: { title: 'Silêncio Absoluto', desc: 'Evite gerar notificações de ruído alto durante toda a partida.' }, en: { title: 'Total Silence', desc: 'Avoid triggering loud noise notifications throughout the match.' } },
+    { id: 21, side: 'killer',   pt: { title: 'Caça Rápida', desc: 'Consiga o primeiro acerto em menos de 45 segundos após o início da partida.' }, en: { title: 'Quick Hunt', desc: 'Land your first hit within 45 seconds of the match starting.' } },
+    { id: 22, side: 'killer',   pt: { title: 'Sem Dependência de Totens', desc: 'Não dependa de totens para controlar o mapa na partida.' }, en: { title: 'No Totem Reliance', desc: 'Do not rely on totems for map control during the match.' } },
+    { id: 23, side: 'survivor', pt: { title: 'Troca ao Ser Pego', desc: 'A cada gancho sofrido, trate um dos seus perks como inativo até ser curado.' }, en: { title: 'Hook Swap', desc: 'Each time you are hooked, treat one perk as inactive until healed.' } },
+    { id: 24, side: 'killer',   pt: { title: 'Troca a Cada 3 Ganchos', desc: 'A cada 3 ganchos totais, mude seu alvo principal de perseguição.' }, en: { title: 'Rotate Every 3 Hooks', desc: 'Every 3 total hooks, switch your primary chase target.' } },
+    { id: 25, side: 'both',     pt: { title: 'Apenas Uma Licença', desc: 'Use apenas personagens e perks vindos de um mesmo capítulo/licença.' }, en: { title: 'Single Chapter', desc: 'Use only characters and perks from the same chapter/license.' } },
+    { id: 26, side: 'survivor', pt: { title: 'Sem Correr em Área Segura', desc: 'Não corra fora de perseguição ou fora do raio de terror.' }, en: { title: 'Safe Walk', desc: 'Do not sprint outside of chases or terror radius.' } },
+    { id: 27, side: 'survivor', pt: { title: 'Foco em Geradores', desc: 'Repare sozinho o equivalente a pelo menos 2 geradores completos.' }, en: { title: 'Gen Focus', desc: 'Solo-repair the equivalent of at least 2 full generators.' } },
+    { id: 28, side: 'killer',   pt: { title: 'Sem Túneis', desc: 'Evite perseguir ou derrubar o mesmo sobrevivente duas vezes seguidas após sair do gancho.' }, en: { title: 'No Tunneling', desc: 'Avoid chasing or downing the same survivor twice in a row after unhook.' } },
+    { id: 29, side: 'killer',   pt: { title: 'Sem Slug', desc: 'Quando derrubar um sobrevivente, leve ao gancho em vez de deixar no chão.' }, en: { title: 'No Slugging', desc: 'Hook downed survivors instead of leaving them on the ground.' } },
+    { id: 30, side: 'both',     pt: { title: 'Minimalista', desc: 'Jogue sem item e sem add-ons.' }, en: { title: 'Minimalist', desc: 'Play with no item and no add-ons.' } },
+    { id: 31, side: 'survivor', pt: { title: 'Resgate Seguro', desc: 'Faça pelo menos 2 resgates seguros de gancho.' }, en: { title: 'Safe Unhooks', desc: 'Perform at least 2 safe hook rescues.' } },
+    { id: 32, side: 'survivor', pt: { title: 'Sem Usar Janelas', desc: 'Não faça saltos por janelas durante a partida.' }, en: { title: 'No Vaults', desc: 'Do not vault windows during the match.' } },
+    { id: 33, side: 'killer',   pt: { title: 'Perseguição Curta', desc: 'Se um sobrevivente durar mais de 20 segundos na chase, troque de alvo.' }, en: { title: 'Short Chases', desc: 'If a chase lasts over 20 seconds, switch targets.' } },
+    { id: 34, side: 'killer',   pt: { title: 'Guardião de Portões', desc: 'Controle os portões de saída quando restarem 1 ou 2 geradores.' }, en: { title: 'Gate Keeper', desc: 'Control exit gates when 1 or 2 generators remain.' } },
+    { id: 35, side: 'survivor', pt: { title: 'Sem Armários', desc: 'Não entre em nenhum armário durante a partida inteira.' }, en: { title: 'No Lockers', desc: 'Do not enter any lockers during the entire match.' } },
+    { id: 36, side: 'killer',   pt: { title: 'Apenas Caminhando', desc: 'Ande pelo mapa sem usar habilidades de mobilidade ou teleporte.' }, en: { title: 'Walking Pace', desc: 'Traverse the map without mobility or teleport powers.' } },
+    { id: 37, side: 'survivor', pt: { title: 'Sem Exaustão', desc: 'Não equipe nenhum perk que cause estado de Exaustão.' }, en: { title: 'No Exhaustion', desc: 'Do not equip any Exhaustion perks.' } },
+    { id: 38, side: 'both',     pt: { title: 'Apenas Informação', desc: 'Use apenas perks focados em leitura de aura, ruídos ou localização.' }, en: { title: 'Info Only', desc: 'Use only perks focused on aura reading, alerts, or tracking.' } },
+    { id: 39, side: 'both',     pt: { title: 'Apenas Furtividade', desc: 'Use apenas perks focados em furtividade ou ocultar presença.' }, en: { title: 'Stealth Only', desc: 'Use only perks focused on stealth or hiding presence.' } },
+    { id: 40, side: 'survivor', pt: { title: 'Sobrevivência/Defesa', desc: 'Priorize perks de resistência, cura ou prolongar perseguições.' }, en: { title: 'Defense & Survival', desc: 'Prioritize endurance, healing, or chase-extending perks.' } },
+    { id: 41, side: 'killer',   pt: { title: 'Pressão/Controle', desc: 'Priorize perks de atraso de geradores, regressão ou controle de mapa.' }, en: { title: 'Pressure & Control', desc: 'Prioritize generator delay, regression, or map control perks.' } },
+    { id: 42, side: 'survivor', pt: { title: 'Zero Itens no Chão', desc: 'Não solte ou troque seu item inicial durante a partida.' }, en: { title: 'Keep Your Item', desc: 'Do not drop or swap your starting item during the match.' } },
+    { id: 43, side: 'survivor', pt: { title: 'Por Último', desc: 'Abra o portão de saída ou escape por último da equipe.' }, en: { title: 'Last Out', desc: 'Open an exit gate or escape last among your team.' } },
+    { id: 44, side: 'killer',   pt: { title: 'Sem Quebrar Barricadas', desc: 'Não quebre barricadas com chute; passe por cima ou contorne.' }, en: { title: 'No Pallet Breaking', desc: 'Do not break pallets; vault over or loop around them.' } },
+    { id: 45, side: 'killer',   pt: { title: 'Observador', desc: 'Verifique geradores à distância sem quebrar todos imediatamente.' }, en: { title: 'Observer', desc: 'Check generators without breaking every single one right away.' } },
+    { id: 46, side: 'survivor', pt: { title: 'Sem Autocura', desc: 'Não realize autocura durante a partida.' }, en: { title: 'No Self-Healing', desc: 'Do not perform self-heals during the match.' } },
+    { id: 47, side: 'survivor', pt: { title: 'Precisão Total', desc: 'Acerte todos os testes de perícia sem errar nenhum.' }, en: { title: 'Skill Check Ace', desc: 'Hit all skill checks without missing any.' } },
+    { id: 48, side: 'killer',   pt: { title: 'Caçador de Obsessão', desc: 'Dê atenção especial à Obsessão sempre que ela aparecer.' }, en: { title: 'Obsession Hunter', desc: 'Prioritize hunting the Obsession whenever spotted.' } },
+    { id: 49, side: 'both',     pt: { title: 'Fora do Meta', desc: 'Não use os perks mais populares da sua função na partida.' }, en: { title: 'Off-Meta', desc: 'Avoid the most common meta perks for your role.' } },
+    { id: 50, side: 'both',     pt: { title: 'Apenas 2 Perks Ativos', desc: 'Jogue como se tivesse apenas 2 espaços de perk disponíveis.' }, en: { title: '2 Perks Only', desc: 'Play as if you only had 2 perk slots available.' } },
+    { id: 51, side: 'both',     pt: { title: 'Apenas 3 Perks Ativos', desc: 'Jogue como se tivesse apenas 3 espaços de perk disponíveis.' }, en: { title: '3 Perks Only', desc: 'Play as if you only had 3 perk slots available.' } },
+    { id: 52, side: 'both',     pt: { title: 'Build do Dia', desc: 'Jogue exatamente com a Build do Dia exibida no topo desta aba.' }, en: { title: 'Build of the Day', desc: 'Play using the exact Build of the Day shown at the top of this tab.' } },
+    { id: 53, side: 'survivor', pt: { title: 'Squad Sincronizado', desc: 'Em grupo, todos os 4 survivors devem usar o mesmo tipo de item ou nenhum item.' }, en: { title: 'Synced Squad', desc: 'In a group, all 4 survivors use the same item type or no item.' } },
+    { id: 54, side: 'survivor', pt: { title: 'Squad Sem Repetição', desc: 'Em grupo, nenhum dos 4 survivors pode repetir perks entre si.' }, en: { title: 'Unique Squad', desc: 'In a group, no two survivors share any perk.' } },
+    { id: 55, side: 'both',     pt: { title: 'Espelho da Build do Dia', desc: 'Use o mesmo personagem da Build do Dia com perks da sua escolha.' }, en: { title: 'Daily Character Mirror', desc: 'Use the Daily Build character with perks of your choice.' } },
+    { id: 56, side: 'both',     pt: { title: 'Mesmo Dono', desc: 'Use perks ligados a um mesmo personagem na build.' }, en: { title: 'Same Character Perks', desc: 'Use perks belonging to the same character.' } },
+    { id: 57, side: 'killer',   pt: { title: 'Sem Usar o Poder', desc: 'Vença usando apenas ataques básicos e perks.' }, en: { title: 'Powerless', desc: 'Win using only basic attacks and perks.' } },
+    { id: 58, side: 'killer',   pt: { title: 'Pressão Central', desc: 'Mantenha foco nos geradores centrais logo no início da partida.' }, en: { title: 'Center Pressure', desc: 'Focus early map control on central generators.' } },
+    { id: 59, side: 'both',     pt: { title: 'Visita ao Porão', desc: 'Passe pela área do porão ao menos uma vez durante a partida.' }, en: { title: 'Basement Visit', desc: 'Enter the basement area at least once during the match.' } },
+    { id: 60, side: 'survivor', pt: { title: 'Sem Atordoar', desc: 'Não atordoe o Killer com barricadas ou itens.' }, en: { title: 'No Stuns', desc: 'Do not stun the Killer with pallets or items.' } },
+    { id: 61, side: 'survivor', pt: { title: 'Atordoar ou Cegar', desc: 'Consiga ao menos 1 atordoamento ou cegueira na partida.' }, en: { title: 'Stun or Blind', desc: 'Land at least 1 stun or blind during the match.' } },
+    { id: 62, side: 'survivor', pt: { title: 'Sem Item em Chase', desc: 'Não use seu item durante uma perseguição ativa.' }, en: { title: 'No Chase Item Use', desc: 'Do not use your item while actively in a chase.' } },
+    { id: 63, side: 'survivor', pt: { title: 'Esgotar o Item', desc: 'Consuma todas as cargas do seu item antes de escapar.' }, en: { title: 'Empty the Tank', desc: 'Deplete all charges of your item before escaping.' } },
+    { id: 64, side: 'both',     pt: { title: 'Sem Bônus de Velocidade', desc: 'Não use perks que aumentem velocidade de movimento ou ação.' }, en: { title: 'No Speed Boosts', desc: 'Do not use perks that boost movement or action speed.' } },
+    { id: 65, side: 'survivor', pt: { title: 'Foco em Altruísmo', desc: 'Faça pelo menos 2 ações altruístas na partida.' }, en: { title: 'Altruism Focus', desc: 'Perform at least 2 altruistic actions during the match.' } },
+    { id: 66, side: 'survivor', pt: { title: 'Reparo Solo', desc: 'Conclua pelo menos 1 gerador inteiramente sozinho.' }, en: { title: 'Solo Gen', desc: 'Complete at least 1 generator completely by yourself.' } },
+    { id: 67, side: 'survivor', pt: { title: 'Apenas Portões', desc: 'Escape apenas pelos portões de saída (não use a escotilha).' }, en: { title: 'Gates Only', desc: 'Escape only through exit gates (do not use hatch).' } },
+    { id: 68, side: 'killer',   pt: { title: 'Portões Fechados', desc: 'Não deixe ninguém escapar pelos portões abertos.' }, en: { title: 'Locked Gates', desc: 'Prevent survivors from escaping through open exit gates.' } },
+    { id: 69, side: 'killer',   pt: { title: 'Sem Quebrar Paredes', desc: 'Não quebre paredes quebráveis no mapa.' }, en: { title: 'No Breakable Walls', desc: 'Do not break breakable walls during the match.' } },
+    { id: 70, side: 'both',     pt: { title: 'Add-ons de Alta Raridade', desc: 'Equipe add-ons de maior raridade disponíveis para o item/poder.' }, en: { title: 'High-Rarity Add-ons', desc: 'Equip highest-rarity add-ons available for your item/power.' } },
+    { id: 71, side: 'both',     pt: { title: 'Sem Add-ons', desc: 'Jogue sem add-ons equipados.' }, en: { title: 'No Add-ons', desc: 'Play with no add-ons equipped.' } },
+    { id: 72, side: 'both',     pt: { title: 'Início Discreto', desc: 'Nos primeiros 60 segundos, evite ações que chamem atenção direta.' }, en: { title: 'Quiet Start', desc: 'In the first 60 seconds, avoid drawing direct attention.' } },
+    { id: 73, side: 'both',     pt: { title: 'Fim Agressivo', desc: 'Quando restar 1 gerador, jogue de forma mais agressiva.' }, en: { title: 'Aggressive Finish', desc: 'When 1 generator remains, play more aggressively.' } },
+    { id: 74, side: 'survivor', pt: { title: 'Sem Trocar de Loop', desc: 'Em perseguição, não mude de estrutura no meio da mesma tentativa.' }, en: { title: 'Commit to the Loop', desc: 'Do not abandon a loop mid-attempt during a chase.' } },
+    { id: 75, side: 'both',     pt: { title: 'Foco em Auras', desc: 'Jogue priorizando leitura de auras.' }, en: { title: 'Aura Focus', desc: 'Play prioritizing aura-reading perks.' } },
+    { id: 76, side: 'both',     pt: { title: 'Sem Auras', desc: 'Jogue sem nenhum perk de leitura de aura.' }, en: { title: 'No Auras', desc: 'Play with no aura-reading perks.' } },
+    { id: 77, side: 'both',     pt: { title: 'Contra o Relógio', desc: 'Termine a partida em menos de 8 minutos (ou segure por pelo menos 8 minutos).' }, en: { title: 'Beat the Clock', desc: 'Finish within 8 minutes (or last at least 8 minutes).' } },
+    { id: 78, side: 'killer',   pt: { title: 'Sem Perks de Gancho', desc: 'Não equipe perks focados em ganchos ou ganchos do tormento.' }, en: { title: 'No Hook Perks', desc: 'Do not equip hook or scourge hook perks.' } },
+    { id: 79, side: 'killer',   pt: { title: 'Sem Perks de Gerador', desc: 'Não equipe perks que afetem geradores.' }, en: { title: 'No Gen Perks', desc: 'Do not equip generator perks.' } },
+    { id: 80, side: 'killer',   pt: { title: 'Caçador de Curas', desc: 'Interrompa ou puna curas sempre que possível.' }, en: { title: 'Heal Disruptor', desc: 'Interrupt or punish healing whenever possible.' } },
+    { id: 81, side: 'survivor', pt: { title: 'Furtividade Máxima', desc: 'Evite ficar visível para o Killer fora de perseguição.' }, en: { title: 'Maximum Stealth', desc: 'Stay hidden from the Killer outside of chases.' } },
+    { id: 82, side: 'survivor', pt: { title: 'Reparo Firme', desc: 'Ao iniciar um gerador, permaneça nele até concluir ou ser pressionado.' }, en: { title: 'Steady Repair', desc: 'Stay on a generator until finished or pressured off.' } },
+    { id: 83, side: 'survivor', pt: { title: 'Exaustão Guardada', desc: 'Não use o efeito do seu perk de Exaustão durante a partida.' }, en: { title: 'Held Exhaustion', desc: 'Do not trigger your Exhaustion perk during the match.' } },
+    { id: 84, side: 'survivor', pt: { title: 'Suporte de Equipe', desc: 'Use perks voltados a apoiar e ajudar o time.' }, en: { title: 'Team Support', desc: 'Use perks focused on supporting your team.' } },
+    { id: 85, side: 'killer',   pt: { title: 'Caça Direta', desc: 'Use perks voltados a derrubar e pressionar sobreviventes.' }, en: { title: 'Direct Hunt', desc: 'Use perks focused on downing and pressuring survivors.' } },
+    { id: 86, side: 'both',     pt: { title: 'Sem Obsessão', desc: 'Jogue sem perks ligados a Obsessão.' }, en: { title: 'No Obsession Perks', desc: 'Play with no Obsession-related perks.' } },
+    { id: 87, side: 'both',     pt: { title: 'Rosto Novo', desc: 'Jogue com um personagem que você usa pouco.' }, en: { title: 'Fresh Face', desc: 'Play a character you rarely pick.' } },
+    { id: 88, side: 'both',     pt: { title: 'Perk Esquecido', desc: 'Inclua pelo menos 1 perk que você quase nunca usa.' }, en: { title: 'Forgotten Perk', desc: 'Include at least 1 perk you rarely equip.' } },
+    { id: 89, side: 'both',     pt: { title: 'Sem Fim de Jogo', desc: 'Não equipe perks focados no endgame.' }, en: { title: 'No Endgame Perks', desc: 'Do not equip endgame perks.' } },
+    { id: 90, side: 'both',     pt: { title: 'Foco no Endgame', desc: 'Monte ou jogue mirando no fim da partida.' }, en: { title: 'Endgame Focus', desc: 'Play with an endgame-oriented plan.' } },
+    { id: 91, side: 'survivor', pt: { title: 'Economia de Recursos', desc: 'Não desperdice barricadas nem cargas do item.' }, en: { title: 'Resource Saver', desc: 'Do not waste pallets or item charges.' } },
+    { id: 92, side: 'killer',   pt: { title: 'Múltiplos Feridos', desc: 'Mantenha pelo menos 2 sobreviventes feridos ao mesmo tempo.' }, en: { title: 'Multiple Injured', desc: 'Keep at least 2 survivors injured at the same time.' } },
+    { id: 93, side: 'killer',   pt: { title: 'Desengajar Rápido', desc: 'Abandone perseguições após 15 segundos sem acerto.' }, en: { title: 'Quick Disengage', desc: 'Drop chases after 15 seconds without a hit.' } },
+    { id: 94, side: 'survivor', pt: { title: 'Sobrevivência em Primeiro Lugar', desc: 'Priorize ficar vivo até o final acima de jogadas arriscadas.' }, en: { title: 'Survival First', desc: 'Prioritize staying alive over risky plays.' } },
+    { id: 95, side: 'both',     pt: { title: 'Mobilidade & Loops', desc: 'Foque em perks de deslocamento e perseguição.' }, en: { title: 'Mobility & Loops', desc: 'Focus on mobility and chase perks.' } },
+    { id: 96, side: 'survivor', pt: { title: 'Sem Perks de Cura', desc: 'Jogue sem nenhum perk de cura.' }, en: { title: 'No Healing Perks', desc: 'Play with no healing perks.' } },
+    { id: 97, side: 'killer',   pt: { title: 'Regressão de Gens', desc: 'Foque em perks que façam geradores regredirem.' }, en: { title: 'Gen Regression', desc: 'Focus on perks that regress generators.' } },
+    { id: 98, side: 'survivor', pt: { title: 'Squad Caótico', desc: 'Em grupo, cada jogador segue um papel diferente (furtivo, gen, resgate, chase).' }, en: { title: 'Chaotic Squad', desc: 'In a group, each player takes a distinct role.' } },
+    { id: 99, side: 'killer',   pt: { title: 'Poder Fora da Chase', desc: 'Use o poder apenas para mobilidade ou controle fora de perseguição.' }, en: { title: 'Out-of-Chase Power', desc: 'Use your power only outside active chases.' } },
+    { id: 100, side: 'both',    pt: { title: 'Mestre Diário', desc: 'Complete a partida com a Build do Dia e cumpra 1 desafio de hoje.' }, en: { title: 'Daily Master', desc: 'Finish the match with the Build of the Day and complete 1 daily challenge.' } }
+];
+
+function getTodaySeedKey() {
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, '0');
+    const d = String(now.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+}
+
+function hashSeedString(str) {
+    let h = 2166136261 >>> 0;
+    for (let i = 0; i < str.length; i++) {
+        h ^= str.charCodeAt(i);
+        h = Math.imul(h, 16777619) >>> 0;
+    }
+    return h >>> 0;
+}
+
+function createSeededRng(seedNum) {
+    let a = seedNum >>> 0;
+    return function () {
+        a |= 0;
+        a = (a + 0x6D2B79F5) | 0;
+        let t = Math.imul(a ^ (a >>> 15), 1 | a);
+        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+}
+
+function seededShuffle(arr, rng) {
+    const copy = [...arr];
+    for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(rng() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+}
+
+function buildDailyLoadout(role, dateKey) {
+    const chars = role === 'survivor' ? initialData.survivors : initialData.killers;
+    const perks = role === 'survivor' ? initialData.survivorPerks : initialData.killerPerks;
+    if (!chars.length || perks.length < 4) return null;
+
+    const rng = createSeededRng(hashSeedString(`${dateKey}|daily-build|${role}`));
+    const character = chars[Math.floor(rng() * chars.length)];
+    const pickedPerks = seededShuffle(perks, rng).slice(0, 4);
+
+    let item = { ...EMPTY_ITEM };
+    if (role === 'survivor') {
+        const tipos = Object.keys(itemsData.surv || {});
+        if (tipos.length) {
+            const tipo = tipos[Math.floor(rng() * tipos.length)];
+            const list = itemsData.surv[tipo] || [];
+            if (list.length) {
+                const chosen = list[Math.floor(rng() * list.length)];
+                const pairs = addonPairs(chosen);
+                const chosenAddons = seededShuffle(pairs, rng).slice(0, 2).map(a => ({
+                    namePt: a.pt,
+                    nameEn: a.en,
+                    rel: 'itens/surv/complementos/' + fmt(a.pt) + '.png'
+                }));
+                item = {
+                    namePt: chosen.nome,
+                    nameEn: chosen.nome_en || chosen.nome,
+                    rel: 'itens/surv/' + fmt(chosen.nome) + '.png',
+                    icon: ITEM_TYPE_ICON[tipo] || 'fa-toolbox',
+                    addons: chosenAddons
+                };
+            }
+        }
+    } else {
+        const poder = getKillerPower(character);
+        if (poder) {
+            const pairs = addonPairs(poder);
+            const chosenAddons = seededShuffle(pairs, rng).slice(0, 2).map(a => ({
+                namePt: a.pt,
+                nameEn: a.en,
+                rel: 'itens/kill/' + fmt(character.namePt) + '/' + fmt(a.pt) + '.png'
+            }));
+            item = {
+                namePt: poder.nome,
+                nameEn: poder.nome_en || poder.nome,
+                rel: 'itens/kill/poderes/' + fmt(poder.nome) + '.png',
+                icon: 'fa-skull',
+                addons: chosenAddons
+            };
+        }
+    }
+
+    return {
+        role,
+        character,
+        perks: pickedPerks,
+        item,
+        date: dateKey
+    };
+}
+
+function getTodayFiveChallenges(dateKey) {
+    const rng = createSeededRng(hashSeedString(`${dateKey}|daily-challenges-100`));
+    return seededShuffle(DAILY_CHALLENGES_100, rng).slice(0, 5);
+}
+
+let dailyBuildsCache = { dateKey: '', survivor: null, killer: null };
+
+function applyDailyBuildToRoulette(role) {
+    const dateKey = getTodaySeedKey();
+    const b = buildDailyLoadout(role, dateKey);
+    if (!b) return;
+    showBuildInRoulette(b);
+}
+
+function renderDailyTab() {
+    const grid = $('dailyBuildsGrid');
+    const listBox = $('dailyChallengesList');
+    const dateLbl = $('dailyDateLabel');
+    if (!grid || !listBox) return;
+
+    const dateKey = getTodaySeedKey();
+    if (dateLbl) {
+        dateLbl.textContent = currentLang === 'pt'
+            ? `DATA DO DESAFIO: ${dateKey} · MESMA BUILD E 5 DESAFIOS PARA TODOS`
+            : `DAILY SEED: ${dateKey} · SAME BUILD & 5 CHALLENGES FOR EVERYONE`;
+    }
+
+    const survBuild = buildDailyLoadout('survivor', dateKey);
+    const killBuild = buildDailyLoadout('killer', dateKey);
+    dailyBuildsCache = { dateKey, survivor: survBuild, killer: killBuild };
+
+    const renderBuildCard = (b, labelPt, labelEn, badgeCls) => {
+        if (!b) return '';
+        const item = b.item || EMPTY_ITEM;
+        const hasItem = item.namePt !== 'Nenhum';
+        const perksHtml = b.perks.map(p => `
+            <div class="flex flex-col items-center text-center w-16" data-perk="${esc(p.id)}">
+                <div class="perk-diamond perk-diamond-xs">
+                    <div class="perk-diamond-inner">
+                        ${imgTag(entryImgs(p), 'w-full h-full object-contain', p.icon || 'fa-shield-halved', 'text-purple-200 text-xs')}
+                    </div>
+                </div>
+                <span class="text-[10px] font-semibold text-neutral-300 line-clamp-2 mt-1">${esc(nm(p))}</span>
+            </div>
+        `).join('');
+
+        return `
+        <div class="bg-dbd-card border border-neutral-800 rounded-xl p-4 space-y-3 shadow">
+            <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
+                <span class="text-xs font-black uppercase tracking-wider text-white">${currentLang === 'pt' ? labelPt : labelEn}</span>
+                <span class="bd-badge ${badgeCls}">${b.role.toUpperCase()}</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="char-card w-14 shrink-0${ptbCls(b.character)} flex items-center justify-center text-dbd-cyan">
+                    ${imgTag(entryImgs(b.character), 'w-full h-full object-contain', b.character.icon || 'fa-user', 'text-xl')}
+                </div>
+                <div class="min-w-0 flex-1">
+                    <div class="text-sm font-black text-white uppercase truncate">${esc(nm(b.character))}</div>
+                    <div class="text-xs text-neutral-400 truncate mt-0.5">${esc(hasItem ? nm(item) : (currentLang === 'pt' ? 'Nenhum' : 'None'))}</div>
+                </div>
+                <button type="button" onclick="applyDailyBuildToRoulette('${b.role}')" class="bd-btn bd-btn-sm">
+                    <i class="fa-solid fa-eye"></i> ${currentLang === 'pt' ? 'Ver' : 'View'}
+                </button>
+            </div>
+            <div class="flex items-start justify-between gap-2 pt-2 border-t border-neutral-800/80">
+                ${perksHtml}
+            </div>
+        </div>`;
+    };
+
+    grid.innerHTML =
+        renderBuildCard(survBuild, 'Build do Dia · Survivor', 'Build of the Day · Survivor', 'surv') +
+        renderBuildCard(killBuild, 'Build do Dia · Killer', 'Build of the Day · Killer', 'kill');
+
+    const five = getTodayFiveChallenges(dateKey);
+    listBox.innerHTML = five.map((ch, idx) => {
+        const txt = currentLang === 'pt' ? ch.pt : ch.en;
+        const sideTag = ch.side === 'survivor'
+            ? '<span class="bd-badge surv">SURVIVOR</span>'
+            : (ch.side === 'killer'
+                ? '<span class="bd-badge kill">KILLER</span>'
+                : `<span class="bd-badge">${currentLang === 'pt' ? 'AMBOS' : 'BOTH'}</span>`);
+        return `
+        <div class="bg-neutral-950 border border-neutral-800 rounded-lg p-3.5 space-y-1.5">
+            <div class="flex items-center justify-between gap-2">
+                <span class="text-xs font-black text-white">#${idx + 1} · ${esc(txt.title)}</span>
+                ${sideTag}
+            </div>
+            <p class="text-xs text-neutral-400 leading-relaxed">${esc(txt.desc)}</p>
+        </div>`;
+    }).join('');
 }
 
 if (document.body) initTagDrawer();
