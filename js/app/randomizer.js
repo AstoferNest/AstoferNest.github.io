@@ -3623,21 +3623,40 @@ function renderDailyTab() {
         renderBuildCard(survBuild, 'Build do Dia · Survivor', 'Build of the Day · Survivor', 'surv') +
         renderBuildCard(killBuild, 'Build do Dia · Killer', 'Build of the Day · Killer', 'kill');
 
+    listBox.className = 'dl-cards-row';
     const five = getTodayFiveChallenges(dateKey);
+
+    const roleIcon = (rel, fa, cls) =>
+        `<span class="inline-flex items-center justify-center">${imgTag(imgPaths(rel), 'w-[34px] h-[34px] object-contain', fa, cls)}</span>`;
+
     listBox.innerHTML = five.map((ch, idx) => {
         const txt = currentLang === 'pt' ? ch.pt : ch.en;
-        const sideTag = ch.side === 'survivor'
-            ? '<span class="bd-badge surv">SURVIVOR</span>'
+        const cardSideCls = ch.side === 'survivor'
+            ? 'is-surv'
+            : (ch.side === 'killer' ? 'is-kill' : 'is-both');
+
+        const sideLabel = ch.side === 'survivor'
+            ? 'SURVIVOR'
+            : (ch.side === 'killer' ? 'KILLER' : (currentLang === 'pt' ? 'AMBOS' : 'BOTH'));
+
+        const iconsHtml = ch.side === 'survivor'
+            ? roleIcon('surv.png', 'fa-user', 'text-xl text-dbd-cyan')
             : (ch.side === 'killer'
-                ? '<span class="bd-badge kill">KILLER</span>'
-                : `<span class="bd-badge">${currentLang === 'pt' ? 'AMBOS' : 'BOTH'}</span>`);
+                ? roleIcon('killer.png', 'fa-skull', 'text-xl text-dbd-red')
+                : roleIcon('surv.png', 'fa-user', 'text-xl text-dbd-cyan') + roleIcon('killer.png', 'fa-skull', 'text-xl text-dbd-red'));
+
         return `
-        <div class="bg-neutral-950 border border-neutral-800 rounded-lg p-3.5 space-y-1.5">
-            <div class="flex items-center justify-between gap-2">
-                <span class="text-xs font-black text-white">#${idx + 1} · ${esc(txt.title)}</span>
-                ${sideTag}
+        <div class="dl-rule-card ${cardSideCls}">
+            <div>
+                <div class="dbd-section-label">#${idx + 1} · ${esc(sideLabel)}</div>
+                <div class="dl-rule-title mt-1">${esc(txt.title)}</div>
             </div>
-            <p class="text-xs text-neutral-400 leading-relaxed">${esc(txt.desc)}</p>
+
+            <div class="dl-rule-icons">
+                ${iconsHtml}
+            </div>
+
+            <p class="dl-rule-desc">${esc(txt.desc)}</p>
         </div>`;
     }).join('');
 }
