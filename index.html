@@ -373,7 +373,7 @@
         </div>
 
 
-        <section id="tabSquad" class="hidden space-y-4">
+       <section id="tabSquad" class="hidden space-y-5">
           <div class="dbd-control-bar">
             <div class="flex items-center gap-2 mr-auto">
               <span class="dbd-section-label" id="squadSub">Sortear os 4 survivors de uma vez · Cada jogador do grupo recebe personagem, perks e item, com opção de evitar perks repetidos entre eles.</span>
@@ -383,6 +383,10 @@
               <label class="dbd-toggle">
                 <input type="checkbox" id="chkSquadUniquePerks" checked>
                 <span id="lblSquadUniquePerks">Evitar perks repetidos entre jogadores</span>
+              </label>
+              <label class="dbd-toggle">
+                <input type="checkbox" id="chkSquadSound" checked>
+                <span id="lblSquadSound">Efeito Sonoro</span>
               </label>
             </div>
         
@@ -399,16 +403,20 @@
             </div>
           </div>
         
-          <div class="dbd-stage">
-            <div class="dbd-stage-head">
-              <h2 id="squadTitle" class="text-base font-bold text-white uppercase tracking-wider">Modo Squad</h2>
-              <span class="dbd-section-label">4 SURVIVORS</span>
+          <div id="squadContainer" class="sq-board"></div>
+        
+          <!-- HISTÓRICO DO SQUAD -->
+          <div class="bg-dbd-card p-5 rounded-xl border border-neutral-800 space-y-3 shadow-xl">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:.5rem;flex-wrap:wrap">
+              <h3 class="text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
+                <i class="fa-solid fa-clock-rotate-left text-dbd-cyan"></i> <span id="squadHistTitle">Histórico de Sorteios</span>
+                <span id="squadHistoryCount" class="bd-badge surv">0</span>
+              </h3>
+              <button type="button" class="bd-btn bd-btn-sm bd-btn-danger" onclick="clearSquadHistory()">
+                <i class="fa-solid fa-trash"></i> <span id="squadHistClear">Limpar histórico</span>
+              </button>
             </div>
-            <div id="squadContainer" class="sq-grid">
-              <div class="bd-empty">
-                Clique em <b>SORTEAR SQUAD</b> para gerar os 4 Survivors.
-              </div>
-            </div>
+            <div id="squadHistoryList" class="bd-hist-list"></div>
           </div>
         </section>
         
