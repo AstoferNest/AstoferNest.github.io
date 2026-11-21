@@ -946,21 +946,22 @@ function spinRoulette() {
     
     let steps = 22;
     let speed = 50;
-    const passedPerks = shuffle(rollPool);
+    const cycleOrder = shuffle(rollPool);
+    const finalPicks = shuffle(rollPool).slice(0, rollIdx.length);
+    const finalPerks = [0, 1, 2, 3].map(i => rollSlots[i] ? finalPicks[rollIdx.indexOf(i)] : fixedPerks[i]);
 
     function step() {
-        const isFinale = steps <= 6;
-        const passIndex = (22 - steps) % Math.max(1, passedPerks.length);
-        playBeepSound(isFinale ? 540 + (6 - steps) * 40 : 300 + (22 - steps) * 15);
+        const isLastSix = steps <= 6;
+        const turn = 22 - steps;
+        playBeepSound(isLastSix ? 540 + (6 - steps) * 40 : 300 + turn * 15);
 
         const character = rollChar ? pick(availableChars) : fixedChar;
-        const picks = shuffle(rollPool).slice(0, rollIdx.length);
         const perks = [0, 1, 2, 3].map(i => {
             if (!rollSlots[i]) return fixedPerks[i];
-            if (!isFinale) {
-                return passedPerks[(passIndex + i) % passedPerks.length] || picks[rollIdx.indexOf(i)];
+            if (!isLastSix && cycleOrder.length) {
+                return cycleOrder[(turn + i) % cycleOrder.length];
             }
-            return picks[rollIdx.indexOf(i)];
+            return finalPerks[i];
         });
         const item = keepItem ? keepItem : (rollItem(currentRole, character) || EMPTY_ITEM);
 
@@ -974,22 +975,15 @@ function spinRoulette() {
 
         renderResultDisplay(currentRollResult, true, {
             ...parts,
-            finale: isFinale,
+            finale: isLastSix,
             revealedSlots: new Set()
         });
 
         steps--;
         if (steps > 0) {
-            speed += isFinale ? 26 : 14;
+            speed += isLastSix ? 26 : 14;
             setTimeout(step, speed);
         } else {
-            // Na última rodada antes da cascata, sorteia as perks finais definitivas de fato
-            const finalPicks = shuffle(rollPool).slice(0, rollIdx.length);
-            currentRollResult = {
-                ...currentRollResult,
-                perks: [0, 1, 2, 3].map(i => rollSlots[i] ? finalPicks[rollIdx.indexOf(i)] : fixedPerks[i])
-            };
-
             const revealQueue = [...rollIdx];
             const revealedSlots = new Set();
 
@@ -1020,7 +1014,7 @@ function spinRoulette() {
                     justRevealed: slot
                 });
 
-                // Ajuste este tempo (ex.: 350 ou 450) para controlar a velocidade da cascata
+                // Tempo entre cada perk revelar na cascata (ex.: 350ms)
                 setTimeout(() => revealNext(k + 1), 350);
             }
 
