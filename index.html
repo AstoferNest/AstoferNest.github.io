@@ -880,7 +880,10 @@
         window.matchMedia('(display-mode: standalone)').matches ||
         window.navigator.standalone === true;
     
-      if (isStandalone) return;
+      if (isStandalone) {
+        btn.style.display = 'none';
+        return;
+      }
     
       const isMobileDevice =
         window.matchMedia('(max-width: 767px)').matches ||
@@ -895,29 +898,34 @@
     
       const updateLabel = () => {
         const lang = typeof currentLang !== 'undefined' ? currentLang : 'pt';
-        if (lbl) {
-          lbl.textContent = isIosSafari
-            ? (lang === 'en' ? 'How to Install' : 'Como Instalar')
-            : (lang === 'en' ? 'Install App' : 'Instalar App');
+        if (!lbl) return;
+        if (deferredPrompt) {
+          lbl.textContent = lang === 'en' ? 'Install App' : 'Instalar App';
+        } else {
+          lbl.textContent = lang === 'en' ? 'How to Install' : 'Como Instalar';
         }
       };
     
-      window.addEventListener('beforeinstallprompt', (e) => {
-        if (!isMobileDevice) return;
-        e.preventDefault();
-        deferredPrompt = e;
+      const showBtn = () => {
+        if (!isMobileDevice || isStandalone) return;
         updateLabel();
         btn.style.display = 'inline-flex';
+      };
+    
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        showBtn();
       });
     
-      // Fallback para mobile caso o navegador não dispare beforeinstallprompt de imediato (ex.: iOS ou alguns Androids)
-      window.addEventListener('load', () => {
-        if (!isMobileDevice) return;
-        updateLabel();
-        if (isIosSafari) {
-          btn.style.display = 'inline-flex';
+      if (isMobileDevice) {
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', showBtn);
+        } else {
+          showBtn();
         }
-      });
+        window.addEventListener('load', showBtn);
+      }
     
       btn.addEventListener('click', async () => {
         const lang = typeof currentLang !== 'undefined' ? currentLang : 'pt';
@@ -926,6 +934,7 @@
           deferredPrompt.prompt();
           const { outcome } = await deferredPrompt.userChoice;
           deferredPrompt = null;
+          updateLabel();
           if (outcome === 'accepted') {
             btn.style.display = 'none';
           }
@@ -941,8 +950,8 @@
         } else {
           alert(
             lang === 'en'
-              ? 'Open the browser menu and tap "Install app" or "Add to Home screen".'
-              : 'Abra o menu do navegador e toque em "Instalar aplicativo" ou "Adicionar à tela inicial".'
+              ? 'Open the browser menu (⋮) and tap "Install app" or "Add to Home screen".'
+              : 'Abra o menu do navegador (⋮) e toque em "Instalar aplicativo" ou "Adicionar à tela inicial".'
           );
         }
       });
