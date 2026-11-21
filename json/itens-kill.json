@@ -350,5 +350,13 @@
       "complementos": ["Marca de Herege", "Desafio de Koenrad", "Apoio para Oração", "Crânio de Buscador", "Telereceptor da Aurora", "Chifre de Guerra do Confessor", "Grilhões Magnetizados", "Marca do Adepto", "Chama Imortal", "Venda dos Devotos", "Tocha Elétrica", "Ícone Alado Sagrado", "Ordem da Inquisição", "Vidro Superaquecido", "Correntes do Herege", "Coroa do Destruidor", "Olhos de Gerhardt", "Detonadores Improvisados", "Espelho dos Criadores", "Pena de Obsidiana"],
       "complementos_en": ["Heretics Mark", "Koenrads Gauntlet", "Prayer Kneeler", "Searchers Skull", "Auroras Telereceptor", "Confessors War Horn", "Magnetised Manacles", "Mark of the Adherent", "Undying Flame", "Blindfold of the Devoted", "Electric Torch", "Holy Winged Icon", "Order of Inquisition", "Superheated Glass", "Chains of the Heretic", "Crown of the Destroyer", "Eyes of Gerhardt", "Improvised Detonators", "Mirror of the Creators", "Obsidian Feather"]
     }
-  ]
+  ],
+  "O Terrifier": [
+    {
+      "nome": "Saco de Brinquedos",
+      "nome_en": "Bag of Toys",
+      "complementos": ["Couro Cabeludo de Ally","Coração Enegrecido","Garrafa de Água Sanitária","Celular de Mike","Bala Ensanguentada","Pústula de Brooke","Asas Queimadas","Triciclo Brilhante","Carne de Sienna","Tigela de Cabeça de Doce","Gambá Morto","Emily","Sal de Thornton","Olho de Victoria","Biscoitos do Art","Presente Explosivo","Crânio de Jonathan","Wacky Jacks","Fita Adesiva","O Nono Círculo"],
+      "complementos_en": ["Allies Scalp","Blackened Heart","Bottle of Bleach","Mikes Phone","Bloodstained Bullet","Brookes Pustule","Burnt Wings","Shiny Tricycle","Siennas Flesh","Candy Head Bowl","Dead Opossum","Emily","Thornton Salt","Victorias Eye","Art Crispies","Explosive Gift","Jonathans Skull","Wacky Jacks","Duct Tape","The Ninth Circle"]
+    }
+  ]  
 }
