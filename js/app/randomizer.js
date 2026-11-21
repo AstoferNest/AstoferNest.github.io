@@ -943,12 +943,13 @@ function spinRoulette() {
     const spinBtn = document.getElementById('btnSpin');
     spinBtn.disabled = true;
     spinBtn.classList.add('opacity-50', 'cursor-not-allowed');
-
+    
     let steps = 22;
     let speed = 50;
 
     function step() {
-        playBeepSound(300 + (22 - steps) * 15);
+        const isFinale = steps <= 6 && steps > 1;
+        playBeepSound(isFinale ? 540 + (6 - steps) * 40 : 300 + (22 - steps) * 15);
 
         const character = rollChar ? pick(availableChars) : fixedChar;
         const picks = shuffle(rollPool).slice(0, rollIdx.length);
@@ -963,17 +964,17 @@ function spinRoulette() {
             date: new Date().toLocaleDateString()
         };
 
-        renderResultDisplay(currentRollResult, true, parts);
+        renderResultDisplay(currentRollResult, true, { ...parts, finale: isFinale });
 
         steps--;
         if (steps > 0) {
-            speed += 14;
+            speed += isFinale ? 26 : 14;
             setTimeout(step, speed);
         } else {
             isSpinning = false;
             spinBtn.disabled = false;
             spinBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-            renderResultDisplay(currentRollResult, false, parts);
+            renderResultDisplay(currentRollResult, false, { ...parts, finale: false });
             addToHistory(currentRollResult);
             playBeepSound(880);
             showToast("Novo Loadout gerado!", "success");
@@ -994,13 +995,41 @@ function renderResultDisplay(result, isSpinningAnim = false, parts = { char: tru
     document.getElementById('displayCharFrame').classList.toggle('is-ptb', isPtb(result.character));
 
     result.perks.forEach((perk, i) => {
-        document.getElementById(`perkName${i}`).innerText = currentLang === 'pt' ? perk.namePt : perk.nameEn;
+        const slotRolled = Array.isArray(parts.perks) ? parts.perks[i] : !!parts.perks;
+        const isSlotSpinning = isSpinningAnim && slotRolled;
+        const showEmptySpin = isSlotSpinning && !!parts.finale;
+        const shouldReveal = !isSpinningAnim && slotRolled;
+
+        const nameEl = document.getElementById(`perkName${i}`);
+        const imgEl = document.getElementById(`perkImg${i}`);
+        const iconEl = document.getElementById(`perkIcon${i}`);
+        const innerEl = document.getElementById(`perkInner${i}`);
+        const diamond = innerEl.parentElement;
+
+        diamond.classList.remove('is-empty', 'is-empty-flipping', 'is-perk-revealing');
+        innerEl.classList.remove('spinning-reel');
+
+        if (showEmptySpin) {
+            nameEl.innerText = '???';
+            setImg(imgEl, [], perk.icon || 'fa-shield-halved', 'text-4xl text-purple-200');
+            iconEl.classList.add('hidden');
+            diamond.classList.add('is-empty', 'is-empty-flipping');
+            diamond.removeAttribute('data-perk');
+            return;
+        }
+
+        nameEl.innerText = currentLang === 'pt' ? perk.namePt : perk.nameEn;
         const cands = entryImgs(perk);
-        setImg(document.getElementById(`perkImg${i}`), cands, perk.icon || 'fa-shield-halved', 'text-4xl text-purple-200');
-        document.getElementById(`perkIcon${i}`).classList.toggle('hidden', cands.length > 0);
-        document.getElementById(`perkInner${i}`).classList.toggle('spinning-reel', isSpinningAnim && (Array.isArray(parts.perks) ? parts.perks[i] : parts.perks));
-        document.getElementById(`perkInner${i}`).parentElement.classList.remove('is-empty');
-        document.getElementById(`perkInner${i}`).parentElement.dataset.perk = perk.id;
+        setImg(imgEl, cands, perk.icon || 'fa-shield-halved', 'text-4xl text-purple-200');
+        iconEl.classList.toggle('hidden', cands.length > 0);
+        innerEl.classList.toggle('spinning-reel', isSlotSpinning);
+        diamond.dataset.perk = perk.id;
+
+        if (shouldReveal) {
+            void diamond.offsetWidth;
+            diamond.classList.add('is-perk-revealing');
+            setTimeout(() => diamond.classList.remove('is-perk-revealing'), 450);
+        }
     });
 
     const item = result.item || EMPTY_ITEM;
