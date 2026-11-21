@@ -878,6 +878,37 @@ function playBeepSound(freq = 440) {
     } catch (e) {}
 }
 
+(function injectPerkSpinCss() {
+    if (document.getElementById('perkSpin3dStyle')) return;
+    const st = document.createElement('style');
+    st.id = 'perkSpin3dStyle';
+    st.textContent = `
+        @keyframes perkSpin3D {
+            0%   { transform: perspective(700px) rotateY(0deg) scale(1); }
+            50%  { transform: perspective(700px) rotateY(180deg) scale(1.06); }
+            100% { transform: perspective(700px) rotateY(360deg) scale(1); }
+        }
+        @keyframes revealPerkFromEmpty {
+            0%   { transform: perspective(700px) rotateY(180deg) scale(0.94); }
+            65%  { transform: perspective(700px) rotateY(-12deg) scale(1.06); }
+            100% { transform: perspective(700px) rotateY(0deg) scale(1); }
+        }
+        .perk-diamond.is-perk-spinning {
+            animation: perkSpin3D 0.28s linear infinite;
+        }
+        .perk-diamond.is-empty-flipping {
+            animation: perkSpin3D 0.34s linear infinite;
+        }
+        .perk-diamond.is-empty-flipping .perk-diamond-inner {
+            transform: scaleX(-1);
+        }
+        .perk-diamond.is-perk-revealing {
+            animation: revealPerkFromEmpty 0.42s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+    `;
+    document.head.appendChild(st);
+})();
+
 function spinRoulette() {
     if (isSpinning) return;
 
@@ -1049,7 +1080,7 @@ function renderResultDisplay(result, isSpinningAnim = false, parts = { char: tru
         const innerEl = document.getElementById(`perkInner${i}`);
         const diamond = innerEl.parentElement;
 
-        diamond.classList.remove('is-empty', 'is-empty-flipping', 'is-perk-revealing');
+        diamond.classList.remove('is-empty', 'is-perk-spinning', 'is-empty-flipping', 'is-perk-revealing');
         innerEl.classList.remove('spinning-reel');
 
         if (showEmptySpin) {
@@ -1065,7 +1096,7 @@ function renderResultDisplay(result, isSpinningAnim = false, parts = { char: tru
         const cands = entryImgs(perk);
         setImg(imgEl, cands, perk.icon || 'fa-shield-halved', 'text-4xl text-purple-200');
         iconEl.classList.toggle('hidden', cands.length > 0);
-        innerEl.classList.toggle('spinning-reel', isSlotSpinning);
+        diamond.classList.toggle('is-perk-spinning', isSlotSpinning && !parts.finale);
         diamond.dataset.perk = perk.id;
 
         if (shouldReveal) {
