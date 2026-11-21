@@ -79,7 +79,7 @@
                     <i class="fa-solid fa-bookmark"></i> <span id="navSaved">Builds Salvas</span>
                     <span id="savedCountBadge" class="dbd-tab-badge">0</span>
                 </button>
-                <button type="button" id="tabThumbBtn" onclick="switchTab('thumb')" class="dbd-tab">
+                <button type="button" id="Btn" onclick="switchTab('thumb')" class="dbd-tab">
                   <i class="fa-solid fa-wand-magic-sparkles"></i> <span id="navThumb">Thumbmaker</span>
                 </button>
             </nav>
@@ -554,6 +554,33 @@
             </div>
           </div>                
             </div>
+              <div class="space-y-2 pt-3 border-t border-neutral-800">
+                <span class="bd-label">Puxar direto do acervo para o canvas</span>
+        
+                <div>
+                  <label class="bd-label" for="thPickChar">Personagem</label>
+                  <select id="thPickChar" class="bd-field" onchange="applyThumbPickedCharacter()"></select>
+                </div>
+        
+                <div class="grid grid-cols-2 gap-2">
+                  <div>
+                    <label class="bd-label" for="thPickPerk0">Perk 1</label>
+                    <select id="thPickPerk0" class="bd-field" onchange="applyThumbPickedPerk(0)"></select>
+                  </div>
+                  <div>
+                    <label class="bd-label" for="thPickPerk1">Perk 2</label>
+                    <select id="thPickPerk1" class="bd-field" onchange="applyThumbPickedPerk(1)"></select>
+                  </div>
+                  <div>
+                    <label class="bd-label" for="thPickPerk2">Perk 3</label>
+                    <select id="thPickPerk2" class="bd-field" onchange="applyThumbPickedPerk(2)"></select>
+                  </div>
+                  <div>
+                    <label class="bd-label" for="thPickPerk3">Perk 4</label>
+                    <select id="thPickPerk3" class="bd-field" onchange="applyThumbPickedPerk(3)"></select>
+                  </div>
+                </div>
+              </div>
           </div>
         </section>        
         
