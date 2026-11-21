@@ -2979,20 +2979,21 @@ async function renderSquadCanvas(squad) {
     const g = c.getContext('2d');
 
     const grad = g.createLinearGradient(0, 0, W, H);
-    grad.addColorStop(0, '#0a0a0f');
-    grad.addColorStop(1, '#1b1b30');
+    grad.addColorStop(0, '#0b0c0f');
+    grad.addColorStop(1, '#12141a');
     g.fillStyle = grad;
     g.fillRect(0, 0, W, H);
 
-    const font = (w, px) => `${w} ${px}px "Segoe UI", Arial, sans-serif`;
+    const font = (w, px) => `${w} ${px}px "Plus Jakarta Sans", "Segoe UI", Arial, sans-serif`;
+    const dispFont = (w, px) => `${w} ${px}px "Barlow Condensed", "Segoe UI", Arial, sans-serif`;
     g.textBaseline = 'alphabetic';
 
     g.textAlign = 'left';
-    g.font = font(900, 28);
-    g.fillStyle = '#d1202f';
+    g.font = dispFont(800, 30);
+    g.fillStyle = '#b91c28';
     g.fillText('ROLETA', 36, 48);
     const rw = g.measureText('ROLETA ').width;
-    g.fillStyle = '#ffffff';
+    g.fillStyle = '#eceae4';
     g.fillText('DE PERKS · SQUAD', 36 + rw, 48);
 
     const [bgImg, frame] = await Promise.all([
@@ -3003,17 +3004,30 @@ async function renderSquadCanvas(squad) {
     const cardsData = await Promise.all(squad.map(async m => {
         const item = m.item || EMPTY_ITEM;
         const hasItem = item.namePt !== 'Nenhum';
-        const [charImg, itemImg, ...perkImgs] = await Promise.all([
+        const addons = (item.addons || []).slice(0, 2);
+        const [charImg, itemImg, addon0Img, addon1Img, ...perkImgs] = await Promise.all([
             loadImg(entryImgs(m.character)),
             hasItem ? loadImg(entryImgs(item)) : Promise.resolve(null),
+            addons[0] ? loadImg(entryImgs(addons[0])) : Promise.resolve(null),
+            addons[1] ? loadImg(entryImgs(addons[1])) : Promise.resolve(null),
             ...m.perks.map(p => loadImg(entryImgs(p)))
         ]);
-        return { m, item, hasItem, charImg, itemImg, perkImgs };
+        return { m, item, hasItem, addons, charImg, itemImg, addonImgs: [addon0Img, addon1Img], perkImgs };
     }));
 
     const cols = 2, padX = 36, topY = 74, gapX = 24, gapY = 20;
     const cardW = (W - padX * 2 - gapX) / cols;
-    const cardH = (H - topY - 46 - gapY) / 2;
+    const cardH = (H - topY - 44 - gapY) / 2;
+
+    const drawBox = (x, y, s, img, radius = 8) => {
+        roundRectPath(g, x, y, s, s, radius);
+        g.fillStyle = '#0e1015';
+        g.fill();
+        g.strokeStyle = 'rgba(255, 255, 255, 0.14)';
+        g.lineWidth = 1.5;
+        g.stroke();
+        if (img) drawContain(g, img, x + 5, y + 5, s - 10, s - 10);
+    };
 
     cardsData.forEach((d, idx) => {
         const col = idx % 2;
@@ -3021,56 +3035,72 @@ async function renderSquadCanvas(squad) {
         const x = padX + col * (cardW + gapX);
         const y = topY + row * (cardH + gapY);
 
-        roundRectPath(g, x, y, cardW, cardH, 16);
-        g.fillStyle = 'rgba(255,255,255,0.04)';
+        roundRectPath(g, x, y, cardW, cardH, 10);
+        g.fillStyle = '#12141a';
         g.fill();
-        g.strokeStyle = 'rgba(34,211,238,0.28)';
-        g.lineWidth = 2;
+        g.strokeStyle = 'rgba(255, 255, 255, 0.10)';
+        g.lineWidth = 1.5;
         g.stroke();
 
         // Cabeçalho do jogador
         g.textAlign = 'left';
-        g.font = font(800, 14);
-        g.fillStyle = '#22d3ee';
-        g.fillText((currentLang === 'pt' ? `JOGADOR ${d.m.player}` : `PLAYER ${d.m.player}`), x + 18, y + 26);
+        g.font = font(700, 12);
+        g.fillStyle = '#6ba3be';
+        g.fillText((currentLang === 'pt' ? `JOGADOR ${d.m.player}` : `PLAYER ${d.m.player}`), x + 18, y + 25);
 
         // Retrato
-        if (bgImg) drawContain(g, bgImg, x + 18, y + 38, 84, 118);
-        if (d.charImg) drawContain(g, d.charImg, x + 18, y + 38, 84, 118);
+        const charX = x + 18, charY = y + 36, charW = 78, charH = 112;
+        if (bgImg) drawContain(g, bgImg, charX, charY, charW, charH);
+        if (d.charImg) drawContain(g, d.charImg, charX, charY, charW, charH);
 
         // Nome do personagem + Item
-        g.fillStyle = '#ffffff';
-        g.font = font(900, 20);
-        g.fillText(nm(d.m.character).toUpperCase(), x + 116, y + 66, cardW - 134);
+        const infoX = x + 110;
+        g.fillStyle = '#eceae4';
+        g.font = dispFont(700, 22);
+        g.fillText(nm(d.m.character).toUpperCase(), infoX, y + 58, cardW - 128);
 
-        g.fillStyle = '#a3a3a3';
-        g.font = font(600, 14);
+        g.fillStyle = '#8e95a5';
+        g.font = font(600, 12);
         const itemLabel = d.hasItem ? nm(d.item) : (currentLang === 'pt' ? 'Nenhum' : 'None');
-        g.fillText((currentLang === 'pt' ? 'Item: ' : 'Item: ') + itemLabel, x + 116, y + 92, cardW - 134);
+        g.fillText((currentLang === 'pt' ? 'Item: ' : 'Item: ') + itemLabel, infoX, y + 78, cardW - 128);
 
-        if (d.itemImg) drawContain(g, d.itemImg, x + 116, y + 104, 42, 42);
+        // Caixa do Item + 2 Add-ons ao lado
+        drawBox(infoX, y + 88, 52, d.itemImg, 6);
+
+        [0, 1].forEach(aIdx => {
+            const add = d.addons[aIdx];
+            const ax = infoX + 64 + aIdx * 96;
+            const ay = y + 88;
+            drawBox(ax, ay, 44, d.addonImgs[aIdx], 6);
+
+            g.textAlign = 'left';
+            g.font = font(600, 11);
+            g.fillStyle = add ? '#cfd5e2' : '#646b7a';
+            const addName = add ? nm(add) : `Add-on ${aIdx + 1}`;
+            drawCenteredLines(g, addName, ax + 22, ay + 56, 88, 2, 13);
+        });
 
         // 4 Perks
-        const perkSize = 86;
+        const perkSize = 84;
         const pGap = (cardW - 36 - 4 * perkSize) / 3;
         d.m.perks.forEach((p, i) => {
             const px = x + 18 + i * (perkSize + pGap);
-            const py = y + 168;
+            const py = y + 170;
             if (frame) g.drawImage(frame, px, py, perkSize, perkSize);
             if (d.perkImgs[i]) {
                 const is = perkSize * PERK_ICON_SCALE;
                 drawContain(g, d.perkImgs[i], px + (perkSize - is) / 2, py + (perkSize - is) / 2, is, is);
             }
             g.textAlign = 'center';
-            g.fillStyle = '#e5e5e5';
-            g.font = font(700, 13);
-            drawCenteredLines(g, nm(p), px + perkSize / 2, py + perkSize + 18, perkSize + 10, 2, 15);
+            g.fillStyle = '#eceae4';
+            g.font = font(600, 12);
+            drawCenteredLines(g, nm(p), px + perkSize / 2, py + perkSize + 16, perkSize + 8, 2, 14);
         });
     });
 
     g.textAlign = 'right';
-    g.font = font(600, 15);
-    g.fillStyle = '#737373';
+    g.font = font(600, 13);
+    g.fillStyle = '#646b7a';
     g.fillText(location.host || 'Roleta de Perks', W - 36, H - 16);
 
     return c;
