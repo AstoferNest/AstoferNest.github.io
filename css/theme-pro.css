@@ -724,6 +724,31 @@ html:not(.dark) .dbd-char-col::after {
   box-shadow: 0 0 12px rgba(212, 163, 74, 0.25);
 }
 
+/* ================= BADGE PTB (!) NO CANTO ================= */
+.dbd-char-col .char-card.is-ptb::after {
+  content: "!";
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ef4444, #991b1b);
+  border: 2px solid #fca5a5;
+  color: #ffffff;
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 12px rgba(220, 38, 38, 0.85), 0 2px 6px rgba(0, 0, 0, 0.6);
+  z-index: 5;
+  pointer-events: none;
+}
+
+
+
 /* ================= RESPONSIVIDADE MOBILE ================= */
 @media (max-width: 767px) {
   /* 1. Respiro lateral mais enxuto */
