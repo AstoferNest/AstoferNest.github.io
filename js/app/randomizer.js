@@ -982,9 +982,9 @@ function spinRoulette() {
     const finalPerks = [0, 1, 2, 3].map(i => rollSlots[i] ? finalPicks[rollIdx.indexOf(i)] : fixedPerks[i]);
 
     function step() {
-        const isLastSix = steps <= 6;
+        const isLastThree = steps <= 3;
         const turn = 22 - steps;
-        playBeepSound(isLastSix ? 540 + (6 - steps) * 40 : 300 + turn * 15);
+        playBeepSound(isLastThree ? 540 + (3 - steps) * 55 : 300 + turn * 15);
 
         const character = rollChar ? pick(availableChars) : fixedChar;
         const perks = [0, 1, 2, 3].map(i => {
@@ -1006,13 +1006,13 @@ function spinRoulette() {
 
         renderResultDisplay(currentRollResult, true, {
             ...parts,
-            finale: isLastSix,
+            finale: isLastThree,
             revealedSlots: new Set()
         });
 
         steps--;
         if (steps > 0) {
-            speed += isLastSix ? 26 : 14;
+            speed += isLastThree ? 30 : 14;
             setTimeout(step, speed);
         } else {
             const revealQueue = [...rollIdx];
