@@ -61,7 +61,33 @@ function applyPtbStyles() {
     const ids = [...ptbIds].filter(id => /^(surv|kill)_/.test(id));
     st.textContent = ids.map(id => {
         const v = String(id).replace(/["\\]/g, '\\$&');
-        return `[data-perk="${v}"].perk-diamond,[data-perk="${v}"] .perk-diamond{animation:ptbPulse 1.8s ease-in-out infinite}`;
+        return `
+[data-perk="${v}"].perk-diamond,
+[data-perk="${v}"] .perk-diamond {
+  animation: ptbPulse 1.8s ease-in-out infinite;
+}
+[data-perk="${v}"].perk-diamond::after,
+[data-perk="${v}"] .perk-diamond::after {
+  content: "!";
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ef4444, #991b1b);
+  border: 1.5px solid #fca5a5;
+  color: #ffffff;
+  font-family: var(--font-ui, sans-serif);
+  font-size: 13px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(220, 38, 38, 0.85), 0 2px 4px rgba(0, 0, 0, 0.6);
+  z-index: 5;
+  pointer-events: none;
+}`;
     }).join('\n');
     const chk = $('chkPtb');
     if (chk && chk.closest('label')) chk.closest('label').style.display = ptbIds.size ? '' : 'none';
