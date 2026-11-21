@@ -946,14 +946,22 @@ function spinRoulette() {
     
     let steps = 22;
     let speed = 50;
+    const passedPerks = shuffle(rollPool);
 
     function step() {
-        const isFinale = steps <= 6 && steps > 1;
+        const isFinale = steps <= 6;
+        const passIndex = (22 - steps) % Math.max(1, passedPerks.length);
         playBeepSound(isFinale ? 540 + (6 - steps) * 40 : 300 + (22 - steps) * 15);
 
         const character = rollChar ? pick(availableChars) : fixedChar;
         const picks = shuffle(rollPool).slice(0, rollIdx.length);
-        const perks = [0, 1, 2, 3].map(i => rollSlots[i] ? picks[rollIdx.indexOf(i)] : fixedPerks[i]);
+        const perks = [0, 1, 2, 3].map(i => {
+            if (!rollSlots[i]) return fixedPerks[i];
+            if (!isFinale) {
+                return passedPerks[(passIndex + i) % passedPerks.length] || picks[rollIdx.indexOf(i)];
+            }
+            return picks[rollIdx.indexOf(i)];
+        });
         const item = keepItem ? keepItem : (rollItem(currentRole, character) || EMPTY_ITEM);
 
         currentRollResult = {
@@ -964,23 +972,37 @@ function spinRoulette() {
             date: new Date().toLocaleDateString()
         };
 
-        renderResultDisplay(currentRollResult, true, { ...parts, finale: isFinale });
+        renderResultDisplay(currentRollResult, true, {
+            ...parts,
+            finale: isFinale,
+            revealedSlots: new Set()
+        });
 
         steps--;
         if (steps > 0) {
             speed += isFinale ? 26 : 14;
             setTimeout(step, speed);
         } else {
-            // Mantém os slots sorteados girando como "empty" e revela um por vez
+            // Na última rodada antes da cascata, sorteia as perks finais definitivas de fato
+            const finalPicks = shuffle(rollPool).slice(0, rollIdx.length);
+            currentRollResult = {
+                ...currentRollResult,
+                perks: [0, 1, 2, 3].map(i => rollSlots[i] ? finalPicks[rollIdx.indexOf(i)] : fixedPerks[i])
+            };
+
             const revealQueue = [...rollIdx];
-            const currentPerksState = [...rollSlots];
+            const revealedSlots = new Set();
 
             function revealNext(k) {
                 if (k >= revealQueue.length) {
                     isSpinning = false;
                     spinBtn.disabled = false;
                     spinBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-                    renderResultDisplay(currentRollResult, false, { ...parts, perks: currentPerksState, finale: false });
+                    renderResultDisplay(currentRollResult, false, {
+                        ...parts,
+                        finale: false,
+                        revealedSlots: new Set(rollIdx)
+                    });
                     addToHistory(currentRollResult);
                     playBeepSound(880);
                     showToast("Novo Loadout gerado!", "success");
@@ -988,17 +1010,18 @@ function spinRoulette() {
                 }
 
                 const slot = revealQueue[k];
-                currentPerksState[slot] = false; // este slot deixa de girar e revela a perk
+                revealedSlots.add(slot);
                 playBeepSound(640 + k * 65);
 
                 renderResultDisplay(currentRollResult, true, {
                     ...parts,
-                    perks: currentPerksState,
                     finale: true,
+                    revealedSlots,
                     justRevealed: slot
                 });
 
-                setTimeout(() => revealNext(k + 1), 220);
+                // Ajuste este tempo (ex.: 350 ou 450) para controlar a velocidade da cascata
+                setTimeout(() => revealNext(k + 1), 350);
             }
 
             revealNext(0);
@@ -1020,9 +1043,11 @@ function renderResultDisplay(result, isSpinningAnim = false, parts = { char: tru
 
     result.perks.forEach((perk, i) => {
         const slotRolled = Array.isArray(parts.perks) ? parts.perks[i] : !!parts.perks;
-        const isSlotSpinning = isSpinningAnim && slotRolled;
+        const isAlreadyRevealed = parts.revealedSlots instanceof Set && parts.revealedSlots.has(i);
+        const shouldRevealNow = parts.justRevealed === i;
+        const isSlotSpinning = isSpinningAnim && slotRolled && !isAlreadyRevealed;
         const showEmptySpin = isSlotSpinning && !!parts.finale;
-        const shouldReveal = parts.justRevealed === i || (!isSpinningAnim && slotRolled);
+        const shouldReveal = shouldRevealNow || (!isSpinningAnim && slotRolled);
 
         const nameEl = document.getElementById(`perkName${i}`);
         const imgEl = document.getElementById(`perkImg${i}`);
