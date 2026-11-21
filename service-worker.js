@@ -1,50 +1,47 @@
-const CACHE_NAME = 'dbd-perkroulette-v1';
-
-// Arquivos essenciais para funcionar offline
-const urlsToCache = [
-  '/DBD/perkroulette/',
-  '/DBD/perkroulette/index.html',
-  '/DBD/perkroulette/css/app.css',
-  '/DBD/perkroulette/js/app/app.js',
-  '/DBD/perkroulette/json/survivor-perks.json',
-  '/DBD/perkroulette/json/killer-perks.json',
-  '/DBD/perkroulette/css/img/favicon.png',
-  '/DBD/perkroulette/css/img/random.png',
-  '/DBD/perkroulette/css/img/perk_purple.png'
+const CACHE_NAME = 'roleta-perks-v1';
+const ASSETS = [
+  './',
+  './index.html',
+  './overlay.html',
+  './manifest.json',
+  './css/randomizer.css',
+  './css/classes.css',
+  './css/builds.css',
+  './css/theme.css',
+  './js/app/randomizer.js',
+  './js/app/class-roulette.js',
+  './json/survivor-perks.json',
+  './json/killer-perks.json',
+  './json/itens-surv.json',
+  './json/itens-kill.json',
+  './json/builds-destaque.json'
 ];
 
-// Instalação: salva os arquivos no cache
-self.addEventListener('install', function(event) {
+self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(function(cache) {
-      return cache.addAll(urlsToCache);
-    })
+    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS)).catch(() => {})
   );
+  self.skipWaiting();
 });
 
-// Ativação: remove caches antigos
-self.addEventListener('activate', function(event) {
+self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(function(cacheNames) {
-      return Promise.all(
-        cacheNames.filter(function(name) {
-          return name !== CACHE_NAME;
-        }).map(function(name) {
-          return caches.delete(name);
-        })
-      );
-    })
+    caches.keys().then(keys =>
+      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
+    )
   );
+  self.clients.claim();
 });
 
-// Intercepta requisições: usa cache se disponível, senão busca na rede
-self.addEventListener('fetch', function(event) {
+self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') return;
   event.respondWith(
-    caches.match(event.request).then(function(response) {
-      if (response) {
-        return response; // Retorna do cache
-      }
-      return fetch(event.request); // Busca na rede
-    })
+    fetch(event.request)
+      .then(res => {
+        const clone = res.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone)).catch(() => {});
+        return res;
+      })
+      .catch(() => caches.match(event.request))
   );
 });
