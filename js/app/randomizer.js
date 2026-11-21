@@ -30,7 +30,7 @@ const BASE = '';
 const JSON_DIR = BASE + 'json/';
 const IMG_LOCAL = BASE + 'css/img/';
 // Fallback caso a imagem não exista localmente (o mesmo host que o streaming-mode.js do zip usa). '' desativa.
-const IMG_REMOTE = 'https://astofernest.github.io/perkroulette/css/img/';
+const IMG_REMOTE = 'https://astofernest.github.io/css/img/';
 
 // Imagens dos losangos (css/img/perk_purple.png e perk_empty.png) via variáveis CSS
 (function () {
