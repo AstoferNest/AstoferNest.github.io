@@ -835,8 +835,8 @@ html:not(.dark) .bd-badge.kill { color: var(--accent-crimson); }
   filter: grayscale(100%) contrast(1.15);
 }
 .dl-rule-wm img {
-  width: 116px;
-  height: 116px;
+  width: 200px;
+  height: 200px;
   object-fit: contain;
 }
 .dl-rule-card.is-both .dl-rule-wm img {
