@@ -706,6 +706,12 @@
     <!-- NOTIFICATION TOAST CONTAINER -->
     <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
+
+    <button id="pwaInstallBtn" type="button" class="dbd-action-btn" style="display:none; position:fixed; right:14px; bottom:calc(14px + env(safe-area-inset-bottom)); z-index:999; background:rgba(15,17,22,0.95); border-color:rgba(212,163,74,0.65); color:#f5d08a; box-shadow:0 8px 24px rgba(0,0,0,0.55);">
+      <i class="fa-solid fa-download"></i>
+      <span id="pwaInstallLabel">Instalar App</span>
+    </button>
+    
     <!-- LÓGICA DA APLICAÇÃO -->
     <script src="js/app/randomizer.js"></script>
     <script src="js/app/class-roulette.js"></script>
@@ -767,7 +773,7 @@
                             item = {
                                 namePt: found.nome, nameEn: found.nome_en || found.nome,
                                 rel: 'itens/surv/' + fmt(found.nome) + '.png',
-                                icon: ITEM_TYPE_ICON[tipo] || 'fa-toolbox',
+                                icon: (typeof ITEM_TYPE_ICON !== 'undefined' && ITEM_TYPE_ICON[tipo]) || 'fa-toolbox',
                                 addons: addonCodes.map(c => pairs.find(a => h4(fmt(a.pt)) === c))
                                     .filter(Boolean)
                                     .map(a => ({ namePt: a.pt, nameEn: a.en, rel: 'itens/surv/complementos/' + fmt(a.pt) + '.png' }))
@@ -863,10 +869,95 @@
         window.addEventListener('hashchange', applyFromHash);
     })();
     </script>
+
+    <script>
+    (function () {
+      const btn = document.getElementById('pwaInstallBtn');
+      const lbl = document.getElementById('pwaInstallLabel');
+      if (!btn) return;
+    
+      const isStandalone =
+        window.matchMedia('(display-mode: standalone)').matches ||
+        window.navigator.standalone === true;
+    
+      if (isStandalone) return;
+    
+      const isMobileDevice =
+        window.matchMedia('(max-width: 767px)').matches ||
+        window.matchMedia('(pointer: coarse)').matches ||
+        /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+    
+      const isIosSafari =
+        /iPhone|iPad|iPod/i.test(navigator.userAgent) &&
+        !/CriOS|FxiOS|EdgiOS/i.test(navigator.userAgent);
+    
+      let deferredPrompt = null;
+    
+      const updateLabel = () => {
+        const lang = typeof currentLang !== 'undefined' ? currentLang : 'pt';
+        if (lbl) {
+          lbl.textContent = isIosSafari
+            ? (lang === 'en' ? 'How to Install' : 'Como Instalar')
+            : (lang === 'en' ? 'Install App' : 'Instalar App');
+        }
+      };
+    
+      window.addEventListener('beforeinstallprompt', (e) => {
+        if (!isMobileDevice) return;
+        e.preventDefault();
+        deferredPrompt = e;
+        updateLabel();
+        btn.style.display = 'inline-flex';
+      });
+    
+      // Fallback para mobile caso o navegador não dispare beforeinstallprompt de imediato (ex.: iOS ou alguns Androids)
+      window.addEventListener('load', () => {
+        if (!isMobileDevice) return;
+        updateLabel();
+        if (isIosSafari) {
+          btn.style.display = 'inline-flex';
+        }
+      });
+    
+      btn.addEventListener('click', async () => {
+        const lang = typeof currentLang !== 'undefined' ? currentLang : 'pt';
+    
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          deferredPrompt = null;
+          if (outcome === 'accepted') {
+            btn.style.display = 'none';
+          }
+          return;
+        }
+    
+        if (isIosSafari) {
+          alert(
+            lang === 'en'
+              ? 'Tap Share and choose "Add to Home Screen" to install the app.'
+              : 'Toque em Compartilhar e escolha "Adicionar à Tela de Início" para instalar o app.'
+          );
+        } else {
+          alert(
+            lang === 'en'
+              ? 'Open the browser menu and tap "Install app" or "Add to Home screen".'
+              : 'Abra o menu do navegador e toque em "Instalar aplicativo" ou "Adicionar à tela inicial".'
+          );
+        }
+      });
+    
+      window.addEventListener('appinstalled', () => {
+        deferredPrompt = null;
+        btn.style.display = 'none';
+      });
+    })();
+    </script>    
+    
     <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').catch(() => {});
+        navigator.serviceWorker.register('./service-worker.js').catch(() => {});
       });
     }
     </script>    
