@@ -79,6 +79,9 @@
                     <i class="fa-solid fa-bookmark"></i> <span id="navSaved">Builds Salvas</span>
                     <span id="savedCountBadge" class="dbd-tab-badge">0</span>
                 </button>
+                <button type="button" id="tabThumbBtn" onclick="switchTab('thumb')" class="dbd-tab">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i> <span id="navThumb">Thumbmaker</span>
+                </button>
             </nav>
 
             <!-- Language & Theme Controls -->
@@ -443,6 +446,92 @@
               <span class="dbd-section-label" id="dailyPoolBadge">100 desafios · 5 por dia</span>
             </div>
             <div id="dailyChallengesList" class="p-4 md:p-5 grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+          </div>
+        </section>    
+
+        <section id="tabThumb" class="hidden space-y-4">
+          <div class="dbd-control-bar">
+            <div class="dbd-segmented">
+              <button type="button" id="thRatio169" onclick="setThumbRatio('16:9')" class="dbd-seg-btn is-surv is-active">
+                <span>16:9 (YouTube)</span>
+              </button>
+              <button type="button" id="thRatio916" onclick="setThumbRatio('9:16')" class="dbd-seg-btn is-surv">
+                <span>9:16 (Shorts)</span>
+              </button>
+            </div>
+        
+            <div class="flex flex-wrap items-center gap-2">
+              <button type="button" onclick="applyPresetLikeRef()" class="dbd-action-btn">
+                <i class="fa-solid fa-layer-group"></i> <span id="thBtnPreset">Exemplo Estilo Card</span>
+              </button>
+              <button type="button" onclick="loadCurrentBuildIntoThumb()" class="dbd-action-btn">
+                <i class="fa-solid fa-dice"></i> <span id="thBtnFromRoll">Puxar Build Atual</span>
+              </button>
+              <button type="button" onclick="saveThumbProjectFile()" class="dbd-action-btn">
+                <i class="fa-solid fa-file-export"></i> <span id="thBtnSaveProj">Salvar Projeto (.json)</span>
+              </button>
+              <label class="dbd-action-btn cursor-pointer">
+                <i class="fa-solid fa-file-import"></i> <span id="thBtnOpenProj">Abrir Projeto</span>
+                <input type="file" id="thProjectInput" accept=".json,application/json" class="hidden" onchange="openThumbProjectFile(event)">
+              </label>
+              <button type="button" onclick="exportThumbPng()" class="dbd-spin-btn">
+                <i class="fa-solid fa-download"></i> <span id="thBtnExportPng">BAIXAR PNG</span>
+              </button>
+            </div>
+          </div>
+        
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+            <!-- Palco do Canvas Interativo -->
+            <div class="lg:col-span-8 bg-dbd-card border border-neutral-800 rounded-xl p-4 flex flex-col items-center justify-center shadow-xl">
+              <div class="w-full flex items-center justify-between mb-3">
+                <span class="dbd-section-label" id="thHintDrag">Arraste o personagem ou os perks direto no canvas</span>
+                <span class="text-[11px] font-mono text-dbd-cyan" id="thCanvasDims">1280 × 720</span>
+              </div>
+              <div id="thStageWrap" class="th-stage-wrap is-16-9">
+                <canvas id="thumbCanvas" width="1280" height="720"></canvas>
+              </div>
+            </div>
+        
+            <!-- Controles da Camada Selecionada & Uploads Próprios -->
+            <div class="lg:col-span-4 bg-dbd-card border border-neutral-800 rounded-xl p-4 space-y-4 shadow-xl">
+              <div>
+                <span class="bd-label" id="thLblLayer">Camada selecionada</span>
+                <div class="flex flex-wrap gap-1.5" id="thLayerTabs">
+                  <button type="button" data-layer="char" onclick="selectThumbLayer('char')" class="bd-chip active">Personagem</button>
+                  <button type="button" data-layer="perk0" onclick="selectThumbLayer('perk0')" class="bd-chip">Perk 1</button>
+                  <button type="button" data-layer="perk1" onclick="selectThumbLayer('perk1')" class="bd-chip">Perk 2</button>
+                  <button type="button" data-layer="perk2" onclick="selectThumbLayer('perk2')" class="bd-chip">Perk 3</button>
+                  <button type="button" data-layer="perk3" onclick="selectThumbLayer('perk3')" class="bd-chip">Perk 4</button>
+                  <button type="button" data-layer="bg" onclick="selectThumbLayer('bg')" class="bd-chip">Fundo</button>
+                </div>
+              </div>
+        
+              <div class="space-y-2">
+                <label class="bd-label" for="thUploadLayerImg" id="thLblUpload">Enviar imagem própria para esta camada</label>
+                <input type="file" id="thUploadLayerImg" accept="image/*" class="bd-field" onchange="handleThumbCustomImage(event)">
+              </div>
+        
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="bd-label" for="thScaleRange">Tamanho (<span id="thScaleVal">100%</span>)</label>
+                  <input type="range" id="thScaleRange" min="25" max="220" value="100" class="w-full accent-dbd-red" oninput="updateSelectedLayerProps()">
+                </div>
+                <div>
+                  <label class="bd-label" for="thRotRange">Rotação (<span id="thRotVal">0°</span>)</label>
+                  <input type="range" id="thRotRange" min="-45" max="45" value="0" class="w-full accent-dbd-red" oninput="updateSelectedLayerProps()">
+                </div>
+              </div>
+        
+              <div class="flex items-center justify-between pt-2 border-t border-neutral-800">
+                <label class="dbd-toggle">
+                  <input type="checkbox" id="thLayerVisible" checked onchange="updateSelectedLayerProps()">
+                  <span>Mostrar camada</span>
+                </label>
+                <button type="button" onclick="resetSelectedThumbLayer()" class="bd-btn bd-btn-sm">
+                  <i class="fa-solid fa-rotate-left"></i> Resetar camada
+                </button>
+              </div>
+            </div>
           </div>
         </section>        
         
