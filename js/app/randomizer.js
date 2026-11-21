@@ -359,7 +359,14 @@ const i18n = {
         tagClear: "Limpar tags",
         tagModeAny: "Qualquer tag",
         tagModeAll: "Todas as tags",
-        optPtb: "Incluir PTB",        
+        optPtb: "Incluir PTB",      
+        navSquad: "Modo Squad",
+        squadTitle: "Modo Squad",
+        squadSub: "Sortear os 4 survivors de uma vez · Cada jogador do grupo recebe personagem, perks e item, com opção de evitar perks repetidos entre eles.",
+        lblSquadUniquePerks: "Evitar perks repetidos entre jogadores",
+        lblSpinSquad: "SORTEAR SQUAD",
+        lblSaveSquad: "Salvar Squad",
+        lblShareSquadImage: "Imagem",
     },
     en: {
         subtitle: "Dead by Daylight Streamer Loadout Generator",
@@ -456,7 +463,14 @@ const i18n = {
         tagClear: "Clear tags",
         tagModeAny: "Any tag",
         tagModeAll: "All tags",
-        optPtb: "Include PTB",        
+        optPtb: "Include PTB",       
+        navSquad: "Squad Mode",
+        squadTitle: "Squad Mode",
+        squadSub: "Roll all 4 survivors at once · Each squad member gets a character, perks, and item, with an option to avoid duplicate perks across players.",
+        lblSquadUniquePerks: "Avoid duplicate perks between players",
+        lblSpinSquad: "ROLL SQUAD", 
+        lblSaveSquad: "Save Squad",
+        lblShareSquadImage: "Image",        
     }
 };
 
@@ -529,6 +543,7 @@ function setLanguage(lang) {
     renderHistory();
     populateBuilder();
     renderPerkGallery();
+    renderSquad();
     if (currentRollResult) renderResultDisplay(currentRollResult);
 }
 
@@ -619,7 +634,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (s) s.addEventListener('input', e => { perkGalleryText = e.target.value; renderPerkGallery(); });
 });
 
-const TABS = ['main', 'featured', 'builder', 'pool', 'perks', 'saved'];
+const TABS = ['main', 'squad', 'featured', 'builder', 'pool', 'perks', 'saved'];
 const TAB_BTN_OFF = "dbd-tab";
 const TAB_BTN_ON = "dbd-tab is-active";
 
@@ -2728,6 +2743,347 @@ function initTagDrawer() {
 
     updateLanguageUI();      // traduz os textos que acabaram de ser criados
     updateTagDrawerForTab();
+}
+
+/* ==========================================================================
+   MODO SQUAD (4 SURVIVORS)
+   ========================================================================== */
+let currentSquadResult = [];
+let isSquadSpinning = false;
+
+function rollSurvivorItemForSquad(character) {
+    const prevRole = currentRole;
+    currentRole = 'survivor';
+    const rolled = rollItem('survivor', character);
+    currentRole = prevRole;
+    return rolled || { ...EMPTY_ITEM };
+}
+
+function getSquadPools() {
+    const chars = [
+        ...initialData.survivors,
+        ...customEntries.filter(e => e.category === 'character' && e.role === 'survivor')
+    ].filter(c => !excludedCharacters.has(c.id) && (includePtb() || !isPtb(c)));
+
+    const perks = [
+        ...initialData.survivorPerks,
+        ...customEntries.filter(e => e.category === 'perk' && e.role === 'survivor')
+    ].filter(p => !excludedPerks.has(p.id) && matchesTags(p) && (includePtb() || !isPtb(p)));
+
+    return { chars, perks };
+}
+
+function generateSquadOnce(chars, perks, uniqueAcrossSquad) {
+    const usedCharIds = new Set();
+    const usedPerkIds = new Set();
+    const squad = [];
+
+    for (let slot = 0; slot < 4; slot++) {
+        let charPool = chars.filter(c => !usedCharIds.has(c.id));
+        if (!charPool.length) charPool = [...chars];
+        const character = pick(charPool);
+        if (chars.length >= 4) usedCharIds.add(character.id);
+
+        let perkPool = uniqueAcrossSquad
+            ? perks.filter(p => !usedPerkIds.has(p.id))
+            : [...perks];
+
+        if (perkPool.length < 4) {
+            perkPool = [...perks];
+        }
+
+        const pickedPerks = shuffle(perkPool).slice(0, 4);
+        if (uniqueAcrossSquad) {
+            pickedPerks.forEach(p => usedPerkIds.add(p.id));
+        }
+
+        const item = rollSurvivorItemForSquad(character);
+        squad.push({
+            player: slot + 1,
+            character,
+            perks: pickedPerks,
+            item
+        });
+    }
+
+    return squad;
+}
+
+function renderSquad(spinning = false) {
+    const wrap = $('squadContainer');
+    if (!wrap) return;
+
+    if (!currentSquadResult.length) {
+        wrap.innerHTML = `<div class="col-span-full py-10 text-center text-xs text-dbd-muted">${
+            currentLang === 'pt'
+                ? 'Clique em <b>SORTAR SQUAD</b> para gerar os 4 Survivors.'
+                : 'Click <b>ROLL SQUAD</b> to generate all 4 Survivors.'
+        }</div>`;
+        return;
+    }
+
+    wrap.innerHTML = currentSquadResult.map(member => {
+        const charName = esc(nm(member.character));
+        const item = member.item || EMPTY_ITEM;
+        const itemName = esc(nm(item));
+        const addons = (item.addons || []).slice(0, 2);
+
+        const perksHtml = member.perks.map(p => `
+            <div class="flex flex-col items-center w-16 text-center" data-perk="${esc(p.id)}">
+                <div class="perk-diamond perk-diamond-xs ${spinning ? 'is-perk-spinning' : ''}">
+                    <div class="perk-diamond-inner">
+                        ${imgTag(entryImgs(p), 'w-full h-full object-contain', p.icon || 'fa-shield-halved', 'text-purple-200 text-xs')}
+                    </div>
+                </div>
+                <span class="text-[10px] font-bold text-neutral-300 leading-tight line-clamp-2 mt-1">${esc(nm(p))}</span>
+            </div>
+        `).join('');
+
+        const addonsHtml = addons.length
+            ? `<div class="flex flex-wrap gap-1.5 mt-1">${addons.map(a => `
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-neutral-900 border border-neutral-800 text-[10px] text-neutral-300">
+                    ${imgTag(entryImgs(a), 'w-3.5 h-3.5 object-contain', 'fa-puzzle-piece', 'text-[10px] text-neutral-400')}
+                    <span>${esc(nm(a))}</span>
+                </span>`).join('')}</div>`
+            : '';
+
+        return `
+        <div class="bg-neutral-950 border border-neutral-800 rounded-xl p-4 space-y-3 shadow">
+            <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
+                <span class="text-[11px] font-black uppercase tracking-wider text-dbd-cyan">
+                    <i class="fa-solid fa-user-shield mr-1"></i>
+                    ${currentLang === 'pt' ? `Jogador ${member.player}` : `Player ${member.player}`}
+                </span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-dbd-cyan/15 text-dbd-cyan">SURVIVOR</span>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <div class="char-card w-14 shrink-0${ptbCls(member.character)} flex items-center justify-center text-dbd-cyan">
+                    ${imgTag(entryImgs(member.character), 'w-full h-full object-contain', member.character.icon || 'fa-user', 'text-xl')}
+                </div>
+                <div class="min-w-0 flex-1">
+                    <div class="text-sm font-black text-white truncate">${charName}</div>
+                    <div class="flex items-center gap-1.5 text-xs text-neutral-300 mt-1">
+                        <span class="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 flex items-center justify-center shrink-0">
+                            ${imgTag(entryImgs(item), 'w-4 h-4 object-contain', item.icon || 'fa-toolbox', 'text-xs text-dbd-cyan')}
+                        </span>
+                        <span class="truncate font-semibold">${itemName}</span>
+                    </div>
+                    ${addonsHtml}
+                </div>
+            </div>
+
+            <div class="flex items-start justify-between gap-2 pt-2 border-t border-neutral-800/80">
+                ${perksHtml}
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function spinSquadRoulette() {
+    if (isSquadSpinning) return;
+
+    const { chars, perks } = getSquadPools();
+    const uniqueAcrossSquad = $('chkSquadUniquePerks') ? $('chkSquadUniquePerks').checked : true;
+
+    if (!chars.length) {
+        showToast(currentLang === 'pt' ? 'Nenhum Survivor ativo no acervo!' : 'No active Survivors in pool!', 'error');
+        return;
+    }
+
+    if (perks.length < 4 || (uniqueAcrossSquad && perks.length < 16)) {
+        showToast(
+            currentLang === 'pt'
+                ? 'Poucos perks ativos para montar o Squad sem repetição. Ative mais perks ou desmarque a opção.'
+                : 'Not enough active perks to roll a non-repeating squad. Enable more perks or uncheck the option.',
+            'error'
+        );
+        return;
+    }
+
+    isSquadSpinning = true;
+    const btn = $('btnSpinSquad');
+    if (btn) {
+        btn.disabled = true;
+        btn.classList.add('opacity-50', 'cursor-not-allowed');
+    }
+
+    let steps = 12;
+    let speed = 55;
+
+    function tick() {
+        playBeepSound(340 + (12 - steps) * 20);
+        currentSquadResult = generateSquadOnce(chars, perks, uniqueAcrossSquad);
+        renderSquad(true);
+
+        steps--;
+        if (steps > 0) {
+            speed += 12;
+            setTimeout(tick, speed);
+        } else {
+            currentSquadResult = generateSquadOnce(chars, perks, uniqueAcrossSquad);
+            renderSquad(false);
+            isSquadSpinning = false;
+            if (btn) {
+                btn.disabled = false;
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+            playBeepSound(880);
+            showToast(currentLang === 'pt' ? 'Squad sorteado!' : 'Squad rolled!', 'success');
+        }
+    }
+
+    tick();
+}
+
+function saveCurrentSquad() {
+    if (!currentSquadResult.length) {
+        showToast(currentLang === 'pt' ? 'Sorteie o Squad primeiro!' : 'Roll the Squad first!', 'error');
+        return;
+    }
+    const stamp = Date.now();
+    const date = new Date().toLocaleDateString();
+    [...currentSquadResult].reverse().forEach((member, idx) => {
+        const playerNum = currentSquadResult.length - idx;
+        savedBuilds.unshift({
+            id: stamp + idx,
+            name: `Squad #${playerNum} · ${nm(member.character)}`,
+            role: 'survivor',
+            character: member.character,
+            perks: member.perks,
+            item: member.item || { ...EMPTY_ITEM },
+            date
+        });
+    });
+    persistSavedBuilds();
+    renderSavedBuilds();
+    showToast(currentLang === 'pt' ? 'Os 4 Survivors do Squad foram salvos!' : 'All 4 Squad Survivors saved!', 'success');
+}
+
+async function renderSquadCanvas(squad) {
+    const W = 1200, H = 760;
+    const c = document.createElement('canvas');
+    c.width = W; c.height = H;
+    const g = c.getContext('2d');
+
+    const grad = g.createLinearGradient(0, 0, W, H);
+    grad.addColorStop(0, '#0a0a0f');
+    grad.addColorStop(1, '#1b1b30');
+    g.fillStyle = grad;
+    g.fillRect(0, 0, W, H);
+
+    const font = (w, px) => `${w} ${px}px "Segoe UI", Arial, sans-serif`;
+    g.textBaseline = 'alphabetic';
+
+    g.textAlign = 'left';
+    g.font = font(900, 28);
+    g.fillStyle = '#d1202f';
+    g.fillText('ROLETA', 36, 48);
+    const rw = g.measureText('ROLETA ').width;
+    g.fillStyle = '#ffffff';
+    g.fillText('DE PERKS · SQUAD', 36 + rw, 48);
+
+    const [bgImg, frame] = await Promise.all([
+        loadImg(imgPaths('personagens/fundo_pdbd.png')),
+        loadImg(imgPaths('perk_purple.png'))
+    ]);
+
+    const cardsData = await Promise.all(squad.map(async m => {
+        const item = m.item || EMPTY_ITEM;
+        const hasItem = item.namePt !== 'Nenhum';
+        const [charImg, itemImg, ...perkImgs] = await Promise.all([
+            loadImg(entryImgs(m.character)),
+            hasItem ? loadImg(entryImgs(item)) : Promise.resolve(null),
+            ...m.perks.map(p => loadImg(entryImgs(p)))
+        ]);
+        return { m, item, hasItem, charImg, itemImg, perkImgs };
+    }));
+
+    const cols = 2, padX = 36, topY = 74, gapX = 24, gapY = 20;
+    const cardW = (W - padX * 2 - gapX) / cols;
+    const cardH = (H - topY - 46 - gapY) / 2;
+
+    cardsData.forEach((d, idx) => {
+        const col = idx % 2;
+        const row = Math.floor(idx / 2);
+        const x = padX + col * (cardW + gapX);
+        const y = topY + row * (cardH + gapY);
+
+        roundRectPath(g, x, y, cardW, cardH, 16);
+        g.fillStyle = 'rgba(255,255,255,0.04)';
+        g.fill();
+        g.strokeStyle = 'rgba(34,211,238,0.28)';
+        g.lineWidth = 2;
+        g.stroke();
+
+        // Cabeçalho do jogador
+        g.textAlign = 'left';
+        g.font = font(800, 14);
+        g.fillStyle = '#22d3ee';
+        g.fillText((currentLang === 'pt' ? `JOGADOR ${d.m.player}` : `PLAYER ${d.m.player}`), x + 18, y + 26);
+
+        // Retrato
+        if (bgImg) drawContain(g, bgImg, x + 18, y + 38, 84, 118);
+        if (d.charImg) drawContain(g, d.charImg, x + 18, y + 38, 84, 118);
+
+        // Nome do personagem + Item
+        g.fillStyle = '#ffffff';
+        g.font = font(900, 20);
+        g.fillText(nm(d.m.character).toUpperCase(), x + 116, y + 66, cardW - 134);
+
+        g.fillStyle = '#a3a3a3';
+        g.font = font(600, 14);
+        const itemLabel = d.hasItem ? nm(d.item) : (currentLang === 'pt' ? 'Nenhum' : 'None');
+        g.fillText((currentLang === 'pt' ? 'Item: ' : 'Item: ') + itemLabel, x + 116, y + 92, cardW - 134);
+
+        if (d.itemImg) drawContain(g, d.itemImg, x + 116, y + 104, 42, 42);
+
+        // 4 Perks
+        const perkSize = 86;
+        const pGap = (cardW - 36 - 4 * perkSize) / 3;
+        d.m.perks.forEach((p, i) => {
+            const px = x + 18 + i * (perkSize + pGap);
+            const py = y + 168;
+            if (frame) g.drawImage(frame, px, py, perkSize, perkSize);
+            if (d.perkImgs[i]) {
+                const is = perkSize * PERK_ICON_SCALE;
+                drawContain(g, d.perkImgs[i], px + (perkSize - is) / 2, py + (perkSize - is) / 2, is, is);
+            }
+            g.textAlign = 'center';
+            g.fillStyle = '#e5e5e5';
+            g.font = font(700, 13);
+            drawCenteredLines(g, nm(p), px + perkSize / 2, py + perkSize + 18, perkSize + 10, 2, 15);
+        });
+    });
+
+    g.textAlign = 'right';
+    g.font = font(600, 15);
+    g.fillStyle = '#737373';
+    g.fillText(location.host || 'Roleta de Perks', W - 36, H - 16);
+
+    return c;
+}
+
+async function shareSquadImage() {
+    if (!currentSquadResult.length) {
+        showToast(currentLang === 'pt' ? 'Sorteie o Squad antes de gerar a imagem!' : 'Roll the Squad first!', 'error');
+        return;
+    }
+    showToast(currentLang === 'pt' ? 'Gerando imagem do Squad...' : 'Generating Squad image...', 'info');
+    try {
+        const canvas = await renderSquadCanvas(currentSquadResult);
+        const blob = await new Promise((res, rej) => canvas.toBlob(b => b ? res(b) : rej(new Error('blob')), 'image/png'));
+        if (lastImage.url) URL.revokeObjectURL(lastImage.url);
+        lastImage = { blob, url: URL.createObjectURL(blob), name: `roleta-perks-squad-${Date.now()}.png` };
+        $('imgPreview').src = lastImage.url;
+        let canNative = false;
+        try { canNative = !!(navigator.canShare && navigator.canShare({ files: [new File([blob], lastImage.name, { type: 'image/png' })] })); } catch (e) {}
+        $('imgBtnShare').style.display = canNative ? '' : 'none';
+        $('imageModal').classList.remove('hidden');
+    } catch (e) {
+        console.error(e);
+        showToast(currentLang === 'pt' ? 'Não foi possível gerar a imagem.' : 'Could not generate the image.', 'error');
+    }
 }
 
 if (document.body) initTagDrawer();
