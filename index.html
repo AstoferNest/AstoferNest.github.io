@@ -59,7 +59,10 @@
                 </button>
                 <button type="button" id="tabSquadBtn" onclick="switchTab('squad')" class="dbd-tab">
                   <i class="fa-solid fa-users"></i> <span id="navSquad">Modo Squad</span>
-                </button>                   
+                </button> 
+                <button type="button" id="tabDailyBtn" onclick="switchTab('daily')" class="dbd-tab">
+                  <i class="fa-solid fa-calendar-day"></i> <span id="navDaily">Desafios Diários</span>
+                </button>
                 <button onclick="switchTab('featured')" id="tabFeaturedBtn" class="dbd-tab">
                     <i class="fa-solid fa-star"></i> <span id="navFeatured">Builds Destaque</span>
                 </button>             
@@ -419,6 +422,33 @@
             <div id="squadHistoryList" class="bd-hist-list"></div>
           </div>
         </section>
+
+
+        <section id="tabDaily" class="hidden space-y-5">
+          <div class="dbd-control-bar">
+            <div>
+              <span class="dbd-section-label" id="dailyDateLabel"></span>
+            </div>
+            <div class="flex items-center gap-2 ml-auto">
+              <button type="button" onclick="applyDailyBuildToRoulette('survivor')" class="dbd-action-btn">
+                <i class="fa-solid fa-dice"></i> <span id="btnDailySurvToRoulette">Ver Survivor na Roleta</span>
+              </button>
+              <button type="button" onclick="applyDailyBuildToRoulette('killer')" class="dbd-action-btn is-primary">
+                <i class="fa-solid fa-dice"></i> <span id="btnDailyKillToRoulette">Ver Killer na Roleta</span>
+              </button>
+            </div>
+          </div>
+        
+          <div id="dailyBuildsGrid" class="grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
+        
+          <div class="dbd-stage">
+            <div class="dbd-stage-head">
+              <h2 id="dailyChallengesTitle" class="text-base font-bold text-white uppercase tracking-wider">5 Desafios de Hoje</h2>
+              <span class="dbd-section-label" id="dailyPoolBadge">100 desafios · 5 por dia</span>
+            </div>
+            <div id="dailyChallengesList" class="p-4 md:p-5 grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+          </div>
+        </section>        
         
         <!-- ======================================================== -->
         <!-- TAB: CRIAR BUILD MANUAL (+ modo curador)                 -->
