@@ -905,3 +905,40 @@ html:not(.dark) .dbd-char-col::after {
     height: 88px;
   }
 }
+
+/* ================= SENSAÇÃO DE APP MOBILE ================= */
+@media (max-width: 767px) {
+  body {
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior-y: contain;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Evita selecionar texto sem querer ao tocar rápido em botões/cards */
+  button,
+  .dbd-tab,
+  .dbd-seg-btn,
+  .bd-chip,
+  .bd-hist,
+  .perk-diamond,
+  .char-card {
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+
+  /* Feedback tátil ao pressionar botões e cards clicáveis */
+  button:active,
+  .bd-chip:active,
+  .bd-hist:active {
+    transform: scale(0.98);
+  }
+
+  /* Evita zoom automático do iOS ao focar em campos de busca/formulário */
+  input[type="text"],
+  input[type="number"],
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
