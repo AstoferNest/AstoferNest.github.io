@@ -989,7 +989,7 @@ function spinRoulette() {
         const character = rollChar ? pick(availableChars) : fixedChar;
         const perks = [0, 1, 2, 3].map(i => {
             if (!rollSlots[i]) return fixedPerks[i];
-            if (!isLastSix && cycleOrder.length) {
+            if (!isLastThree && cycleOrder.length) {
                 return cycleOrder[(turn + i) % cycleOrder.length];
             }
             return finalPerks[i];
