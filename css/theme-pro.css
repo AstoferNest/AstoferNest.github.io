@@ -942,3 +942,40 @@ html:not(.dark) .dbd-char-col::after {
     font-size: 16px !important;
   }
 }
+
+
+@keyframes emptySpinPhase {
+  0% {
+    transform: perspective(700px) rotateY(180deg) scale(0.96);
+  }
+  50% {
+    transform: perspective(700px) rotateY(360deg) scale(1.05);
+  }
+  100% {
+    transform: perspective(700px) rotateY(540deg) scale(0.96);
+  }
+}
+
+@keyframes revealPerkFromEmpty {
+  0% {
+    transform: perspective(700px) rotateY(180deg) scale(0.94);
+  }
+  65% {
+    transform: perspective(700px) rotateY(-12deg) scale(1.06);
+  }
+  100% {
+    transform: perspective(700px) rotateY(0deg) scale(1);
+  }
+}
+
+.perk-diamond.is-empty-flipping {
+  animation: emptySpinPhase 0.34s linear infinite;
+}
+
+.perk-diamond.is-empty-flipping .perk-diamond-inner {
+  transform: scaleX(-1);
+}
+
+.perk-diamond.is-perk-revealing {
+  animation: revealPerkFromEmpty 0.42s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
