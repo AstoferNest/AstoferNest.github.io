@@ -555,6 +555,7 @@ function setLanguage(lang) {
     renderHistory();
     populateBuilder();
     renderPerkGallery();
+    renderDailyTab();
     renderSquad();
     renderSquad(isSquadSpinning); 
     renderSquadHistory();
