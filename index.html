@@ -531,6 +531,28 @@
                   <i class="fa-solid fa-rotate-left"></i> Resetar camada
                 </button>
               </div>
+            <div class="space-y-3 pt-3 border-t border-neutral-800">
+            <div class="flex items-center justify-between">
+              <span class="bd-label mb-0">Texto na Thumbnail</span>
+              <label class="dbd-toggle">
+                <input type="checkbox" id="thTextEnabled" checked onchange="updateThumbTextProps()">
+                <span>Ativar</span>
+              </label>
+            </div>
+    
+            <input type="text" id="thTextInput" maxlength="48" placeholder="Ex.: BUILD INSANA!" class="bd-field" oninput="updateThumbTextProps()">
+    
+            <div class="grid grid-cols-2 gap-3 items-center">
+              <div>
+                <label class="bd-label" for="thTextSize">Fonte (<span id="thTextSizeVal">64px</span>)</label>
+                <input type="range" id="thTextSize" min="24" max="140" value="64" class="w-full accent-dbd-red" oninput="updateThumbTextProps()">
+              </div>
+              <div>
+                <label class="bd-label" for="thTextColor">Cor do texto</label>
+                <input type="color" id="thTextColor" value="#ffffff" class="w-full h-9 rounded cursor-pointer bg-neutral-900 border border-neutral-700 p-1" oninput="updateThumbTextProps()">
+              </div>
+            </div>
+          </div>                
             </div>
           </div>
         </section>        
