@@ -772,3 +772,81 @@ html:not(.dark) .bd-badge.kill { color: var(--accent-crimson); }
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+/* ---------- Cartas dos 5 Desafios Diários (estilo 5 cartas lado a lado) ---------- */
+.dl-cards-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
+  padding: 1rem 1.25rem 1.25rem;
+}
+@media (min-width: 640px) {
+  .dl-cards-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1180px) {
+  .dl-cards-row {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+.dl-rule-card {
+  background: var(--bg-inset);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  gap: 0.75rem;
+  min-height: 220px;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.dl-rule-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+.dl-rule-card.is-surv {
+  border-top: 2px solid var(--accent-survivor);
+}
+.dl-rule-card.is-kill {
+  border-top: 2px solid var(--accent-crimson);
+}
+.dl-rule-card.is-both {
+  border-top: 2px solid var(--accent-purple);
+}
+
+.dl-rule-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  line-height: 1.15;
+}
+
+.dl-rule-icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.45rem 0.65rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+}
+
+.dl-rule-icons img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.dl-rule-desc {
+  font-size: 0.7rem;
+  line-height: 1.35;
+  color: var(--text-secondary);
+}
