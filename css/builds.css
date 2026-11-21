@@ -840,8 +840,8 @@ html:not(.dark) .bd-badge.kill { color: var(--accent-crimson); }
   object-fit: contain;
 }
 .dl-rule-card.is-both .dl-rule-wm img {
-  width: 78px;
-  height: 78px;
+  width: 200px;
+  height: 200px;
 }
 
 .dl-rule-content {
