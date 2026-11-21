@@ -7,7 +7,7 @@ const ASSETS = [
   './css/randomizer.css',
   './css/classes.css',
   './css/builds.css',
-  './css/theme.css',
+  './css/theme-pro.css',
   './js/app/randomizer.js',
   './js/app/class-roulette.js',
   './json/survivor-perks.json',
