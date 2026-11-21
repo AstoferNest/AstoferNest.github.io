@@ -545,6 +545,8 @@ function setLanguage(lang) {
     populateBuilder();
     renderPerkGallery();
     renderSquad();
+    renderSquad(isSquadSpinning); 
+    renderSquadHistory();
     if (currentRollResult) renderResultDisplay(currentRollResult);
 }
 
