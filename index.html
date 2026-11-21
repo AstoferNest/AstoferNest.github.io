@@ -36,8 +36,6 @@
 <body class="bg-dbd-bg text-dbd-text min-h-screen flex flex-col font-sans transition-colors duration-200 antialiased selection:bg-dbd-red selection:text-white">
 
     <!-- HEADER / NAVIGATION BAR -->
-
-<!-- HEADER / NAVIGATION BAR -->
     <header class="dbd-header sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-between gap-4">
 
@@ -79,7 +77,7 @@
                     <i class="fa-solid fa-bookmark"></i> <span id="navSaved">Builds Salvas</span>
                     <span id="savedCountBadge" class="dbd-tab-badge">0</span>
                 </button>
-                <button type="button" id="Btn" onclick="switchTab('thumb')" class="dbd-tab">
+                <button type="button" id="tabThumbBtn" onclick="switchTab('thumb')" class="dbd-tab">
                   <i class="fa-solid fa-wand-magic-sparkles"></i> <span id="navThumb">Thumbmaker</span>
                 </button>
             </nav>
@@ -100,8 +98,7 @@
 
     <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
 
-       
-<!-- ======================================================== -->
+        <!-- ======================================================== -->
         <!-- TAB 1: STREAMER ROULETTE DASHBOARD                       -->
         <!-- ======================================================== -->
         <div id="tabMain" class="space-y-4">
@@ -119,7 +116,7 @@
                     </button>
                 </div>
 
-                <!-- Toggles limpos (sem caixinhas nem ícones redundantes) -->
+                <!-- Toggles limpos -->
                 <div class="dbd-toggle-group">
                     <label class="dbd-toggle">
                         <input type="checkbox" id="chkCharacter" checked>
@@ -445,7 +442,7 @@
               <h2 id="dailyChallengesTitle" class="text-base font-bold text-white uppercase tracking-wider">5 Desafios de Hoje</h2>
               <span class="dbd-section-label" id="dailyPoolBadge">100 desafios · 5 por dia</span>
             </div>
-            <div id="dailyChallengesList" class="p-4 md:p-5 grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+            <div id="dailyChallengesList" class="dl-cards-row"></div>
           </div>
         </section>    
 
@@ -531,29 +528,30 @@
                   <i class="fa-solid fa-rotate-left"></i> Resetar camada
                 </button>
               </div>
-            <div class="space-y-3 pt-3 border-t border-neutral-800">
-            <div class="flex items-center justify-between">
-              <span class="bd-label mb-0">Texto na Thumbnail</span>
-              <label class="dbd-toggle">
-                <input type="checkbox" id="thTextEnabled" checked onchange="updateThumbTextProps()">
-                <span>Ativar</span>
-              </label>
-            </div>
-    
-            <input type="text" id="thTextInput" maxlength="48" placeholder="Ex.: BUILD INSANA!" class="bd-field" oninput="updateThumbTextProps()">
-    
-            <div class="grid grid-cols-2 gap-3 items-center">
-              <div>
-                <label class="bd-label" for="thTextSize">Fonte (<span id="thTextSizeVal">64px</span>)</label>
-                <input type="range" id="thTextSize" min="24" max="140" value="64" class="w-full accent-dbd-red" oninput="updateThumbTextProps()">
+
+              <div class="space-y-3 pt-3 border-t border-neutral-800">
+                <div class="flex items-center justify-between">
+                  <span class="bd-label mb-0">Texto na Thumbnail</span>
+                  <label class="dbd-toggle">
+                    <input type="checkbox" id="thTextEnabled" checked onchange="updateThumbTextProps()">
+                    <span>Ativar</span>
+                  </label>
+                </div>
+        
+                <input type="text" id="thTextInput" maxlength="48" placeholder="Ex.: BUILD INSANA!" class="bd-field" oninput="updateThumbTextProps()">
+        
+                <div class="grid grid-cols-2 gap-3 items-center">
+                  <div>
+                    <label class="bd-label" for="thTextSize">Fonte (<span id="thTextSizeVal">64px</span>)</label>
+                    <input type="range" id="thTextSize" min="24" max="140" value="64" class="w-full accent-dbd-red" oninput="updateThumbTextProps()">
+                  </div>
+                  <div>
+                    <label class="bd-label" for="thTextColor">Cor do texto</label>
+                    <input type="color" id="thTextColor" value="#ffffff" class="w-full h-9 rounded cursor-pointer bg-neutral-900 border border-neutral-700 p-1" oninput="updateThumbTextProps()">
+                  </div>
+                </div>
               </div>
-              <div>
-                <label class="bd-label" for="thTextColor">Cor do texto</label>
-                <input type="color" id="thTextColor" value="#ffffff" class="w-full h-9 rounded cursor-pointer bg-neutral-900 border border-neutral-700 p-1" oninput="updateThumbTextProps()">
-              </div>
-            </div>
-          </div>                
-            </div>
+
               <div class="space-y-2 pt-3 border-t border-neutral-800">
                 <span class="bd-label">Puxar direto do acervo para o canvas</span>
         
@@ -581,6 +579,7 @@
                   </div>
                 </div>
               </div>
+            </div>
           </div>
         </section>        
         
