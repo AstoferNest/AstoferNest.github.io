@@ -3521,10 +3521,6 @@ function buildDailyLoadout(role, dateKey) {
     };
 }
 
-function getTodayFiveChallenges(dateKey) {
-    const rng = createSeededRng(hashSeedString(`${dateKey}|daily-challenges-100`));
-    return seededShuffle(DAILY_CHALLENGES_100, rng).slice(0, 5);
-}
 
 let dailyBuildsCache = { dateKey: '', survivor: null, killer: null };
 
@@ -3535,17 +3531,35 @@ function applyDailyBuildToRoulette(role) {
     showBuildInRoulette(b);
 }
 
+function getTodayFiveChallenges(dateKey) {
+    const rng = createSeededRng(hashSeedString(`${dateKey}|daily-challenges-100-v2`));
+
+    const survPool = seededShuffle(DAILY_CHALLENGES_100.filter(c => c.side === 'survivor'), rng);
+    const killPool = seededShuffle(DAILY_CHALLENGES_100.filter(c => c.side === 'killer'), rng);
+    const bothPool = seededShuffle(DAILY_CHALLENGES_100.filter(c => c.side === 'both'), rng);
+
+    const picked = [
+        ...survPool.slice(0, 2),
+        ...killPool.slice(0, 2),
+        ...bothPool.slice(0, 1)
+    ];
+
+    return seededShuffle(picked, rng);
+}
+
 function renderDailyTab() {
     const grid = $('dailyBuildsGrid');
     const listBox = $('dailyChallengesList');
     const dateLbl = $('dailyDateLabel');
     if (!grid || !listBox) return;
 
+    grid.className = 'dl-grid';
+
     const dateKey = getTodaySeedKey();
     if (dateLbl) {
         dateLbl.textContent = currentLang === 'pt'
-            ? `DATA DO DESAFIO: ${dateKey} · MESMA BUILD E 5 DESAFIOS PARA TODOS`
-            : `DAILY SEED: ${dateKey} · SAME BUILD & 5 CHALLENGES FOR EVERYONE`;
+            ? `DATA DO DESAFIO: ${dateKey} · 2 SURVIVOR · 2 KILLER · 1 AMBOS`
+            : `DAILY SEED: ${dateKey} · 2 SURVIVOR · 2 KILLER · 1 BOTH`;
     }
 
     const survBuild = buildDailyLoadout('survivor', dateKey);
@@ -3556,39 +3570,53 @@ function renderDailyTab() {
         if (!b) return '';
         const item = b.item || EMPTY_ITEM;
         const hasItem = item.namePt !== 'Nenhum';
+        const addonsText = (item.addons || []).map(a => nm(a)).join(' · ');
+
         const perksHtml = b.perks.map(p => `
-            <div class="flex flex-col items-center text-center w-16" data-perk="${esc(p.id)}">
-                <div class="perk-diamond perk-diamond-xs">
+            <div class="dl-perk" data-perk="${esc(p.id)}">
+                <div class="perk-diamond">
                     <div class="perk-diamond-inner">
-                        ${imgTag(entryImgs(p), 'w-full h-full object-contain', p.icon || 'fa-shield-halved', 'text-purple-200 text-xs')}
+                        ${imgTag(entryImgs(p), 'w-full h-full object-contain', p.icon || 'fa-shield-halved', 'text-purple-200 text-sm')}
                     </div>
                 </div>
-                <span class="text-[10px] font-semibold text-neutral-300 line-clamp-2 mt-1">${esc(nm(p))}</span>
+                <span class="dl-perk-name">${esc(nm(p))}</span>
             </div>
         `).join('');
 
         return `
-        <div class="bg-dbd-card border border-neutral-800 rounded-xl p-4 space-y-3 shadow">
-            <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
+        <article class="dl-card">
+            <div class="dl-card-head">
                 <span class="text-xs font-black uppercase tracking-wider text-white">${currentLang === 'pt' ? labelPt : labelEn}</span>
                 <span class="bd-badge ${badgeCls}">${b.role.toUpperCase()}</span>
             </div>
-            <div class="flex items-center gap-3">
-                <div class="char-card w-14 shrink-0${ptbCls(b.character)} flex items-center justify-center text-dbd-cyan">
-                    ${imgTag(entryImgs(b.character), 'w-full h-full object-contain', b.character.icon || 'fa-user', 'text-xl')}
+            <div class="dl-card-body">
+                <div class="dl-top">
+                    <div class="dl-portrait ${ptbCls(b.character)}">
+                        ${imgTag(entryImgs(b.character), 'w-full h-full object-cover', b.character.icon || 'fa-user', 'text-2xl text-dbd-cyan')}
+                    </div>
+                    <div class="dl-meta">
+                        <div class="dl-char-name">${esc(nm(b.character))}</div>
+                        <div class="dl-item-row">
+                            <div class="dl-item-thumb">
+                                ${hasItem
+                                    ? imgTag(entryImgs(item), 'w-full h-full object-contain', item.icon || 'fa-toolbox', 'text-xs text-dbd-cyan')
+                                    : '<i class="fa-solid fa-toolbox text-xs text-neutral-500"></i>'}
+                            </div>
+                            <div class="min-w-0">
+                                <div class="text-xs font-bold text-white truncate">${esc(hasItem ? nm(item) : (currentLang === 'pt' ? 'Nenhum' : 'None'))}</div>
+                                ${addonsText ? `<div class="text-[11px] text-neutral-400 truncate">${esc(addonsText)}</div>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" onclick="applyDailyBuildToRoulette('${b.role}')" class="bd-btn bd-btn-sm">
+                        <i class="fa-solid fa-eye"></i> ${currentLang === 'pt' ? 'Ver' : 'View'}
+                    </button>
                 </div>
-                <div class="min-w-0 flex-1">
-                    <div class="text-sm font-black text-white uppercase truncate">${esc(nm(b.character))}</div>
-                    <div class="text-xs text-neutral-400 truncate mt-0.5">${esc(hasItem ? nm(item) : (currentLang === 'pt' ? 'Nenhum' : 'None'))}</div>
+                <div class="dl-perks">
+                    ${perksHtml}
                 </div>
-                <button type="button" onclick="applyDailyBuildToRoulette('${b.role}')" class="bd-btn bd-btn-sm">
-                    <i class="fa-solid fa-eye"></i> ${currentLang === 'pt' ? 'Ver' : 'View'}
-                </button>
             </div>
-            <div class="flex items-start justify-between gap-2 pt-2 border-t border-neutral-800/80">
-                ${perksHtml}
-            </div>
-        </div>`;
+        </article>`;
     };
 
     grid.innerHTML =
