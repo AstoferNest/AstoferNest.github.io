@@ -499,6 +499,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderHistory();
     updateLockUI();
     updateObsLinks();
+    initThumbmakerEvents(); 
+    syncThumbTextControls(); 
+    applyPresetLikeRef();
     try {
         await loadData();
         renderDailyTab();
@@ -651,7 +654,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (s) s.addEventListener('input', e => { perkGalleryText = e.target.value; renderPerkGallery(); });
 });
 
-TABS = ['main', 'daily', 'squad', 'featured', 'builder', 'pool', 'perks', 'saved', 'thumb'];
+const TABS = ['main', 'daily', 'squad', 'featured', 'builder', 'pool', 'perks', 'saved', 'thumb'];
 const TAB_BTN_OFF = "dbd-tab";
 const TAB_BTN_ON = "dbd-tab is-active";
 
@@ -3671,6 +3674,14 @@ function createDefaultThumbState(ratio = '16:9') {
     return {
         ratio,
         selected: 'char',
+        text: {
+            enabled: false,
+            content: '',
+            x: 0.5,
+            y: isVert ? 0.16 : 0.84,
+            size: isVert ? 74 : 64,
+            color: '#ffffff'
+        },
         layers: {
             bg: { visible: true, x: 0.5, y: 0.5, scale: 1.0, rot: 0, src: '', isCustom: false },
             char: { visible: true, x: cx / (isVert ? 1080 : 1280), y: cy / (isVert ? 1920 : 720), scale: isVert ? 1.15 : 1.0, rot: 0, src: '', isCustom: false },
@@ -3830,6 +3841,7 @@ function saveThumbProjectFile() {
         savedAt: new Date().toISOString(),
         ratio: thumbRatio,
         selected: selectedThumbLayer,
+        text: thumbState.text,
         layers: thumbState.layers
     };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
@@ -3855,10 +3867,12 @@ function openThumbProjectFile(e) {
             thumbState = {
                 ratio: parsed.ratio === '9:16' ? '9:16' : '16:9',
                 selected: parsed.layers[parsed.selected] ? parsed.selected : 'char',
+                text: { ...createDefaultThumbState(parsed.ratio || '16:9').text, ...(parsed.text || {}) },
                 layers: { ...createDefaultThumbState(parsed.ratio || '16:9').layers, ...parsed.layers }
             };
             setThumbRatio(thumbState.ratio);
             selectThumbLayer(thumbState.selected);
+            syncThumbTextControls();
             renderThumbCanvas();
             showToast(currentLang === 'pt' ? 'Projeto carregado para edição!' : 'Project loaded for editing!', 'success');
         } catch (err) {
@@ -3988,6 +4002,30 @@ function initThumbmakerEvents() {
 
     canvas.addEventListener('pointerdown', e => {
         const pt = toNorm(e);
+        const tx = thumbState.text;
+
+        if (tx && tx.enabled && tx.content && tx.content.trim()) {
+            const ctx2d = canvas.getContext('2d');
+            ctx2d.save();
+            ctx2d.font = `800 ${tx.size || 64}px "Barlow Condensed", "Plus Jakarta Sans", sans-serif`;
+            const tw = ctx2d.measureText(tx.content.trim().toUpperCase()).width;
+            const th = (tx.size || 64) * 1.1;
+            ctx2d.restore();
+
+            const dx = Math.abs(pt.nx - tx.x) * canvas.width;
+            const dy = Math.abs(pt.ny - tx.y) * canvas.height;
+            if (dx <= Math.max(40, tw * 0.55) && dy <= Math.max(28, th * 0.65)) {
+                thumbDragging = {
+                    layerKey: 'text',
+                    offsetX: tx.x - pt.nx,
+                    offsetY: tx.y - pt.ny
+                };
+                canvas.setPointerCapture(e.pointerId);
+                renderThumbCanvas();
+                return;
+            }
+        }
+
         const l = thumbState.layers[selectedThumbLayer];
         if (!l) return;
         thumbDragging = {
@@ -4001,15 +4039,18 @@ function initThumbmakerEvents() {
     canvas.addEventListener('pointermove', e => {
         if (!thumbDragging) return;
         const pt = toNorm(e);
-        const l = thumbState.layers[thumbDragging.layerKey];
-        if (!l) return;
-        l.x = Math.max(0.05, Math.min(0.95, pt.nx + thumbDragging.offsetX));
-        l.y = Math.max(0.05, Math.min(0.95, pt.ny + thumbDragging.offsetY));
+        const target = thumbDragging.layerKey === 'text'
+            ? thumbState.text
+            : thumbState.layers[thumbDragging.layerKey];
+        if (!target) return;
+        target.x = Math.max(0.05, Math.min(0.95, pt.nx + thumbDragging.offsetX));
+        target.y = Math.max(0.05, Math.min(0.95, pt.ny + thumbDragging.offsetY));
         renderThumbCanvas();
     });
 
     canvas.addEventListener('pointerup', () => {
         thumbDragging = null;
+        renderThumbCanvas();
     });
 }
 
