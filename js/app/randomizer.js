@@ -2814,9 +2814,9 @@ function renderSquad(spinning = false) {
     if (!wrap) return;
 
     if (!currentSquadResult.length) {
-        wrap.innerHTML = `<div class="col-span-full py-10 text-center text-xs text-dbd-muted">${
+        wrap.innerHTML = `<div class="bd-empty">${
             currentLang === 'pt'
-                ? 'Clique em <b>SORTAR SQUAD</b> para gerar os 4 Survivors.'
+                ? 'Clique em <b>SORTEAR SQUAD</b> para gerar os 4 Survivors.'
                 : 'Click <b>ROLL SQUAD</b> to generate all 4 Survivors.'
         }</div>`;
         return;
@@ -2825,56 +2825,68 @@ function renderSquad(spinning = false) {
     wrap.innerHTML = currentSquadResult.map(member => {
         const charName = esc(nm(member.character));
         const item = member.item || EMPTY_ITEM;
-        const itemName = esc(nm(item));
+        const hasItem = item.namePt !== 'Nenhum';
+        const itemName = esc(hasItem ? nm(item) : (currentLang === 'pt' ? 'Nenhum' : 'None'));
         const addons = (item.addons || []).slice(0, 2);
+        const addonSub = addons.length
+            ? addons.map(a => esc(nm(a))).join(' · ')
+            : (currentLang === 'pt' ? 'Sem add-ons' : 'No add-ons');
 
         const perksHtml = member.perks.map(p => `
-            <div class="flex flex-col items-center w-16 text-center" data-perk="${esc(p.id)}">
-                <div class="perk-diamond perk-diamond-xs ${spinning ? 'is-perk-spinning' : ''}">
+            <div class="sq-perk" data-perk="${esc(p.id)}">
+                <div class="perk-diamond perk-diamond-sm ${spinning ? 'is-perk-spinning' : ''}">
                     <div class="perk-diamond-inner">
-                        ${imgTag(entryImgs(p), 'w-full h-full object-contain', p.icon || 'fa-shield-halved', 'text-purple-200 text-xs')}
+                        ${imgTag(entryImgs(p), 'w-full h-full object-contain', p.icon || 'fa-shield-halved', 'text-purple-200 text-lg')}
                     </div>
                 </div>
-                <span class="text-[10px] font-bold text-neutral-300 leading-tight line-clamp-2 mt-1">${esc(nm(p))}</span>
+                <span class="sq-perk-name">${esc(nm(p))}</span>
             </div>
         `).join('');
 
-        const addonsHtml = addons.length
-            ? `<div class="flex flex-wrap gap-1.5 mt-1">${addons.map(a => `
-                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-neutral-900 border border-neutral-800 text-[10px] text-neutral-300">
-                    ${imgTag(entryImgs(a), 'w-3.5 h-3.5 object-contain', 'fa-puzzle-piece', 'text-[10px] text-neutral-400')}
-                    <span>${esc(nm(a))}</span>
-                </span>`).join('')}</div>`
-            : '';
+        const addonsHtml = [0, 1].map(idx => {
+            const a = addons[idx];
+            return `
+                <div class="sq-addon-box" title="${a ? esc(nm(a)) : 'Add-on ' + (idx + 1)}">
+                    ${a ? imgTag(entryImgs(a), 'w-full h-full object-contain', 'fa-puzzle-piece', 'text-xs text-neutral-400') : '<i class="fa-solid fa-puzzle-piece text-xs text-neutral-600"></i>'}
+                </div>`;
+        }).join('');
 
         return `
-        <div class="bg-neutral-950 border border-neutral-800 rounded-xl p-4 space-y-3 shadow">
-            <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
-                <span class="text-[11px] font-black uppercase tracking-wider text-dbd-cyan">
-                    <i class="fa-solid fa-user-shield mr-1"></i>
-                    ${currentLang === 'pt' ? `Jogador ${member.player}` : `Player ${member.player}`}
-                </span>
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-dbd-cyan/15 text-dbd-cyan">SURVIVOR</span>
+        <div class="sq-cell">
+            <div class="sq-head">
+                <span class="sq-player-tag">${currentLang === 'pt' ? `Jogador ${member.player}` : `Player ${member.player}`}</span>
+                <span class="bd-badge surv">SURVIVOR</span>
             </div>
 
-            <div class="flex items-center gap-3">
-                <div class="char-card w-14 shrink-0${ptbCls(member.character)} flex items-center justify-center text-dbd-cyan">
-                    ${imgTag(entryImgs(member.character), 'w-full h-full object-contain', member.character.icon || 'fa-user', 'text-xl')}
-                </div>
-                <div class="min-w-0 flex-1">
-                    <div class="text-sm font-black text-white truncate">${charName}</div>
-                    <div class="flex items-center gap-1.5 text-xs text-neutral-300 mt-1">
-                        <span class="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 flex items-center justify-center shrink-0">
-                            ${imgTag(entryImgs(item), 'w-4 h-4 object-contain', item.icon || 'fa-toolbox', 'text-xs text-dbd-cyan')}
-                        </span>
-                        <span class="truncate font-semibold">${itemName}</span>
+            <div class="sq-body">
+                <div class="sq-char-box">
+                    <div class="char-card${ptbCls(member.character)} flex items-center justify-center text-dbd-cyan">
+                        ${imgTag(entryImgs(member.character), 'w-full h-full object-contain', member.character.icon || 'fa-user', 'text-2xl')}
                     </div>
-                    ${addonsHtml}
                 </div>
-            </div>
 
-            <div class="flex items-start justify-between gap-2 pt-2 border-t border-neutral-800/80">
-                ${perksHtml}
+                <div class="sq-right">
+                    <div class="sq-char-name">${charName}</div>
+
+                    <div class="sq-perks">
+                        ${perksHtml}
+                    </div>
+
+                    <div class="sq-gear">
+                        <div class="sq-gear-item">
+                            <div class="sq-gear-box">
+                                ${hasItem ? imgTag(entryImgs(item), 'w-full h-full object-contain', item.icon || 'fa-toolbox', 'text-sm text-dbd-cyan') : '<i class="fa-solid fa-toolbox text-sm text-neutral-600"></i>'}
+                            </div>
+                            <div class="sq-gear-txt">
+                                <div class="sq-gear-title">${itemName}</div>
+                                <div class="sq-gear-sub">${addonSub}</div>
+                            </div>
+                        </div>
+                        <div class="sq-addons">
+                            ${addonsHtml}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>`;
     }).join('');
