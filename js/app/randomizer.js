@@ -483,6 +483,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderFeatured();
     loadPoolFilters();
     bindHistoryEvents();
+    initSquadMode();
     renderHistory();
     updateLockUI();
     updateObsLinks();
@@ -2746,10 +2747,43 @@ function initTagDrawer() {
 }
 
 /* ==========================================================================
-   MODO SQUAD (4 SURVIVORS)
+   MODO SQUAD (4 SURVIVORS) — 4 PALCOS + LOCKS + HISTÓRICO
    ========================================================================== */
 let currentSquadResult = [];
 let isSquadSpinning = false;
+const SQUAD_HIST_KEY = 'dbd_squad_history';
+let squadHistory = [];
+try { squadHistory = JSON.parse(localStorage.getItem(SQUAD_HIST_KEY) || '[]'); } catch (e) { squadHistory = []; }
+
+function createEmptySquadLocks() {
+    return [0, 1, 2, 3].map(() => ({
+        char: false,
+        perks: [false, false, false, false],
+        item: false
+    }));
+}
+let squadLocks = createEmptySquadLocks();
+
+function resetSquadLocks() {
+    squadLocks = createEmptySquadLocks();
+}
+
+function playSquadBeep(freq = 440) {
+    const chk = $('chkSquadSound') || $('chkSound');
+    if (!chk || !chk.checked) return;
+    try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.04, ctx.currentTime);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.04);
+    } catch (e) {}
+}
 
 function rollSurvivorItemForSquad(character) {
     const prevRole = currentRole;
@@ -2773,31 +2807,68 @@ function getSquadPools() {
     return { chars, perks };
 }
 
-function generateSquadOnce(chars, perks, uniqueAcrossSquad) {
+function generateSquadOnce(chars, perks, uniqueAcrossSquad, prevSquad = null) {
     const usedCharIds = new Set();
     const usedPerkIds = new Set();
+
+    // Primeiro preserva tudo que estiver travado com cadeado
+    if (prevSquad && prevSquad.length === 4) {
+        for (let s = 0; s < 4; s++) {
+            const lk = squadLocks[s];
+            const prevM = prevSquad[s];
+            if (!prevM) continue;
+            if (lk.char && prevM.character) usedCharIds.add(prevM.character.id);
+            if (uniqueAcrossSquad && prevM.perks) {
+                prevM.perks.forEach((p, pIdx) => {
+                    if (lk.perks[pIdx] && p) usedPerkIds.add(p.id);
+                });
+            }
+        }
+    }
+
     const squad = [];
 
     for (let slot = 0; slot < 4; slot++) {
-        let charPool = chars.filter(c => !usedCharIds.has(c.id));
-        if (!charPool.length) charPool = [...chars];
-        const character = pick(charPool);
-        if (chars.length >= 4) usedCharIds.add(character.id);
+        const lk = squadLocks[slot];
+        const prevM = (prevSquad && prevSquad[slot]) ? prevSquad[slot] : null;
+
+        let character;
+        if (lk.char && prevM && prevM.character) {
+            character = prevM.character;
+        } else {
+            let charPool = chars.filter(c => !usedCharIds.has(c.id));
+            if (!charPool.length) charPool = [...chars];
+            character = pick(charPool);
+            if (chars.length >= 4) usedCharIds.add(character.id);
+        }
+
+        const fixedPerks = [0, 1, 2, 3].map(pIdx =>
+            (lk.perks[pIdx] && prevM && prevM.perks && prevM.perks[pIdx]) ? prevM.perks[pIdx] : null
+        );
+        const rollCount = fixedPerks.filter(x => !x).length;
 
         let perkPool = uniqueAcrossSquad
             ? perks.filter(p => !usedPerkIds.has(p.id))
             : [...perks];
+        const keptIds = new Set(fixedPerks.filter(Boolean).map(p => p.id));
+        perkPool = perkPool.filter(p => !keptIds.has(p.id));
 
-        if (perkPool.length < 4) {
-            perkPool = [...perks];
+        if (perkPool.length < rollCount) {
+            perkPool = [...perks].filter(p => !keptIds.has(p.id));
         }
 
-        const pickedPerks = shuffle(perkPool).slice(0, 4);
+        const rolledSlice = shuffle(perkPool).slice(0, rollCount);
+        let rPtr = 0;
+        const pickedPerks = fixedPerks.map(fp => fp || rolledSlice[rPtr++]);
+
         if (uniqueAcrossSquad) {
-            pickedPerks.forEach(p => usedPerkIds.add(p.id));
+            pickedPerks.forEach(p => { if (p) usedPerkIds.add(p.id); });
         }
 
-        const item = rollSurvivorItemForSquad(character);
+        const item = (lk.item && prevM && prevM.item)
+            ? prevM.item
+            : rollSurvivorItemForSquad(character);
+
         squad.push({
             player: slot + 1,
             character,
@@ -2809,87 +2880,195 @@ function generateSquadOnce(chars, perks, uniqueAcrossSquad) {
     return squad;
 }
 
+function toggleSquadLock(playerIdx, kind, perkIdx = 0) {
+    if (!currentSquadResult.length || !currentSquadResult[playerIdx]) {
+        showToast(currentLang === 'pt' ? 'Sorteie o Squad antes de travar!' : 'Roll the Squad before locking!', 'error');
+        return;
+    }
+    if (kind === 'char') squadLocks[playerIdx].char = !squadLocks[playerIdx].char;
+    else if (kind === 'perk') squadLocks[playerIdx].perks[perkIdx] = !squadLocks[playerIdx].perks[perkIdx];
+    else if (kind === 'item') squadLocks[playerIdx].item = !squadLocks[playerIdx].item;
+    renderSquad(isSquadSpinning);
+}
+
 function renderSquad(spinning = false) {
     const wrap = $('squadContainer');
     if (!wrap) return;
 
-    if (!currentSquadResult.length) {
-        wrap.innerHTML = `<div class="bd-empty">${
-            currentLang === 'pt'
-                ? 'Clique em <b>SORTEAR SQUAD</b> para gerar os 4 Survivors.'
-                : 'Click <b>ROLL SQUAD</b> to generate all 4 Survivors.'
-        }</div>`;
-        return;
-    }
+    const defaultIcons = ['fa-shield-halved', 'fa-bolt', 'fa-heart-pulse', 'fa-eye'];
+    const hasResult = Array.isArray(currentSquadResult) && currentSquadResult.length === 4;
 
-    wrap.innerHTML = currentSquadResult.map(member => {
-        const charName = esc(nm(member.character));
-        const item = member.item || EMPTY_ITEM;
-        const hasItem = item.namePt !== 'Nenhum';
-        const itemName = esc(hasItem ? nm(item) : (currentLang === 'pt' ? 'Nenhum' : 'None'));
-        const addons = (item.addons || []).slice(0, 2);
-        const addonSub = addons.length
-            ? addons.map(a => esc(nm(a))).join(' · ')
-            : (currentLang === 'pt' ? 'Sem add-ons' : 'No add-ons');
+    const cells = [0, 1, 2, 3].map(sIdx => {
+        const member = hasResult ? currentSquadResult[sIdx] : null;
+        const lk = squadLocks[sIdx] || { char: false, perks: [false, false, false, false], item: false };
 
-        const perksHtml = member.perks.map(p => `
-            <div class="sq-perk" data-perk="${esc(p.id)}">
-                <div class="perk-diamond perk-diamond-sm ${spinning ? 'is-perk-spinning' : ''}">
-                    <div class="perk-diamond-inner">
-                        ${imgTag(entryImgs(p), 'w-full h-full object-contain', p.icon || 'fa-shield-halved', 'text-purple-200 text-lg')}
-                    </div>
-                </div>
-                <span class="sq-perk-name">${esc(nm(p))}</span>
-            </div>
-        `).join('');
+        const charName = member ? esc(nm(member.character)) : '--';
+        const charCands = member ? entryImgs(member.character) : [];
+        const charHtml = member
+            ? imgTag(charCands, 'w-full h-full object-cover', member.character.icon || 'fa-user', 'text-4xl text-dbd-cyan')
+            : '<i class="fa-solid fa-user-ninja text-4xl text-neutral-600"></i>';
 
-        const addonsHtml = [0, 1].map(idx => {
-            const a = addons[idx];
+        const perksHtml = [0, 1, 2, 3].map(pIdx => {
+            const p = member && member.perks ? member.perks[pIdx] : null;
+            const pLocked = !!lk.perks[pIdx];
+            const pName = p ? esc(nm(p)) : `Slot ${pIdx + 1}`;
+            const pCands = p ? entryImgs(p) : [];
+
             return `
-                <div class="sq-addon-box" title="${a ? esc(nm(a)) : 'Add-on ' + (idx + 1)}">
-                    ${a ? imgTag(entryImgs(a), 'w-full h-full object-contain', 'fa-puzzle-piece', 'text-xs text-neutral-400') : '<i class="fa-solid fa-puzzle-piece text-xs text-neutral-600"></i>'}
+                <div class="sq-perk-slot ${pLocked ? 'bd-slot-locked' : ''}" ${p ? `data-perk="${esc(p.id)}"` : ''}>
+                    <div class="perk-diamond ${p ? '' : 'is-empty'} ${spinning && !pLocked ? 'is-perk-spinning' : ''}">
+                        <div class="perk-diamond-inner">
+                            ${p
+                                ? imgTag(pCands, 'w-full h-full object-contain', p.icon || 'fa-shield-halved', 'text-purple-200 text-lg')
+                                : `<i class="fa-solid ${defaultIcons[pIdx]} text-lg text-purple-300"></i>`}
+                        </div>
+                    </div>
+                    <span class="sq-perk-label">${pName}</span>
+                    <button type="button" onclick="toggleSquadLock(${sIdx}, 'perk', ${pIdx})"
+                        class="bd-lock ${pLocked ? 'locked' : ''}"
+                        aria-pressed="${pLocked ? 'true' : 'false'}"
+                        title="${pLocked ? (currentLang === 'pt' ? 'Destravar' : 'Unlock') : (currentLang === 'pt' ? 'Travar' : 'Lock')}">
+                        <i class="fa-solid ${pLocked ? 'fa-lock' : 'fa-lock-open'}"></i>
+                    </button>
+                </div>`;
+        }).join('');
+
+        const item = member && member.item ? member.item : EMPTY_ITEM;
+        const hasItem = !!member && item.namePt !== 'Nenhum';
+        const itemName = member ? esc(hasItem ? nm(item) : (currentLang === 'pt' ? 'Nenhum' : 'None')) : (currentLang === 'pt' ? 'Nenhum' : 'None');
+        const addons = member && Array.isArray(item.addons) ? item.addons.slice(0, 2) : [];
+
+        const addonsHtml = [0, 1].map(aIdx => {
+            const a = addons[aIdx];
+            const aName = a ? esc(nm(a)) : `Add-on ${aIdx + 1}`;
+            return `
+                <div class="sq-addon-slot" title="${aName}">
+                    <div class="sq-addon-box ${spinning && !lk.item ? 'spinning-reel' : ''}">
+                        ${a
+                            ? imgTag(entryImgs(a), 'w-full h-full object-contain', 'fa-puzzle-piece', 'text-xs text-neutral-400')
+                            : '<i class="fa-solid fa-puzzle-piece text-xs text-neutral-500"></i>'}
+                    </div>
+                    <span class="sq-mini-name">${aName}</span>
                 </div>`;
         }).join('');
 
         return `
-        <div class="sq-cell">
-            <div class="sq-head">
-                <span class="sq-player-tag">${currentLang === 'pt' ? `Jogador ${member.player}` : `Player ${member.player}`}</span>
+        <article class="sq-panel">
+            <div class="sq-panel-head">
+                <span class="sq-char-sub">${currentLang === 'pt' ? `JOGADOR ${sIdx + 1}` : `PLAYER ${sIdx + 1}`}</span>
                 <span class="bd-badge surv">SURVIVOR</span>
             </div>
 
-            <div class="sq-body">
-                <div class="sq-char-box">
-                    <div class="char-card${ptbCls(member.character)} flex items-center justify-center text-dbd-cyan">
-                        ${imgTag(entryImgs(member.character), 'w-full h-full object-contain', member.character.icon || 'fa-user', 'text-2xl')}
+            <div class="sq-panel-body">
+                <div class="sq-char-col">
+                    <div class="sq-char-frame ${lk.char ? 'bd-char-locked' : ''} ${spinning && !lk.char ? 'spinning-reel' : ''}">
+                        ${charHtml}
+                    </div>
+                    <div>
+                        <div class="sq-char-title">${charName}</div>
+                        <div class="sq-char-sub">SURVIVOR</div>
+                        <button type="button" onclick="toggleSquadLock(${sIdx}, 'char')"
+                            class="bd-lock ${lk.char ? 'locked' : ''}"
+                            aria-pressed="${lk.char ? 'true' : 'false'}"
+                            title="${lk.char ? (currentLang === 'pt' ? 'Destravar' : 'Unlock') : (currentLang === 'pt' ? 'Travar' : 'Lock')}">
+                            <i class="fa-solid ${lk.char ? 'fa-lock' : 'fa-lock-open'}"></i>
+                        </button>
                     </div>
                 </div>
 
-                <div class="sq-right">
-                    <div class="sq-char-name">${charName}</div>
-
-                    <div class="sq-perks">
-                        ${perksHtml}
+                <div class="sq-main-col">
+                    <div class="sq-perks-zone">
+                        <div class="sq-perks-grid">
+                            ${perksHtml}
+                        </div>
                     </div>
 
-                    <div class="sq-gear">
-                        <div class="sq-gear-item">
-                            <div class="sq-gear-box">
-                                ${hasItem ? imgTag(entryImgs(item), 'w-full h-full object-contain', item.icon || 'fa-toolbox', 'text-sm text-dbd-cyan') : '<i class="fa-solid fa-toolbox text-sm text-neutral-600"></i>'}
+                    <div class="sq-gear-zone ${lk.item ? 'is-locked' : ''}">
+                        <div class="sq-item-group">
+                            <div class="sq-item-box ${spinning && !lk.item ? 'spinning-reel' : ''}">
+                                ${hasItem
+                                    ? imgTag(entryImgs(item), 'w-full h-full object-contain', item.icon || 'fa-toolbox', 'text-lg text-dbd-cyan')
+                                    : '<i class="fa-solid fa-toolbox text-lg text-neutral-500"></i>'}
                             </div>
-                            <div class="sq-gear-txt">
-                                <div class="sq-gear-title">${itemName}</div>
-                                <div class="sq-gear-sub">${addonSub}</div>
+                            <div>
+                                <div class="dbd-section-label">${currentLang === 'pt' ? 'ITEM / PODER' : 'ITEM / POWER'}</div>
+                                <div class="text-xs font-bold text-white mt-0.5">${itemName}</div>
+                                <button type="button" onclick="toggleSquadLock(${sIdx}, 'item')"
+                                    class="bd-lock ${lk.item ? 'locked' : ''}"
+                                    aria-pressed="${lk.item ? 'true' : 'false'}"
+                                    title="${lk.item ? (currentLang === 'pt' ? 'Destravar' : 'Unlock') : (currentLang === 'pt' ? 'Travar' : 'Lock')}">
+                                    <i class="fa-solid ${lk.item ? 'fa-lock' : 'fa-lock-open'}"></i>
+                                </button>
                             </div>
                         </div>
-                        <div class="sq-addons">
+
+                        <div class="sq-addons-group">
                             ${addonsHtml}
                         </div>
                     </div>
                 </div>
             </div>
-        </div>`;
+        </article>`;
+    });
+
+    wrap.innerHTML = cells.join('');
+}
+
+function addSquadToHistory(squad) {
+    if (!Array.isArray(squad) || squad.length !== 4) return;
+    squadHistory.unshift({
+        id: Date.now(),
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        date: new Date().toLocaleDateString(),
+        members: squad.map(m => ({
+            player: m.player,
+            character: m.character,
+            perks: m.perks,
+            item: m.item
+        }))
+    });
+    squadHistory = squadHistory.slice(0, HISTORY_MAX);
+    try { localStorage.setItem(SQUAD_HIST_KEY, JSON.stringify(squadHistory)); } catch (e) {}
+    renderSquadHistory();
+}
+
+function renderSquadHistory() {
+    const box = $('squadHistoryList');
+    if (!box) return;
+    const countEl = $('squadHistoryCount');
+    if (countEl) countEl.textContent = squadHistory.length;
+
+    if (!squadHistory.length) {
+        box.innerHTML = `<div class="bd-hint">${currentLang === 'pt' ? 'Nenhum sorteio de Squad ainda. Clique em SORTEAR SQUAD!' : 'No squad rolls yet. Click ROLL SQUAD!'}</div>`;
+        return;
+    }
+
+    box.innerHTML = squadHistory.map((h, i) => {
+        const namesSummary = (h.members || []).map(m => esc(nm(m.character))).join(' · ');
+        const allPerks = (h.members || []).flatMap(m => m.perks || []).slice(0, 8);
+        const perksHtml = allPerks.map(p => `
+            <div class="perk-diamond perk-diamond-xs" data-perk="${esc(p.id)}">
+                <div class="perk-diamond-inner">${imgTag(entryImgs(p), 'w-full h-full object-contain', p.icon || 'fa-shield-halved', 'text-purple-200 text-xs')}</div>
+            </div>`).join('');
+
+        return `
+        <button type="button" class="bd-hist" data-squad-hist="${i}" title="${currentLang === 'pt' ? 'Restaurar este Squad' : 'Restore this Squad'}">
+            <span class="bd-badge surv">SQUAD</span>
+            <div class="bd-hist-info">
+                <div class="bd-hist-name">${namesSummary}</div>
+                <div class="bd-hist-sub">${currentLang === 'pt' ? '4 Survivors' : '4 Survivors'}</div>
+            </div>
+            <div class="bd-hist-perks">${perksHtml}</div>
+            <span class="bd-hist-time">${esc(h.time || '')}</span>
+        </button>`;
     }).join('');
+}
+
+function clearSquadHistory() {
+    squadHistory = [];
+    try { localStorage.removeItem(SQUAD_HIST_KEY); } catch (e) {}
+    renderSquadHistory();
+    showToast(currentLang === 'pt' ? 'Histórico do Squad limpo!' : 'Squad history cleared!', 'info');
 }
 
 function spinSquadRoulette() {
@@ -2913,6 +3092,7 @@ function spinSquadRoulette() {
         return;
     }
 
+    const baseSnapshot = currentSquadResult.length === 4 ? currentSquadResult : null;
     isSquadSpinning = true;
     const btn = $('btnSpinSquad');
     if (btn) {
@@ -2920,27 +3100,28 @@ function spinSquadRoulette() {
         btn.classList.add('opacity-50', 'cursor-not-allowed');
     }
 
-    let steps = 12;
+    let steps = 14;
     let speed = 55;
 
     function tick() {
-        playBeepSound(340 + (12 - steps) * 20);
-        currentSquadResult = generateSquadOnce(chars, perks, uniqueAcrossSquad);
+        playSquadBeep(340 + (14 - steps) * 18);
+        currentSquadResult = generateSquadOnce(chars, perks, uniqueAcrossSquad, baseSnapshot);
         renderSquad(true);
 
         steps--;
         if (steps > 0) {
-            speed += 12;
+            speed += 11;
             setTimeout(tick, speed);
         } else {
-            currentSquadResult = generateSquadOnce(chars, perks, uniqueAcrossSquad);
+            currentSquadResult = generateSquadOnce(chars, perks, uniqueAcrossSquad, baseSnapshot);
             renderSquad(false);
             isSquadSpinning = false;
             if (btn) {
                 btn.disabled = false;
                 btn.classList.remove('opacity-50', 'cursor-not-allowed');
             }
-            playBeepSound(880);
+            addSquadToHistory(currentSquadResult);
+            playSquadBeep(880);
             showToast(currentLang === 'pt' ? 'Squad sorteado!' : 'Squad rolled!', 'success');
         }
     }
@@ -2948,28 +3129,23 @@ function spinSquadRoulette() {
     tick();
 }
 
-function saveCurrentSquad() {
-    if (!currentSquadResult.length) {
-        showToast(currentLang === 'pt' ? 'Sorteie o Squad primeiro!' : 'Roll the Squad first!', 'error');
-        return;
-    }
-    const stamp = Date.now();
-    const date = new Date().toLocaleDateString();
-    [...currentSquadResult].reverse().forEach((member, idx) => {
-        const playerNum = currentSquadResult.length - idx;
-        savedBuilds.unshift({
-            id: stamp + idx,
-            name: `Squad #${playerNum} · ${nm(member.character)}`,
-            role: 'survivor',
-            character: member.character,
-            perks: member.perks,
-            item: member.item || { ...EMPTY_ITEM },
-            date
+function initSquadMode() {
+    renderSquad(false);
+    renderSquadHistory();
+    const histBox = $('squadHistoryList');
+    if (histBox && !histBox.dataset.bound) {
+        histBox.dataset.bound = '1';
+        histBox.addEventListener('click', e => {
+            const btn = e.target.closest('[data-squad-hist]');
+            if (!btn) return;
+            const h = squadHistory[parseInt(btn.dataset.squadHist, 10)];
+            if (!h || !Array.isArray(h.members) || h.members.length !== 4) return;
+            resetSquadLocks();
+            currentSquadResult = h.members.map(m => ({ ...m }));
+            renderSquad(false);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-    });
-    persistSavedBuilds();
-    renderSavedBuilds();
-    showToast(currentLang === 'pt' ? 'Os 4 Survivors do Squad foram salvos!' : 'All 4 Squad Survivors saved!', 'success');
+    }
 }
 
 async function renderSquadCanvas(squad) {
