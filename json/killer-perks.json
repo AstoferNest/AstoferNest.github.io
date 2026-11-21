@@ -1990,6 +1990,57 @@
         "feitiço",
         "totem enfeitiçado"
       ]
-    }
+    },
+    {
+        "perk_name": "Motivo de Chacota",
+        "character": "Perk ensinável de O Terrifier",
+        "perk_name_en": "Laughingstock",
+        "descricao": "Sobreviventes dentro de 12m de um Gerador completado:\n- Ganham Exaustão.\n- Ganham Alheio.\n\nQuando eles saem deste raio, o efeito permanece por 3/4/5s.\n\nVocê vê a aura de Geradores completados.",
+        "descricao_en": "Survivors within 12 metres of a completed Generator suffer from:\n- Exhausted\n- and Oblivious\nStatus Effects\n\nThese effects linger for 3/4/5 seconds after leaving the range.\n\nYou also see auras of completed Generators.",
+        "classe_rpg": "Batedor",
+        "ptb": true,
+        "character_ptb": true,
+        "tags": [
+          "aura",
+          "gerador",
+          "exaustao",
+          "alheio",
+          "ptb"
+        ]
+      },
+      {
+        "perk_name": "Série de Assassinatos",
+        "character": "Perk ensinável de O Terrifier",
+        "perk_name_en": "Kill Spree",
+        "descricao": "Quando todos os Sobreviventes restantes possuírem 2 Estados de Gancho e todos os Geradores estiverem completados, você pode Matar Sobreviventes.\n\nEnquanto mata um Sobrevivente, as Alavancas de Portão de Saída são bloqueadas. Este efeito se encerra 6/8/10s após terminar de Matar um Sobrevivente.",
+        "descricao_en": "When all Survivors have reached the second Hook Stage and all Generators have been completed, you can kill Survivors.\n\nWhile killing a Survivor, Exit Gate Switches are blocked by The Entity and for 6/8/10 seconds after.",
+        "classe_rpg": "Assassino",
+        "ptb": true,
+        "character_ptb": true,
+        "tags": [
+          "gancho",
+          "gerador",
+          "portao",
+          "fim de jogo",
+          "ptb"
+        ]
+      },
+      {
+        "perk_name": "Gracinhas",
+        "character": "Perk ensinável de O Terrifier",
+        "perk_name_en": "Funny Business",
+        "descricao": "Sempre que você danifica um Gerador, você ganha 10% de Celeridade por 10s e um dos seguintes efeitos acontecem aleatoriamente:\n- Você mantém os 10% de Celeridade por mais 5s.\n- Você é atordoado por 2s.\n- O Gerador afetado é bloqueado por 30s.\n- Confete! Mas nada acontece.\n\nO mesmo efeito não pode acontecer duas vezes seguidas.\n\nTempo de Recarga: 60/50/40s.",
+        "descricao_en": "Damaging a Generator grants +10% Haste Status Effect for 10 seconds and triggers one random effect:\n- Retain the Haste effect for 5 seconds longer.\n- Get stunned for 2 seconds.\n- Block the Generator for 30 seconds.\n- The Generator spews out confetti! But nothing actually happens.\n\nThe same effect cannot happen twice in a row.\n\nThis perk then goes on a 60/50/40 seconds cool-down.",
+        "classe_rpg": "Controlador",
+        "ptb": true,
+        "character_ptb": true,
+        "tags": [
+          "gerador",
+          "regressao",
+          "celeridade",
+          "tempo de recarga",
+          "ptb"
+        ]
+      }   
   ]
 }
