@@ -3626,38 +3626,28 @@ function renderDailyTab() {
     listBox.className = 'dl-cards-row';
     const five = getTodayFiveChallenges(dateKey);
 
-    const roleIcon = (rel, fa, cls) =>
-        `<span class="inline-flex items-center justify-center">${imgTag(imgPaths(rel), 'w-[34px] h-[34px] object-contain', fa, cls)}</span>`;
+    const wmImg = rel => `<img src="${encodeURI(IMG_LOCAL + rel)}" alt="" aria-hidden="true" onerror="this.style.display='none'">`;
 
-    listBox.innerHTML = five.map((ch, idx) => {
+    listBox.innerHTML = five.map(ch => {
         const txt = currentLang === 'pt' ? ch.pt : ch.en;
         const cardSideCls = ch.side === 'survivor'
             ? 'is-surv'
             : (ch.side === 'killer' ? 'is-kill' : 'is-both');
 
-        const sideLabel = ch.side === 'survivor'
-            ? 'SURVIVOR'
-            : (ch.side === 'killer' ? 'KILLER' : (currentLang === 'pt' ? 'AMBOS' : 'BOTH'));
-
-        const iconsHtml = ch.side === 'survivor'
-            ? roleIcon('surv.png', 'fa-user', 'text-xl text-dbd-cyan')
-            : (ch.side === 'killer'
-                ? roleIcon('killer.png', 'fa-skull', 'text-xl text-dbd-red')
-                : roleIcon('surv.png', 'fa-user', 'text-xl text-dbd-cyan') + roleIcon('killer.png', 'fa-skull', 'text-xl text-dbd-red'));
+        const wmFile = ch.side === 'survivor'
+            ? 'surv.png'
+            : (ch.side === 'killer' ? 'killer.png' : 'both.png');
 
         return `
-        <div class="dl-rule-card ${cardSideCls}">
-            <div>
-                <div class="dbd-section-label">#${idx + 1} · ${esc(sideLabel)}</div>
-                <div class="dl-rule-title mt-1">${esc(txt.title)}</div>
+        <article class="dl-rule-card ${cardSideCls}">
+            <div class="dl-rule-wm">
+                ${wmImg(wmFile)}
             </div>
-
-            <div class="dl-rule-icons">
-                ${iconsHtml}
+            <div class="dl-rule-content">
+                <div class="dl-rule-title">${esc(txt.title)}</div>
+                <p class="dl-rule-desc">${esc(txt.desc)}</p>
             </div>
-
-            <p class="dl-rule-desc">${esc(txt.desc)}</p>
-        </div>`;
+        </article>`;
     }).join('');
 }
 
