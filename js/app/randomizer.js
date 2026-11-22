@@ -504,6 +504,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     applyPresetLikeRef();
     try {
         await loadData();
+        populateThumbSelectors();
         renderDailyTab();
         renderPool();
         populateBuilder();
@@ -559,10 +560,10 @@ function setLanguage(lang) {
     renderFeaturedDrafts();
     renderHistory();
     populateBuilder();
+    populateThumbSelectors();
     renderPerkGallery();
     renderDailyTab();
-    renderSquad();
-    renderSquad(isSquadSpinning); 
+    renderSquad(isSquadSpinning);
     renderSquadHistory();
     if (currentRollResult) renderResultDisplay(currentRollResult);
 }
@@ -725,6 +726,7 @@ function setRole(role) {
     }
 
     renderPool();
+    populateThumbSelectors();
 }
 
 function setViewMode(mode) {
@@ -4113,6 +4115,75 @@ function drawThumbTextLayer(g, W, H, showGuide = false) {
         g.strokeRect(px - w / 2, py - h / 2, w, h);
     }
     g.restore();
+}
+
+function getAllThumbCharacters() {
+    const survs = (initialData.survivors || []).map(c => ({ ...c, _roleLabel: 'SURV' }));
+    const kills = (initialData.killers || []).map(c => ({ ...c, _roleLabel: 'KILL' }));
+    const customChars = (customEntries || [])
+        .filter(e => e.category === 'character')
+        .map(c => ({ ...c, _roleLabel: (c.role === 'killer' ? 'KILL' : 'SURV') }));
+    return [...survs, ...kills, ...customChars];
+}
+
+function getAllThumbPerks() {
+    const survP = (initialData.survivorPerks || []).map(p => ({ ...p, _roleLabel: 'SURV' }));
+    const killP = (initialData.killerPerks || []).map(p => ({ ...p, _roleLabel: 'KILL' }));
+    const customP = (customEntries || [])
+        .filter(e => e.category === 'perk')
+        .map(p => ({ ...p, _roleLabel: (p.role === 'killer' ? 'KILL' : 'SURV') }));
+    return [...survP, ...killP, ...customP];
+}
+
+function populateThumbSelectors() {
+    const charSel = $('thPickChar');
+    if (!charSel) return;
+
+    const allChars = getAllThumbCharacters();
+    const allPerks = getAllThumbPerks();
+
+    const prevChar = charSel.value;
+    charSel.innerHTML =
+        `<option value="">${currentLang === 'pt' ? '— Escolher personagem —' : '— Choose character —'}</option>` +
+        allChars.map(c => `<option value="${esc(c.id)}">[${c._roleLabel}] ${esc(nm(c))}</option>`).join('');
+    if (prevChar) charSel.value = prevChar;
+
+    const perkOpts =
+        `<option value="">${currentLang === 'pt' ? '— Escolher perk —' : '— Choose perk —'}</option>` +
+        allPerks.map(p => `<option value="${esc(p.id)}">[${p._roleLabel}] ${esc(nm(p))}</option>`).join('');
+
+    [0, 1, 2, 3].forEach(i => {
+        const sel = $('thPickPerk' + i);
+        if (!sel) return;
+        const prev = sel.value;
+        sel.innerHTML = perkOpts;
+        if (prev) sel.value = prev;
+    });
+}
+
+function applyThumbPickedCharacter() {
+    const sel = $('thPickChar');
+    if (!sel || !sel.value) return;
+    const found = getAllThumbCharacters().find(c => c.id === sel.value);
+    if (!found) return;
+    thumbState.layers.char.src = getFirstAvailableSrc(entryImgs(found));
+    thumbState.layers.char.visible = true;
+    thumbState.layers.char.isCustom = false;
+    selectThumbLayer('char');
+    renderThumbCanvas();
+}
+
+function applyThumbPickedPerk(slotIdx) {
+    const sel = $('thPickPerk' + slotIdx);
+    if (!sel || !sel.value) return;
+    const found = getAllThumbPerks().find(p => p.id === sel.value);
+    if (!found) return;
+    const layerKey = 'perk' + slotIdx;
+    thumbState.layers[layerKey].src = getFirstAvailableSrc(entryImgs(found));
+    thumbState.layers[layerKey].visible = true;
+    thumbState.layers[layerKey].isCustom = false;
+    selectThumbLayer(layerKey);
+    renderThumbCanvas();
 }
 
 if (document.body) initTagDrawer();
