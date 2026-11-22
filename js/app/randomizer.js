@@ -3653,9 +3653,8 @@ function renderDailyTab() {
     }).join('');
 }
 
-
 /* ==========================================================================
-   THUMBMAKER (16:9 & 9:16 · ARRASTAR CAMADAS · IMAGENS PRÓPRIAS · PROJETO JSON)
+   THUMBMAKER LIVRE (16:9 & 9:16 · CAMADAS ILIMITADAS · PROJETO JSON)
    ========================================================================== */
 const THUMB_RATIOS = {
     '16:9': { w: 1280, h: 720, cls: 'is-16-9' },
@@ -3663,35 +3662,19 @@ const THUMB_RATIOS = {
 };
 
 let thumbRatio = '16:9';
-let selectedThumbLayer = 'char';
+let selectedThumbId = 'bg';
 let thumbDragging = null;
 const thumbImgCache = new Map();
 
-function createDefaultThumbState(ratio = '16:9') {
-    const isVert = ratio === '9:16';
-    const cx = isVert ? 540 : 640;
-    const cy = isVert ? 1050 : 410;
-    const pScale = isVert ? 0.92 : 1.0;
+function uidThumb(prefix = 'layer') {
+    return `${prefix}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`;
+}
 
+function createDefaultThumbState(ratio = '16:9') {
     return {
         ratio,
-        selected: 'char',
-        text: {
-            enabled: false,
-            content: '',
-            x: 0.5,
-            y: isVert ? 0.16 : 0.84,
-            size: isVert ? 74 : 64,
-            color: '#ffffff'
-        },
-        layers: {
-            bg: { visible: true, x: 0.5, y: 0.5, scale: 1.0, rot: 0, src: '', isCustom: false },
-            char: { visible: true, x: cx / (isVert ? 1080 : 1280), y: cy / (isVert ? 1920 : 720), scale: isVert ? 1.15 : 1.0, rot: 0, src: '', isCustom: false },
-            perk0: { visible: true, x: isVert ? 0.25 : 0.27, y: isVert ? 0.36 : 0.31, scale: pScale, rot: -12, src: '', isCustom: false },
-            perk1: { visible: true, x: isVert ? 0.75 : 0.73, y: isVert ? 0.31 : 0.28, scale: pScale, rot: 12, src: '', isCustom: false },
-            perk2: { visible: true, x: isVert ? 0.22 : 0.21, y: isVert ? 0.62 : 0.66, scale: pScale * 1.05, rot: -16, src: '', isCustom: false },
-            perk3: { visible: true, x: isVert ? 0.78 : 0.79, y: isVert ? 0.64 : 0.65, scale: pScale * 1.05, rot: 15, src: '', isCustom: false }
-        }
+        bg: { id: 'bg', type: 'bg', label: 'Fundo', visible: true, x: 0.5, y: 0.5, scale: 1.0, rot: 0, src: '' },
+        items: []
     };
 }
 
@@ -3716,6 +3699,11 @@ function getFirstAvailableSrc(cands) {
     return Array.isArray(cands) && cands.length ? cands[0] : '';
 }
 
+function getSelectedThumbLayer() {
+    if (selectedThumbId === 'bg') return thumbState.bg;
+    return thumbState.items.find(it => it.id === selectedThumbId) || null;
+}
+
 function applyPresetLikeRef() {
     const role = currentRole || 'survivor';
     const chars = (role === 'survivor' ? initialData.survivors : initialData.killers) || [];
@@ -3726,13 +3714,50 @@ function applyPresetLikeRef() {
         ? currentRollResult.perks
         : shuffle(perks).slice(0, 4);
 
+    const isVert = thumbRatio === '9:16';
     thumbState = createDefaultThumbState(thumbRatio);
-    thumbState.layers.bg.src = getFirstAvailableSrc(imgPaths('personagens/fundo_pdbd.png'));
-    if (ch) thumbState.layers.char.src = getFirstAvailableSrc(entryImgs(ch));
-    [0, 1, 2, 3].forEach(i => {
-        if (pkList[i]) thumbState.layers['perk' + i].src = getFirstAvailableSrc(entryImgs(pkList[i]));
+    thumbState.bg.src = getFirstAvailableSrc(imgPaths('personagens/fundo_pdbd.png'));
+
+    const pScale = isVert ? 0.92 : 1.0;
+    const perkCoords = [
+        { x: isVert ? 0.25 : 0.27, y: isVert ? 0.36 : 0.31, rot: -12, scale: pScale },
+        { x: isVert ? 0.75 : 0.73, y: isVert ? 0.31 : 0.28, rot: 12,  scale: pScale },
+        { x: isVert ? 0.22 : 0.21, y: isVert ? 0.62 : 0.66, rot: -16, scale: pScale * 1.05 },
+        { x: isVert ? 0.78 : 0.79, y: isVert ? 0.64 : 0.65, rot: 15,  scale: pScale * 1.05 }
+    ];
+
+    pkList.forEach((p, idx) => {
+        if (!p) return;
+        thumbState.items.push({
+            id: uidThumb('perk'),
+            type: 'perk',
+            label: nm(p),
+            visible: true,
+            x: perkCoords[idx].x,
+            y: perkCoords[idx].y,
+            scale: perkCoords[idx].scale,
+            rot: perkCoords[idx].rot,
+            src: getFirstAvailableSrc(entryImgs(p))
+        });
     });
 
+    if (ch) {
+        const chItem = {
+            id: uidThumb('char'),
+            type: 'char',
+            label: nm(ch),
+            visible: true,
+            x: 0.5,
+            y: isVert ? 0.55 : 0.57,
+            scale: isVert ? 1.15 : 1.0,
+            rot: 0,
+            src: getFirstAvailableSrc(entryImgs(ch))
+        };
+        thumbState.items.push(chItem);
+        selectedThumbId = chItem.id;
+    }
+
+    renderThumbLayerList();
     syncThumbControlsToSelected();
     renderThumbCanvas();
     showToast(currentLang === 'pt' ? 'Exemplo aplicado no Thumbmaker!' : 'Preset applied to Thumbmaker!', 'success');
@@ -3743,13 +3768,7 @@ function loadCurrentBuildIntoThumb() {
         showToast(currentLang === 'pt' ? 'Gire a roleta primeiro ou use Exemplo Estilo Card!' : 'Spin the roulette first!', 'error');
         return;
     }
-    thumbState.layers.char.src = getFirstAvailableSrc(entryImgs(currentRollResult.character));
-    (currentRollResult.perks || []).slice(0, 4).forEach((p, i) => {
-        thumbState.layers['perk' + i].src = getFirstAvailableSrc(entryImgs(p));
-    });
-    syncThumbControlsToSelected();
-    renderThumbCanvas();
-    showToast(currentLang === 'pt' ? 'Build carregada no Thumbmaker!' : 'Build loaded into Thumbmaker!', 'success');
+    applyPresetLikeRef();
 }
 
 function setThumbRatio(ratio) {
@@ -3761,10 +3780,7 @@ function setThumbRatio(ratio) {
     const canvas = $('thumbCanvas');
     const wrap = $('thStageWrap');
     const dims = $('thCanvasDims');
-    if (canvas) {
-        canvas.width = cfg.w;
-        canvas.height = cfg.h;
-    }
+    if (canvas) { canvas.width = cfg.w; canvas.height = cfg.h; }
     if (wrap) {
         wrap.classList.remove('is-16-9', 'is-9-16');
         wrap.classList.add(cfg.cls);
@@ -3777,44 +3793,205 @@ function setThumbRatio(ratio) {
     renderThumbCanvas();
 }
 
-function selectThumbLayer(key) {
-    if (!thumbState.layers[key]) return;
-    selectedThumbLayer = key;
-    document.querySelectorAll('#thLayerTabs [data-layer]').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.layer === key);
-    });
+function renderThumbLayerList() {
+    const box = $('thLayerTabs');
+    const countEl = $('thLayerCount');
+    if (!box) return;
+
+    const all = [thumbState.bg, ...thumbState.items];
+    if (countEl) countEl.textContent = all.length;
+
+    box.innerHTML = all.map(l => {
+        const icon = l.type === 'bg' ? 'fa-panorama'
+            : (l.type === 'char' ? 'fa-user'
+            : (l.type === 'perk' ? 'fa-gem'
+            : (l.type === 'text' ? 'fa-font' : 'fa-image')));
+        const activeCls = l.id === selectedThumbId ? 'active' : '';
+        const eyeCls = l.visible === false ? 'opacity-50' : '';
+        return `<button type="button" data-layer-id="${esc(l.id)}" onclick="selectThumbLayer('${esc(l.id)}')" class="bd-chip ${activeCls} ${eyeCls}">
+            <i class="fa-solid ${icon}"></i> ${esc(l.label || l.type)}
+        </button>`;
+    }).join('');
+}
+
+function selectThumbLayer(id) {
+    selectedThumbId = id;
+    renderThumbLayerList();
     syncThumbControlsToSelected();
-}
-
-function syncThumbControlsToSelected() {
-    const l = thumbState.layers[selectedThumbLayer];
-    if (!l) return;
-    const scalePct = Math.round((l.scale || 1) * 100);
-    const rotDeg = Math.round(l.rot || 0);
-    if ($('thScaleRange')) $('thScaleRange').value = scalePct;
-    if ($('thScaleVal')) $('thScaleVal').textContent = `${scalePct}%`;
-    if ($('thRotRange')) $('thRotRange').value = rotDeg;
-    if ($('thRotVal')) $('thRotVal').textContent = `${rotDeg}°`;
-    if ($('thLayerVisible')) $('thLayerVisible').checked = l.visible !== false;
-}
-
-function updateSelectedLayerProps() {
-    const l = thumbState.layers[selectedThumbLayer];
-    if (!l) return;
-    const pct = parseInt($('thScaleRange').value, 10) || 100;
-    const rot = parseInt($('thRotRange').value, 10) || 0;
-    l.scale = pct / 100;
-    l.rot = rot;
-    l.visible = $('thLayerVisible').checked;
-    if ($('thScaleVal')) $('thScaleVal').textContent = `${pct}%`;
-    if ($('thRotVal')) $('thRotVal').textContent = `${rot}°`;
     renderThumbCanvas();
 }
 
-function resetSelectedThumbLayer() {
-    const def = createDefaultThumbState(thumbRatio).layers[selectedThumbLayer];
-    const curSrc = thumbState.layers[selectedThumbLayer].src;
-    thumbState.layers[selectedThumbLayer] = { ...def, src: curSrc };
+function syncThumbControlsToSelected() {
+    const l = getSelectedThumbLayer();
+    const imgCtrl = $('thImageControls');
+    const txtCtrl = $('thTextControls');
+    const replaceBtn = $('thReplaceImgBtn');
+    const nameEl = $('thSelectedName');
+
+    if (!l) {
+        if (nameEl) nameEl.textContent = currentLang === 'pt' ? 'Nenhuma camada' : 'No layer';
+        return;
+    }
+
+    if (nameEl) nameEl.textContent = l.label || l.type;
+    if ($('thLayerVisible')) $('thLayerVisible').checked = l.visible !== false;
+
+    if (l.type === 'text') {
+        if (imgCtrl) imgCtrl.classList.add('hidden');
+        if (txtCtrl) txtCtrl.classList.remove('hidden');
+        if (replaceBtn) replaceBtn.classList.add('hidden');
+        if ($('thTextInput')) $('thTextInput').value = l.content || '';
+        if ($('thTextSize')) $('thTextSize').value = l.size || 64;
+        if ($('thTextSizeVal')) $('thTextSizeVal').textContent = `${l.size || 64}px`;
+        if ($('thTextColor')) $('thTextColor').value = l.color || '#ffffff';
+    } else {
+        if (imgCtrl) imgCtrl.classList.remove('hidden');
+        if (txtCtrl) txtCtrl.classList.add('hidden');
+        if (replaceBtn) replaceBtn.classList.remove('hidden');
+        const scalePct = Math.round((l.scale || 1) * 100);
+        const rotDeg = Math.round(l.rot || 0);
+        if ($('thScaleRange')) $('thScaleRange').value = scalePct;
+        if ($('thScaleVal')) $('thScaleVal').textContent = `${scalePct}%`;
+        if ($('thRotRange')) $('thRotRange').value = rotDeg;
+        if ($('thRotVal')) $('thRotVal').textContent = `${rotDeg}°`;
+    }
+}
+
+function updateSelectedLayerProps() {
+    const l = getSelectedThumbLayer();
+    if (!l) return;
+    l.visible = $('thLayerVisible') ? $('thLayerVisible').checked : true;
+
+    if (l.type === 'text') {
+        l.content = $('thTextInput') ? $('thTextInput').value : '';
+        l.label = l.content.trim().slice(0, 14) || 'Texto';
+        l.size = parseInt($('thTextSize').value, 10) || 64;
+        l.color = $('thTextColor').value || '#ffffff';
+        if ($('thTextSizeVal')) $('thTextSizeVal').textContent = `${l.size}px`;
+    } else {
+        const pct = parseInt($('thScaleRange').value, 10) || 100;
+        const rot = parseInt($('thRotRange').value, 10) || 0;
+        l.scale = pct / 100;
+        l.rot = rot;
+        if ($('thScaleVal')) $('thScaleVal').textContent = `${pct}%`;
+        if ($('thRotVal')) $('thRotVal').textContent = `${rot}°`;
+    }
+
+    renderThumbLayerList();
+    renderThumbCanvas();
+}
+
+function addThumbTextLayer() {
+    const newTxt = {
+        id: uidThumb('text'),
+        type: 'text',
+        label: 'Texto',
+        visible: true,
+        content: 'NOVO TEXTO',
+        x: 0.5,
+        y: 0.82,
+        size: thumbRatio === '9:16' ? 76 : 64,
+        color: '#ffffff'
+    };
+    thumbState.items.push(newTxt);
+    selectThumbLayer(newTxt.id);
+}
+
+function addThumbCustomImageLayer(e) {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+        const newImg = {
+            id: uidThumb('img'),
+            type: 'image',
+            label: file.name.slice(0, 14),
+            visible: true,
+            x: 0.5,
+            y: 0.5,
+            scale: 1.0,
+            rot: 0,
+            src: reader.result
+        };
+        thumbState.items.push(newImg);
+        selectThumbLayer(newImg.id);
+        showToast(currentLang === 'pt' ? 'Imagem adicionada!' : 'Image added!', 'success');
+    };
+    reader.readAsDataURL(file);
+    e.target.value = '';
+}
+
+function addThumbPickedCharacter() {
+    const sel = $('thPickChar');
+    if (!sel || !sel.value) return;
+    const found = getAllThumbCharacters().find(c => c.id === sel.value);
+    if (!found) return;
+    const offset = (thumbState.items.filter(i => i.type === 'char').length % 4) * 0.08;
+    const newChar = {
+        id: uidThumb('char'),
+        type: 'char',
+        label: nm(found),
+        visible: true,
+        x: Math.min(0.85, 0.35 + offset),
+        y: 0.55,
+        scale: 1.0,
+        rot: 0,
+        src: getFirstAvailableSrc(entryImgs(found))
+    };
+    thumbState.items.push(newChar);
+    selectThumbLayer(newChar.id);
+}
+
+function addThumbPickedPerk() {
+    const sel = $('thPickPerk0');
+    if (!sel || !sel.value) return;
+    const found = getAllThumbPerks().find(p => p.id === sel.value);
+    if (!found) return;
+    const offset = (thumbState.items.filter(i => i.type === 'perk').length % 5) * 0.07;
+    const newPerk = {
+        id: uidThumb('perk'),
+        type: 'perk',
+        label: nm(found),
+        visible: true,
+        x: Math.min(0.85, 0.25 + offset),
+        y: 0.40,
+        scale: 1.0,
+        rot: 0,
+        src: getFirstAvailableSrc(entryImgs(found))
+    };
+    thumbState.items.push(newPerk);
+    selectThumbLayer(newPerk.id);
+}
+
+function moveThumbLayerOrder(dir) {
+    if (selectedThumbId === 'bg') return;
+    const idx = thumbState.items.findIndex(i => i.id === selectedThumbId);
+    if (idx < 0) return;
+    const targetIdx = idx + dir;
+    if (targetIdx < 0 || targetIdx >= thumbState.items.length) return;
+    const [item] = thumbState.items.splice(idx, 1);
+    thumbState.items.splice(targetIdx, 0, item);
+    renderThumbLayerList();
+    renderThumbCanvas();
+}
+
+function removeSelectedThumbLayer() {
+    if (selectedThumbId === 'bg') {
+        thumbState.bg.src = '';
+        renderThumbCanvas();
+        return;
+    }
+    thumbState.items = thumbState.items.filter(i => i.id !== selectedThumbId);
+    selectedThumbId = thumbState.items.length ? thumbState.items[thumbState.items.length - 1].id : 'bg';
+    renderThumbLayerList();
+    syncThumbControlsToSelected();
+    renderThumbCanvas();
+}
+
+function clearAllThumbLayers() {
+    thumbState.items = [];
+    selectedThumbId = 'bg';
+    renderThumbLayerList();
     syncThumbControlsToSelected();
     renderThumbCanvas();
 }
@@ -3824,28 +4001,20 @@ function handleThumbCustomImage(e) {
     if (!file) return;
     const reader = new FileReader();
     reader.onload = () => {
-        const l = thumbState.layers[selectedThumbLayer];
-        if (!l) return;
+        const l = getSelectedThumbLayer();
+        if (!l || l.type === 'text') return;
         l.src = reader.result;
         l.visible = true;
-        l.isCustom = true;
         thumbImgCache.delete(reader.result);
         renderThumbCanvas();
-        showToast(currentLang === 'pt' ? 'Imagem enviada para o canvas!' : 'Image added to canvas!', 'success');
+        showToast(currentLang === 'pt' ? 'Imagem atualizada!' : 'Image updated!', 'success');
     };
     reader.readAsDataURL(file);
     e.target.value = '';
 }
 
 function saveThumbProjectFile() {
-    const payload = {
-        version: 1,
-        savedAt: new Date().toISOString(),
-        ratio: thumbRatio,
-        selected: selectedThumbLayer,
-        text: thumbState.text,
-        layers: thumbState.layers
-    };
+    const payload = { version: 2, savedAt: new Date().toISOString(), ratio: thumbRatio, state: thumbState };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -3855,7 +4024,7 @@ function saveThumbProjectFile() {
     a.click();
     a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
-    showToast(currentLang === 'pt' ? 'Projeto salvo no seu computador (.json)!' : 'Project saved locally (.json)!', 'success');
+    showToast(currentLang === 'pt' ? 'Projeto salvo (.json)!' : 'Project saved (.json)!', 'success');
 }
 
 function openThumbProjectFile(e) {
@@ -3865,20 +4034,16 @@ function openThumbProjectFile(e) {
     reader.onload = () => {
         try {
             const parsed = JSON.parse(reader.result);
-            if (!parsed || !parsed.layers) throw new Error('Arquivo inválido');
-            thumbState = {
-                ratio: parsed.ratio === '9:16' ? '9:16' : '16:9',
-                selected: parsed.layers[parsed.selected] ? parsed.selected : 'char',
-                text: { ...createDefaultThumbState(parsed.ratio || '16:9').text, ...(parsed.text || {}) },
-                layers: { ...createDefaultThumbState(parsed.ratio || '16:9').layers, ...parsed.layers }
-            };
-            setThumbRatio(thumbState.ratio);
-            selectThumbLayer(thumbState.selected);
-            syncThumbTextControls();
+            if (!parsed || !parsed.state || !Array.isArray(parsed.state.items)) throw new Error('inválido');
+            thumbState = parsed.state;
+            setThumbRatio(parsed.ratio === '9:16' ? '9:16' : '16:9');
+            selectedThumbId = thumbState.items.length ? thumbState.items[0].id : 'bg';
+            renderThumbLayerList();
+            syncThumbControlsToSelected();
             renderThumbCanvas();
-            showToast(currentLang === 'pt' ? 'Projeto carregado para edição!' : 'Project loaded for editing!', 'success');
+            showToast(currentLang === 'pt' ? 'Projeto carregado!' : 'Project loaded!', 'success');
         } catch (err) {
-            showToast(currentLang === 'pt' ? 'Não foi possível abrir o arquivo de projeto.' : 'Could not open project file.', 'error');
+            showToast(currentLang === 'pt' ? 'Arquivo de projeto inválido.' : 'Invalid project file.', 'error');
         }
     };
     reader.readAsText(file);
@@ -3891,15 +4056,9 @@ async function renderThumbCanvas() {
     const g = canvas.getContext('2d');
     const W = canvas.width, H = canvas.height;
 
-    const [bgImg, frameImg, charImg, p0, p1, p2, p3] = await Promise.all([
-        loadThumbImageElement(thumbState.layers.bg.src),
-        loadThumbImageElement(getFirstAvailableSrc(imgPaths('perk_purple.png'))),
-        loadThumbImageElement(thumbState.layers.char.src),
-        loadThumbImageElement(thumbState.layers.perk0.src),
-        loadThumbImageElement(thumbState.layers.perk1.src),
-        loadThumbImageElement(thumbState.layers.perk2.src),
-        loadThumbImageElement(thumbState.layers.perk3.src)
-    ]);
+    const frameImg = await loadThumbImageElement(getFirstAvailableSrc(imgPaths('perk_purple.png')));
+    const bgImg = await loadThumbImageElement(thumbState.bg.src);
+    const itemImgs = await Promise.all(thumbState.items.map(it => it.type === 'text' ? Promise.resolve(null) : loadThumbImageElement(it.src)));
 
     g.clearRect(0, 0, W, H);
     const bgGrad = g.createRadialGradient(W * 0.5, H * 0.4, 40, W * 0.5, H * 0.5, Math.max(W, H) * 0.75);
@@ -3910,7 +4069,7 @@ async function renderThumbCanvas() {
     g.fillRect(0, 0, W, H);
 
     // Fundo
-    const bgL = thumbState.layers.bg;
+    const bgL = thumbState.bg;
     if (bgL.visible && bgImg) {
         g.save();
         g.translate(bgL.x * W, bgL.y * H);
@@ -3921,60 +4080,87 @@ async function renderThumbCanvas() {
         g.restore();
     }
 
-    // 4 Perks em losango
-    const perkImgs = [p0, p1, p2, p3];
     const basePerkSize = Math.min(W, H) * 0.24;
-    [0, 1, 2, 3].forEach(idx => {
-        const l = thumbState.layers['perk' + idx];
-        if (!l || l.visible === false) return;
-        const size = basePerkSize * (l.scale || 1);
-        g.save();
-        g.translate(l.x * W, l.y * H);
-        g.rotate(((l.rot || 0) * Math.PI) / 180);
-        g.shadowColor = 'rgba(0, 0, 0, 0.75)';
-        g.shadowBlur = 24;
-        if (frameImg) {
-            g.drawImage(frameImg, -size / 2, -size / 2, size, size);
-        }
-        if (perkImgs[idx]) {
-            const inner = size * 0.90;
-            drawContain(g, perkImgs[idx], -inner / 2, -inner / 2, inner, inner);
-        }
-        if (selectedThumbLayer === 'perk' + idx) {
-            g.strokeStyle = '#00e5ff';
-            g.lineWidth = 3;
-            g.strokeRect(-size / 2, -size / 2, size, size);
-        }
-        g.restore();
-    });
 
-    // Personagem
-    const chL = thumbState.layers.char;
-    if (chL && chL.visible !== false && charImg) {
-        const boxH = H * 0.72 * (chL.scale || 1);
-        const aspect = charImg.width && charImg.height ? (charImg.width / charImg.height) : 0.72;
+    thumbState.items.forEach((l, idx) => {
+        if (l.visible === false) return;
+        const im = itemImgs[idx];
+        const px = l.x * W, py = l.y * H;
+
+        if (l.type === 'text') {
+            if (!l.content || !l.content.trim()) return;
+            const fontSize = l.size || 64;
+            g.save();
+            g.font = `800 ${fontSize}px "Barlow Condensed", "Plus Jakarta Sans", sans-serif`;
+            g.textAlign = 'center';
+            g.textBaseline = 'middle';
+            const textStr = l.content.trim().toUpperCase();
+            g.lineWidth = Math.max(5, Math.round(fontSize * 0.12));
+            g.strokeStyle = 'rgba(0, 0, 0, 0.92)';
+            g.shadowColor = 'rgba(0, 0, 0, 0.85)';
+            g.shadowBlur = 18;
+            g.strokeText(textStr, px, py);
+            g.shadowBlur = 0;
+            g.fillStyle = l.color || '#ffffff';
+            g.fillText(textStr, px, py);
+
+            if (selectedThumbId === l.id) {
+                const w = g.measureText(textStr).width + 24;
+                const h = fontSize + 14;
+                g.strokeStyle = '#00e5ff';
+                g.lineWidth = 2;
+                g.strokeRect(px - w / 2, py - h / 2, w, h);
+            }
+            g.restore();
+            return;
+        }
+
+        if (l.type === 'perk') {
+            const size = basePerkSize * (l.scale || 1);
+            g.save();
+            g.translate(px, py);
+            g.rotate(((l.rot || 0) * Math.PI) / 180);
+            g.shadowColor = 'rgba(0, 0, 0, 0.75)';
+            g.shadowBlur = 24;
+            if (frameImg) g.drawImage(frameImg, -size / 2, -size / 2, size, size);
+            if (im) {
+                const inner = size * 0.90;
+                drawContain(g, im, -inner / 2, -inner / 2, inner, inner);
+            }
+            if (selectedThumbId === l.id) {
+                g.strokeStyle = '#00e5ff';
+                g.lineWidth = 3;
+                g.strokeRect(-size / 2, -size / 2, size, size);
+            }
+            g.restore();
+            return;
+        }
+
+        // char ou image própria
+        if (!im) return;
+        const boxH = H * (l.type === 'char' ? 0.72 : 0.45) * (l.scale || 1);
+        const aspect = im.width && im.height ? (im.width / im.height) : 0.75;
         const boxW = boxH * aspect;
         g.save();
-        g.translate(chL.x * W, chL.y * H);
-        g.rotate(((chL.rot || 0) * Math.PI) / 180);
+        g.translate(px, py);
+        g.rotate(((l.rot || 0) * Math.PI) / 180);
         g.shadowColor = 'rgba(0, 0, 0, 0.85)';
         g.shadowBlur = 28;
-        drawContain(g, charImg, -boxW / 2, -boxH / 2, boxW, boxH);
-        if (selectedThumbLayer === 'char') {
+        drawContain(g, im, -boxW / 2, -boxH / 2, boxW, boxH);
+        if (selectedThumbId === l.id) {
             g.strokeStyle = '#d4a34a';
             g.lineWidth = 3;
             g.strokeRect(-boxW / 2, -boxH / 2, boxW, boxH);
         }
         g.restore();
-    }
-    drawThumbTextLayer(g, W, H, !!selectedThumbLayer);
+    });
 }
 
 function exportThumbPng() {
     const canvas = $('thumbCanvas');
     if (!canvas) return;
-    const prevSelected = selectedThumbLayer;
-    selectedThumbLayer = '';
+    const prevSelected = selectedThumbId;
+    selectedThumbId = '';
     renderThumbCanvas().then(() => {
         const url = canvas.toDataURL('image/png');
         const a = document.createElement('a');
@@ -3983,7 +4169,7 @@ function exportThumbPng() {
         document.body.appendChild(a);
         a.click();
         a.remove();
-        selectedThumbLayer = prevSelected;
+        selectedThumbId = prevSelected;
         renderThumbCanvas();
         showToast(currentLang === 'pt' ? 'Thumbnail PNG baixada!' : 'PNG thumbnail downloaded!', 'success');
     });
@@ -3997,124 +4183,60 @@ function initThumbmakerEvents() {
     const toNorm = e => {
         const rect = canvas.getBoundingClientRect();
         return {
-            nx: Math.max(0.05, Math.min(0.95, (e.clientX - rect.left) / rect.width)),
-            ny: Math.max(0.05, Math.min(0.95, (e.clientY - rect.top) / rect.height))
+            nx: Math.max(0.03, Math.min(0.97, (e.clientX - rect.left) / rect.width)),
+            ny: Math.max(0.03, Math.min(0.97, (e.clientY - rect.top) / rect.height))
         };
     };
 
     canvas.addEventListener('pointerdown', e => {
         const pt = toNorm(e);
-        const tx = thumbState.text;
-
-        if (tx && tx.enabled && tx.content && tx.content.trim()) {
-            const ctx2d = canvas.getContext('2d');
-            ctx2d.save();
-            ctx2d.font = `800 ${tx.size || 64}px "Barlow Condensed", "Plus Jakarta Sans", sans-serif`;
-            const tw = ctx2d.measureText(tx.content.trim().toUpperCase()).width;
-            const th = (tx.size || 64) * 1.1;
-            ctx2d.restore();
-
-            const dx = Math.abs(pt.nx - tx.x) * canvas.width;
-            const dy = Math.abs(pt.ny - tx.y) * canvas.height;
-            if (dx <= Math.max(40, tw * 0.55) && dy <= Math.max(28, th * 0.65)) {
-                thumbDragging = {
-                    layerKey: 'text',
-                    offsetX: tx.x - pt.nx,
-                    offsetY: tx.y - pt.ny
-                };
-                canvas.setPointerCapture(e.pointerId);
-                renderThumbCanvas();
-                return;
+        // Seleciona a camada mais próxima do clique (de cima para baixo)
+        let hit = null;
+        for (let i = thumbState.items.length - 1; i >= 0; i--) {
+            const it = thumbState.items[i];
+            if (it.visible === false) continue;
+            const dx = Math.abs(pt.nx - it.x);
+            const dy = Math.abs(pt.ny - it.y);
+            if (dx <= 0.16 && dy <= 0.16) {
+                hit = it;
+                break;
             }
         }
-
-        const l = thumbState.layers[selectedThumbLayer];
-        if (!l) return;
+        if (hit) {
+            selectedThumbId = hit.id;
+            renderThumbLayerList();
+            syncThumbControlsToSelected();
+        }
+        const target = getSelectedThumbLayer();
+        if (!target) return;
         thumbDragging = {
-            layerKey: selectedThumbLayer,
-            offsetX: l.x - pt.nx,
-            offsetY: l.y - pt.ny
+            id: target.id,
+            offsetX: target.x - pt.nx,
+            offsetY: target.y - pt.ny
         };
         canvas.setPointerCapture(e.pointerId);
+        renderThumbCanvas();
     });
 
     canvas.addEventListener('pointermove', e => {
         if (!thumbDragging) return;
         const pt = toNorm(e);
-        const target = thumbDragging.layerKey === 'text'
-            ? thumbState.text
-            : thumbState.layers[thumbDragging.layerKey];
+        const target = thumbDragging.id === 'bg'
+            ? thumbState.bg
+            : thumbState.items.find(i => i.id === thumbDragging.id);
         if (!target) return;
-        target.x = Math.max(0.05, Math.min(0.95, pt.nx + thumbDragging.offsetX));
-        target.y = Math.max(0.05, Math.min(0.95, pt.ny + thumbDragging.offsetY));
+        target.x = Math.max(0.03, Math.min(0.97, pt.nx + thumbDragging.offsetX));
+        target.y = Math.max(0.03, Math.min(0.97, pt.ny + thumbDragging.offsetY));
         renderThumbCanvas();
     });
 
     canvas.addEventListener('pointerup', () => {
         thumbDragging = null;
-        renderThumbCanvas();
     });
 }
 
 function syncThumbTextControls() {
-    const tx = thumbState.text || { enabled: false, content: '', size: 64, color: '#ffffff' };
-    if ($('thTextEnabled')) $('thTextEnabled').checked = !!tx.enabled;
-    if ($('thTextInput')) $('thTextInput').value = tx.content || '';
-    if ($('thTextSize')) $('thTextSize').value = tx.size || 64;
-    if ($('thTextSizeVal')) $('thTextSizeVal').textContent = `${tx.size || 64}px`;
-    if ($('thTextColor')) $('thTextColor').value = tx.color || '#ffffff';
-}
-
-function updateThumbTextProps() {
-    if (!thumbState.text) {
-        thumbState.text = createDefaultThumbState(thumbRatio).text;
-    }
-    const content = $('thTextInput') ? $('thTextInput').value : '';
-    const size = $('thTextSize') ? (parseInt($('thTextSize').value, 10) || 64) : 64;
-    const color = $('thTextColor') ? $('thTextColor').value : '#ffffff';
-    const checked = $('thTextEnabled') ? $('thTextEnabled').checked : true;
-
-    thumbState.text.content = content;
-    thumbState.text.size = size;
-    thumbState.text.color = color;
-    thumbState.text.enabled = checked && content.trim().length > 0;
-
-    if ($('thTextSizeVal')) $('thTextSizeVal').textContent = `${size}px`;
-    renderThumbCanvas();
-}
-
-function drawThumbTextLayer(g, W, H, showGuide = false) {
-    const tx = thumbState.text;
-    if (!tx || !tx.enabled || !tx.content || !tx.content.trim()) return;
-
-    const px = tx.x * W;
-    const py = tx.y * H;
-    const fontSize = tx.size || 64;
-
-    g.save();
-    g.font = `800 ${fontSize}px "Barlow Condensed", "Plus Jakarta Sans", sans-serif`;
-    g.textAlign = 'center';
-    g.textBaseline = 'middle';
-
-    const textStr = tx.content.trim().toUpperCase();
-    g.lineWidth = Math.max(5, Math.round(fontSize * 0.12));
-    g.strokeStyle = 'rgba(0, 0, 0, 0.92)';
-    g.shadowColor = 'rgba(0, 0, 0, 0.85)';
-    g.shadowBlur = 18;
-    g.strokeText(textStr, px, py);
-
-    g.shadowBlur = 0;
-    g.fillStyle = tx.color || '#ffffff';
-    g.fillText(textStr, px, py);
-
-    if (showGuide && thumbDragging && thumbDragging.layerKey === 'text') {
-        const w = g.measureText(textStr).width + 24;
-        const h = fontSize + 14;
-        g.strokeStyle = '#00e5ff';
-        g.lineWidth = 2;
-        g.strokeRect(px - w / 2, py - h / 2, w, h);
-    }
-    g.restore();
+    syncThumbControlsToSelected();
 }
 
 function getAllThumbCharacters() {
@@ -4137,7 +4259,8 @@ function getAllThumbPerks() {
 
 function populateThumbSelectors() {
     const charSel = $('thPickChar');
-    if (!charSel) return;
+    const perkSel = $('thPickPerk0');
+    if (!charSel || !perkSel) return;
 
     const allChars = getAllThumbCharacters();
     const allPerks = getAllThumbPerks();
@@ -4148,42 +4271,11 @@ function populateThumbSelectors() {
         allChars.map(c => `<option value="${esc(c.id)}">[${c._roleLabel}] ${esc(nm(c))}</option>`).join('');
     if (prevChar) charSel.value = prevChar;
 
-    const perkOpts =
+    const prevPerk = perkSel.value;
+    perkSel.innerHTML =
         `<option value="">${currentLang === 'pt' ? '— Escolher perk —' : '— Choose perk —'}</option>` +
         allPerks.map(p => `<option value="${esc(p.id)}">[${p._roleLabel}] ${esc(nm(p))}</option>`).join('');
-
-    [0, 1, 2, 3].forEach(i => {
-        const sel = $('thPickPerk' + i);
-        if (!sel) return;
-        const prev = sel.value;
-        sel.innerHTML = perkOpts;
-        if (prev) sel.value = prev;
-    });
-}
-
-function applyThumbPickedCharacter() {
-    const sel = $('thPickChar');
-    if (!sel || !sel.value) return;
-    const found = getAllThumbCharacters().find(c => c.id === sel.value);
-    if (!found) return;
-    thumbState.layers.char.src = getFirstAvailableSrc(entryImgs(found));
-    thumbState.layers.char.visible = true;
-    thumbState.layers.char.isCustom = false;
-    selectThumbLayer('char');
-    renderThumbCanvas();
-}
-
-function applyThumbPickedPerk(slotIdx) {
-    const sel = $('thPickPerk' + slotIdx);
-    if (!sel || !sel.value) return;
-    const found = getAllThumbPerks().find(p => p.id === sel.value);
-    if (!found) return;
-    const layerKey = 'perk' + slotIdx;
-    thumbState.layers[layerKey].src = getFirstAvailableSrc(entryImgs(found));
-    thumbState.layers[layerKey].visible = true;
-    thumbState.layers[layerKey].isCustom = false;
-    selectThumbLayer(layerKey);
-    renderThumbCanvas();
+    if (prevPerk) perkSel.value = prevPerk;
 }
 
 if (document.body) initTagDrawer();
