@@ -501,6 +501,14 @@
                   <button type="button" onclick="addThumbTextLayer()" class="bd-btn bd-btn-sm">
                     <i class="fa-solid fa-font text-dbd-cyan"></i> + Texto
                   </button>
+                  <div id="thDropZone"
+                       onclick="document.getElementById('thDropFileInput').click()"
+                       class="border-2 border-dashed border-neutral-700 hover:border-dbd-cyan bg-neutral-950/70 rounded-lg p-3 text-center cursor-pointer transition select-none">
+                    <input type="file" id="thDropFileInput" accept="image/*" multiple class="hidden" onchange="handleThumbDroppedFiles(event.target.files)">
+                    <i class="fa-solid fa-cloud-arrow-up text-lg text-dbd-cyan mb-1"></i>
+                    <p class="text-[11px] font-bold text-neutral-200">Arraste imagens aqui ou clique</p>
+                    <p class="text-[10px] text-neutral-500">PNG, JPG, WEBP · adiciona direto no canvas</p>
+                  </div>                   
                   <label class="bd-btn bd-btn-sm cursor-pointer">
                     <i class="fa-solid fa-image text-emerald-400"></i> + Imagem Própria
                     <input type="file" accept="image/*" class="hidden" onchange="addThumbCustomImageLayer(event)">
