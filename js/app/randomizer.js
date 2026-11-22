@@ -3841,29 +3841,36 @@ function syncThumbControlsToSelected() {
         if (txtCtrl) txtCtrl.classList.remove('hidden');
         if (replaceBtn) replaceBtn.classList.add('hidden');
         if ($('thTextInput')) $('thTextInput').value = l.content || '';
+        if ($('thTextFont')) $('thTextFont').value = l.font || 'Barlow Condensed';
         if ($('thTextSize')) $('thTextSize').value = l.size || 64;
         if ($('thTextSizeVal')) $('thTextSizeVal').textContent = `${l.size || 64}px`;
         if ($('thTextColor')) $('thTextColor').value = l.color || '#ffffff';
-        if ($('thTextFont')) $('thTextFont').value = l.font || 'Barlow Condensed';
+
         const stEnabled = l.strokeEnabled !== false;
         const stWidth = l.strokeWidth != null ? l.strokeWidth : Math.max(5, Math.round((l.size || 64) * 0.12));
         if ($('thTextStrokeEnabled')) $('thTextStrokeEnabled').checked = stEnabled;
         if ($('thTextStrokeWidth')) $('thTextStrokeWidth').value = stWidth;
         if ($('thTextStrokeVal')) $('thTextStrokeVal').textContent = `${stWidth}px`;
-        if ($('thTextStrokeColor')) $('thTextStrokeColor').value = l.strokeColor || '#000000';        
+        if ($('thTextStrokeColor')) $('thTextStrokeColor').value = l.strokeColor || '#000000';
     } else {
         if (imgCtrl) imgCtrl.classList.remove('hidden');
         if (txtCtrl) txtCtrl.classList.add('hidden');
         if (replaceBtn) replaceBtn.classList.remove('hidden');
-        const flipBtn = $('thFlipBtn');
-            if (flipBtn) flipBtn.classList.toggle('bd-btn-primary', !!l.flipX);        
-        }        
+
         const scalePct = Math.round((l.scale || 1) * 100);
-        const rotDeg = Math.round(l.rot || 0);
-        if ($('thScaleRange')) $('thScaleRange').value = scalePct;
+        if ($('thScaleRange')) {
+            if (scalePct > 1000) $('thScaleRange').max = String(scalePct);
+            $('thScaleRange').value = scalePct;
+        }
         if ($('thScaleVal')) $('thScaleVal').textContent = `${scalePct}%`;
+
+        const rotDeg = Math.round(l.rot || 0);
         if ($('thRotRange')) $('thRotRange').value = rotDeg;
         if ($('thRotVal')) $('thRotVal').textContent = `${rotDeg}°`;
+
+        const flipBtn = $('thFlipBtn');
+        if (flipBtn) flipBtn.classList.toggle('bd-btn-primary', !!l.flipX);
+    }
 }
 
 function updateSelectedLayerProps() {
