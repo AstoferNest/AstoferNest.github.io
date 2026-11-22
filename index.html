@@ -457,7 +457,7 @@
               </button>
             </div>
         
-            <div class="flex flex-wrap items-center gap-2">
+            <div class="flex flex-wrap items-center gap-2 ml-auto">
               <button type="button" onclick="applyPresetLikeRef()" class="dbd-action-btn">
                 <i class="fa-solid fa-layer-group"></i> <span id="thBtnPreset">Exemplo Estilo Card</span>
               </button>
@@ -480,103 +480,106 @@
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
             <!-- Palco do Canvas Interativo -->
             <div class="lg:col-span-8 bg-dbd-card border border-neutral-800 rounded-xl p-4 flex flex-col items-center justify-center shadow-xl">
-              <div class="w-full flex items-center justify-between mb-3">
-                <span class="dbd-section-label" id="thHintDrag">Arraste o personagem ou os perks direto no canvas</span>
-                <span class="text-[11px] font-mono text-dbd-cyan" id="thCanvasDims">1280 × 720</span>
+              <div class="w-full flex items-center justify-between border-b border-neutral-800 pb-2.5 mb-3">
+                <span class="text-xs font-semibold text-neutral-400 flex items-center gap-2" id="thHintDrag">
+                  <i class="fa-solid fa-hand-pointer text-dbd-cyan"></i> Clique e arraste qualquer elemento no canvas
+                </span>
+                <span class="text-xs font-mono font-bold text-dbd-cyan bg-neutral-900 px-2 py-0.5 rounded border border-neutral-800" id="thCanvasDims">1280 × 720</span>
               </div>
               <div id="thStageWrap" class="th-stage-wrap is-16-9">
                 <canvas id="thumbCanvas" width="1280" height="720"></canvas>
               </div>
             </div>
         
-            <!-- Controles da Camada Selecionada & Uploads Próprios -->
+            <!-- Painel Lateral Dinâmico -->
             <div class="lg:col-span-4 bg-dbd-card border border-neutral-800 rounded-xl p-4 space-y-4 shadow-xl">
-              <div>
-                <span class="bd-label" id="thLblLayer">Camada selecionada</span>
-                <div class="flex flex-wrap gap-1.5" id="thLayerTabs">
-                  <button type="button" data-layer="char" onclick="selectThumbLayer('char')" class="bd-chip active">Personagem</button>
-                  <button type="button" data-layer="perk0" onclick="selectThumbLayer('perk0')" class="bd-chip">Perk 1</button>
-                  <button type="button" data-layer="perk1" onclick="selectThumbLayer('perk1')" class="bd-chip">Perk 2</button>
-                  <button type="button" data-layer="perk2" onclick="selectThumbLayer('perk2')" class="bd-chip">Perk 3</button>
-                  <button type="button" data-layer="perk3" onclick="selectThumbLayer('perk3')" class="bd-chip">Perk 4</button>
-                  <button type="button" data-layer="bg" onclick="selectThumbLayer('bg')" class="bd-chip">Fundo</button>
-                </div>
-              </div>
-        
+              <!-- Adicionar Novos Elementos -->
               <div class="space-y-2">
-                <label class="bd-label" for="thUploadLayerImg" id="thLblUpload">Enviar imagem própria para esta camada</label>
-                <input type="file" id="thUploadLayerImg" accept="image/*" class="bd-field" onchange="handleThumbCustomImage(event)">
-              </div>
-        
-              <div class="grid grid-cols-2 gap-3">
-                <div>
-                  <label class="bd-label" for="thScaleRange">Tamanho (<span id="thScaleVal">100%</span>)</label>
-                  <input type="range" id="thScaleRange" min="25" max="220" value="100" class="w-full accent-dbd-red" oninput="updateSelectedLayerProps()">
-                </div>
-                <div>
-                  <label class="bd-label" for="thRotRange">Rotação (<span id="thRotVal">0°</span>)</label>
-                  <input type="range" id="thRotRange" min="-45" max="45" value="0" class="w-full accent-dbd-red" oninput="updateSelectedLayerProps()">
-                </div>
-              </div>
-        
-              <div class="flex items-center justify-between pt-2 border-t border-neutral-800">
-                <label class="dbd-toggle">
-                  <input type="checkbox" id="thLayerVisible" checked onchange="updateSelectedLayerProps()">
-                  <span>Mostrar camada</span>
-                </label>
-                <button type="button" onclick="resetSelectedThumbLayer()" class="bd-btn bd-btn-sm">
-                  <i class="fa-solid fa-rotate-left"></i> Resetar camada
-                </button>
-              </div>
-
-              <div class="space-y-3 pt-3 border-t border-neutral-800">
-                <div class="flex items-center justify-between">
-                  <span class="bd-label mb-0">Texto na Thumbnail</span>
-                  <label class="dbd-toggle">
-                    <input type="checkbox" id="thTextEnabled" checked onchange="updateThumbTextProps()">
-                    <span>Ativar</span>
+                <span class="bd-label">Adicionar à Thumbnail</span>
+                <div class="grid grid-cols-2 gap-2">
+                  <button type="button" onclick="addThumbTextLayer()" class="bd-btn bd-btn-sm">
+                    <i class="fa-solid fa-font text-dbd-cyan"></i> + Texto
+                  </button>
+                  <label class="bd-btn bd-btn-sm cursor-pointer">
+                    <i class="fa-solid fa-image text-emerald-400"></i> + Imagem Própria
+                    <input type="file" accept="image/*" class="hidden" onchange="addThumbCustomImageLayer(event)">
                   </label>
                 </div>
-        
-                <input type="text" id="thTextInput" maxlength="48" placeholder="Ex.: BUILD INSANA!" class="bd-field" oninput="updateThumbTextProps()">
-        
-                <div class="grid grid-cols-2 gap-3 items-center">
-                  <div>
-                    <label class="bd-label" for="thTextSize">Fonte (<span id="thTextSizeVal">64px</span>)</label>
-                    <input type="range" id="thTextSize" min="24" max="140" value="64" class="w-full accent-dbd-red" oninput="updateThumbTextProps()">
+
+                <div class="grid grid-cols-1 gap-2 pt-1">
+                  <div class="flex gap-1.5">
+                    <select id="thPickChar" class="bd-field"></select>
+                    <button type="button" onclick="addThumbPickedCharacter()" class="bd-btn bd-btn-sm bd-btn-primary shrink-0" title="Adicionar personagem">
+                      <i class="fa-solid fa-plus"></i>
+                    </button>
                   </div>
-                  <div>
-                    <label class="bd-label" for="thTextColor">Cor do texto</label>
-                    <input type="color" id="thTextColor" value="#ffffff" class="w-full h-9 rounded cursor-pointer bg-neutral-900 border border-neutral-700 p-1" oninput="updateThumbTextProps()">
+                  <div class="flex gap-1.5">
+                    <select id="thPickPerk0" class="bd-field"></select>
+                    <button type="button" onclick="addThumbPickedPerk()" class="bd-btn bd-btn-sm bd-btn-purple shrink-0" title="Adicionar perk">
+                      <i class="fa-solid fa-plus"></i>
+                    </button>
                   </div>
                 </div>
               </div>
 
+              <!-- Lista de Camadas Ativas -->
               <div class="space-y-2 pt-3 border-t border-neutral-800">
-                <span class="bd-label">Puxar direto do acervo para o canvas</span>
-        
-                <div>
-                  <label class="bd-label" for="thPickChar">Personagem</label>
-                  <select id="thPickChar" class="bd-field" onchange="applyThumbPickedCharacter()"></select>
+                <div class="flex items-center justify-between">
+                  <span class="bd-label mb-0" id="thLblLayer">Camadas (<span id="thLayerCount">0</span>)</span>
+                  <button type="button" onclick="clearAllThumbLayers()" class="text-[11px] text-red-400 hover:underline">Limpar tudo</button>
                 </div>
-        
-                <div class="grid grid-cols-2 gap-2">
-                  <div>
-                    <label class="bd-label" for="thPickPerk0">Perk 1</label>
-                    <select id="thPickPerk0" class="bd-field" onchange="applyThumbPickedPerk(0)"></select>
+                <div id="thLayerTabs" class="flex flex-wrap gap-1.5 max-h-32 overflow-y-auto p-0.5"></div>
+              </div>
+
+              <!-- Propriedades da Camada Selecionada -->
+              <div id="thPropsBox" class="space-y-3 pt-3 border-t border-neutral-800">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-xs font-bold text-white truncate" id="thSelectedName">Nenhuma camada</span>
+                  <div class="flex items-center gap-1">
+                    <button type="button" onclick="moveThumbLayerOrder(-1)" class="bd-btn bd-btn-sm" title="Enviar para trás"><i class="fa-solid fa-arrow-down"></i></button>
+                    <button type="button" onclick="moveThumbLayerOrder(1)" class="bd-btn bd-btn-sm" title="Trazer para frente"><i class="fa-solid fa-arrow-up"></i></button>
+                    <button type="button" onclick="removeSelectedThumbLayer()" class="bd-btn bd-btn-sm bd-btn-danger" title="Remover camada"><i class="fa-solid fa-trash"></i></button>
                   </div>
-                  <div>
-                    <label class="bd-label" for="thPickPerk1">Perk 2</label>
-                    <select id="thPickPerk1" class="bd-field" onchange="applyThumbPickedPerk(1)"></select>
+                </div>
+
+                <!-- Controles de Imagem / Personagem / Perk / Fundo -->
+                <div id="thImageControls" class="space-y-3">
+                  <div class="grid grid-cols-2 gap-3">
+                    <div>
+                      <label class="bd-label" for="thScaleRange">Tamanho (<span id="thScaleVal">100%</span>)</label>
+                      <input type="range" id="thScaleRange" min="20" max="250" value="100" class="w-full accent-dbd-red" oninput="updateSelectedLayerProps()">
+                    </div>
+                    <div>
+                      <label class="bd-label" for="thRotRange">Rotação (<span id="thRotVal">0°</span>)</label>
+                      <input type="range" id="thRotRange" min="-180" max="180" value="0" class="w-full accent-dbd-red" oninput="updateSelectedLayerProps()">
+                    </div>
                   </div>
-                  <div>
-                    <label class="bd-label" for="thPickPerk2">Perk 3</label>
-                    <select id="thPickPerk2" class="bd-field" onchange="applyThumbPickedPerk(2)"></select>
+                </div>
+
+                <!-- Controles de Texto (aparecem quando um texto está selecionado) -->
+                <div id="thTextControls" class="space-y-3 hidden">
+                  <input type="text" id="thTextInput" maxlength="60" placeholder="Digite o texto..." class="bd-field" oninput="updateSelectedLayerProps()">
+                  <div class="grid grid-cols-2 gap-3 items-center">
+                    <div>
+                      <label class="bd-label" for="thTextSize">Fonte (<span id="thTextSizeVal">64px</span>)</label>
+                      <input type="range" id="thTextSize" min="20" max="160" value="64" class="w-full accent-dbd-red" oninput="updateSelectedLayerProps()">
+                    </div>
+                    <div>
+                      <label class="bd-label" for="thTextColor">Cor</label>
+                      <input type="color" id="thTextColor" value="#ffffff" class="w-full h-9 rounded cursor-pointer bg-neutral-900 border border-neutral-700 p-1" oninput="updateSelectedLayerProps()">
+                    </div>
                   </div>
-                  <div>
-                    <label class="bd-label" for="thPickPerk3">Perk 4</label>
-                    <select id="thPickPerk3" class="bd-field" onchange="applyThumbPickedPerk(3)"></select>
-                  </div>
+                </div>
+
+                <div class="flex items-center justify-between pt-1">
+                  <label class="dbd-toggle">
+                    <input type="checkbox" id="thLayerVisible" checked onchange="updateSelectedLayerProps()">
+                    <span>Visível</span>
+                  </label>
+                  <label class="bd-btn bd-btn-sm cursor-pointer" id="thReplaceImgBtn">
+                    <i class="fa-solid fa-upload"></i> Trocar imagem
+                    <input type="file" accept="image/*" class="hidden" onchange="handleThumbCustomImage(event)">
+                  </label>
                 </div>
               </div>
             </div>
