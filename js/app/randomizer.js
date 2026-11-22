@@ -5492,8 +5492,8 @@ function initA11y() {
                 ? 'Quer pagar um cafezinho para o Astofer?'
                 : 'Want to buy Astofer a coffee?',
             modalSub: pt
-                ? 'O projeto te ajudou em algo leia o Qrcode abaixo de deixe uma doação'
-                : 'Did this project help you? Scan the QR code below and leave a donation',
+                ? 'O projeto te ajudou em algo? Leia o Qrcode abaixo de deixe uma doação.'
+                : 'Did this project help you? Scan the QR code below and leave a donation.',
             urlLabel: pt ? 'Link do widget LivePix' : 'LivePix widget link',
             urlPlaceholder: 'https://...',
             openBtn: pt ? 'Abrir' : 'Open',
@@ -5684,13 +5684,6 @@ function initA11y() {
                         </div>
                     </div>
 
-                    <div class="space-y-1.5">
-                        <label id="cfUrlLabel" for="cfUrlInput" class="bd-label mb-0"></label>
-                        <div class="flex gap-2">
-                            <input type="url" id="cfUrlInput" class="bd-field" autocomplete="off">
-                            <a id="cfOpenUrlBtn" target="_blank" rel="noopener noreferrer" class="bd-btn bd-btn-sm bd-btn-primary shrink-0"></a>
-                        </div>
-                    </div>
                 </div>
             `;
             document.body.appendChild(modal);
