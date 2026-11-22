@@ -456,6 +456,12 @@
               <button type="button" id="thRatio916" onclick="setThumbRatio('9:16')" class="dbd-seg-btn is-surv">
                 <span>9:16 (Shorts)</span>
               </button>
+              <button type="button" id="thBtnUndo" onclick="undoThumb()" class="dbd-action-btn" title="Desfazer (Ctrl+Z)" disabled>
+                <i class="fa-solid fa-rotate-left"></i>
+              </button>
+              <button type="button" id="thBtnRedo" onclick="redoThumb()" class="dbd-action-btn" title="Refazer (Ctrl+Y)" disabled>
+                <i class="fa-solid fa-rotate-right"></i>
+              </button>
             </div>
         
             <div class="flex flex-wrap items-center gap-2 ml-auto">
@@ -568,6 +574,30 @@
                     <button type="button" id="thFlipBtn" onclick="toggleThumbFlipX()" class="bd-btn bd-btn-sm w-full">
                       <i class="fa-solid fa-left-right"></i> Espelhar Imagem
                     </button>
+                  </div>
+                  <div class="pt-2 border-t border-neutral-800 space-y-2">
+                    <div class="flex items-center justify-between">
+                      <span class="bd-label mb-0">Recorte (Crop)</span>
+                      <button type="button" onclick="resetThumbCrop()" class="text-[11px] text-dbd-cyan hover:underline">Resetar</button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                      <div>
+                        <label class="bd-label" for="thCropT">Topo (<span id="thCropTVal">0%</span>)</label>
+                        <input type="range" id="thCropT" min="0" max="45" value="0" class="w-full accent-dbd-red" oninput="updateSelectedLayerProps()">
+                      </div>
+                      <div>
+                        <label class="bd-label" for="thCropB">Baixo (<span id="thCropBVal">0%</span>)</label>
+                        <input type="range" id="thCropB" min="0" max="45" value="0" class="w-full accent-dbd-red" oninput="updateSelectedLayerProps()">
+                      </div>
+                      <div>
+                        <label class="bd-label" for="thCropL">Esquerda (<span id="thCropLVal">0%</span>)</label>
+                        <input type="range" id="thCropL" min="0" max="45" value="0" class="w-full accent-dbd-red" oninput="updateSelectedLayerProps()">
+                      </div>
+                      <div>
+                        <label class="bd-label" for="thCropR">Direita (<span id="thCropRVal">0%</span>)</label>
+                        <input type="range" id="thCropR" min="0" max="45" value="0" class="w-full accent-dbd-red" oninput="updateSelectedLayerProps()">
+                      </div>
+                    </div>
                   </div>
                 </div>
 
