@@ -386,6 +386,13 @@
         document.body.style.overflow = '';
     }
 
+    // Reaplica o idioma se o modal estiver aberto/construído ao trocar PT/EN
+    window.refreshThumbAssetsLang = function () {
+        if (!state.built) return;
+        applyLabels();
+        Object.keys(cache).forEach(k => { if (k !== 'fx' && k !== 'models') delete cache[k]; });
+        setTab(state.tab);
+    };
     window.openThumbAssets = open;
     window.closeThumbAssets = close;
     // Chame depois de adicionar arquivos às pastas sem recarregar a página

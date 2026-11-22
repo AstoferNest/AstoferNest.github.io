@@ -579,6 +579,107 @@ function setLanguage(lang) {
     renderSquad(isSquadSpinning);
     renderSquadHistory();
     if (currentRollResult) renderResultDisplay(currentRollResult);
+    renderThumbLayerList();
+    syncThumbControlsToSelected();
+    if (typeof window.refreshThumbAssetsLang === 'function') window.refreshThumbAssetsLang();
+}
+
+// ====== Tradução da aba Thumbmaker (HTML estático em PT) ======
+const TH_I18N_EN = {
+    'Exemplo Estilo Card': 'Card Style Example',
+    'Puxar Build Atual': 'Pull Current Build',
+    'Salvar Projeto (.json)': 'Save Project (.json)',
+    'Abrir Projeto': 'Open Project',
+    'BAIXAR PNG': 'DOWNLOAD PNG',
+    'Clique e arraste qualquer elemento no canvas': 'Click and drag any element on the canvas',
+    'Adicionar à Thumbnail': 'Add to Thumbnail',
+    '+ Texto': '+ Text',
+    '+ Imagem Própria': '+ Own Image',
+    'Arraste imagens aqui ou clique': 'Drag images here or click',
+    'PNG, JPG, WEBP · adiciona direto no canvas': 'PNG, JPG, WEBP · adds straight to the canvas',
+    'Biblioteca de Assets': 'Asset Library',
+    'Perks · Personagens · Itens · Addons · Efeitos · Modelos': 'Perks · Characters · Items · Add-ons · Effects · Models',
+    'Camadas (': 'Layers (',
+    'Limpar tudo': 'Clear all',
+    'Nenhuma camada': 'No layer',
+    'Tamanho (': 'Size (',
+    'Rotação (': 'Rotation (',
+    'Espelhar Imagem': 'Flip Image',
+    'Recorte (Crop)': 'Crop',
+    'Resetar': 'Reset',
+    'Topo (': 'Top (',
+    'Baixo (': 'Bottom (',
+    'Esquerda (': 'Left (',
+    'Direita (': 'Right (',
+    'Camadas do Perk': 'Perk Layers',
+    'Fundo roxo': 'Purple background',
+    'Imagem da frente': 'Front image',
+    'Tamanho da frente (': 'Front size (',
+    'Opacidade (': 'Opacity (',
+    'Fonte (Google Fonts)': 'Font (Google Fonts)',
+    'Barlow Condensed (Padrão)': 'Barlow Condensed (Default)',
+    'Anton (Impacto / Capa)': 'Anton (Impact / Cover)',
+    'Bebas Neue (Condensada Alta)': 'Bebas Neue (Tall Condensed)',
+    'Oswald (Forte / Clean)': 'Oswald (Strong / Clean)',
+    'Montserrat (Moderna / Grossa)': 'Montserrat (Modern / Bold)',
+    'Fonte (': 'Font (',
+    'Cor': 'Color',
+    'Borda do texto': 'Text outline',
+    'Com borda': 'With outline',
+    'Espessura (': 'Thickness (',
+    'Cor da borda': 'Outline color',
+    'Visível': 'Visible',
+    'Trocar imagem': 'Replace image',
+    'Desfazer (Ctrl+Z)': 'Undo (Ctrl+Z)',
+    'Refazer (Ctrl+Y)': 'Redo (Ctrl+Y)',
+    'Enviar para trás': 'Send backward',
+    'Trazer para frente': 'Bring forward',
+    'Remover camada': 'Remove layer',
+    'Digite o texto...': 'Type the text...'
+};
+const TH_LAYER_LABEL_EN = { 'Fundo': 'Background', 'Texto': 'Text', 'Imagem': 'Image' };
+const thLayerLabel = l => {
+    const lb = (l && (l.label || l.type)) || '';
+    return currentLang === 'en' && TH_LAYER_LABEL_EN[lb] ? TH_LAYER_LABEL_EN[lb] : lb;
+};
+const thTextOrig = new WeakMap();
+
+function applyThumbI18n() {
+    const root = document.getElementById('tabThumb');
+    if (!root) return;
+    const en = currentLang === 'en';
+
+    // textos
+    const tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    let n;
+    while ((n = tw.nextNode())) {
+        let orig = thTextOrig.get(n);
+        if (orig === undefined) {
+            const k = n.nodeValue.trim();
+            if (!k || !Object.prototype.hasOwnProperty.call(TH_I18N_EN, k)) continue;
+            orig = n.nodeValue;
+            thTextOrig.set(n, orig);
+        }
+        const k = orig.trim();
+        const val = en ? TH_I18N_EN[k] : k;
+        const lead = orig.match(/^\s*/)[0], trail = orig.match(/\s*$/)[0];
+        n.nodeValue = lead + val + trail;
+    }
+
+    // atributos title / placeholder
+    root.querySelectorAll('[title],[placeholder]').forEach(el => {
+        ['title', 'placeholder'].forEach(attr => {
+            const store = 'thPt' + attr;
+            if (!el.hasAttribute(attr) && el.dataset[store] === undefined) return;
+            if (el.dataset[store] === undefined) {
+                const v = el.getAttribute(attr);
+                if (!Object.prototype.hasOwnProperty.call(TH_I18N_EN, v)) return;
+                el.dataset[store] = v;
+            }
+            const pt = el.dataset[store];
+            el.setAttribute(attr, en ? TH_I18N_EN[pt] : pt);
+        });
+    });
 }
 
 function updateLanguageUI() {
@@ -595,6 +696,7 @@ function updateLanguageUI() {
         document.getElementById('langEnBtn').className = "px-2.5 py-1 rounded bg-dbd-red text-white font-bold";
         document.getElementById('langPtBtn').className = "px-2.5 py-1 rounded text-neutral-400 hover:text-white font-bold";
     }
+    applyThumbI18n();
 }
 
 function toggleTheme() {
@@ -3995,7 +4097,7 @@ function renderThumbLayerList() {
         const activeCls = l.id === selectedThumbId ? 'active' : '';
         const eyeCls = l.visible === false ? 'opacity-50' : '';
         return `<button type="button" data-layer-id="${esc(l.id)}" onclick="selectThumbLayer('${esc(l.id)}')" class="bd-chip ${activeCls} ${eyeCls}">
-            <i class="fa-solid ${icon}"></i> ${esc(l.label || l.type)}
+            <i class="fa-solid ${icon}"></i> ${esc(thLayerLabel(l))}
         </button>`;
     }).join('');
 }
@@ -4019,7 +4121,7 @@ function syncThumbControlsToSelected() {
         return;
     }
 
-    if (nameEl) nameEl.textContent = l.label || l.type;
+    if (nameEl) nameEl.textContent = thLayerLabel(l);
     if ($('thLayerVisible')) $('thLayerVisible').checked = l.visible !== false;
     const opPct = Math.round((l.opacity != null ? l.opacity : (l.type === 'bg' ? 0.45 : 1)) * 100);
     if ($('thOpacityRange')) $('thOpacityRange').value = opPct;
