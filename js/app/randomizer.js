@@ -5351,9 +5351,9 @@ function initA11y() {
     'use strict';
 
     // Se quiser deixar um link de widget fixo para todos os visitantes, coloque aqui
-    const DEFAULT_WIDGET_URL = 'https://widget.livepix.gg/embed/6606ed8d-766f-449e-90f0-9c49f5a9afb9';
+    const DEFAULT_WIDGET_URL = '';
     // Se quiser deixar um QR Code fixo como fallback/imagem, coloque o caminho aqui (ex.: './css/img/livepix-qr.png')
-    const DEFAULT_QR_SRC = '';
+    const DEFAULT_QR_SRC = './css/img/qrpix.png';
 
     const WIDGET_STORAGE_KEY = 'dbd_livepix_widget_url';
     const QR_STORAGE_KEY = 'dbd_livepix_qr_src';
