@@ -3937,7 +3937,7 @@ async function renderThumbCanvas() {
             g.drawImage(frameImg, -size / 2, -size / 2, size, size);
         }
         if (perkImgs[idx]) {
-            const inner = size * 0.76;
+            const inner = size * 0.90;
             drawContain(g, perkImgs[idx], -inner / 2, -inner / 2, inner, inner);
         }
         if (selectedThumbLayer === 'perk' + idx) {
