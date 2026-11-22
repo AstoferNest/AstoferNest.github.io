@@ -553,6 +553,11 @@
                       <label class="bd-label" for="thRotRange">Rotação (<span id="thRotVal">0°</span>)</label>
                       <input type="range" id="thRotRange" min="-180" max="180" value="0" class="w-full accent-dbd-red" oninput="updateSelectedLayerProps()">
                     </div>
+                    <div class="flex items-center gap-2">
+                        <button type="button" id="thFlipBtn" onclick="toggleThumbFlipX()" class="bd-btn bd-btn-sm w-full">
+                          <i class="fa-solid fa-left-right"></i> Espelhar Imagem
+                        </button>
+                      </div>                      
                   </div>
                 </div>
 
