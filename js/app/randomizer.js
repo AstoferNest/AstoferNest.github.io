@@ -5352,7 +5352,7 @@ function initA11y() {
 
     // Se quiser deixar um link de widget fixo para todos os visitantes, coloque aqui
     const DEFAULT_WIDGET_URL = '';
-    // Se quiser deixar um QR Code fixo como fallback/imagem, coloque o caminho aqui (ex.: './css/img/livepix-qr.png')
+    // Caminho da imagem fixa do QR Code (ex.: './css/img/qrpix.png')
     const DEFAULT_QR_SRC = './css/img/qrpix.png';
 
     const WIDGET_STORAGE_KEY = 'dbd_livepix_widget_url';
@@ -5366,7 +5366,7 @@ function initA11y() {
   transform: translateY(-50%);
   z-index: 44;
   width: 34px;
-  min-height: 152px;
+  min-height: 196px;
   padding: 10px 4px;
   display: flex;
   flex-direction: column;
@@ -5389,6 +5389,7 @@ function initA11y() {
 #coffeeHandle .cf-icon {
   color: #f59e0b;
   font-size: 13px;
+  flex-shrink: 0;
 }
 #coffeeHandle .cf-label {
   writing-mode: vertical-rl;
@@ -5398,9 +5399,8 @@ function initA11y() {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   line-height: 1.1;
-  max-height: 190px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
 }
 
 @media (max-width: 767px) {
@@ -5425,7 +5425,6 @@ function initA11y() {
   #coffeeHandle .cf-label {
     writing-mode: horizontal-tb;
     transform: none;
-    max-height: none;
     white-space: nowrap;
     font-size: 11px;
   }
@@ -5461,6 +5460,20 @@ function initA11y() {
   flex-direction: column;
   gap: 0.85rem;
 }
+.cf-head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.75rem 0.75rem;
+  border-bottom: 1px solid var(--border-subtle, rgba(255,255,255,0.10));
+}
+.cf-close {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
 .cf-widget-frame {
   width: 100%;
   aspect-ratio: 4 / 3;
@@ -5492,14 +5505,14 @@ function initA11y() {
                 ? 'Quer pagar um cafezinho para o Astofer?'
                 : 'Want to buy Astofer a coffee?',
             modalSub: pt
-                ? 'O projeto te ajudou em algo? Leia o Qrcode abaixo de deixe uma doação.'
+                ? 'O projeto te ajudou em algo? Leia o Qrcode abaixo e deixe uma doação.'
                 : 'Did this project help you? Scan the QR code below and leave a donation.',
             urlLabel: pt ? 'Link do widget LivePix' : 'LivePix widget link',
             urlPlaceholder: 'https://...',
             openBtn: pt ? 'Abrir' : 'Open',
             emptyWidget: pt
-                ? 'Cole o Link do widget LivePix abaixo para exibir aqui.'
-                : 'Paste the LivePix widget link below to display it here.',
+                ? 'QR Code não encontrado.'
+                : 'QR Code not found.',
             closeBtn: pt ? 'Fechar' : 'Close',
             rights: pt ? 'todos os direitos reservados' : 'all rights reserved'
         };
@@ -5615,7 +5628,7 @@ function initA11y() {
         const lbl = document.getElementById('cfHandleLabel');
         if (lbl) lbl.textContent = t.handle;
 
-        const title = document.getElementById('cfModalTitle');
+        const title = document.getElementById('cfModalTitleText');
         const sub = document.getElementById('cfModalSub');
         const emptyTxt = document.getElementById('cfWidgetEmptyText');
         const urlLbl = document.getElementById('cfUrlLabel');
@@ -5661,19 +5674,19 @@ function initA11y() {
             modal.className = 'hidden';
             modal.setAttribute('role', 'dialog');
             modal.setAttribute('aria-modal', 'true');
-            modal.setAttribute('aria-labelledby', 'cfModalTitle');
+            modal.setAttribute('aria-labelledby', 'cfModalTitleText');
             modal.innerHTML = `
                 <div class="cf-card">
-                    <div class="flex items-center justify-between border-b border-neutral-800 pb-2.5">
-                        <h2 id="cfModalTitle" class="text-base font-black uppercase tracking-wider text-white flex items-center gap-2">
+                    <div class="cf-head">
+                        <h2 class="text-base font-black uppercase tracking-wider text-white text-center flex items-center justify-center gap-2">
                             <i class="fa-solid fa-mug-hot text-amber-400"></i>
-                            <span>Quer pagar um cafezinho para o Astofer?</span>
+                            <span id="cfModalTitleText"></span>
                         </h2>
-                        <button type="button" id="cfCloseBtn" class="text-neutral-400 hover:text-white p-1">
+                        <button type="button" id="cfCloseBtn" class="cf-close text-neutral-400 hover:text-white p-1">
                             <i class="fa-solid fa-xmark"></i>
                         </button>
                     </div>
-                    <p id="cfModalSub" class="text-xs text-dbd-muted"></p>
+                    <p id="cfModalSub" class="text-xs text-dbd-muted text-center"></p>
 
                     <div class="cf-widget-frame">
                         <iframe id="cfWidgetIframe" title="LivePix Widget" loading="lazy" allow="payment" class="hidden"></iframe>
@@ -5683,7 +5696,6 @@ function initA11y() {
                             <div id="cfWidgetEmptyText" class="text-xs font-bold"></div>
                         </div>
                     </div>
-
                 </div>
             `;
             document.body.appendChild(modal);
@@ -5694,8 +5706,10 @@ function initA11y() {
             document.getElementById('cfCloseBtn').addEventListener('click', closeCoffeeModal);
 
             const urlInp = document.getElementById('cfUrlInput');
-            urlInp.value = getWidgetUrl();
-            urlInp.addEventListener('input', () => setWidgetUrl(urlInp.value));
+            if (urlInp) {
+                urlInp.value = getWidgetUrl();
+                urlInp.addEventListener('input', () => setWidgetUrl(urlInp.value));
+            }
 
             document.addEventListener('keydown', e => {
                 if (e.key === 'Escape') closeCoffeeModal();
@@ -5713,6 +5727,7 @@ function initA11y() {
 
         syncCoffeeTexts();
         renderCoffeeWidget();
+        requestAnimationFrame(syncCoffeeTexts);
     }
 
     if (document.readyState === 'loading') {
