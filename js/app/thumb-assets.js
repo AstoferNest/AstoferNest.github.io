@@ -6,6 +6,9 @@
 (function () {
     'use strict';
 
+    // >>> TROQUE PELO SEU E-MAIL DE CONTATO <<<
+    const CONTACT_EMAIL = 'astofernest@gmail.com';
+
     const FX_DIR = 'efeitos/';      // css/img/efeitos/
     const MODELS_DIR = 'modelos/';  // css/img/modelos/
     const MANIFEST = () => JSON_DIR + 'thumb-assets.json';
@@ -23,6 +26,8 @@
             all: 'Todos', survs: 'Survivors', kills: 'Killers',
             none: 'Nenhum resultado.', loading: 'Carregando...',
             noImg: 'Imagem não encontrada', ok: 'adicionado!',
+            noticeText: 'Os modelos e efeitos desta aba podem ter sido feitos por outras pessoas. Se você é o autor de algum deles e deseja que seja removido, entre em contato pelo e-mail',
+            noticeSubject: 'Pedido de remoção - Thumbmaker',
             emptyFx: 'Nenhum efeito encontrado.', emptyModels: 'Nenhum modelo encontrado.',
             emptyHelp: 'Coloque as imagens em <code>css/img/%DIR%</code> e liste os nomes em <code>json/thumb-assets.json</code> (use o <code>editor-thumb-assets.html</code>).'
         },
@@ -37,6 +42,8 @@
             all: 'All', survs: 'Survivors', kills: 'Killers',
             none: 'No results.', loading: 'Loading...',
             noImg: 'Image not found', ok: 'added!',
+            noticeText: 'The models and effects in this tab may have been made by other people. If you are the author of any of them and want it removed, please contact',
+            noticeSubject: 'Removal request - Thumbmaker',
             emptyFx: 'No effects found.', emptyModels: 'No models found.',
             emptyHelp: 'Put images in <code>css/img/%DIR%</code> and list the file names in <code>json/thumb-assets.json</code> (use <code>editor-thumb-assets.html</code>).'
         }
@@ -200,6 +207,7 @@
             </div>
             <div class="ta-tabs" id="taTabs" role="tablist"></div>
             <div class="ta-sub" id="taSub"></div>
+            <div class="ta-notice" id="taNotice"></div>
             <div class="ta-body" id="taBody"></div>
             <div class="ta-foot">
               <span id="taHint"></span>
@@ -244,7 +252,18 @@
         }).join('');
     }
 
+    function renderNotice() {
+        const el = $('taNotice');
+        const show = state.tab === 'fx' || state.tab === 'models';
+        el.classList.toggle('is-visible', show);
+        if (!show) { el.innerHTML = ''; return; }
+        const subject = encodeURIComponent(t('noticeSubject'));
+        el.innerHTML = `<i class="fa-solid fa-circle-info"></i><span>${esc(t('noticeText'))}
+            <a href="mailto:${esc(CONTACT_EMAIL)}?subject=${subject}">${esc(CONTACT_EMAIL)}</a>.</span>`;
+    }
+
     function renderSub() {
+        renderNotice();
         const tb = TABS.find(x => x.id === state.tab);
         const el = $('taSub');
         el.classList.toggle('is-visible', !!(tb && tb.subfilter));
