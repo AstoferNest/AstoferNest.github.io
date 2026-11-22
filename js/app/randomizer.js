@@ -5345,15 +5345,18 @@ function initA11y() {
 }
 
 /* ==========================================================================
-   ABA "PAGUE UM CAFEZINHO" (WIDGET LIVEPIX) + FOOTER AUTOMÁTICO
+   ABA "PAGUE UM CAFEZINHO" (LIVEPIX) + FOOTER AUTOMÁTICO
    ========================================================================== */
 (function () {
     'use strict';
 
-    // Cole aqui o "Link do widget" do LivePix se quiser deixar fixo para todos os visitantes
+    // Se quiser deixar um link de widget fixo para todos os visitantes, coloque aqui
     const DEFAULT_WIDGET_URL = 'https://widget.livepix.gg/embed/6606ed8d-766f-449e-90f0-9c49f5a9afb9';
+    // Se quiser deixar um QR Code fixo como fallback/imagem, coloque o caminho aqui (ex.: './css/img/livepix-qr.png')
+    const DEFAULT_QR_SRC = '';
 
     const WIDGET_STORAGE_KEY = 'dbd_livepix_widget_url';
+    const QR_STORAGE_KEY = 'dbd_livepix_qr_src';
 
     const COFFEE_CSS = `
 #coffeeHandle {
@@ -5464,15 +5467,20 @@ function initA11y() {
   min-height: 260px;
   border-radius: 10px;
   border: 1px solid var(--border-strong, rgba(255,255,255,0.16));
-  background: var(--bg-inset, #0e1015);
+  background: #ffffff;
   overflow: hidden;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
 }
-.cf-widget-frame iframe {
+.cf-widget-frame iframe,
+.cf-widget-frame img {
   width: 100%;
   height: 100%;
   border: 0;
-  display: block;
+  object-fit: contain;
 }
 `;
 
@@ -5480,17 +5488,18 @@ function initA11y() {
         const pt = (typeof currentLang === 'undefined' ? 'pt' : currentLang) === 'pt';
         return {
             handle: pt ? 'Gostou? Pague um cafezinho' : 'Enjoyed it? Buy me a coffee',
-            modalTitle: pt ? 'Pague um cafezinho · LivePix' : 'Buy me a coffee · LivePix',
+            modalTitle: pt
+                ? 'Quer pagar um cafezinho para o Astofer?'
+                : 'Want to buy Astofer a coffee?',
             modalSub: pt
-                ? 'Widget incorporado do LivePix (800×600).'
-                : 'Embedded LivePix widget (800×600).',
+                ? 'O projeto te ajudou em algo leia o Qrcode abaixo de deixe uma doação'
+                : 'Did this project help you? Scan the QR code below and leave a donation',
             urlLabel: pt ? 'Link do widget LivePix' : 'LivePix widget link',
             urlPlaceholder: 'https://...',
             openBtn: pt ? 'Abrir' : 'Open',
-            reloadBtn: pt ? 'Recarregar' : 'Reload',
             emptyWidget: pt
-                ? 'Cole o Link do widget do LivePix acima para exibir aqui.'
-                : 'Paste the LivePix widget link above to display it here.',
+                ? 'Cole o Link do widget LivePix abaixo para exibir aqui.'
+                : 'Paste the LivePix widget link below to display it here.',
             closeBtn: pt ? 'Fechar' : 'Close',
             rights: pt ? 'todos os direitos reservados' : 'all rights reserved'
         };
@@ -5511,15 +5520,25 @@ function initA11y() {
         renderCoffeeWidget();
     }
 
+    function getQrSrc() {
+        try {
+            return (localStorage.getItem(QR_STORAGE_KEY) || DEFAULT_QR_SRC).trim();
+        } catch (e) {
+            return DEFAULT_QR_SRC.trim();
+        }
+    }
+
     function renderCoffeeWidget() {
         const frame = document.getElementById('cfWidgetIframe');
+        const qrImg = document.getElementById('cfQrImg');
         const empty = document.getElementById('cfWidgetEmpty');
         const openBtn = document.getElementById('cfOpenUrlBtn');
         const url = getWidgetUrl();
-        const isValid = /^https?:\/\//i.test(url);
+        const qr = getQrSrc();
+        const isValidUrl = /^https?:\/\//i.test(url);
 
         if (openBtn) {
-            if (isValid) {
+            if (isValidUrl) {
                 openBtn.href = url;
                 openBtn.classList.remove('opacity-50', 'pointer-events-none');
             } else {
@@ -5528,15 +5547,24 @@ function initA11y() {
             }
         }
 
-        if (!frame || !empty) return;
+        if (!frame || !qrImg || !empty) return;
 
-        if (isValid) {
+        if (isValidUrl) {
             frame.src = url;
             frame.classList.remove('hidden');
+            qrImg.classList.add('hidden');
+            empty.classList.add('hidden');
+        } else if (qr) {
+            frame.removeAttribute('src');
+            frame.classList.add('hidden');
+            qrImg.src = qr;
+            qrImg.classList.remove('hidden');
             empty.classList.add('hidden');
         } else {
             frame.removeAttribute('src');
             frame.classList.add('hidden');
+            qrImg.removeAttribute('src');
+            qrImg.classList.add('hidden');
             empty.classList.remove('hidden');
         }
     }
@@ -5593,7 +5621,6 @@ function initA11y() {
         const urlLbl = document.getElementById('cfUrlLabel');
         const urlInp = document.getElementById('cfUrlInput');
         const openBtn = document.getElementById('cfOpenUrlBtn');
-        const reloadBtn = document.getElementById('cfReloadBtn');
         const closeBtn = document.getElementById('cfCloseBtn');
 
         if (title) title.textContent = t.modalTitle;
@@ -5602,7 +5629,6 @@ function initA11y() {
         if (urlLbl) urlLbl.textContent = t.urlLabel;
         if (urlInp) urlInp.placeholder = t.urlPlaceholder;
         if (openBtn) openBtn.innerHTML = `<i class="fa-solid fa-arrow-up-right-from-square"></i> <span>${t.openBtn}</span>`;
-        if (reloadBtn) reloadBtn.innerHTML = `<i class="fa-solid fa-rotate-right"></i> <span>${t.reloadBtn}</span>`;
         if (closeBtn) closeBtn.setAttribute('aria-label', t.closeBtn);
 
         ensureFooter();
@@ -5641,7 +5667,7 @@ function initA11y() {
                     <div class="flex items-center justify-between border-b border-neutral-800 pb-2.5">
                         <h2 id="cfModalTitle" class="text-base font-black uppercase tracking-wider text-white flex items-center gap-2">
                             <i class="fa-solid fa-mug-hot text-amber-400"></i>
-                            <span>Pague um cafezinho · LivePix</span>
+                            <span>Quer pagar um cafezinho para o Astofer?</span>
                         </h2>
                         <button type="button" id="cfCloseBtn" class="text-neutral-400 hover:text-white p-1">
                             <i class="fa-solid fa-xmark"></i>
@@ -5650,10 +5676,11 @@ function initA11y() {
                     <p id="cfModalSub" class="text-xs text-dbd-muted"></p>
 
                     <div class="cf-widget-frame">
-                        <iframe id="cfWidgetIframe" title="LivePix Widget" loading="lazy" allow="payment"></iframe>
-                        <div id="cfWidgetEmpty" class="w-full h-full flex flex-col items-center justify-center text-center text-neutral-500 px-4">
+                        <iframe id="cfWidgetIframe" title="LivePix Widget" loading="lazy" allow="payment" class="hidden"></iframe>
+                        <img id="cfQrImg" alt="LivePix QR Code" class="hidden">
+                        <div id="cfWidgetEmpty" class="w-full h-full flex flex-col items-center justify-center text-center text-neutral-600 px-4">
                             <i class="fa-solid fa-qrcode text-4xl mb-2"></i>
-                            <div id="cfWidgetEmptyText" class="text-xs font-semibold"></div>
+                            <div id="cfWidgetEmptyText" class="text-xs font-bold"></div>
                         </div>
                     </div>
 
@@ -5661,7 +5688,6 @@ function initA11y() {
                         <label id="cfUrlLabel" for="cfUrlInput" class="bd-label mb-0"></label>
                         <div class="flex gap-2">
                             <input type="url" id="cfUrlInput" class="bd-field" autocomplete="off">
-                            <button type="button" id="cfReloadBtn" class="bd-btn bd-btn-sm shrink-0"></button>
                             <a id="cfOpenUrlBtn" target="_blank" rel="noopener noreferrer" class="bd-btn bd-btn-sm bd-btn-primary shrink-0"></a>
                         </div>
                     </div>
@@ -5677,10 +5703,6 @@ function initA11y() {
             const urlInp = document.getElementById('cfUrlInput');
             urlInp.value = getWidgetUrl();
             urlInp.addEventListener('input', () => setWidgetUrl(urlInp.value));
-
-            document.getElementById('cfReloadBtn').addEventListener('click', () => {
-                renderCoffeeWidget();
-            });
 
             document.addEventListener('keydown', e => {
                 if (e.key === 'Escape') closeCoffeeModal();
