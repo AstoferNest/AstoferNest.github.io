@@ -299,16 +299,15 @@
         if (q) list = list.filter(x => norm(x.name).includes(q) || norm(x.alt).includes(q) || norm(x.group).includes(q));
 
         if (!list.length) {
-            let msg = esc(t('none')), icon = 'fa-magnifying-glass';
-            if (!cache[tabId].length && (tabId === 'fx' || tabId === 'models')) {
-                icon = 'fa-folder-open';
-                msg = esc(t(tabId === 'fx' ? 'emptyFx' : 'emptyModels')) + '<br>' +
-                    t('emptyHelp').replace('%DIR%', tabId === 'fx' ? FX_DIR : MODELS_DIR);
-            }
-            body.innerHTML = `<div class="ta-empty"><i class="fa-solid ${icon}"></i>${msg}</div>`;
-            current = [];
-            return;
-        }
+             let msg = esc(t('none')), icon = 'fa-magnifying-glass';
+             if (!cache[tabId].length && (tabId === 'fx' || tabId === 'models')) {
+                 icon = 'fa-folder-open';
+                 msg = esc(t(tabId === 'fx' ? 'emptyFx' : 'emptyModels'));
+             }
+             body.innerHTML = `<div class="ta-empty"><i class="fa-solid ${icon}"></i>${msg}</div>`;
+             current = [];
+             return;
+         }
 
         current = list;
         // agrupa preservando a ordem
