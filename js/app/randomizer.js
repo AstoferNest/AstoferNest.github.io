@@ -3862,6 +3862,22 @@ function syncThumbControlsToSelected() {
         if (txtCtrl) txtCtrl.classList.add('hidden');
         if (replaceBtn) replaceBtn.classList.remove('hidden');
 
+        const perkBox = $('thPerkControls');
+        if (perkBox) {
+            if (l.type === 'perk') {
+                perkBox.classList.remove('hidden');
+                const fEn = l.showFrame !== false;
+                const iEn = l.showIcon !== false;
+                const icPct = Math.round((l.iconScale != null ? l.iconScale : 1) * 100);
+                if ($('thPerkFrameEnabled')) $('thPerkFrameEnabled').checked = fEn;
+                if ($('thPerkIconEnabled')) $('thPerkIconEnabled').checked = iEn;
+                if ($('thPerkIconScale')) $('thPerkIconScale').value = icPct;
+                if ($('thPerkIconScaleVal')) $('thPerkIconScaleVal').textContent = `${icPct}%`;
+            } else {
+                perkBox.classList.add('hidden');
+            }
+        }        
+
         const scalePct = Math.round((l.scale || 1) * 100);
         if ($('thScaleRange')) {
             if (scalePct > 1000) $('thScaleRange').max = String(scalePct);
@@ -3922,6 +3938,14 @@ function updateSelectedLayerProps() {
         ['T', 'B', 'L', 'R'].forEach(side => {
             if ($('thCrop' + side + 'Val')) $('thCrop' + side + 'Val').textContent = `${l.crop[side.toLowerCase()]}%`;
         });
+
+        if (l.type === 'perk') {
+            l.showFrame = $('thPerkFrameEnabled') ? $('thPerkFrameEnabled').checked : true;
+            l.showIcon = $('thPerkIconEnabled') ? $('thPerkIconEnabled').checked : true;
+            const icPct = $('thPerkIconScale') ? (parseInt($('thPerkIconScale').value, 10) || 100) : 100;
+            l.iconScale = Math.max(0.3, Math.min(1.5, icPct / 100));
+            if ($('thPerkIconScaleVal')) $('thPerkIconScaleVal').textContent = `${icPct}%`;
+        }
     }
 
     renderThumbLayerList();
@@ -4014,7 +4038,10 @@ function addThumbPickedPerk() {
         scale: 1.0,
         rot: 0,
         opacity: 1,
-        src: getFirstAvailableSrc(entryImgs(found))
+        src: getFirstAvailableSrc(entryImgs(found)),
+        showFrame: true,
+        showIcon: true,
+        iconScale: 1.0        
     };
     thumbState.items.push(newPerk);
     selectThumbLayer(newPerk.id);
@@ -4246,6 +4273,10 @@ async function renderThumbCanvas() {
         if (l.type === 'perk') {
             const size = basePerkSize * (l.scale || 1);
             const cp = l.crop || { t: 0, r: 0, b: 0, l: 0 };
+            const showFrame = l.showFrame !== false;
+            const showIcon = l.showIcon !== false;
+            const iconScale = l.iconScale != null ? l.iconScale : 1;
+
             g.save();
             g.globalAlpha = layerAlpha;
             g.translate(px, py);
@@ -4263,9 +4294,9 @@ async function renderThumbCanvas() {
                 g.clip();
             }
             if (l.flipX) g.scale(-1, 1);
-            if (frameImg) g.drawImage(frameImg, -size / 2, -size / 2, size, size);
-            if (im) {
-                const inner = size * 0.96;
+            if (showFrame && frameImg) g.drawImage(frameImg, -size / 2, -size / 2, size, size);
+            if (showIcon && im) {
+                const inner = size * 0.96 * iconScale;
                 drawContain(g, im, -inner / 2, -inner / 2, inner, inner);
             }
             g.restore();
