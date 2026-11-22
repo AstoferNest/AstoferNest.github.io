@@ -3848,13 +3848,15 @@ function syncThumbControlsToSelected() {
         if (imgCtrl) imgCtrl.classList.remove('hidden');
         if (txtCtrl) txtCtrl.classList.add('hidden');
         if (replaceBtn) replaceBtn.classList.remove('hidden');
+        const flipBtn = $('thFlipBtn');
+            if (flipBtn) flipBtn.classList.toggle('bd-btn-primary', !!l.flipX);        
+        }        
         const scalePct = Math.round((l.scale || 1) * 100);
         const rotDeg = Math.round(l.rot || 0);
         if ($('thScaleRange')) $('thScaleRange').value = scalePct;
         if ($('thScaleVal')) $('thScaleVal').textContent = `${scalePct}%`;
         if ($('thRotRange')) $('thRotRange').value = rotDeg;
         if ($('thRotVal')) $('thRotVal').textContent = `${rotDeg}°`;
-    }
 }
 
 function updateSelectedLayerProps() {
@@ -4074,7 +4076,7 @@ async function renderThumbCanvas() {
         g.save();
         g.translate(bgL.x * W, bgL.y * H);
         g.rotate(((bgL.rot || 0) * Math.PI) / 180);
-        g.scale(bgL.scale || 1, bgL.scale || 1);
+        g.scale((bgL.scale || 1) * (bgL.flipX ? -1 : 1), bgL.scale || 1);
         g.globalAlpha = 0.45;
         g.drawImage(bgImg, -W / 2, -H / 2, W, H);
         g.restore();
@@ -4122,11 +4124,14 @@ async function renderThumbCanvas() {
             g.rotate(((l.rot || 0) * Math.PI) / 180);
             g.shadowColor = 'rgba(0, 0, 0, 0.75)';
             g.shadowBlur = 24;
+            g.save();
+            if (l.flipX) g.scale(-1, 1);
             if (frameImg) g.drawImage(frameImg, -size / 2, -size / 2, size, size);
             if (im) {
                 const inner = size * 0.90;
                 drawContain(g, im, -inner / 2, -inner / 2, inner, inner);
             }
+            g.restore();
             if (selectedThumbId === l.id) {
                 g.strokeStyle = '#00e5ff';
                 g.lineWidth = 3;
@@ -4146,7 +4151,10 @@ async function renderThumbCanvas() {
         g.rotate(((l.rot || 0) * Math.PI) / 180);
         g.shadowColor = 'rgba(0, 0, 0, 0.85)';
         g.shadowBlur = 28;
+        g.save();
+        if (l.flipX) g.scale(-1, 1);
         drawContain(g, im, -boxW / 2, -boxH / 2, boxW, boxH);
+        g.restore();
         if (selectedThumbId === l.id) {
             g.strokeStyle = '#d4a34a';
             g.lineWidth = 3;
@@ -4276,6 +4284,14 @@ function populateThumbSelectors() {
         `<option value="">${currentLang === 'pt' ? '— Escolher perk —' : '— Choose perk —'}</option>` +
         allPerks.map(p => `<option value="${esc(p.id)}">[${p._roleLabel}] ${esc(nm(p))}</option>`).join('');
     if (prevPerk) perkSel.value = prevPerk;
+}
+
+function toggleThumbFlipX() {
+    const l = getSelectedThumbLayer();
+    if (!l || l.type === 'text') return;
+    l.flipX = !l.flipX;
+    syncThumbControlsToSelected();
+    renderThumbCanvas();
 }
 
 if (document.body) initTagDrawer();
