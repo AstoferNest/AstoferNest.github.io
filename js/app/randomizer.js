@@ -2958,6 +2958,140 @@ function playSquadBeep(freq = 440) {
     } catch (e) {}
 }
 
+function updateSquadSaveCount() {
+    const box = $('squadSaveList');
+    const lbl = $('squadSaveSelectedCount');
+    if (!box || !lbl) return;
+    const checks = Array.from(box.querySelectorAll('input[type="checkbox"][data-squad-idx]'));
+    const checked = checks.filter(c => c.checked).length;
+    lbl.textContent = currentLang === 'pt'
+        ? `${checked} de ${checks.length} selecionadas`
+        : `${checked} of ${checks.length} selected`;
+}
+
+function toggleAllSquadSaveChecks(state) {
+    const box = $('squadSaveList');
+    if (!box) return;
+    box.querySelectorAll('input[type="checkbox"][data-squad-idx]').forEach(ch => {
+        ch.checked = !!state;
+    });
+    updateSquadSaveCount();
+}
+
+function closeSaveSquadModal() {
+    const modal = $('saveSquadModal');
+    if (modal) modal.classList.add('hidden');
+}
+
+function saveCurrentSquad() {
+    if (!Array.isArray(currentSquadResult) || currentSquadResult.length !== 4) {
+        showToast(
+            currentLang === 'pt' ? 'Sorteie o Squad primeiro antes de salvar!' : 'Roll the Squad first before saving!',
+            'error'
+        );
+        return;
+    }
+
+    const modal = $('saveSquadModal');
+    const listBox = $('squadSaveList');
+    const prefixInput = $('squadSavePrefix');
+    if (!modal || !listBox) return;
+
+    if (prefixInput) prefixInput.value = '';
+
+    listBox.innerHTML = currentSquadResult.map((m, idx) => {
+        const charName = esc(nm(m.character));
+        const item = m.item || EMPTY_ITEM;
+        const itemName = esc(item.namePt !== 'Nenhum' ? nm(item) : (currentLang === 'pt' ? 'Nenhum' : 'None'));
+        const perksMini = (m.perks || []).map(p => `
+            <div class="perk-diamond perk-diamond-xs" data-perk="${esc(p.id)}">
+                <div class="perk-diamond-inner">
+                    ${imgTag(entryImgs(p), 'w-full h-full object-contain', p.icon || 'fa-shield-halved', 'text-purple-200 text-xs')}
+                </div>
+            </div>
+        `).join('');
+
+        return `
+            <label class="flex flex-col gap-2.5 p-3 rounded-lg bg-neutral-950 border border-neutral-800 hover:border-dbd-cyan cursor-pointer transition">
+                <div class="flex items-center justify-between gap-2">
+                    <span class="text-[11px] font-black uppercase tracking-wider text-dbd-cyan">
+                        ${currentLang === 'pt' ? `Jogador ${m.player || idx + 1}` : `Player ${m.player || idx + 1}`}
+                    </span>
+                    <input type="checkbox" data-squad-idx="${idx}" checked onchange="updateSquadSaveCount()" class="w-4 h-4 accent-dbd-red cursor-pointer">
+                </div>
+
+                <div class="flex items-center gap-2.5">
+                    <div class="char-card w-11 shrink-0${ptbCls(m.character)} flex items-center justify-center text-dbd-cyan">
+                        ${imgTag(entryImgs(m.character), 'w-full h-full object-contain', m.character.icon || 'fa-user', 'text-lg')}
+                    </div>
+                    <div class="min-w-0">
+                        <div class="text-xs font-bold text-white truncate">${charName}</div>
+                        <div class="text-[11px] text-dbd-muted truncate">${itemName}</div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-1.5 pt-1 border-t border-neutral-800/80">
+                    ${perksMini}
+                </div>
+            </label>
+        `;
+    }).join('');
+
+    updateSquadSaveCount();
+    modal.classList.remove('hidden');
+}
+
+function confirmSaveSelectedSquadBuilds() {
+    const listBox = $('squadSaveList');
+    if (!listBox || !Array.isArray(currentSquadResult) || currentSquadResult.length !== 4) {
+        closeSaveSquadModal();
+        return;
+    }
+
+    const selectedIndices = Array.from(listBox.querySelectorAll('input[type="checkbox"][data-squad-idx]:checked'))
+        .map(el => parseInt(el.dataset.squadIdx, 10))
+        .filter(i => !Number.isNaN(i) && currentSquadResult[i]);
+
+    if (!selectedIndices.length) {
+        showToast(
+            currentLang === 'pt' ? 'Selecione ao menos 1 build do Squad para salvar!' : 'Select at least 1 Squad build to save!',
+            'error'
+        );
+        return;
+    }
+
+    const prefix = ($('squadSavePrefix')?.value || '').trim();
+    const todayStr = new Date().toLocaleDateString();
+    const baseTime = Date.now();
+
+    selectedIndices.forEach((idx, order) => {
+        const m = currentSquadResult[idx];
+        const playerLabel = currentLang === 'pt' ? `Jogador ${m.player || idx + 1}` : `Player ${m.player || idx + 1}`;
+        const buildName = prefix ? `${prefix} · ${playerLabel}` : playerLabel;
+
+        savedBuilds.unshift({
+            id: baseTime + order,
+            name: buildName,
+            role: 'survivor',
+            character: m.character,
+            perks: m.perks,
+            item: m.item || { ...EMPTY_ITEM },
+            date: todayStr
+        });
+    });
+
+    persistSavedBuilds();
+    renderSavedBuilds();
+    closeSaveSquadModal();
+
+    showToast(
+        currentLang === 'pt'
+            ? `${selectedIndices.length} build(s) do Squad salva(s)!`
+            : `${selectedIndices.length} Squad build(s) saved!`,
+        'success'
+    );
+}
+
 function rollSurvivorItemForSquad(character) {
     const prevRole = currentRole;
     currentRole = 'survivor';
