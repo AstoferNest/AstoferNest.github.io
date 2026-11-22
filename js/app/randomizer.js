@@ -3844,6 +3844,7 @@ function syncThumbControlsToSelected() {
         if ($('thTextSize')) $('thTextSize').value = l.size || 64;
         if ($('thTextSizeVal')) $('thTextSizeVal').textContent = `${l.size || 64}px`;
         if ($('thTextColor')) $('thTextColor').value = l.color || '#ffffff';
+        if ($('thTextFont')) $('thTextFont').value = l.font || 'Barlow Condensed';
     } else {
         if (imgCtrl) imgCtrl.classList.remove('hidden');
         if (txtCtrl) txtCtrl.classList.add('hidden');
@@ -3870,6 +3871,8 @@ function updateSelectedLayerProps() {
         l.size = parseInt($('thTextSize').value, 10) || 64;
         l.color = $('thTextColor').value || '#ffffff';
         if ($('thTextSizeVal')) $('thTextSizeVal').textContent = `${l.size}px`;
+        l.font = $('thTextFont') ? $('thTextFont').value : 'Barlow Condensed';
+        ensureGoogleFontLoaded(l.font).then(() => renderThumbCanvas());        
     } else {
         const pct = parseInt($('thScaleRange').value, 10) || 100;
         const rot = parseInt($('thRotRange').value, 10) || 0;
@@ -3893,6 +3896,7 @@ function addThumbTextLayer() {
         x: 0.5,
         y: 0.82,
         size: thumbRatio === '9:16' ? 76 : 64,
+        font: 'Barlow Condensed',
         color: '#ffffff'
     };
     thumbState.items.push(newTxt);
@@ -4062,6 +4066,16 @@ async function renderThumbCanvas() {
     const bgImg = await loadThumbImageElement(thumbState.bg.src);
     const itemImgs = await Promise.all(thumbState.items.map(it => it.type === 'text' ? Promise.resolve(null) : loadThumbImageElement(it.src)));
 
+    // Garante que as fontes usadas nos textos já estejam carregadas antes de desenhar
+    const activeFonts = [...new Set(
+        thumbState.items
+            .filter(it => it && it.type === 'text' && it.visible !== false && it.content && it.content.trim())
+            .map(it => it.font || 'Barlow Condensed')
+    )];
+    if (activeFonts.length && typeof ensureGoogleFontLoaded === 'function') {
+        await Promise.all(activeFonts.map(f => ensureGoogleFontLoaded(f)));
+    }
+
     g.clearRect(0, 0, W, H);
     const bgGrad = g.createRadialGradient(W * 0.5, H * 0.4, 40, W * 0.5, H * 0.5, Math.max(W, H) * 0.75);
     bgGrad.addColorStop(0, '#2b1218');
@@ -4092,8 +4106,9 @@ async function renderThumbCanvas() {
         if (l.type === 'text') {
             if (!l.content || !l.content.trim()) return;
             const fontSize = l.size || 64;
+            const fontFamily = l.font || 'Barlow Condensed';
             g.save();
-            g.font = `800 ${fontSize}px "Barlow Condensed", "Plus Jakarta Sans", sans-serif`;
+            g.font = `800 ${fontSize}px "${fontFamily}", "Barlow Condensed", sans-serif`;
             g.textAlign = 'center';
             g.textBaseline = 'middle';
             const textStr = l.content.trim().toUpperCase();
@@ -4291,6 +4306,41 @@ function toggleThumbFlipX() {
     if (!l || l.type === 'text') return;
     l.flipX = !l.flipX;
     syncThumbControlsToSelected();
+    renderThumbCanvas();
+}
+
+const thumbLoadedFonts = new Set(['Barlow Condensed', 'Plus Jakarta Sans']);
+
+async function ensureGoogleFontLoaded(fontFamily) {
+    const clean = String(fontFamily || 'Barlow Condensed').replace(/['"]/g, '').trim();
+    if (!clean) return 'Barlow Condensed';
+
+    if (!thumbLoadedFonts.has(clean)) {
+        const linkId = 'gfont_' + slugId(clean);
+        if (!document.getElementById(linkId)) {
+            const link = document.createElement('link');
+            link.id = linkId;
+            link.rel = 'stylesheet';
+            link.href = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(clean)}:wght@700;800;900&display=swap`;
+            document.head.appendChild(link);
+        }
+        thumbLoadedFonts.add(clean);
+    }
+
+    try {
+        await document.fonts.load(`800 64px "${clean}"`);
+        await document.fonts.ready;
+    } catch (e) {}
+
+    return clean;
+}
+
+async function handleThumbFontChange() {
+    const l = getSelectedThumbLayer();
+    if (!l || l.type !== 'text') return;
+    const chosen = $('thTextFont') ? $('thTextFont').value : 'Barlow Condensed';
+    l.font = chosen;
+    await ensureGoogleFontLoaded(chosen);
     renderThumbCanvas();
 }
 
