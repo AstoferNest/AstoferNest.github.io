@@ -1048,6 +1048,53 @@
         </div>
     </div>
 
+    <!-- SAVE SQUAD SELECTION MODAL -->
+    <div id="saveSquadModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-dbd-card max-w-2xl w-full p-6 rounded-xl border border-neutral-800 space-y-4 shadow-2xl">
+            <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
+                <h3 class="font-bold text-white uppercase text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-users text-dbd-cyan"></i>
+                    <span id="squadSaveModalTitle">Salvar Builds do Squad</span>
+                </h3>
+                <button type="button" onclick="closeSaveSquadModal()" class="text-neutral-400 hover:text-white">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <p class="text-xs text-dbd-muted" id="squadSaveModalDesc">
+                Selecione quais builds dos 4 jogadores você deseja adicionar à sua coleção de Builds Salvas:
+            </p>
+
+            <div>
+                <label class="bd-label" for="squadSavePrefix">Nome / Tag do Squad (opcional)</label>
+                <input type="text" id="squadSavePrefix" maxlength="40" placeholder="Ex.: Squad Sexta" class="bd-field">
+            </div>
+
+            <div class="flex items-center justify-between gap-2 text-xs">
+                <span id="squadSaveSelectedCount" class="font-bold text-dbd-cyan">4 de 4 selecionadas</span>
+                <div class="flex items-center gap-2">
+                    <button type="button" onclick="toggleAllSquadSaveChecks(true)" class="bd-btn bd-btn-sm">
+                        Marcar todas
+                    </button>
+                    <button type="button" onclick="toggleAllSquadSaveChecks(false)" class="bd-btn bd-btn-sm">
+                        Desmarcar todas
+                    </button>
+                </div>
+            </div>
+
+            <div id="squadSaveList" class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[52vh] overflow-y-auto pr-1"></div>
+
+            <div class="flex justify-end gap-2 pt-2 border-t border-neutral-800">
+                <button type="button" onclick="closeSaveSquadModal()" class="bd-btn">
+                    Cancelar
+                </button>
+                <button type="button" onclick="confirmSaveSelectedSquadBuilds()" class="bd-btn bd-btn-primary">
+                    <i class="fa-solid fa-floppy-disk"></i> Salvar Selecionadas
+                </button>
+            </div>
+        </div>
+    </div>    
+
     <!-- NOTIFICATION TOAST CONTAINER -->
     <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none" role="status" aria-live="polite"></div>
     <div id="srAnnounce" class="bd-sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
