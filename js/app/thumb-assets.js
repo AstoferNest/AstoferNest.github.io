@@ -24,7 +24,7 @@
             none: 'Nenhum resultado.', loading: 'Carregando...',
             noImg: 'Imagem não encontrada', ok: 'adicionado!',
             emptyFx: 'Nenhum efeito encontrado.', emptyModels: 'Nenhum modelo encontrado.',
-           
+            emptyHelp: 'Coloque as imagens em <code>css/img/%DIR%</code> e liste os nomes em <code>json/thumb-assets.json</code> (use o <code>editor-thumb-assets.html</code>).'
         },
         en: {
             title: 'Asset Library', open: 'Open Asset Library',
@@ -38,7 +38,7 @@
             none: 'No results.', loading: 'Loading...',
             noImg: 'Image not found', ok: 'added!',
             emptyFx: 'No effects found.', emptyModels: 'No models found.',
-           
+            emptyHelp: 'Put images in <code>css/img/%DIR%</code> and list the file names in <code>json/thumb-assets.json</code> (use <code>editor-thumb-assets.html</code>).'
         }
     };
     const t = k => (L[currentLang] || L.pt)[k];
@@ -66,7 +66,7 @@
         const custom = (customEntries || []).filter(e => e.category === 'perk' && (e.role === 'killer') === (role === 'killer'));
         return [...(base || []), ...custom].map(p => ({
             kind: 'perk', key: 'perk:' + p.id, name: nm(p), alt: p.namePt === p.nameEn ? '' : (currentLang === 'pt' ? p.nameEn : p.namePt),
-            group: p.charName && p.charName.toLowerCase() !== GENERAL_NAME ? p.charName : (currentLang === 'pt' ? 'Perks gerais' : 'General perks'),
+            group: p.charName && p.charName.toLowerCase() !== GENERAL_NAME ? (currentLang === 'pt' ? p.charName : (p.charNameEn || p.charName)) : (currentLang === 'pt' ? 'Perks gerais' : 'General perks'),
             cands: entryImgs(p), fa: p.icon || 'fa-shield', framed: true, ptb: !!p.ptb
         }));
     }
@@ -280,15 +280,16 @@
         if (q) list = list.filter(x => norm(x.name).includes(q) || norm(x.alt).includes(q) || norm(x.group).includes(q));
 
         if (!list.length) {
-             let msg = esc(t('none')), icon = 'fa-magnifying-glass';
-             if (!cache[tabId].length && (tabId === 'fx' || tabId === 'models')) {
-                 icon = 'fa-folder-open';
-                 msg = esc(t(tabId === 'fx' ? 'emptyFx' : 'emptyModels'));
-             }
-             body.innerHTML = `<div class="ta-empty"><i class="fa-solid ${icon}"></i>${msg}</div>`;
-             current = [];
-             return;
-         }
+            let msg = esc(t('none')), icon = 'fa-magnifying-glass';
+            if (!cache[tabId].length && (tabId === 'fx' || tabId === 'models')) {
+                icon = 'fa-folder-open';
+                msg = esc(t(tabId === 'fx' ? 'emptyFx' : 'emptyModels')) + '<br>' +
+                    t('emptyHelp').replace('%DIR%', tabId === 'fx' ? FX_DIR : MODELS_DIR);
+            }
+            body.innerHTML = `<div class="ta-empty"><i class="fa-solid ${icon}"></i>${msg}</div>`;
+            current = [];
+            return;
+        }
 
         current = list;
         // agrupa preservando a ordem

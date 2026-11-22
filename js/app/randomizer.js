@@ -108,6 +108,7 @@ const perkSlug = s => s.toString().toLowerCase().normalize('NFD').replace(/ /g, 
 // retrato do personagem: minúsculas, espaços -> hífen (mantém acentos)
 const charPhotoSlug = s => s.toLowerCase().replace(/\s+/g, '-');
 const cleanChar = c => c.replace(/Perk ensinável de /gi, '').trim();
+const cleanCharEn = c => (c || '').replace(/Teachable perk (of|from) /gi, '').trim();
 const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 const shuffle = arr => [...arr].sort(() => 0.5 - Math.random());
 
@@ -129,8 +130,13 @@ function buildCharacters(perks, role) {
         if (n.toLowerCase() === GENERAL_NAME) return;
         (own[n] = own[n] || []).push(p);
     });
+    // nome em inglês (opcional): campo "character_en" em qualquer perk do personagem
+    const enName = n => {
+        const hit = own[n].find(p => cleanCharEn(p.character_en));
+        return hit ? cleanCharEn(hit.character_en) : n;
+    };
     return Object.keys(own).sort((a, b) => a.localeCompare(b)).map(n => ({
-        id: fmt(n), namePt: n, nameEn: n,
+        id: fmt(n), namePt: n, nameEn: enName(n),
         rel: 'personagens/' + charPhotoSlug(n) + '.png',
         icon: role === 'survivor' ? 'fa-user' : 'fa-skull',
         // PTB se algum perk marcar character_ptb, ou se TODOS os perks dele forem PTB
@@ -151,6 +157,7 @@ function buildPerks(perks, role) {
             namePt: p.perk_name,
             nameEn: p.perk_name_en || p.perk_name,
             charName: c,
+            charNameEn: cleanCharEn(p.character_en) || c,
             desc: p.descricao || '',
             descEn: p.descricao_en || '',
             ptb: p.ptb === true,     
@@ -2677,7 +2684,7 @@ async function copyObsLink(which) {
         if (!p) return hide();
         const pt = currentLang === 'pt';
         const desc = (!pt && p.descEn) ? p.descEn : p.desc;
-        const owner = p.ownerId === 'geral' ? (pt ? 'Geral' : 'General') : (p.charName || '');
+        const owner = p.ownerId === 'geral' ? (pt ? 'Geral' : 'General') : (currentLang === 'pt' ? (p.charName || '') : (p.charNameEn || p.charName || ''));
         tip.innerHTML = `
             <div class="perk-tip-head">
                 <div class="perk-tip-name">${esc(nm(p))}</div>
