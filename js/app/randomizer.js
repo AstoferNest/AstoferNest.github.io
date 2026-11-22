@@ -4248,6 +4248,7 @@ function exportThumbPng() {
 }
 
 function initThumbmakerEvents() {
+    initThumbDropzone();
     const canvas = $('thumbCanvas');
     if (!canvas || canvas.dataset.bound) return;
     canvas.dataset.bound = '1';
@@ -4391,6 +4392,92 @@ async function handleThumbFontChange() {
     l.font = chosen;
     await ensureGoogleFontLoaded(chosen);
     renderThumbCanvas();
+}
+
+function addThumbImageFile(file, normPos = null) {
+    if (!file || !file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+        const offset = (thumbState.items.filter(i => i.type === 'image').length % 5) * 0.04;
+        const newImg = {
+            id: uidThumb('img'),
+            type: 'image',
+            label: (file.name || 'Imagem').slice(0, 14),
+            visible: true,
+            x: normPos ? Math.max(0.05, Math.min(0.95, normPos.nx)) : Math.min(0.85, 0.5 + offset),
+            y: normPos ? Math.max(0.05, Math.min(0.95, normPos.ny)) : Math.min(0.85, 0.5 + offset),
+            scale: 1.0,
+            rot: 0,
+            flipX: false,
+            opacity: 1,
+            src: reader.result
+        };
+        thumbState.items.push(newImg);
+        thumbImgCache.delete(reader.result);
+        selectThumbLayer(newImg.id);
+        showToast(
+            currentLang === 'pt' ? `"${file.name}" adicionada ao canvas!` : `"${file.name}" added to canvas!`,
+            'success'
+        );
+    };
+    reader.readAsDataURL(file);
+}
+
+function handleThumbDroppedFiles(fileList, normPos = null) {
+    if (!fileList || !fileList.length) return;
+    Array.from(fileList).forEach((file, i) => {
+        const shifted = normPos
+            ? { nx: normPos.nx + i * 0.03, ny: normPos.ny + i * 0.03 }
+            : null;
+        addThumbImageFile(file, shifted);
+    });
+}
+
+function initThumbDropzone() {
+    const dropEl = $('thDropZone');
+    const canvas = $('thumbCanvas');
+
+    const bindZone = (el, getPosFromEvent) => {
+        if (!el || el.dataset.dropBound) return;
+        el.dataset.dropBound = '1';
+
+        ['dragenter', 'dragover'].forEach(evName => {
+            el.addEventListener(evName, e => {
+                if (!e.dataTransfer || !Array.from(e.dataTransfer.types || []).includes('Files')) return;
+                e.preventDefault();
+                e.stopPropagation();
+                el.classList.add('border-dbd-cyan', 'bg-neutral-900');
+            });
+        });
+
+        ['dragleave', 'drop'].forEach(evName => {
+            el.addEventListener(evName, e => {
+                if (evName === 'drop' && e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                el.classList.remove('border-dbd-cyan', 'bg-neutral-900');
+            });
+        });
+
+        el.addEventListener('drop', e => {
+            const files = e.dataTransfer && e.dataTransfer.files;
+            if (!files || !files.length) return;
+            e.preventDefault();
+            e.stopPropagation();
+            const pos = getPosFromEvent ? getPosFromEvent(e) : null;
+            handleThumbDroppedFiles(files, pos);
+        });
+    };
+
+    bindZone(dropEl, null);
+    bindZone(canvas, e => {
+        const rect = canvas.getBoundingClientRect();
+        return {
+            nx: (e.clientX - rect.left) / rect.width,
+            ny: (e.clientY - rect.top) / rect.height
+        };
+    });
 }
 
 if (document.body) initTagDrawer();
