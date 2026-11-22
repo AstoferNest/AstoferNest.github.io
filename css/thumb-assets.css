@@ -143,6 +143,26 @@
   color: var(--text-primary, #eceae4);
 }
 
+/* Aviso de remoção (Efeitos / Modelos) */
+.ta-notice {
+  display: none;
+  align-items: flex-start;
+  gap: 0.55rem;
+  margin: 0.6rem 1rem 0;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-md, 6px);
+  border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.08));
+  border-left: 3px solid var(--accent-survivor, #6ba3be);
+  background: var(--bg-inset, #0e1015);
+  color: var(--text-secondary, #8e95a5);
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+.ta-notice.is-visible { display: flex; }
+.ta-notice i { margin-top: 2px; color: var(--accent-survivor, #6ba3be); }
+.ta-notice a { color: var(--text-primary, #eceae4); font-weight: 700; text-decoration: underline; }
+.ta-notice a:hover { color: var(--accent-survivor, #6ba3be); }
+
 /* Corpo */
 .ta-body {
   flex: 1;
