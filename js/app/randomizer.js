@@ -3845,6 +3845,12 @@ function syncThumbControlsToSelected() {
         if ($('thTextSizeVal')) $('thTextSizeVal').textContent = `${l.size || 64}px`;
         if ($('thTextColor')) $('thTextColor').value = l.color || '#ffffff';
         if ($('thTextFont')) $('thTextFont').value = l.font || 'Barlow Condensed';
+        const stEnabled = l.strokeEnabled !== false;
+        const stWidth = l.strokeWidth != null ? l.strokeWidth : Math.max(5, Math.round((l.size || 64) * 0.12));
+        if ($('thTextStrokeEnabled')) $('thTextStrokeEnabled').checked = stEnabled;
+        if ($('thTextStrokeWidth')) $('thTextStrokeWidth').value = stWidth;
+        if ($('thTextStrokeVal')) $('thTextStrokeVal').textContent = `${stWidth}px`;
+        if ($('thTextStrokeColor')) $('thTextStrokeColor').value = l.strokeColor || '#000000';        
     } else {
         if (imgCtrl) imgCtrl.classList.remove('hidden');
         if (txtCtrl) txtCtrl.classList.add('hidden');
@@ -3872,7 +3878,11 @@ function updateSelectedLayerProps() {
         l.color = $('thTextColor').value || '#ffffff';
         if ($('thTextSizeVal')) $('thTextSizeVal').textContent = `${l.size}px`;
         l.font = $('thTextFont') ? $('thTextFont').value : 'Barlow Condensed';
-        ensureGoogleFontLoaded(l.font).then(() => renderThumbCanvas());        
+        ensureGoogleFontLoaded(l.font).then(() => renderThumbCanvas());     
+        l.strokeEnabled = $('thTextStrokeEnabled') ? $('thTextStrokeEnabled').checked : true;
+        l.strokeWidth = $('thTextStrokeWidth') ? (parseInt($('thTextStrokeWidth').value, 10) || 8) : 8;
+        l.strokeColor = $('thTextStrokeColor') ? $('thTextStrokeColor').value : '#000000';
+        if ($('thTextStrokeVal')) $('thTextStrokeVal').textContent = `${l.strokeWidth}px`;        
     } else {
         const pct = parseInt($('thScaleRange').value, 10) || 100;
         const rot = parseInt($('thRotRange').value, 10) || 0;
@@ -3897,7 +3907,10 @@ function addThumbTextLayer() {
         y: 0.82,
         size: thumbRatio === '9:16' ? 76 : 64,
         font: 'Barlow Condensed',
-        color: '#ffffff'
+        color: '#ffffff',
+        strokeEnabled: true,
+        strokeColor: '#000000',
+        strokeWidth: 8
     };
     thumbState.items.push(newTxt);
     selectThumbLayer(newTxt.id);
@@ -4107,23 +4120,34 @@ async function renderThumbCanvas() {
             if (!l.content || !l.content.trim()) return;
             const fontSize = l.size || 64;
             const fontFamily = l.font || 'Barlow Condensed';
+            const useStroke = l.strokeEnabled !== false;
+            const strokeColor = l.strokeColor || '#000000';
+            const strokeWidth = l.strokeWidth != null ? l.strokeWidth : Math.max(5, Math.round(fontSize * 0.12));
+
             g.save();
             g.font = `800 ${fontSize}px "${fontFamily}", "Barlow Condensed", sans-serif`;
             g.textAlign = 'center';
             g.textBaseline = 'middle';
             const textStr = l.content.trim().toUpperCase();
-            g.lineWidth = Math.max(5, Math.round(fontSize * 0.12));
-            g.strokeStyle = 'rgba(0, 0, 0, 0.92)';
+
             g.shadowColor = 'rgba(0, 0, 0, 0.85)';
             g.shadowBlur = 18;
-            g.strokeText(textStr, px, py);
-            g.shadowBlur = 0;
+
+            if (useStroke && strokeWidth > 0) {
+                g.lineJoin = 'round';
+                g.lineWidth = strokeWidth;
+                g.strokeStyle = strokeColor;
+                g.strokeText(textStr, px, py);
+            }
+
+            g.shadowBlur = useStroke ? 0 : 14;
             g.fillStyle = l.color || '#ffffff';
             g.fillText(textStr, px, py);
 
             if (selectedThumbId === l.id) {
                 const w = g.measureText(textStr).width + 24;
                 const h = fontSize + 14;
+                g.shadowBlur = 0;
                 g.strokeStyle = '#00e5ff';
                 g.lineWidth = 2;
                 g.strokeRect(px - w / 2, py - h / 2, w, h);
