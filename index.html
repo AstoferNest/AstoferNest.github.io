@@ -585,6 +585,25 @@
                       <label class="bd-label" for="thTextColor">Cor</label>
                       <input type="color" id="thTextColor" value="#ffffff" class="w-full h-9 rounded cursor-pointer bg-neutral-900 border border-neutral-700 p-1" oninput="updateSelectedLayerProps()">
                     </div>
+                    <div class="pt-2 border-t border-neutral-800 space-y-2">
+                        <div class="flex items-center justify-between">
+                          <span class="bd-label mb-0">Borda do texto</span>
+                          <label class="dbd-toggle">
+                            <input type="checkbox" id="thTextStrokeEnabled" checked onchange="updateSelectedLayerProps()">
+                            <span>Com borda</span>
+                          </label>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 items-center">
+                          <div>
+                            <label class="bd-label" for="thTextStrokeWidth">Espessura (<span id="thTextStrokeVal">8px</span>)</label>
+                            <input type="range" id="thTextStrokeWidth" min="1" max="24" value="8" class="w-full accent-dbd-red" oninput="updateSelectedLayerProps()">
+                          </div>
+                          <div>
+                            <label class="bd-label" for="thTextStrokeColor">Cor da borda</label>
+                            <input type="color" id="thTextStrokeColor" value="#000000" class="w-full h-9 rounded cursor-pointer bg-neutral-900 border border-neutral-700 p-1" oninput="updateSelectedLayerProps()">
+                          </div>
+                        </div>
+                      </div>                      
                   </div>
                 </div>
 
