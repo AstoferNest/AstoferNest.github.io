@@ -24,7 +24,7 @@
             none: 'Nenhum resultado.', loading: 'Carregando...',
             noImg: 'Imagem não encontrada', ok: 'adicionado!',
             emptyFx: 'Nenhum efeito encontrado.', emptyModels: 'Nenhum modelo encontrado.',
-            emptyHelp: 'Coloque as imagens em <code>css/img/%DIR%</code> e liste os nomes em <code>json/thumb-assets.json</code> (use o <code>editor-thumb-assets.html</code>).'
+           
         },
         en: {
             title: 'Asset Library', open: 'Open Asset Library',
@@ -38,7 +38,7 @@
             none: 'No results.', loading: 'Loading...',
             noImg: 'Image not found', ok: 'added!',
             emptyFx: 'No effects found.', emptyModels: 'No models found.',
-            emptyHelp: 'Put images in <code>css/img/%DIR%</code> and list the file names in <code>json/thumb-assets.json</code> (use <code>editor-thumb-assets.html</code>).'
+           
         }
     };
     const t = k => (L[currentLang] || L.pt)[k];
