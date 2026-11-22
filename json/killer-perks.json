@@ -256,6 +256,7 @@
     {
       "perk_name": "Discordância",
       "character": "Perk ensinável de A Legião",
+      "character_en": "Teachable perk of The Legion",
       "perk_name_en": "Discordance",
       "descricao": "A 64/96/128 m de você, quando um gerador é reparado por pelo menos dois Sobreviventes, você recebe um alerta.\n\nEnquanto esse gerador estiver sendo reparado por pelo menos dois Sobreviventes, você vê a aura dele. Isso termina 4 s após o gerador não ser mais reparado por pelo menos dois Sobreviventes.",
       "descricao_en": "Within 64/96/128m of you, whenever a Generator is being repaired by at least 2 Survivors, you are alerted.\n\nWhile that Generator is being repaired by at least 2 Survivors, you see its Aura. When it is no longer being repaired by at least 2 Survivors, this ends after 4s.",
@@ -283,6 +284,7 @@
     {
       "perk_name": "Garra do Dragão",
       "character": "Perk ensinável de O Flagelo",
+      "character_en": "Teachable perk of The Blight",
       "perk_name_en": "Dragon's Grip",
       "descricao": "Sempre que você causar dano a um gerador, pelos próximos 30 s, o primeiro Sobrevivente que reparar aquele gerador:\n- Grita e você recebe um alerta da posição dele por 4 s.\n- Fica Exposto por 60 s.\n\nTempo de recarga: 60/45/30 s.",
       "descricao_en": "Whenever you damage a Generator, for the next 30s, the first Survivor that repairs that Generator:\n- They scream, then you are alerted to their position for 4s.\n- They gain Exposed for 60s.\n\nCooldown: 60/45/30s.",
@@ -297,6 +299,7 @@
     {
       "perk_name": "Perdendo a Esperança",
       "character": "Perk ensinável de O Vulto",
+      "character_en": "Teachable perk of The Shape",
       "perk_name_en": "Dying Light",
       "descricao": "Sempre que você enganchar um Sobrevivente que não é a Obsessão, receba 1 Ponto de Progressão.\n\nEnquanto a Obsessão estiver viva, para cada Ponto de Progressão:\n- Os outros Sobreviventes curam 2/2,5/3% mais lentamente.\n- Os outros Sobreviventes reparam 2/2,5/3% mais lentamente.\n- Os outros Sobreviventes sabotam ganchos 2/2,5/3% mais lentamente.\n\nA Obsessão:\n- Cura outros Sobreviventes 33% mais rápido.\n- Desengancha outros Sobreviventes 33% mais rápido.",
       "descricao_en": "Whenever you hook a Survivor that is not the Obsession, earn 1 token.\n\nWhile the Obsession is alive, for each Token:\n- Other Survivors heal 2/2.5/3% slower.\n- Other Survivors repair 2/2.5/3% slower.\n- Other Survivors sabotage Hooks 2/2.5/3% slower.\n\nThe Obsession:\n- Heals other Survivors 33% faster.\n- Unhooks other Survivors 33% faster.",
@@ -312,6 +315,7 @@
     {
       "perk_name": "Resistência",
       "character": "Perk ensinável de O Caipira",
+      "character_en": "Teachable perk of The HillBilly",
       "perk_name_en": "Enduring",
       "descricao": "Enquanto não estiver carregando um Sobrevivente, atordoamentos causados por barricadas são 40/45/50% mais curtos.",
       "descricao_en": "While not carrying a Survivor, Pallet-stuns are 40/45/50% shorter.",
@@ -365,6 +369,7 @@
     {
       "perk_name": "Perseguição Furtiva",
       "character": "Perk ensinável de O Ghost Face",
+      "character_en": "Teachable perk of The Ghost Face",
       "perk_name_en": "Furtive Chase",
       "descricao": "Sempre que você engancha a Obsessão:\n- Você recebe 10% de Celeridade por 14/16/18 s.\n- Você recebe Indetectável por 14/16/18 s.\n\nSempre que a Obsessão é desenganchada, o Sobrevivente que a desenganchou se torna a Obsessão.",
       "descricao_en": "Whenever you hook the Obsession:\n- You gain 10% Haste for 14/16/18s.\n- You gain Undetectable for 14/16/18s.\n\nWhenever the Obsession is unhooked, the Survivor who unhooked them becomes the Obsession.",
@@ -396,6 +401,7 @@
     {
       "perk_name": "Gancho do Tormento: Truque do Carrasco",
       "character": "Perk ensinável de A Porca",
+      "character_en": "Teachable perk of The Pig",
       "perk_name_en": "Hangman's Trick",
       "descricao": "Ao carregar um Sobrevivente, você vê as auras de Sobreviventes a 12/14/16 m de um Gancho do Tormento.\n\nSempre que um Sobrevivente começa a sabotar um gancho, você recebe um alerta.",
       "descricao_en": "While carrying a Survivor, you see the Auras of Survivors within 12/14/16m of Scourge Hooks.\n\nWhenever a Survivor starts sabotaging a Hook, you are alerted.",
@@ -410,6 +416,7 @@
     {
       "perk_name": "Feitiço: Graça do Sangue",
       "character": "Perk ensinável de O Flagelo",
+      "character_en": "Teachable perk of The Blight",
       "perk_name_en": "Hex: Blood Favour",
       "descricao": "Sempre que um Sobrevivente saudável fica ferido pelo seu ataque básico, barricadas levantadas a 32 m dele ficam bloqueadas por 13/14/15 s.",
       "descricao_en": "Whenever a healthy Survivor becomes injured by your basic-attack, Upright Pallets within 32m of them are blocked for 13/14/15s.",
@@ -425,6 +432,7 @@
     {
       "perk_name": "Feitiço: Devorar Esperança",
       "character": "Perk ensinável de A Bruxa",
+      "character_en": "Teachable perk of The Hag",
       "perk_name_en": "Hex: Devour Hope",
       "descricao": "Sempre que um Sobrevivente é desenganchado enquanto você estiver a pelo menos 24 m de distância, receba 1 Ponto de Progressão, podendo acumular até 5.\n- 2 Pontos de Progressão | 10 s após enganchar um Sobrevivente, receba 3/4/5% de Celeridade por 10 s.\n- 3 Pontos de Progressão | Os Sobreviventes recebem Exposto.\n- 5 Pontos de Progressão | Você pode matar Sobreviventes derrubados.",
       "descricao_en": "Whenever a Survivor is unhooked while you are at least 24m away, earn 1 Token, up to 5:\n- 2 Tokens | 10s after hooking a Survivor, gain 3/4/5% Haste for 10s.\n- 3 Tokens | Survivors gain Exposed.\n- 5 Tokens | You can Kill downed Survivors.",
@@ -442,6 +450,7 @@
     {
       "perk_name": "Feitiço: Terreno Assombrado",
       "character": "Perk ensinável de O Espírito",
+      "character_en": "Teachable perk of The Spirit",
       "perk_name_en": "Hex: Haunted Ground",
       "descricao": "Quando um dos Totens Enfeitiçados for abençoado ou purificado:\n- Todos os Sobreviventes recebem Exposto por 40/50/60 s.\n- O outro Totem é apagado.",
       "descricao_en": "When either of those Hex Totems is blessed or cleansed:\n- All Survivors gain Exposed for 40/50/60s.\n- The other Totem is extinguished.",
@@ -507,6 +516,7 @@
     {
       "perk_name": "Feitiço: Arruinar",
       "character": "Perk ensinável de A Bruxa",
+      "character_en": "Teachable perk of The Hag",
       "perk_name_en": "Hex: Ruin",
       "descricao": "Enquanto um gerador não for reparado, ele regride com 100/125/150% de velocidade.",
       "descricao_en": "While a Generator is not being repaired, it regresses at 100/125/150% speed.",
@@ -522,6 +532,7 @@
     {
       "perk_name": "Feitiço: Terceiro Selo",
       "character": "Perk ensinável de A Bruxa",
+      "character_en": "Teachable perk of The Hag",
       "perk_name_en": "Hex: The Third Seal",
       "descricao": "Sempre que você causar dano a um Sobrevivente, ele ganha Cegueira.\n\nEste efeito é aplicado em até 2/3/4 Sobreviventes.",
       "descricao_en": "Whenever you damage a Survivor with a basic or special-attack, they gain Blindness.\n\nThis applies for up to 2/3/4 Survivors.",
@@ -551,6 +562,7 @@
     {
       "perk_name": "Feitiço: Imortal",
       "character": "Perk ensinável de O Flagelo",
+      "character_en": "Teachable perk of The Blight",
       "perk_name_en": "Hex: Undying",
       "descricao": "Quando outro Totem Enfeitiçado for abençoado ou purificado, ele substitui este Totem e mantém todos os Pontos de Progressão que ele tinha.\n\nVocê vê as Auras de Sobreviventes a 2/3/4 m de Totens Simples.",
       "descricao_en": "When another Hex Totem is blessed or cleansed, it replaces this one and keeps any Tokens it had.\n\nYou see the Auras of Survivors within 2/3/4m of Dull Totems.",
@@ -579,6 +591,7 @@
     {
       "perk_name": "Sou Todo Ouvidos",
       "character": "Perk ensinável de O Ghost Face",
+      "character_en": "Teachable perk of The Ghost Face",
       "perk_name_en": "I'm All Ears",
       "descricao": "Sempre que um Sobrevivente entrar ou sair rápido de um Armário ou fizer pulos rápidos ou médios a 48 m de você, você vê a aura dele por 8 s. Tempo de recarga: 60/45/30 s.",
       "descricao_en": "Whenever a Survivor fast-enters or fast-exits a Locker, or medium or fast-vaults within 48m of you, you see their Aura for 8s. Cooldown: 60/45/30s.",
@@ -632,6 +645,7 @@
     {
       "perk_name": "Dama de Ferro",
       "character": "Perk ensinável de A Legião",
+      "character_en": "Teachable perk of The Legion",
       "perk_name_en": "Iron Maiden",
       "descricao": "Sempre que um Sobrevivente sai de um armário:\n- Ele recebe Exposto por 30 s.\n- Ele grita e você recebe um alerta da localização dele por 4 s.\n\nVocê abre armários 30/40/50% mais rápido.",
       "descricao_en": "Whenever a Survivor exits a Locker:\n- They gain Exposed for 30s.\n- They scream, then you are alerted to their location for 4s.\n\nYou open Lockers 30/40/50% faster.",
@@ -659,6 +673,7 @@
     {
       "perk_name": "Nascido da Luz",
       "character": "Perk ensinável de O Caipira",
+      "character_en": "Teachable perk of The HillBilly",
       "perk_name_en": "Lightborn",
       "descricao": "Sempre que um Sobrevivente tentar cegar você, veja a aura dele por 6/8/10 s.\n\nVocê não pode ficar cego.",
       "descricao_en": "Whenever a Survivor attempts to blind you, you see their Aura for 6/8/10s.\n\nYou cannot be blinded.",
@@ -671,6 +686,7 @@
     {
       "perk_name": "Persistência Insana",
       "character": "Perk ensinável de A Legião",
+      "character_en": "Teachable perk of The Legion",
       "perk_name_en": "Mad Grit",
       "descricao": "Ao carregar um Sobrevivente:\n- Sempre que você erra um ataque básico, seu tempo de recarga é 100% mais curto.\n- Sempre que você causa dano a um Sobrevivente com um ataque básico, o Sobrevivente carregado não recebe progresso ao se debater por 2/3/4 s.",
       "descricao_en": "While carrying a Survivor:\n- Whenever you miss a basic-attack, your cooldown is 100% shorter.\n- Whenever you damage a Survivor with a basic attack, the carried Survivor gains no wiggle progress for 2/3/4s.",
@@ -685,6 +701,7 @@
     {
       "perk_name": "Faça sua Escolha",
       "character": "Perk ensinável de A Porca",
+      "character_en": "Teachable perk of The Pig",
       "perk_name_en": "Make Your Choice",
       "descricao": "Sempre que um Sobrevivente se desengancha ou desengancha outro enquanto você estiver a pelo menos 32 m de distância:\n- Eles gritam.\n- Eles recebem Exposto por 40/50/60 s.\n\nTempo de recarga: 40/50/60 s.",
       "descricao_en": "Whenever a Survivor unhooks another or themselves while you are at least 32m away:\n- They scream.\n- They gain Exposed for 40/50/60s.\n\nCooldown: 40/50/60s.",
@@ -713,6 +730,7 @@
     {
       "perk_name": "Monitore & Abuse",
       "character": "Perk ensinável de O Médico",
+      "character_en": "Teachable perk of The Doctor",
       "perk_name_en": "Monitor & Abuse",
       "descricao": "Enquanto persegue um Sobrevivente, seu Raio de Terror é 5/10/15% maior.\n\nEnquanto não persegue um Sobrevivente, seu Raio de Terror é 15/20/25% menor.",
       "descricao_en": "While chasing a Survivor, your Terror Radius is 5/10/15% bigger.\n\nWhile not chasing a Survivor, your Terror Radius is 15/20/25% smaller.",
@@ -770,6 +788,7 @@
     {
       "perk_name": "Sobrecarga",
       "character": "Perk ensinável de O Médico",
+      "character_en": "Teachable perk of The Doctor",
       "perk_name_en": "Overcharge",
       "descricao": "Sempre que você causa dano a um gerador:\n- Sua velocidade de regressão aumenta de 85% para 130% ao longo dos próximos 30 s.\n- O próximo Sobrevivente que começar a reparar recebe um Teste de Perícia especial. Se falhar, ele perde mais 2/3/4% de progresso.",
       "descricao_en": "Whenever you damage a Generator:\n- Its regression speed will go from 85% to 130% over the next 30s.\n- The next Survivor who starts repairing it gets a special Skill Check. If they miss it, they lose 2/3/4% more progress.",
@@ -784,6 +803,7 @@
     {
       "perk_name": "Presença Esmagadora",
       "character": "Perk ensinável de O Médico",
+      "character_en": "Teachable perk of The Doctor",
       "perk_name_en": "Overwhelming Presence",
       "descricao": "Sempre que um Sobrevivente usa um item a 32 m de você, ele recebe Exaustão por 15 s.\n\nSempre que um Sobrevivente a 32 m de você recebe Exaustão, você vê a aura do Sobrevivente com Exaustão mais próximo por 2/3/4 s. Tempo de recarga: 25 s.",
       "descricao_en": "Whenever a Survivor uses an item within 32m of you, they gain Exhausted for 15s.\n\nWhenever a Survivor within 32m of you gains Exhausted, you see the closest Exhausted Survivor's Aura for 2/3/4s. Cooldown: 25s.",
@@ -797,6 +817,7 @@
     {
       "perk_name": "Brinque com a sua Comida",
       "character": "Perk ensinável de O Vulto",
+      "character_en": "Teachable perk of The Shape",
       "perk_name_en": "Play with Your Food",
       "descricao": "Sempre que você parar de perseguir a Obsessão, ganhe 1 ponto de progressão, até um máximo de 3. Tempo de recarga: 10 s.\n\nPara cada ponto de progressão, receba 3/4/5% de Celeridade.\n\nSempre que atacar, você perde 1 ponto de progressão.",
       "descricao_en": "Whenever you stop chasing the Obsession, you earn 1 Token, up to 3. Cooldown: 10s.\n\nFor each Token, gain 3/4/5% Haste.\n\nWhenever you attack, lose 1 Token.",
@@ -839,6 +860,7 @@
     {
       "perk_name": "Rancor",
       "character": "Perk ensinável de O Espírito",
+      "character_en": "Teachable perk of The Spirit",
       "perk_name_en": "Rancor",
       "descricao": "Sempre que um gerador é concluído:\n- Você recebe um alerta da posição de todos os Sobreviventes por 3 s.\n- A Obsessão vê sua aura por 5/4/3 s.\n\nQuando todos os geradores forem concluídos:\n- A Obsessão recebe Exposto.\n- Você pode matar a Obsessão.",
       "descricao_en": "Whenever a Generator is completed:\n- You are alerted to the position of all Survivors for 3s.\n- The Obsession sees your Aura for 5/4/3s.\n\nWhen all Generators are completed:\n- The Obsession gains Exposed.\n- You can Kill the Obsession.",
@@ -868,6 +890,7 @@
     {
       "perk_name": "Deixe o Melhor para o Final",
       "character": "Perk ensinável de O Vulto",
+      "character_en": "Teachable perk of The Shape",
       "perk_name_en": "Save the Best for Last",
       "descricao": "Sempre que você causar dano a um Sobrevivente que não seja a Obsessão com um ataque básico, receba 1 ponto de progressão, podendo acumular até 6/7/8.\n\nPara cada ponto de progressão, o tempo de recarga do seu ataque básico bem-sucedido é 5% mais curto.\n\nSempre que a Obsessão receber dano, perca 2 pontos de progressão.\n\nEnquanto a Obsessão estiver morta, você não pode receber pontos de progressão.",
       "descricao_en": "Whenever you damage a Survivor who is not the Obsession with a basic-attack, you earn 1 Token, up to 6/7/8.\n\nFor each Token, your successful basic-attack cooldown is 5% shorter.\n\nWhenever the Obsession takes damage, lose 2 Tokens.\n\nWhile the Obsession is dead, you cannot earn Tokens.",
@@ -922,6 +945,7 @@
     {
       "perk_name": "Fúria Espiritual",
       "character": "Perk ensinável de O Espírito",
+      "character_en": "Teachable perk of The Spirit",
       "perk_name_en": "Spirit Fury",
       "descricao": "Após quebrar 4/3/2 barricadas, quando você for atordoado por uma barricada, a barricada é destruída.",
       "descricao_en": "After you break 4/3/2 Pallets, when you are Pallet-stunned, the Pallet is destroyed.",
@@ -960,6 +984,7 @@
     {
       "perk_name": "Vigilância",
       "character": "Perk ensinável de A Porca",
+      "character_en": "Teachable perk of The Pig",
       "perk_name_en": "Surveillance",
       "descricao": "Sempre que um gerador para de regredir, você vê a aura dele por 8/12/16 s.\n\nRuídos de reparo de geradores podem ser ouvidos a mais 8 m de distância.",
       "descricao_en": "Whenever a Generator stops regressing, you see its Aura for 8/12/16s.\n\nGenerator repair noises can be heard from 8m farther away.",
@@ -1002,6 +1027,7 @@
     {
       "perk_name": "Tremores de Terror",
       "character": "Perk ensinável de O Ghost Face",
+      "character_en": "Teachable perk of The Ghost Face",
       "perk_name_en": "Thrilling Tremors",
       "descricao": "Sempre que você pega um Sobrevivente, todos os geradores que não estão sendo reparados ficam bloqueados por 16 s. Tempo de recarga: 40/35/30 s.",
       "descricao_en": "Whenever you pick-up a Survivor, all Generators not being repaired are blocked for 16s. Cooldown: 40/35/30s.",
@@ -1015,6 +1041,7 @@
     {
       "perk_name": "Aprimorador",
       "character": "Perk ensinável de O Caipira",
+      "character_en": "Teachable perk of The HillBilly",
       "perk_name_en": "Tinkerer",
       "descricao": "A primeira vez que cada gerador alcançar 70% de progresso:\n- Você recebe Indetectável por 12/14/16 s.\n- Você recebe um alerta.",
       "descricao_en": "The first time each Generator has 70% progress:\n- You gain Undetectable for 12/14/16s.\n- You are alerted.",
