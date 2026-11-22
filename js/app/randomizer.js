@@ -4189,7 +4189,7 @@ async function renderThumbCanvas() {
             if (l.flipX) g.scale(-1, 1);
             if (frameImg) g.drawImage(frameImg, -size / 2, -size / 2, size, size);
             if (im) {
-                const inner = size * 0.90;
+                const inner = size * 0.96;
                 drawContain(g, im, -inner / 2, -inner / 2, inner, inner);
             }
             g.restore();
