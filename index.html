@@ -23,6 +23,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@600;700;800&family=Bebas+Neue&family=Montserrat:wght@700;800;900&family=Oswald:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -564,6 +565,17 @@
                 <!-- Controles de Texto (aparecem quando um texto está selecionado) -->
                 <div id="thTextControls" class="space-y-3 hidden">
                   <input type="text" id="thTextInput" maxlength="60" placeholder="Digite o texto..." class="bd-field" oninput="updateSelectedLayerProps()">
+                  <div>
+                    <label class="bd-label" for="thTextFont">Fonte (Google Fonts)</label>
+                    <select id="thTextFont" class="bd-field" onchange="handleThumbFontChange()">
+                      <option value="Barlow Condensed" selected>Barlow Condensed (Padrão)</option>
+                      <option value="Anton">Anton (Impacto / Capa)</option>
+                      <option value="Bebas Neue">Bebas Neue (Condensada Alta)</option>
+                      <option value="Oswald">Oswald (Forte / Clean)</option>
+                      <option value="Montserrat">Montserrat (Moderna / Grossa)</option>
+                      <option value="Plus Jakarta Sans">Plus Jakarta Sans</option>
+                    </select>
+                  </div>
                   <div class="grid grid-cols-2 gap-3 items-center">
                     <div>
                       <label class="bd-label" for="thTextSize">Fonte (<span id="thTextSizeVal">64px</span>)</label>
