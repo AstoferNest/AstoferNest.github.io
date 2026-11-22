@@ -501,18 +501,19 @@
                   <button type="button" onclick="addThumbTextLayer()" class="bd-btn bd-btn-sm">
                     <i class="fa-solid fa-font text-dbd-cyan"></i> + Texto
                   </button>
-                  <div id="thDropZone"
-                       onclick="document.getElementById('thDropFileInput').click()"
-                       class="border-2 border-dashed border-neutral-700 hover:border-dbd-cyan bg-neutral-950/70 rounded-lg p-3 text-center cursor-pointer transition select-none">
-                    <input type="file" id="thDropFileInput" accept="image/*" multiple class="hidden" onchange="handleThumbDroppedFiles(event.target.files)">
-                    <i class="fa-solid fa-cloud-arrow-up text-lg text-dbd-cyan mb-1"></i>
-                    <p class="text-[11px] font-bold text-neutral-200">Arraste imagens aqui ou clique</p>
-                    <p class="text-[10px] text-neutral-500">PNG, JPG, WEBP · adiciona direto no canvas</p>
-                  </div>                   
                   <label class="bd-btn bd-btn-sm cursor-pointer">
                     <i class="fa-solid fa-image text-emerald-400"></i> + Imagem Própria
                     <input type="file" accept="image/*" class="hidden" onchange="addThumbCustomImageLayer(event)">
                   </label>
+                </div>
+
+                <div id="thDropZone"
+                     onclick="document.getElementById('thDropFileInput').click()"
+                     class="border-2 border-dashed border-neutral-700 hover:border-dbd-cyan bg-neutral-950/70 rounded-lg p-3 text-center cursor-pointer transition select-none">
+                  <input type="file" id="thDropFileInput" accept="image/*" multiple class="hidden" onchange="handleThumbDroppedFiles(event.target.files)">
+                  <i class="fa-solid fa-cloud-arrow-up text-lg text-dbd-cyan mb-1"></i>
+                  <p class="text-[11px] font-bold text-neutral-200">Arraste imagens aqui ou clique</p>
+                  <p class="text-[10px] text-neutral-500">PNG, JPG, WEBP · adiciona direto no canvas</p>
                 </div>
 
                 <div class="grid grid-cols-1 gap-2 pt-1">
@@ -574,7 +575,6 @@
                   <label class="bd-label" for="thOpacityRange">Opacidade (<span id="thOpacityVal">100%</span>)</label>
                   <input type="range" id="thOpacityRange" min="0" max="100" value="100" class="w-full accent-dbd-red" oninput="updateSelectedLayerProps()">
                 </div>
-                  
 
                 <!-- Controles de Texto (aparecem quando um texto está selecionado) -->
                 <div id="thTextControls" class="space-y-3 hidden">
@@ -599,25 +599,25 @@
                       <label class="bd-label" for="thTextColor">Cor</label>
                       <input type="color" id="thTextColor" value="#ffffff" class="w-full h-9 rounded cursor-pointer bg-neutral-900 border border-neutral-700 p-1" oninput="updateSelectedLayerProps()">
                     </div>
-                    <div class="pt-2 border-t border-neutral-800 space-y-2">
-                        <div class="flex items-center justify-between">
-                          <span class="bd-label mb-0">Borda do texto</span>
-                          <label class="dbd-toggle">
-                            <input type="checkbox" id="thTextStrokeEnabled" checked onchange="updateSelectedLayerProps()">
-                            <span>Com borda</span>
-                          </label>
-                        </div>
-                        <div class="grid grid-cols-2 gap-3 items-center">
-                          <div>
-                            <label class="bd-label" for="thTextStrokeWidth">Espessura (<span id="thTextStrokeVal">8px</span>)</label>
-                            <input type="range" id="thTextStrokeWidth" min="1" max="24" value="8" class="w-full accent-dbd-red" oninput="updateSelectedLayerProps()">
-                          </div>
-                          <div>
-                            <label class="bd-label" for="thTextStrokeColor">Cor da borda</label>
-                            <input type="color" id="thTextStrokeColor" value="#000000" class="w-full h-9 rounded cursor-pointer bg-neutral-900 border border-neutral-700 p-1" oninput="updateSelectedLayerProps()">
-                          </div>
-                        </div>
-                      </div>                      
+                  </div>
+                  <div class="pt-2 border-t border-neutral-800 space-y-2">
+                    <div class="flex items-center justify-between">
+                      <span class="bd-label mb-0">Borda do texto</span>
+                      <label class="dbd-toggle">
+                        <input type="checkbox" id="thTextStrokeEnabled" checked onchange="updateSelectedLayerProps()">
+                        <span>Com borda</span>
+                      </label>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 items-center">
+                      <div>
+                        <label class="bd-label" for="thTextStrokeWidth">Espessura (<span id="thTextStrokeVal">8px</span>)</label>
+                        <input type="range" id="thTextStrokeWidth" min="1" max="24" value="8" class="w-full accent-dbd-red" oninput="updateSelectedLayerProps()">
+                      </div>
+                      <div>
+                        <label class="bd-label" for="thTextStrokeColor">Cor da borda</label>
+                        <input type="color" id="thTextStrokeColor" value="#000000" class="w-full h-9 rounded cursor-pointer bg-neutral-900 border border-neutral-700 p-1" oninput="updateSelectedLayerProps()">
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -634,7 +634,7 @@
               </div>
             </div>
           </div>
-        </section>        
+        </section>      
         
         <!-- ======================================================== -->
         <!-- TAB: CRIAR BUILD MANUAL (+ modo curador)                 -->
