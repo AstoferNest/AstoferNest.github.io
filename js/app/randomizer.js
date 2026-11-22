@@ -3673,7 +3673,7 @@ function uidThumb(prefix = 'layer') {
 function createDefaultThumbState(ratio = '16:9') {
     return {
         ratio,
-        bg: { id: 'bg', type: 'bg', label: 'Fundo', visible: true, x: 0.5, y: 0.5, scale: 1.0, rot: 0, src: '' },
+        bg: { id: 'bg', type: 'bg', label: 'Fundo', visible: true, x: 0.5, y: 0.5, scale: 1.0, rot: 0, src: '',opacity: 1 },
         items: []
     };
 }
@@ -3835,6 +3835,10 @@ function syncThumbControlsToSelected() {
 
     if (nameEl) nameEl.textContent = l.label || l.type;
     if ($('thLayerVisible')) $('thLayerVisible').checked = l.visible !== false;
+    const opPct = Math.round((l.opacity != null ? l.opacity : (l.type === 'bg' ? 0.45 : 1)) * 100);
+    if ($('thOpacityRange')) $('thOpacityRange').value = opPct;
+    if ($('thOpacityVal')) $('thOpacityVal').textContent = `${opPct}%`;
+    
 
     if (l.type === 'text') {
         if (imgCtrl) imgCtrl.classList.add('hidden');
@@ -3877,6 +3881,9 @@ function updateSelectedLayerProps() {
     const l = getSelectedThumbLayer();
     if (!l) return;
     l.visible = $('thLayerVisible') ? $('thLayerVisible').checked : true;
+    const opPct = $('thOpacityRange') ? (parseInt($('thOpacityRange').value, 10) || 0) : 100;
+    l.opacity = Math.max(0, Math.min(1, opPct / 100));
+    if ($('thOpacityVal')) $('thOpacityVal').textContent = `${opPct}%`;    
 
     if (l.type === 'text') {
         l.content = $('thTextInput') ? $('thTextInput').value : '';
@@ -3917,7 +3924,8 @@ function addThumbTextLayer() {
         color: '#ffffff',
         strokeEnabled: true,
         strokeColor: '#000000',
-        strokeWidth: 8
+        strokeWidth: 8,
+        opacity: 1
     };
     thumbState.items.push(newTxt);
     selectThumbLayer(newTxt.id);
@@ -3937,6 +3945,7 @@ function addThumbCustomImageLayer(e) {
             y: 0.5,
             scale: 1.0,
             rot: 0,
+            opacity: 1,
             src: reader.result
         };
         thumbState.items.push(newImg);
@@ -3962,6 +3971,7 @@ function addThumbPickedCharacter() {
         y: 0.55,
         scale: 1.0,
         rot: 0,
+        opacity: 1,
         src: getFirstAvailableSrc(entryImgs(found))
     };
     thumbState.items.push(newChar);
@@ -3983,6 +3993,7 @@ function addThumbPickedPerk() {
         y: 0.40,
         scale: 1.0,
         rot: 0,
+        opacity: 1,
         src: getFirstAvailableSrc(entryImgs(found))
     };
     thumbState.items.push(newPerk);
@@ -4111,7 +4122,7 @@ async function renderThumbCanvas() {
         g.translate(bgL.x * W, bgL.y * H);
         g.rotate(((bgL.rot || 0) * Math.PI) / 180);
         g.scale((bgL.scale || 1) * (bgL.flipX ? -1 : 1), bgL.scale || 1);
-        g.globalAlpha = 0.45;
+        g.globalAlpha = bgL.opacity != null ? bgL.opacity : 0.45;
         g.drawImage(bgImg, -W / 2, -H / 2, W, H);
         g.restore();
     }
@@ -4122,6 +4133,7 @@ async function renderThumbCanvas() {
         if (l.visible === false) return;
         const im = itemImgs[idx];
         const px = l.x * W, py = l.y * H;
+        const layerAlpha = l.opacity != null ? Math.max(0, Math.min(1, l.opacity)) : 1;
 
         if (l.type === 'text') {
             if (!l.content || !l.content.trim()) return;
@@ -4132,6 +4144,7 @@ async function renderThumbCanvas() {
             const strokeWidth = l.strokeWidth != null ? l.strokeWidth : Math.max(5, Math.round(fontSize * 0.12));
 
             g.save();
+            g.globalAlpha = layerAlpha;
             g.font = `800 ${fontSize}px "${fontFamily}", "Barlow Condensed", sans-serif`;
             g.textAlign = 'center';
             g.textBaseline = 'middle';
@@ -4154,6 +4167,7 @@ async function renderThumbCanvas() {
             if (selectedThumbId === l.id) {
                 const w = g.measureText(textStr).width + 24;
                 const h = fontSize + 14;
+                g.globalAlpha = 1;
                 g.shadowBlur = 0;
                 g.strokeStyle = '#00e5ff';
                 g.lineWidth = 2;
@@ -4166,6 +4180,7 @@ async function renderThumbCanvas() {
         if (l.type === 'perk') {
             const size = basePerkSize * (l.scale || 1);
             g.save();
+            g.globalAlpha = layerAlpha;
             g.translate(px, py);
             g.rotate(((l.rot || 0) * Math.PI) / 180);
             g.shadowColor = 'rgba(0, 0, 0, 0.75)';
@@ -4179,6 +4194,7 @@ async function renderThumbCanvas() {
             }
             g.restore();
             if (selectedThumbId === l.id) {
+                g.globalAlpha = 1;
                 g.strokeStyle = '#00e5ff';
                 g.lineWidth = 3;
                 g.strokeRect(-size / 2, -size / 2, size, size);
@@ -4193,6 +4209,7 @@ async function renderThumbCanvas() {
         const aspect = im.width && im.height ? (im.width / im.height) : 0.75;
         const boxW = boxH * aspect;
         g.save();
+        g.globalAlpha = layerAlpha;
         g.translate(px, py);
         g.rotate(((l.rot || 0) * Math.PI) / 180);
         g.shadowColor = 'rgba(0, 0, 0, 0.85)';
@@ -4202,6 +4219,7 @@ async function renderThumbCanvas() {
         drawContain(g, im, -boxW / 2, -boxH / 2, boxW, boxH);
         g.restore();
         if (selectedThumbId === l.id) {
+            g.globalAlpha = 1;
             g.strokeStyle = '#d4a34a';
             g.lineWidth = 3;
             g.strokeRect(-boxW / 2, -boxH / 2, boxW, boxH);
