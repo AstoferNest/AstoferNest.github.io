@@ -5343,3 +5343,366 @@ function initA11y() {
     // A aba "Roleta de Classes" é criada depois: atualiza os papéis quando ela existir
     window.addEventListener('load', syncTabA11y);
 }
+
+/* ==========================================================================
+   ABA "PAGUE UM CAFEZINHO" (WIDGET LIVEPIX) + FOOTER AUTOMÁTICO
+   ========================================================================== */
+(function () {
+    'use strict';
+
+    // Cole aqui o "Link do widget" do LivePix se quiser deixar fixo para todos os visitantes
+    const DEFAULT_WIDGET_URL = 'https://widget.livepix.gg/embed/6606ed8d-766f-449e-90f0-9c49f5a9afb9';
+
+    const WIDGET_STORAGE_KEY = 'dbd_livepix_widget_url';
+
+    const COFFEE_CSS = `
+#coffeeHandle {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 44;
+  width: 34px;
+  min-height: 152px;
+  padding: 10px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  background: var(--bg-surface, #12141a);
+  color: var(--text-primary, #eceae4);
+  border: 1px solid var(--border-subtle, rgba(255,255,255,0.12));
+  border-right: none;
+  border-radius: 10px 0 0 10px;
+  box-shadow: -6px 0 20px rgba(0,0,0,0.45);
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+#coffeeHandle:hover {
+  background: var(--bg-elevated, #1a1d24);
+  border-color: var(--accent-crimson, #b91c28);
+}
+#coffeeHandle .cf-icon {
+  color: #f59e0b;
+  font-size: 13px;
+}
+#coffeeHandle .cf-label {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  max-height: 190px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 767px) {
+  #coffeeHandle {
+    top: auto;
+    bottom: env(safe-area-inset-bottom, 0px);
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: auto;
+    max-width: calc(100vw - 24px);
+    min-height: 0;
+    height: 34px;
+    padding: 0 14px;
+    flex-direction: row;
+    gap: 6px;
+    border: 1px solid var(--border-subtle, rgba(255,255,255,0.14));
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 -4px 18px rgba(0,0,0,0.45);
+  }
+  #coffeeHandle .cf-label {
+    writing-mode: horizontal-tb;
+    transform: none;
+    max-height: none;
+    white-space: nowrap;
+    font-size: 11px;
+  }
+  body {
+    padding-bottom: calc(44px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
+
+#coffeeModal {
+  position: fixed;
+  inset: 0;
+  z-index: 65;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(4px);
+}
+#coffeeModal.hidden {
+  display: none;
+}
+.cf-card {
+  width: 100%;
+  max-width: 28rem;
+  background: var(--bg-surface, #12141a);
+  border: 1px solid var(--border-strong, rgba(255,255,255,0.18));
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: var(--shadow-pop, 0 16px 36px rgba(0,0,0,0.65));
+  color: var(--text-primary, #eceae4);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+.cf-widget-frame {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  min-height: 260px;
+  border-radius: 10px;
+  border: 1px solid var(--border-strong, rgba(255,255,255,0.16));
+  background: var(--bg-inset, #0e1015);
+  overflow: hidden;
+  position: relative;
+}
+.cf-widget-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+`;
+
+    function cfText() {
+        const pt = (typeof currentLang === 'undefined' ? 'pt' : currentLang) === 'pt';
+        return {
+            handle: pt ? 'Gostou? Pague um cafezinho' : 'Enjoyed it? Buy me a coffee',
+            modalTitle: pt ? 'Pague um cafezinho · LivePix' : 'Buy me a coffee · LivePix',
+            modalSub: pt
+                ? 'Widget incorporado do LivePix (800×600).'
+                : 'Embedded LivePix widget (800×600).',
+            urlLabel: pt ? 'Link do widget LivePix' : 'LivePix widget link',
+            urlPlaceholder: 'https://...',
+            openBtn: pt ? 'Abrir' : 'Open',
+            reloadBtn: pt ? 'Recarregar' : 'Reload',
+            emptyWidget: pt
+                ? 'Cole o Link do widget do LivePix acima para exibir aqui.'
+                : 'Paste the LivePix widget link above to display it here.',
+            closeBtn: pt ? 'Fechar' : 'Close',
+            rights: pt ? 'todos os direitos reservados' : 'all rights reserved'
+        };
+    }
+
+    function getWidgetUrl() {
+        try {
+            return (localStorage.getItem(WIDGET_STORAGE_KEY) || DEFAULT_WIDGET_URL).trim();
+        } catch (e) {
+            return DEFAULT_WIDGET_URL.trim();
+        }
+    }
+
+    function setWidgetUrl(val) {
+        try {
+            localStorage.setItem(WIDGET_STORAGE_KEY, (val || '').trim());
+        } catch (e) {}
+        renderCoffeeWidget();
+    }
+
+    function renderCoffeeWidget() {
+        const frame = document.getElementById('cfWidgetIframe');
+        const empty = document.getElementById('cfWidgetEmpty');
+        const openBtn = document.getElementById('cfOpenUrlBtn');
+        const url = getWidgetUrl();
+        const isValid = /^https?:\/\//i.test(url);
+
+        if (openBtn) {
+            if (isValid) {
+                openBtn.href = url;
+                openBtn.classList.remove('opacity-50', 'pointer-events-none');
+            } else {
+                openBtn.removeAttribute('href');
+                openBtn.classList.add('opacity-50', 'pointer-events-none');
+            }
+        }
+
+        if (!frame || !empty) return;
+
+        if (isValid) {
+            frame.src = url;
+            frame.classList.remove('hidden');
+            empty.classList.add('hidden');
+        } else {
+            frame.removeAttribute('src');
+            frame.classList.add('hidden');
+            empty.classList.remove('hidden');
+        }
+    }
+
+    function openCoffeeModal() {
+        const m = document.getElementById('coffeeModal');
+        if (!m) return;
+        syncCoffeeTexts();
+        renderCoffeeWidget();
+        m.classList.remove('hidden');
+    }
+
+    function closeCoffeeModal() {
+        const m = document.getElementById('coffeeModal');
+        if (m) m.classList.add('hidden');
+    }
+
+    function ensureFooter() {
+        const year = new Date().getFullYear();
+        const t = cfText();
+        let footer = document.getElementById('siteFooter');
+        if (!footer) {
+            footer = document.createElement('footer');
+            footer.id = 'siteFooter';
+            footer.className = 'border-t border-neutral-800/80 bg-dbd-card/60 py-4 px-4 text-center text-xs text-dbd-muted';
+            footer.innerHTML = `
+                <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-1.5">
+                    <span>© <span id="footerYear">${year}</span></span>
+                    <strong class="text-white font-bold">Astofer</strong>
+                    <span id="footerRights">${t.rights}</span>
+                </div>`;
+            const main = document.getElementById('mainContent');
+            if (main && main.parentNode) {
+                main.insertAdjacentElement('afterend', footer);
+            } else {
+                document.body.appendChild(footer);
+            }
+            return;
+        }
+        const yearEl = document.getElementById('footerYear');
+        const rightsEl = document.getElementById('footerRights');
+        if (yearEl) yearEl.textContent = String(year);
+        if (rightsEl) rightsEl.textContent = t.rights;
+    }
+
+    function syncCoffeeTexts() {
+        const t = cfText();
+        const lbl = document.getElementById('cfHandleLabel');
+        if (lbl) lbl.textContent = t.handle;
+
+        const title = document.getElementById('cfModalTitle');
+        const sub = document.getElementById('cfModalSub');
+        const emptyTxt = document.getElementById('cfWidgetEmptyText');
+        const urlLbl = document.getElementById('cfUrlLabel');
+        const urlInp = document.getElementById('cfUrlInput');
+        const openBtn = document.getElementById('cfOpenUrlBtn');
+        const reloadBtn = document.getElementById('cfReloadBtn');
+        const closeBtn = document.getElementById('cfCloseBtn');
+
+        if (title) title.textContent = t.modalTitle;
+        if (sub) sub.textContent = t.modalSub;
+        if (emptyTxt) emptyTxt.textContent = t.emptyWidget;
+        if (urlLbl) urlLbl.textContent = t.urlLabel;
+        if (urlInp) urlInp.placeholder = t.urlPlaceholder;
+        if (openBtn) openBtn.innerHTML = `<i class="fa-solid fa-arrow-up-right-from-square"></i> <span>${t.openBtn}</span>`;
+        if (reloadBtn) reloadBtn.innerHTML = `<i class="fa-solid fa-rotate-right"></i> <span>${t.reloadBtn}</span>`;
+        if (closeBtn) closeBtn.setAttribute('aria-label', t.closeBtn);
+
+        ensureFooter();
+    }
+
+    function initCoffeeAndFooter() {
+        if (!document.getElementById('coffeeStyle')) {
+            const st = document.createElement('style');
+            st.id = 'coffeeStyle';
+            st.textContent = COFFEE_CSS;
+            document.head.appendChild(st);
+        }
+
+        if (!document.getElementById('coffeeHandle')) {
+            const handle = document.createElement('button');
+            handle.type = 'button';
+            handle.id = 'coffeeHandle';
+            handle.setAttribute('aria-haspopup', 'dialog');
+            handle.innerHTML = `
+                <i class="fa-solid fa-mug-hot cf-icon" aria-hidden="true"></i>
+                <span id="cfHandleLabel" class="cf-label"></span>
+            `;
+            handle.addEventListener('click', openCoffeeModal);
+            document.body.appendChild(handle);
+        }
+
+        if (!document.getElementById('coffeeModal')) {
+            const modal = document.createElement('div');
+            modal.id = 'coffeeModal';
+            modal.className = 'hidden';
+            modal.setAttribute('role', 'dialog');
+            modal.setAttribute('aria-modal', 'true');
+            modal.setAttribute('aria-labelledby', 'cfModalTitle');
+            modal.innerHTML = `
+                <div class="cf-card">
+                    <div class="flex items-center justify-between border-b border-neutral-800 pb-2.5">
+                        <h2 id="cfModalTitle" class="text-base font-black uppercase tracking-wider text-white flex items-center gap-2">
+                            <i class="fa-solid fa-mug-hot text-amber-400"></i>
+                            <span>Pague um cafezinho · LivePix</span>
+                        </h2>
+                        <button type="button" id="cfCloseBtn" class="text-neutral-400 hover:text-white p-1">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <p id="cfModalSub" class="text-xs text-dbd-muted"></p>
+
+                    <div class="cf-widget-frame">
+                        <iframe id="cfWidgetIframe" title="LivePix Widget" loading="lazy" allow="payment"></iframe>
+                        <div id="cfWidgetEmpty" class="w-full h-full flex flex-col items-center justify-center text-center text-neutral-500 px-4">
+                            <i class="fa-solid fa-qrcode text-4xl mb-2"></i>
+                            <div id="cfWidgetEmptyText" class="text-xs font-semibold"></div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label id="cfUrlLabel" for="cfUrlInput" class="bd-label mb-0"></label>
+                        <div class="flex gap-2">
+                            <input type="url" id="cfUrlInput" class="bd-field" autocomplete="off">
+                            <button type="button" id="cfReloadBtn" class="bd-btn bd-btn-sm shrink-0"></button>
+                            <a id="cfOpenUrlBtn" target="_blank" rel="noopener noreferrer" class="bd-btn bd-btn-sm bd-btn-primary shrink-0"></a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+
+            modal.addEventListener('click', e => {
+                if (e.target === modal) closeCoffeeModal();
+            });
+            document.getElementById('cfCloseBtn').addEventListener('click', closeCoffeeModal);
+
+            const urlInp = document.getElementById('cfUrlInput');
+            urlInp.value = getWidgetUrl();
+            urlInp.addEventListener('input', () => setWidgetUrl(urlInp.value));
+
+            document.getElementById('cfReloadBtn').addEventListener('click', () => {
+                renderCoffeeWidget();
+            });
+
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape') closeCoffeeModal();
+            });
+        }
+
+        if (typeof window.setLanguage === 'function' && !window._coffeeLangWrapped) {
+            window._coffeeLangWrapped = true;
+            const prevSetLanguage = window.setLanguage;
+            window.setLanguage = function (lang) {
+                prevSetLanguage(lang);
+                syncCoffeeTexts();
+            };
+        }
+
+        syncCoffeeTexts();
+        renderCoffeeWidget();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCoffeeAndFooter);
+    } else {
+        initCoffeeAndFooter();
+    }
+})();
