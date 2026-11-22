@@ -20,7 +20,11 @@ let featuredFilter = { type: '', role: '', text: '' };
 
 // ====== Travas / histórico / acervo salvo ======
 let locks = { char: false, perks: [false, false, false, false], item: false };
-const HISTORY_MAX = 10;
+const HISTORY_MAX = 100;      // máximo de sorteios NÃO favoritos guardados (favoritos nunca são apagados)
+const HISTORY_PAGE = 15;      // quantos itens aparecem por vez ("Ver mais" mostra +15)
+let histFilterText = '';
+let histFavOnly = false;
+let histVisible = HISTORY_PAGE;
 let rollHistory = [];
 try { rollHistory = JSON.parse(localStorage.getItem('dbd_history') || '[]'); } catch (e) { rollHistory = []; }
 const POOL_KEY = 'dbd_pool_filters';
@@ -489,7 +493,11 @@ const i18n = {
 
 document.addEventListener('DOMContentLoaded', async () => {
     applyTheme();
+    document.documentElement.lang = currentLang === 'pt' ? 'pt-BR' : 'en';
     updateLanguageUI();
+    applyA11yLabels();
+    initA11y();
+    initKeyboardShortcuts();
     renderSavedBuilds();
     bindFeaturedEvents();
     renderFeaturedDrafts();
@@ -499,6 +507,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     initSquadMode();
     renderHistory();
     updateLockUI();
+    syncTabA11y();
     updateObsLinks();
     initThumbmakerEvents(); 
     syncThumbTextControls(); 
@@ -554,7 +563,10 @@ function showToast(message, type = 'info') {
 function setLanguage(lang) {
     currentLang = lang;
     localStorage.setItem('dbd_lang', lang);
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
     updateLanguageUI();
+    applyA11yLabels();
+    updateRerollUI();
     renderPool();
     renderSavedBuilds();
     renderFeatured();
@@ -678,6 +690,7 @@ function switchTab(tab) {
     }
     currentTab = tab;
     updateTagDrawerForTab();
+    syncTabA11y();
 }
 
 function resetResultDisplay() {
@@ -1067,6 +1080,7 @@ function spinRoulette() {
                         revealedSlots: new Set(rollIdx)
                     });
                     addToHistory(currentRollResult);
+                    announceBuild(currentRollResult);
                     playBeepSound(880);
                     showToast("Novo Loadout gerado!", "success");
                     return;
@@ -1975,71 +1989,208 @@ function updateLockUI() {
     setLockBtn('lockItem', locks.item);
     const li = $('lockItem');
     if (li) li.style.display = currentRole === 'killer' ? 'none' : '';
+    updateRerollUI();
 }
 
 
 /* ==========================================================================
    HISTÓRICO DE SORTEIOS
    ========================================================================== */
+function trimHistory() {
+    // Favoritos ficam para sempre; os demais respeitam o limite HISTORY_MAX
+    let nonFav = 0;
+    rollHistory = rollHistory.filter(h => h.fav || ++nonFav <= HISTORY_MAX);
+}
+
+function persistHistory() {
+    // Se estourar a cota do localStorage, descarta os mais antigos que não são favoritos
+    for (let tries = 0; tries < 200; tries++) {
+        try { localStorage.setItem('dbd_history', JSON.stringify(rollHistory)); return; }
+        catch (e) {
+            let idx = -1;
+            for (let i = rollHistory.length - 1; i >= 0; i--) { if (!rollHistory[i].fav) { idx = i; break; } }
+            if (idx < 0) return;
+            rollHistory.splice(idx, 1);
+        }
+    }
+}
+
 function addToHistory(result) {
-    rollHistory.unshift({
-        id: Date.now(),
+    let id = Date.now();
+    while (rollHistory.some(h => h.id === id)) id++;
+    const entry = {
+        id,
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         role: result.role,
         character: result.character,
         perks: result.perks,
         item: result.item,
-        date: result.date
-    });
-    rollHistory = rollHistory.slice(0, HISTORY_MAX);
-    try { localStorage.setItem('dbd_history', JSON.stringify(rollHistory)); } catch (e) {}
+        date: result.date,
+        fav: false
+    };
+    rollHistory.unshift(entry);
+    trimHistory();
+    persistHistory();
     renderHistory();
+    return entry;
+}
+
+function historyMatches(h, text) {
+    const q = norm(text);
+    if (!q) return true;
+    const it = h.item || EMPTY_ITEM;
+    const bits = [h.character, ...(h.perks || []), it, ...(it.addons || [])]
+        .filter(Boolean)
+        .map(o => (o.namePt || '') + ' ' + (o.nameEn || ''));
+    bits.push(h.role === 'survivor' ? 'survivor sobrevivente' : 'killer assassino');
+    const hay = norm(bits.join(' '));
+    return q.split(/\s+/).every(tok => hay.includes(tok));
 }
 
 function renderHistory() {
     const box = $('historyList');
     if (!box) return;
-    $('historyCount').textContent = rollHistory.length;
-    if (!rollHistory.length) {
-        box.innerHTML = `<div class="bd-hint">${currentLang === 'pt' ? 'Nenhum sorteio ainda. Gire a roleta!' : 'No rolls yet. Spin the roulette!'}</div>`;
+    const pt = currentLang === 'pt';
+
+    // Rótulos que dependem do idioma
+    const search = $('histSearch');
+    if (search) search.placeholder = pt ? 'Buscar no histórico (personagem, perk, item)...' : 'Search history (character, perk, item)...';
+    const favLbl = $('histFavLabel');
+    if (favLbl) favLbl.textContent = pt ? 'Favoritos' : 'Favorites';
+    const favBtn = $('histFavToggle');
+    if (favBtn) {
+        favBtn.setAttribute('aria-pressed', histFavOnly ? 'true' : 'false');
+        const ic = favBtn.querySelector('i');
+        if (ic) ic.className = (histFavOnly ? 'fa-solid' : 'fa-regular') + ' fa-star';
+    }
+    const clearBtn = document.querySelector('[onclick="clearHistory()"]');
+    if (clearBtn) clearBtn.title = pt ? 'Limpa o histórico (favoritos são mantidos)' : 'Clears history (favorites are kept)';
+
+    const total = rollHistory.length;
+    const list = rollHistory.filter(h => (!histFavOnly || h.fav) && historyMatches(h, histFilterText));
+    $('historyCount').textContent = list.length === total ? total : `${list.length}/${total}`;
+
+    if (!total) {
+        box.innerHTML = `<div class="bd-hint">${pt ? 'Nenhum sorteio ainda. Gire a roleta!' : 'No rolls yet. Spin the roulette!'}</div>`;
         return;
     }
-    box.innerHTML = rollHistory.map((h, i) => {
-        const perks = h.perks.map(p => `
+    if (!list.length) {
+        const msg = histFavOnly && !histFilterText
+            ? (pt ? 'Nenhum favorito ainda. Toque na estrela de um sorteio para fixá-lo aqui.' : 'No favorites yet. Tap the star on a roll to pin it here.')
+            : (pt ? 'Nenhum sorteio encontrado com esse filtro.' : 'No rolls match this filter.');
+        box.innerHTML = `<div class="bd-hint">${msg}</div>`;
+        return;
+    }
+
+    const shown = list.slice(0, histVisible);
+    let html = shown.map(h => {
+        const perks = (h.perks || []).map(p => `
             <div class="perk-diamond perk-diamond-xs" data-perk="${esc(p.id)}">
                 <div class="perk-diamond-inner">${imgTag(entryImgs(p), 'w-full h-full object-contain', p.icon || 'fa-shield-halved', 'text-purple-200 text-xs')}</div>
             </div>`).join('');
         const it = h.item || EMPTY_ITEM;
+        const favLabel = h.fav ? (pt ? 'Remover dos favoritos' : 'Remove from favorites') : (pt ? 'Favoritar' : 'Favorite');
         return `
-        <button type="button" class="bd-hist" data-hist="${i}" title="${currentLang === 'pt' ? 'Voltar para esta build' : 'Restore this build'}">
-            <span class="bd-badge ${h.role === 'survivor' ? 'surv' : 'kill'}">${h.role === 'survivor' ? 'SURV' : 'KILL'}</span>
-            <div class="char-card w-11 shrink-0${ptbCls(h.character)} flex items-center justify-center text-dbd-cyan text-lg">
-                ${imgTag(entryImgs(h.character), 'w-full h-full object-contain', h.character.icon || 'fa-user', 'text-lg')}
-            </div>
-            <div class="bd-hist-info">
-                <div class="bd-hist-name">${esc(nm(h.character))}</div>
-                <div class="bd-hist-sub">${esc(nm(it))}</div>
-            </div>
-            <div class="bd-hist-perks">${perks}</div>
-            <span class="bd-hist-time">${esc(h.time || '')}</span>
-        </button>`;
+        <div class="bd-hist-row">
+            <button type="button" class="bd-hist" data-hist-id="${h.id}" title="${pt ? 'Voltar para esta build' : 'Restore this build'}">
+                <span class="bd-badge ${h.role === 'survivor' ? 'surv' : 'kill'}">${h.role === 'survivor' ? 'SURV' : 'KILL'}</span>
+                <div class="char-card w-11 shrink-0${ptbCls(h.character)} flex items-center justify-center text-dbd-cyan text-lg">
+                    ${imgTag(entryImgs(h.character), 'w-full h-full object-contain', h.character.icon || 'fa-user', 'text-lg')}
+                </div>
+                <div class="bd-hist-info">
+                    <div class="bd-hist-name">${esc(nm(h.character))}</div>
+                    <div class="bd-hist-sub">${esc(nm(it))}</div>
+                </div>
+                <div class="bd-hist-perks">${perks}</div>
+                <span class="bd-hist-time">${esc(h.time || '')}</span>
+            </button>
+            <button type="button" class="bd-hist-fav${h.fav ? ' is-fav' : ''}" data-hist-fav="${h.id}" aria-pressed="${h.fav ? 'true' : 'false'}" title="${favLabel}" aria-label="${favLabel}">
+                <i class="${h.fav ? 'fa-solid' : 'fa-regular'} fa-star"></i>
+            </button>
+        </div>`;
     }).join('');
+
+    const remaining = list.length - shown.length;
+    if (remaining > 0) {
+        html += `<button type="button" class="bd-btn bd-btn-sm bd-hist-more" data-hist-more="1">
+            <i class="fa-solid fa-chevron-down"></i> ${pt ? 'Ver mais' : 'Show more'} (${remaining})
+        </button>`;
+    }
+    box.innerHTML = html;
+}
+
+function setHistoryFilter(text) {
+    histFilterText = text || '';
+    histVisible = HISTORY_PAGE;
+    renderHistory();
+}
+
+function toggleHistoryFavOnly() {
+    histFavOnly = !histFavOnly;
+    histVisible = HISTORY_PAGE;
+    renderHistory();
+}
+
+function toggleHistoryFav(id) {
+    const h = rollHistory.find(x => x.id === id);
+    if (!h) return;
+    h.fav = !h.fav;
+    if (!h.fav) trimHistory();   // ao desfavoritar, o limite volta a valer
+    persistHistory();
+    renderHistory();
+    showToast(h.fav
+        ? (currentLang === 'pt' ? 'Sorteio favoritado!' : 'Roll favorited!')
+        : (currentLang === 'pt' ? 'Removido dos favoritos.' : 'Removed from favorites.'), 'info');
+}
+
+// Acha no histórico o sorteio que está na tela (mesmo personagem e mesmos perks)
+function findHistoryEntryFor(res) {
+    if (!res) return null;
+    const key = r => (r.character && r.character.id) + '|' + (r.perks || []).map(p => p && p.id).join(',');
+    const k = key(res);
+    return rollHistory.find(h => h.role === res.role && key(h) === k) || null;
+}
+
+// Atalho F: favorita o sorteio atual (adiciona ao histórico se ainda não estiver lá)
+function favoriteCurrentRoll() {
+    if (!currentRollResult || currentRollResult.role !== currentRole) {
+        showToast(currentLang === 'pt' ? 'Gire a roleta antes de favoritar!' : 'Spin the roulette before favoriting!', 'error');
+        return;
+    }
+    let h = findHistoryEntryFor(currentRollResult);
+    if (!h) {
+        h = addToHistory(currentRollResult);
+        h.fav = true;
+        persistHistory();
+        renderHistory();
+        showToast(currentLang === 'pt' ? 'Sorteio favoritado!' : 'Roll favorited!', 'success');
+        return;
+    }
+    toggleHistoryFav(h.id);
 }
 
 function bindHistoryEvents() {
     $('historyList').addEventListener('click', e => {
-        const btn = e.target.closest('[data-hist]');
+        const fav = e.target.closest('[data-hist-fav]');
+        if (fav) { toggleHistoryFav(parseInt(fav.dataset.histFav, 10)); return; }
+        if (e.target.closest('[data-hist-more]')) { histVisible += HISTORY_PAGE; renderHistory(); return; }
+        const btn = e.target.closest('[data-hist-id]');
         if (!btn) return;
-        const h = rollHistory[parseInt(btn.dataset.hist, 10)];
+        const h = rollHistory.find(x => x.id === parseInt(btn.dataset.histId, 10));
         if (h) showBuildInRoulette(h);
     });
 }
 
 function clearHistory() {
-    rollHistory = [];
-    try { localStorage.removeItem('dbd_history'); } catch (e) {}
+    const keep = rollHistory.filter(h => h.fav);
+    rollHistory = keep;
+    persistHistory();
+    if (!keep.length) { try { localStorage.removeItem('dbd_history'); } catch (e) {} }
+    histVisible = HISTORY_PAGE;
     renderHistory();
-    showToast(currentLang === 'pt' ? 'Histórico limpo!' : 'History cleared!', 'info');
+    showToast(keep.length
+        ? (currentLang === 'pt' ? `Histórico limpo! ${keep.length} favorito(s) mantido(s).` : `History cleared! ${keep.length} favorite(s) kept.`)
+        : (currentLang === 'pt' ? 'Histórico limpo!' : 'History cleared!'), 'info');
 }
 
 
@@ -4626,3 +4777,435 @@ function resetThumbCrop() {
 
 if (document.body) initTagDrawer();
 else document.addEventListener('DOMContentLoaded', initTagDrawer);
+
+
+/* ==========================================================================
+   REROLAR SÓ UM ELEMENTO (personagem, perk, item/poder ou add-on)
+   Respeita travas, filtros do acervo, tags e evita perk repetido na build.
+   ========================================================================== */
+const _L = (pt, en) => (currentLang === 'pt' ? pt : en);
+const REROLL_STEPS = 9;
+
+// Pequena animação: vários valores aleatórios e o resultado final.
+//   candidate() -> novo resultado (build inteira) | onStep(tmp) | onDone(final)
+function animateReroll(candidate, onStep, onDone, beep, isAlive) {
+    const finalRes = candidate();
+    let n = 0;
+    (function tick() {
+        if (isAlive && !isAlive()) { onDone(null); return; }
+        if (n < REROLL_STEPS) {
+            if (beep) beep(300 + n * 30);
+            onStep(candidate());
+            n++;
+            setTimeout(tick, 45 + n * 12);
+        } else {
+            onDone(finalRes);
+        }
+    })();
+}
+
+// Item / add-ons: devolve { make } (gera o novo item) ou { error } (mensagem para o usuário)
+function itemRerollFactory(role, character, item, kind, n) {
+    if (kind === 'item') {
+        if (role === 'killer' && !getKillerPower(character)) {
+            return { error: _L('Esse killer não tem poder cadastrado.', 'This killer has no power registered.') };
+        }
+        return { make: () => rollItem(role, character) || item || { ...EMPTY_ITEM } };
+    }
+    const src = role === 'survivor'
+        ? ((findSurvItem(item && item.namePt) || {}).found)
+        : getKillerPower(character);
+    if (!src) return { error: _L('Esse item não tem add-ons para rerrolar.', 'This item has no add-ons to reroll.') };
+    const names = [0, 1].map(i => (item.addons && item.addons[i]) ? item.addons[i].namePt : null);
+    const pool = addonPairs(src).filter(a => a.pt !== names[0] && a.pt !== names[1]);
+    if (!pool.length) return { error: _L('Não há outro add-on disponível.', 'No other add-on available.') };
+    return {
+        make: () => {
+            const nn = names.slice();
+            nn[n - 1] = pick(pool).pt;
+            return makeItemObj(role, character, item.namePt, nn.filter(Boolean));
+        }
+    };
+}
+
+function rerollOne(kind, idx) {
+    if (isSpinning) return;
+    const cur = currentRollResult;
+    if (!cur || cur.role !== currentRole) {
+        showToast(_L('Gire a roleta antes de rerrolar!', 'Spin the roulette before rerolling!'), 'error');
+        return;
+    }
+    const role = cur.role;
+    const locked = (kind === 'char' && locks.char)
+        || (kind === 'perk' && locks.perks[idx])
+        || ((kind === 'item' || kind === 'addon') && locks.item);
+    if (locked) {
+        showToast(_L('Esse slot está travado. Destrave para rerrolar.', 'This slot is locked. Unlock it to reroll.'), 'error');
+        return;
+    }
+
+    // Mesmos filtros do spinRoulette: acervo, tags e conteúdo Ptb
+    const chars = getActiveCharacters().filter(c => !excludedCharacters.has(c.id) && (includePtb() || !isPtb(c)));
+    const perks = getActivePerks().filter(p => !excludedPerks.has(p.id) && matchesTags(p) && (includePtb() || !isPtb(p)));
+
+    const parts = { char: false, perks: [false, false, false, false], items: false };
+    let candidate;
+
+    if (kind === 'char') {
+        const pool = chars.filter(c => !cur.character || c.id !== cur.character.id);
+        if (!pool.length) {
+            showToast(_L('Não há outro personagem ativo no acervo.', 'No other active character in the pool.'), 'error');
+            return;
+        }
+        parts.char = true;
+        parts.items = role === 'killer';   // o poder do killer muda junto com ele
+        candidate = () => {
+            const character = pick(pool);
+            return {
+                ...cur,
+                character,
+                item: role === 'killer' ? (rollItem(role, character) || { ...EMPTY_ITEM }) : cur.item
+            };
+        };
+    } else if (kind === 'perk') {
+        const others = new Set(cur.perks.filter((p, i) => p && i !== idx).map(p => p.id));
+        const mine = cur.perks[idx] && cur.perks[idx].id;
+        const pool = perks.filter(p => !others.has(p.id) && p.id !== mine);
+        if (!pool.length) {
+            showToast(activeTags.size
+                ? _L('Poucos perks com essas tags. Remova alguma tag ou ative mais perks no acervo.', 'Not enough perks with these tags. Remove a tag or enable more perks in the pool.')
+                : _L('Não há outro perk ativo no acervo.', 'No other active perk in the pool.'), 'error');
+            return;
+        }
+        parts.perks[idx] = true;
+        candidate = () => {
+            const np = cur.perks.slice();
+            np[idx] = pick(pool);
+            return { ...cur, perks: np };
+        };
+    } else {
+        const f = itemRerollFactory(role, cur.character, cur.item || EMPTY_ITEM, kind, idx);
+        if (f.error) { showToast(f.error, 'error'); return; }
+        parts.items = kind === 'item';
+        candidate = () => ({ ...cur, item: f.make() });
+    }
+
+    isSpinning = true;
+    animateReroll(
+        candidate,
+        tmp => renderResultDisplay(tmp, true, { ...parts, finale: false, revealedSlots: new Set() }),
+        final => {
+            isSpinning = false;
+            if (!final) return;
+            currentRollResult = { ...final, date: new Date().toLocaleDateString() };
+            renderResultDisplay(currentRollResult, false, {
+                ...parts, finale: false, revealedSlots: new Set(kind === 'perk' ? [idx] : [])
+            });
+            addToHistory(currentRollResult);
+            announceBuild(currentRollResult);
+            playBeepSound(880);
+            showToast(_L('Rerrolado!', 'Rerolled!'), 'success');
+        },
+        playBeepSound,
+        () => currentRole === role
+    );
+}
+
+// Botões de rerrolar: desabilita os travados e ajusta os textos por idioma/lado
+function updateRerollUI() {
+    const set = (id, disabled, label) => {
+        const b = $(id);
+        if (!b) return;
+        b.disabled = !!disabled;
+        const t = disabled ? _L('Destrave para rerrolar', 'Unlock to reroll') : label;
+        b.title = t;
+        b.setAttribute('aria-label', t);
+    };
+    const killer = currentRole === 'killer';
+    set('rerollChar', locks.char, killer
+        ? _L('Rerrolar só o personagem (o poder muda junto)', 'Reroll only the character (the power changes too)')
+        : _L('Rerrolar só o personagem', 'Reroll only the character'));
+    [0, 1, 2, 3].forEach(i => set('rerollPerk' + i, locks.perks[i], _L('Rerrolar só este perk', 'Reroll only this perk')));
+    set('rerollItem', locks.item, killer
+        ? _L('Rerrolar os add-ons do poder', 'Reroll the power add-ons')
+        : _L('Rerrolar só o item (e add-ons)', 'Reroll only the item (and add-ons)'));
+    [1, 2].forEach(n => set('rerollAddon' + n, locks.item, _L('Rerrolar só este add-on', 'Reroll only this add-on')));
+}
+
+
+/* ==========================================================================
+   ATALHOS DE TECLADO
+   ========================================================================== */
+function isTypingTarget(el) {
+    if (!el || !el.tagName) return false;
+    const tag = el.tagName;
+    if (tag === 'TEXTAREA' || tag === 'SELECT' || el.isContentEditable) return true;
+    if (tag === 'INPUT') {
+        return !['checkbox', 'radio', 'button', 'submit', 'reset', 'range', 'color', 'file', 'image']
+            .includes((el.type || '').toLowerCase());
+    }
+    return false;
+}
+
+function anyModalOpen() {
+    return ['importModal', 'importPerksJsonModal', 'imageModal'].some(id => {
+        const m = $(id);
+        return m && !m.classList.contains('hidden');
+    });
+}
+
+// Interpreta as teclas da roleta. "api" diz o que cada ação faz na aba atual.
+function routeRollKeys(e, api) {
+    const key = e.key || '';
+    const code = e.code || '';
+    const lower = key.toLowerCase();
+    const isSpace = key === ' ' || code === 'Space';
+    // Espaço em botão/link/checkbox mantém o comportamento nativo (acessibilidade)
+    const onInteractive = !!(e.target && e.target.closest &&
+        e.target.closest('button, a[href], summary, input, [role="tab"], label'));
+
+    if ((isSpace && !onInteractive) || lower === 'r') {
+        e.preventDefault();
+        api.spin();
+        return true;
+    }
+    const dm = /^(?:Digit|Numpad)([1-4])$/.exec(code);
+    if (dm && api.lock) {
+        e.preventDefault();
+        const i = parseInt(dm[1], 10) - 1;
+        e.shiftKey ? api.reroll('perk', i) : api.lock('perk', i);
+        return true;
+    }
+    if (lower === 'c' && api.lock) {
+        e.preventDefault();
+        e.shiftKey ? api.reroll('char') : api.lock('char');
+        return true;
+    }
+    if (lower === 'i' && api.lock) {
+        e.preventDefault();
+        e.shiftKey ? api.reroll('item') : api.lock('item');
+        return true;
+    }
+    if (lower === 's' && api.save) { e.preventDefault(); api.save(); return true; }
+    if (lower === 'q' && api.role) { e.preventDefault(); api.role(); return true; }
+    if (lower === 'f' && api.fav) { e.preventDefault(); api.fav(); return true; }
+    return false;
+}
+
+const mainKeysApi = {
+    spin: () => spinRoulette(),
+    lock: (kind, i) => {
+        if (kind === 'item' && currentRole === 'killer') return;   // poder do killer não tem trava
+        toggleLock(kind, i);
+    },
+    reroll: (kind, i) => rerollOne(kind, i),
+    save: () => saveCurrentBuild(),
+    role: () => { if (!isSpinning) setRole(currentRole === 'survivor' ? 'killer' : 'survivor'); },
+    fav: () => favoriteCurrentRoll()
+};
+
+const squadKeysApi = {
+    spin: () => spinSquadRoulette(),
+    save: () => { if (typeof saveCurrentSquad === 'function') saveCurrentSquad(); }
+};
+
+function shortcutsHelpHtml() {
+    const kb = (...keys) => keys.map(k => `<kbd>${k}</kbd>`).join(' ');
+    const row = (keys, desc) => `<div class="bd-keys-row"><span>${keys}</span><span>${desc}</span></div>`;
+    return `
+    <div class="bd-keys-card" tabindex="-1">
+        <div class="bd-keys-head">
+            <h2 id="bdKeysTitle">${_L('Atalhos de teclado', 'Keyboard shortcuts')}</h2>
+            <button type="button" class="bd-btn bd-btn-sm" data-keys-close onclick="toggleShortcutsHelp(false)" aria-label="${_L('Fechar', 'Close')}"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="bd-keys-group">${_L('Roleta e Roleta de Classes', 'Roulette and Class Roulette')}</div>
+        ${row(kb(_L('Espaço', 'Space')) + ' ' + kb('R'), _L('Girar a roleta', 'Spin the roulette'))}
+        ${row(kb('1') + '–' + kb('4'), _L('Travar / destravar o perk', 'Lock / unlock the perk'))}
+        ${row(kb('C'), _L('Travar o personagem', 'Lock the character'))}
+        ${row(kb('I'), _L('Travar o item (Survivor)', 'Lock the item (Survivor)'))}
+        ${row(kb('Shift') + '+' + kb('1') + '–' + kb('4'), _L('Rerrolar só aquele perk', 'Reroll only that perk'))}
+        ${row(kb('Shift') + '+' + kb('C'), _L('Rerrolar só o personagem', 'Reroll only the character'))}
+        ${row(kb('Shift') + '+' + kb('I'), _L('Rerrolar item / add-ons', 'Reroll item / add-ons'))}
+        ${row(kb('S'), _L('Salvar build', 'Save build'))}
+        ${row(kb('F'), _L('Favoritar o sorteio atual (só na Roleta)', 'Favorite the current roll (Roulette only)'))}
+        ${row(kb('Q'), _L('Alternar Survivor / Killer', 'Switch Survivor / Killer'))}
+        <div class="bd-keys-group">Squad</div>
+        ${row(kb(_L('Espaço', 'Space')) + ' ' + kb('R'), _L('Sortear o squad', 'Roll the squad'))}
+        ${row(kb('S'), _L('Salvar squad', 'Save squad'))}
+        <div class="bd-keys-group">${_L('Geral', 'General')}</div>
+        ${row(kb('?') + ' ' + kb('H'), _L('Abrir / fechar esta ajuda', 'Open / close this help'))}
+        ${row(kb('Esc'), _L('Fechar', 'Close'))}
+        <p class="bd-hint" style="margin-top:.9rem">${_L('Os atalhos não funcionam enquanto você digita em um campo de texto.', 'Shortcuts are off while you type in a text field.')}</p>
+    </div>`;
+}
+
+let _keysLastFocus = null;
+function toggleShortcutsHelp(force) {
+    let m = $('bdShortcutsModal');
+    if (!m) {
+        m = document.createElement('div');
+        m.id = 'bdShortcutsModal';
+        m.className = 'bd-keys-modal hidden';
+        m.setAttribute('role', 'dialog');
+        m.setAttribute('aria-modal', 'true');
+        m.setAttribute('aria-labelledby', 'bdKeysTitle');
+        m.addEventListener('click', e => { if (e.target === m) toggleShortcutsHelp(false); });
+        document.body.appendChild(m);
+    }
+    const open = typeof force === 'boolean' ? force : m.classList.contains('hidden');
+    if (open) {
+        _keysLastFocus = document.activeElement;
+        m.innerHTML = shortcutsHelpHtml();
+        m.classList.remove('hidden');
+        const c = m.querySelector('[data-keys-close]');
+        if (c) c.focus();
+    } else {
+        m.classList.add('hidden');
+        if (_keysLastFocus && _keysLastFocus.focus) _keysLastFocus.focus();
+    }
+}
+
+function initKeyboardShortcuts() {
+    if (window._bdKeysBound) return;
+    window._bdKeysBound = true;
+
+    // Clique de mouse num botão tira o foco dele: assim o Espaço volta a girar a roleta
+    document.addEventListener('click', e => {
+        if (e.pointerType !== 'mouse') return;
+        const b = e.target.closest && e.target.closest(
+            'button.dbd-action-btn, button.dbd-spin-btn, button.bd-lock, button.bd-reroll, button.dbd-seg-btn, button.dbd-tab');
+        if (b) setTimeout(() => { if (document.activeElement === b) b.blur(); }, 0);
+    });
+
+    document.addEventListener('keydown', e => {
+        if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
+        const key = e.key || '';
+        const help = $('bdShortcutsModal');
+        const helpOpen = !!help && !help.classList.contains('hidden');
+
+        if (key === 'Escape') {
+            if (helpOpen) { e.preventDefault(); toggleShortcutsHelp(false); }
+            return;
+        }
+        if (isTypingTarget(e.target)) return;
+
+        if (helpOpen) {
+            if (key === 'Tab') {          // mantém o foco dentro da janela
+                e.preventDefault();
+                const c = help.querySelector('[data-keys-close]');
+                if (c) c.focus();
+            } else if (key === '?' || key.toLowerCase() === 'h') {
+                e.preventDefault();
+                toggleShortcutsHelp(false);
+            }
+            return;
+        }
+        if (key === '?' || (key.toLowerCase() === 'h' && !e.shiftKey)) {
+            e.preventDefault();
+            toggleShortcutsHelp(true);
+            return;
+        }
+        if (anyModalOpen()) return;
+
+        if (currentTab === 'main') routeRollKeys(e, mainKeysApi);
+        else if (currentTab === 'squad') routeRollKeys(e, squadKeysApi);
+        else if (currentTab === 'classes' && window.crKeysApi) routeRollKeys(e, window.crKeysApi);
+    });
+}
+
+
+/* ==========================================================================
+   ACESSIBILIDADE
+   ========================================================================== */
+// Lê o resultado em voz alta para quem usa leitor de tela
+function announceBuild(res) {
+    const el = $('srAnnounce');
+    if (!el || !res) return;
+    const perks = (res.perks || []).filter(Boolean).map(p => nm(p)).join(', ');
+    const it = res.item || EMPTY_ITEM;
+    el.textContent = ''; // força nova leitura mesmo se o texto for igual
+    setTimeout(() => {
+        el.textContent = _L(
+            `Loadout: ${nm(res.character)}. Perks: ${perks}. Item: ${nm(it)}.`,
+            `Loadout: ${nm(res.character)}. Perks: ${perks}. Item: ${nm(it)}.`);
+    }, 50);
+}
+
+// Papéis ARIA das abas (também vale para a aba "Roleta de Classes", criada por JS)
+function syncTabA11y() {
+    document.querySelectorAll('.dbd-nav .dbd-tab').forEach(b => {
+        const m = /^tab(.+)Btn$/.exec(b.id || '');
+        b.setAttribute('role', 'tab');
+        b.setAttribute('aria-selected', b.classList.contains('is-active') ? 'true' : 'false');
+        if (!m) return;
+        const pane = document.getElementById('tab' + m[1]);
+        if (pane) {
+            b.setAttribute('aria-controls', pane.id);
+            pane.setAttribute('role', 'tabpanel');
+            pane.setAttribute('aria-labelledby', b.id);
+        }
+    });
+}
+
+// Textos de acessibilidade que dependem do idioma
+function applyA11yLabels() {
+    const set = (id, attr, val) => { const el = $(id); if (el) el.setAttribute(attr, val); };
+    const skip = $('skipLink');
+    if (skip) skip.textContent = _L('Pular para o conteúdo', 'Skip to content');
+    set('mainNav', 'aria-label', _L('Seções do app', 'App sections'));
+    set('langPtBtn', 'aria-label', _L('Português', 'Portuguese'));
+    set('langEnBtn', 'aria-label', 'English');
+    set('langPtBtn', 'aria-pressed', currentLang === 'pt' ? 'true' : 'false');
+    set('langEnBtn', 'aria-pressed', currentLang === 'en' ? 'true' : 'false');
+    set('btnShortcuts', 'title', _L('Atalhos de teclado (?)', 'Keyboard shortcuts (?)'));
+    set('btnShortcuts', 'aria-label', _L('Atalhos de teclado', 'Keyboard shortcuts'));
+    set('btnSpin', 'title', _L('Atalho: Espaço ou R', 'Shortcut: Space or R'));
+    const th = document.querySelector('[onclick="toggleTheme()"]');
+    if (th) th.setAttribute('aria-label', _L('Alternar tema claro/escuro', 'Toggle light/dark theme'));
+}
+
+// Ícones decorativos escondidos do leitor, imagens com alt vazio e botões só-ícone com nome
+function a11yScan(root) {
+    if (!root || root.nodeType !== 1) return;
+    const all = sel => {
+        const list = [...root.querySelectorAll(sel)];
+        if (root.matches && root.matches(sel)) list.unshift(root);
+        return list;
+    };
+    all('i[class*="fa-"]:not([aria-hidden])').forEach(el => el.setAttribute('aria-hidden', 'true'));
+    all('img:not([alt])').forEach(el => el.setAttribute('alt', ''));
+    all('button:not([aria-label]), a.bd-btn:not([aria-label]), a.dbd-action-btn:not([aria-label])').forEach(el => {
+        if (!el.textContent.trim() && el.title) el.setAttribute('aria-label', el.title);
+    });
+}
+
+function initA11y() {
+    if (window._bdA11yInit) return;
+    window._bdA11yInit = true;
+    a11yScan(document.body);
+
+    // Só examina nós novos (barato mesmo com as listas grandes do app)
+    let queue = [], scheduled = false;
+    const flush = () => { scheduled = false; const q = queue; queue = []; q.forEach(a11yScan); };
+    new MutationObserver(muts => {
+        muts.forEach(m => m.addedNodes.forEach(n => { if (n.nodeType === 1) queue.push(n); }));
+        if (queue.length && !scheduled) { scheduled = true; requestAnimationFrame(flush); }
+    }).observe(document.body, { childList: true, subtree: true });
+
+    // Setas ← → Home End navegam entre as abas
+    const nav = $('mainNav');
+    if (nav) nav.addEventListener('keydown', e => {
+        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
+        const tabs = [...nav.querySelectorAll('[role="tab"]')];
+        const i = tabs.indexOf(document.activeElement);
+        if (i < 0) return;
+        e.preventDefault();
+        const n = e.key === 'Home' ? 0
+            : e.key === 'End' ? tabs.length - 1
+            : (i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+        tabs[n].focus();
+    });
+
+    // A aba "Roleta de Classes" é criada depois: atualiza os papéis quando ela existir
+    window.addEventListener('load', syncTabA11y);
+}

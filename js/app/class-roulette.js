@@ -62,6 +62,7 @@
     };
     const INK = { Suporte: '#1a1400' };   // texto escuro sobre o amarelo
 
+    const CR_HISTORY_MAX = 10;
     let crRole = 'survivor';
     let crResult = null;
     let crSpinning = false;
@@ -128,7 +129,10 @@
             </div>
             <span id="crName${i}" class="text-xs font-bold text-neutral-300 line-clamp-2 w-36 mt-1">Slot ${i + 1}</span>
             <span id="crChip${i}" class="cr-chip"></span>
-            <button type="button" id="crLockPerk${i}" class="bd-lock" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
+            <div class="bd-slot-actions">
+                <button type="button" id="crLockPerk${i}" class="bd-lock" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
+                <button type="button" id="crRerollPerk${i}" class="bd-reroll" title="Rerrolar só este perk" aria-label="Rerrolar só este perk"><i class="fa-solid fa-dice"></i></button>
+            </div>
         </div>`;
 
     const PANE_HTML = `
@@ -194,7 +198,10 @@
                     <div>
                         <h3 id="crCharName" class="text-2xl font-bold text-white uppercase tracking-wide">--</h3>
                         <span id="crCharRole" class="text-xs text-dbd-cyan font-bold uppercase tracking-widest block mt-0.5">Survivor</span>
-                        <div><button type="button" id="crLockChar" class="bd-lock" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button></div>
+                        <div class="bd-slot-actions">
+                            <button type="button" id="crLockChar" class="bd-lock" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
+                            <button type="button" id="crRerollChar" class="bd-reroll" title="Rerrolar só o personagem" aria-label="Rerrolar só o personagem"><i class="fa-solid fa-dice"></i></button>
+                        </div>
                     </div>
                 </div>
 
@@ -215,7 +222,10 @@
                             <div>
                                 <div class="dbd-section-label" id="crLblItemTitle">Item / Poder</div>
                                 <div id="crItemName" class="text-sm font-bold text-white mt-0.5">Nenhum</div>
-                                <button type="button" id="crLockItem" class="bd-lock" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
+                                <div class="bd-slot-actions">
+                                    <button type="button" id="crLockItem" class="bd-lock" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
+                                    <button type="button" id="crRerollItem" class="bd-reroll" title="Rerrolar só o item" aria-label="Rerrolar só o item"><i class="fa-solid fa-dice"></i></button>
+                                </div>
                             </div>
                         </div>
                         <div class="flex items-start gap-4">
@@ -225,6 +235,7 @@
                                     <i class="fa-solid fa-puzzle-piece text-lg"></i>
                                 </div>
                                 <span id="crAddonName1" class="text-[11px] font-semibold text-neutral-400 line-clamp-2">Add-on 1</span>
+                                <button type="button" id="crRerollAddon1" class="bd-reroll bd-reroll-sm" title="Rerrolar só este add-on" aria-label="Rerrolar só este add-on"><i class="fa-solid fa-dice"></i></button>
                             </div>
                             <div class="flex flex-col items-center w-24 text-center gap-1.5">
                                 <div id="crAddon2" class="w-16 h-16 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 p-1.5" title="Add-on 2">
@@ -232,6 +243,7 @@
                                     <i class="fa-solid fa-puzzle-piece text-lg"></i>
                                 </div>
                                 <span id="crAddonName2" class="text-[11px] font-semibold text-neutral-400 line-clamp-2">Add-on 2</span>
+                                <button type="button" id="crRerollAddon2" class="bd-reroll bd-reroll-sm" title="Rerrolar só este add-on" aria-label="Rerrolar só este add-on"><i class="fa-solid fa-dice"></i></button>
                             </div>
                         </div>
                     </div>
@@ -384,6 +396,102 @@
         setLockBtn('crLockItem', crLocks.item);
         const li = $('crLockItem');
         if (li) li.style.display = crRole === 'killer' ? 'none' : '';
+        updateCrReroll();
+    }
+
+    // ---------- Rerrolar só um elemento ----------
+    function updateCrReroll() {
+        const set = (id, disabled, label) => {
+            const b = $(id);
+            if (!b) return;
+            b.disabled = !!disabled;
+            const tx = disabled ? t('Destrave para rerrolar', 'Unlock to reroll') : label;
+            b.title = tx;
+            b.setAttribute('aria-label', tx);
+        };
+        const killer = crRole === 'killer';
+        set('crRerollChar', crLocks.char, killer
+            ? t('Rerrolar só o personagem (o poder muda junto)', 'Reroll only the character (the power changes too)')
+            : t('Rerrolar só o personagem', 'Reroll only the character'));
+        [0, 1, 2, 3].forEach(i => set('crRerollPerk' + i, crLocks.perks[i], t('Rerrolar só este perk', 'Reroll only this perk')));
+        set('crRerollItem', crLocks.item, killer
+            ? t('Rerrolar os add-ons do poder', 'Reroll the power add-ons')
+            : t('Rerrolar só o item (e add-ons)', 'Reroll only the item (and add-ons)'));
+        [1, 2].forEach(n => set('crRerollAddon' + n, crLocks.item, t('Rerrolar só este add-on', 'Reroll only this add-on')));
+    }
+
+    function crRerollOne(kind, idx) {
+        if (crSpinning) return;
+        const cur = crResult;
+        if (!cur || cur.role !== crRole) {
+            showToast(t('Gire a roleta antes de rerrolar!', 'Spin the roulette before rerolling!'), 'error');
+            return;
+        }
+        const role = crRole;
+        const locked = (kind === 'char' && crLocks.char)
+            || (kind === 'perk' && crLocks.perks[idx])
+            || ((kind === 'item' || kind === 'addon') && crLocks.item);
+        if (locked) {
+            showToast(t('Esse slot está travado. Destrave para rerrolar.', 'This slot is locked. Unlock it to reroll.'), 'error');
+            return;
+        }
+
+        const parts = { char: false, perks: [false, false, false, false], items: false };
+        let candidate;
+
+        if (kind === 'char') {
+            const pool = chars(role).filter(c => !cur.character || c.id !== cur.character.id);
+            if (!pool.length) {
+                showToast(t('Não há outro personagem ativo no acervo.', 'No other active character in the pool.'), 'error');
+                return;
+            }
+            parts.char = true;
+            parts.items = role === 'killer';
+            candidate = () => {
+                const character = pick(pool);
+                return {
+                    ...cur,
+                    character,
+                    item: role === 'killer' ? (rollItem(role, character) || { ...EMPTY_ITEM }) : cur.item
+                };
+            };
+        } else if (kind === 'perk') {
+            const mine = cur.perks[idx] && cur.perks[idx].id;
+            const pool = pools(role)[idx].filter(p => p.id !== mine);
+            if (!pool.length) {
+                showToast(t(`Não há outro perk ativo da classe ${slotLabel(SLOTS[role][idx])}.`, `No other active ${slotLabel(SLOTS[role][idx])} perk.`), 'error');
+                return;
+            }
+            parts.perks[idx] = true;
+            candidate = () => {
+                const np = cur.perks.slice();
+                np[idx] = pick(pool);
+                return { ...cur, perks: np };
+            };
+        } else {
+            const f = itemRerollFactory(role, cur.character, cur.item || EMPTY_ITEM, kind, idx);
+            if (f.error) { showToast(f.error, 'error'); return; }
+            parts.items = kind === 'item';
+            candidate = () => ({ ...cur, item: f.make() });
+        }
+
+        crSpinning = true;
+        animateReroll(
+            candidate,
+            tmp => { crResult = tmp; render(tmp, true, parts); },
+            final => {
+                crSpinning = false;
+                if (!final) return;
+                crResult = { ...final, date: new Date().toLocaleDateString() };
+                render(crResult, false, parts);
+                addCrHistory(crResult);
+                announceBuild(crResult);
+                beep(880);
+                showToast(t('Rerrolado!', 'Rerolled!'), 'success');
+            },
+            beep,
+            () => crRole === role
+        );
     }
     function toggleLock(kind, idx) {
         if (!crResult || crResult.role !== crRole) {
@@ -501,6 +609,7 @@
                 btn.classList.remove('opacity-50', 'cursor-not-allowed');
                 render(crResult, false, parts);
                 addCrHistory(crResult);
+                announceBuild(crResult);
                 beep(880);               
                 beep(880);
                 showToast(t('Novo Loadout por classes gerado!', 'New class loadout generated!'), 'success');
@@ -607,7 +716,7 @@
             classes: result.classes,
             date: result.date
         });
-        crHistory = crHistory.slice(0, HISTORY_MAX);
+        crHistory = crHistory.slice(0, CR_HISTORY_MAX);
         try { localStorage.setItem(CR_HIST_KEY, JSON.stringify(crHistory)); } catch (e) {}
         renderCrHistory();
     }
@@ -716,6 +825,22 @@
         $('crLockChar').addEventListener('click', () => toggleLock('char'));
         $('crLockItem').addEventListener('click', () => toggleLock('item'));
         [0, 1, 2, 3].forEach(i => $('crLockPerk' + i).addEventListener('click', () => toggleLock('perk', i)));
+        $('crRerollChar').addEventListener('click', () => crRerollOne('char'));
+        $('crRerollItem').addEventListener('click', () => crRerollOne('item'));
+        [0, 1, 2, 3].forEach(i => $('crRerollPerk' + i).addEventListener('click', () => crRerollOne('perk', i)));
+        [1, 2].forEach(n => $('crRerollAddon' + n).addEventListener('click', () => crRerollOne('addon', n)));
+
+        // atalhos de teclado desta aba (o roteador fica no randomizer.js)
+        window.crKeysApi = {
+            spin,
+            lock: (kind, i) => {
+                if (kind === 'item' && crRole === 'killer') return;
+                toggleLock(kind, i);
+            },
+            reroll: crRerollOne,
+            save: saveBuild,
+            role: () => { if (!crSpinning) setCrRole(crRole === 'survivor' ? 'killer' : 'survivor'); }
+        };
          $('crHistClearBtn').addEventListener('click', clearCrHistory);
         $('crHistoryList').addEventListener('click', e => {
             const b = e.target.closest('[data-cr-hist]');
