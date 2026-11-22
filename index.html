@@ -23,8 +23,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@600;700;800&family=Bebas+Neue&family=Montserrat:wght@700;800;900&family=Oswald:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -35,6 +35,8 @@
     <link rel="stylesheet" href="css/builds.css">
 </head>
 <body class="bg-dbd-bg text-dbd-text min-h-screen flex flex-col font-sans transition-colors duration-200 antialiased selection:bg-dbd-red selection:text-white">
+
+    <a href="#mainContent" class="bd-skip" id="skipLink">Pular para o conteúdo</a>
 
     <!-- HEADER / NAVIGATION BAR -->
     <header class="dbd-header sticky top-0 z-40">
@@ -52,7 +54,7 @@
             </div>
 
             <!-- Navigation Tabs -->
-            <nav class="dbd-nav">
+            <nav class="dbd-nav" role="tablist" aria-label="Seções do app" id="mainNav">
                 <button onclick="switchTab('main')" id="tabMainBtn" class="dbd-tab is-active">
                     <i class="fa-solid fa-dice"></i> <span id="navRandomizer">Modo Roleta</span>
                 </button>
@@ -86,10 +88,13 @@
             <!-- Language & Theme Controls -->
             <div class="flex items-center gap-2 py-2">
                 <div class="flex items-center bg-neutral-950 rounded border border-neutral-800 p-0.5 text-[11px] font-bold">
-                    <button id="langPtBtn" onclick="setLanguage('pt')" class="px-2 py-1 rounded bg-dbd-red text-white">PT</button>
-                    <button id="langEnBtn" onclick="setLanguage('en')" class="px-2 py-1 rounded text-neutral-400 hover:text-white">EN</button>
+                    <button id="langPtBtn" onclick="setLanguage('pt')" class="px-2 py-1 rounded bg-dbd-red text-white" aria-label="Português">PT</button>
+                    <button id="langEnBtn" onclick="setLanguage('en')" class="px-2 py-1 rounded text-neutral-400 hover:text-white" aria-label="English">EN</button>
                 </div>
-                <button onclick="toggleTheme()" class="dbd-action-btn" style="padding:0.42rem 0.6rem" title="Mudar Tema Dark/Light">
+                <button type="button" id="btnShortcuts" onclick="toggleShortcutsHelp()" class="dbd-action-btn" style="padding:0.42rem 0.6rem" title="Atalhos de teclado (?)" aria-label="Atalhos de teclado" aria-haspopup="dialog">
+                    <i class="fa-solid fa-keyboard text-xs"></i>
+                </button>
+                <button type="button" aria-label="Mudar tema" onclick="toggleTheme()" class="dbd-action-btn" style="padding:0.42rem 0.6rem" title="Mudar Tema Dark/Light">
                     <i id="themeIcon" class="fa-solid fa-moon text-xs"></i>
                 </button>
             </div>
@@ -97,7 +102,7 @@
         </div>
     </header>    
 
-    <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
+    <main id="mainContent" tabindex="-1" class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
 
         <!-- ======================================================== -->
         <!-- TAB 1: STREAMER ROULETTE DASHBOARD                       -->
@@ -142,7 +147,7 @@
                     <button onclick="resetFilters()" class="dbd-action-btn" title="Resetar filtros">
                         <i class="fa-solid fa-rotate-left"></i> <span id="btnResetFilters">Resetar</span>
                     </button>
-                    <button id="btnSpin" onclick="spinRoulette()" class="dbd-spin-btn">
+                    <button id="btnSpin" onclick="spinRoulette()" class="dbd-spin-btn" title="Atalho: Espaço ou R">
                         <i class="fa-solid fa-dice-five"></i> <span id="lblSpinBtn">GIRAR ROLETA</span>
                     </button>
                 </div>
@@ -181,9 +186,12 @@
                             <h3 id="displayCharName" class="text-2xl font-bold text-white uppercase tracking-wide">--</h3>
                             <span id="displayCharRole" class="text-xs text-dbd-cyan font-bold uppercase tracking-widest block mt-0.5">Survivor</span>
                             <div>
-                                <button type="button" id="lockChar" class="bd-lock" onclick="toggleLock('char')" title="Travar" aria-label="Travar" aria-pressed="false">
-                                    <i class="fa-solid fa-lock-open"></i>
-                                </button>
+                                <div class="bd-slot-actions">
+                                    <button type="button" id="lockChar" class="bd-lock" onclick="toggleLock('char')" title="Travar" aria-label="Travar" aria-pressed="false">
+                                        <i class="fa-solid fa-lock-open"></i>
+                                    </button>
+                                    <button type="button" id="rerollChar" class="bd-reroll" onclick="rerollOne('char')" title="Rerrolar só o personagem" aria-label="Rerrolar só o personagem"><i class="fa-solid fa-dice"></i></button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -203,7 +211,10 @@
                                         </div>
                                     </div>
                                     <span id="perkName0" class="text-xs font-bold text-neutral-300 line-clamp-2 w-36 mt-1">Slot 1</span>
-                                    <button type="button" id="lockPerk0" class="bd-lock" onclick="toggleLock('perk',0)" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
+                                    <div class="bd-slot-actions">
+                                        <button type="button" id="lockPerk0" class="bd-lock" onclick="toggleLock('perk',0)" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
+                                        <button type="button" id="rerollPerk0" class="bd-reroll" onclick="rerollOne('perk',0)" title="Rerrolar só este perk" aria-label="Rerrolar só este perk"><i class="fa-solid fa-dice"></i></button>
+                                    </div>
                                 </div>
                                 <div id="perkBox1" class="flex flex-col items-center text-center group">
                                     <div class="perk-diamond is-empty my-2">
@@ -213,7 +224,10 @@
                                         </div>
                                     </div>
                                     <span id="perkName1" class="text-xs font-bold text-neutral-300 line-clamp-2 w-36 mt-1">Slot 2</span>
-                                    <button type="button" id="lockPerk1" class="bd-lock" onclick="toggleLock('perk',1)" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
+                                    <div class="bd-slot-actions">
+                                        <button type="button" id="lockPerk1" class="bd-lock" onclick="toggleLock('perk',1)" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
+                                        <button type="button" id="rerollPerk1" class="bd-reroll" onclick="rerollOne('perk',1)" title="Rerrolar só este perk" aria-label="Rerrolar só este perk"><i class="fa-solid fa-dice"></i></button>
+                                    </div>
                                 </div>
                                 <div id="perkBox2" class="flex flex-col items-center text-center group">
                                     <div class="perk-diamond is-empty my-2">
@@ -223,7 +237,10 @@
                                         </div>
                                     </div>
                                     <span id="perkName2" class="text-xs font-bold text-neutral-300 line-clamp-2 w-36 mt-1">Slot 3</span>
-                                    <button type="button" id="lockPerk2" class="bd-lock" onclick="toggleLock('perk',2)" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
+                                    <div class="bd-slot-actions">
+                                        <button type="button" id="lockPerk2" class="bd-lock" onclick="toggleLock('perk',2)" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
+                                        <button type="button" id="rerollPerk2" class="bd-reroll" onclick="rerollOne('perk',2)" title="Rerrolar só este perk" aria-label="Rerrolar só este perk"><i class="fa-solid fa-dice"></i></button>
+                                    </div>
                                 </div>
                                 <div id="perkBox3" class="flex flex-col items-center text-center group">
                                     <div class="perk-diamond is-empty my-2">
@@ -233,7 +250,10 @@
                                         </div>
                                     </div>
                                     <span id="perkName3" class="text-xs font-bold text-neutral-300 line-clamp-2 w-36 mt-1">Slot 4</span>
-                                    <button type="button" id="lockPerk3" class="bd-lock" onclick="toggleLock('perk',3)" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
+                                    <div class="bd-slot-actions">
+                                        <button type="button" id="lockPerk3" class="bd-lock" onclick="toggleLock('perk',3)" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
+                                        <button type="button" id="rerollPerk3" class="bd-reroll" onclick="rerollOne('perk',3)" title="Rerrolar só este perk" aria-label="Rerrolar só este perk"><i class="fa-solid fa-dice"></i></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -248,7 +268,10 @@
                                 <div>
                                     <div class="dbd-section-label" id="lblItemTitle">Item / Poder</div>
                                     <div id="displayItemName" class="text-sm font-bold text-white mt-0.5">Nenhum</div>
-                                    <button type="button" id="lockItem" class="bd-lock" onclick="toggleLock('item')" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
+                                    <div class="bd-slot-actions">
+                                        <button type="button" id="lockItem" class="bd-lock" onclick="toggleLock('item')" title="Travar" aria-label="Travar" aria-pressed="false"><i class="fa-solid fa-lock-open"></i></button>
+                                        <button type="button" id="rerollItem" class="bd-reroll" onclick="rerollOne('item')" title="Rerrolar só o item" aria-label="Rerrolar só o item"><i class="fa-solid fa-dice"></i></button>
+                                    </div>
                                 </div>
                             </div>
 
@@ -259,6 +282,7 @@
                                         <i class="fa-solid fa-puzzle-piece text-lg"></i>
                                     </div>
                                     <span id="displayAddonName1" class="text-[11px] font-semibold text-neutral-400 line-clamp-2">Add-on 1</span>
+                                    <button type="button" id="rerollAddon1" class="bd-reroll bd-reroll-sm" onclick="rerollOne('addon',1)" title="Rerrolar só este add-on" aria-label="Rerrolar só este add-on"><i class="fa-solid fa-dice"></i></button>
                                 </div>
                                 <div class="flex flex-col items-center w-24 text-center gap-1.5">
                                     <div id="displayAddon2" class="w-16 h-16 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 p-1.5" title="Add-on 2">
@@ -266,6 +290,7 @@
                                         <i class="fa-solid fa-puzzle-piece text-lg"></i>
                                     </div>
                                     <span id="displayAddonName2" class="text-[11px] font-semibold text-neutral-400 line-clamp-2">Add-on 2</span>
+                                    <button type="button" id="rerollAddon2" class="bd-reroll bd-reroll-sm" onclick="rerollOne('addon',2)" title="Rerrolar só este add-on" aria-label="Rerrolar só este add-on"><i class="fa-solid fa-dice"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -289,6 +314,12 @@
                     </h3>
                     <button type="button" class="bd-btn bd-btn-sm bd-btn-danger" onclick="clearHistory()">
                         <i class="fa-solid fa-trash"></i> <span id="histClear">Limpar histórico</span>
+                    </button>
+                </div>
+                <div class="bd-hist-tools">
+                    <input type="search" id="histSearch" class="bd-field" placeholder="Buscar no histórico..." aria-label="Buscar no histórico" autocomplete="off" oninput="setHistoryFilter(this.value)">
+                    <button type="button" id="histFavToggle" class="bd-btn bd-btn-sm" aria-pressed="false" onclick="toggleHistoryFavOnly()">
+                        <i class="fa-regular fa-star"></i> <span id="histFavLabel">Favoritos</span>
                     </button>
                 </div>
                 <div id="historyList" class="bd-hist-list"></div>
@@ -1018,7 +1049,8 @@
     </div>
 
     <!-- NOTIFICATION TOAST CONTAINER -->
-    <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none" role="status" aria-live="polite"></div>
+    <div id="srAnnounce" class="bd-sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
 
 
     <button id="pwaInstallBtn" type="button" class="dbd-action-btn" style="display:none; position:fixed; right:14px; bottom:calc(14px + env(safe-area-inset-bottom)); z-index:999; background:rgba(15,17,22,0.95); border-color:rgba(212,163,74,0.65); color:#f5d08a; box-shadow:0 8px 24px rgba(0,0,0,0.55);">
