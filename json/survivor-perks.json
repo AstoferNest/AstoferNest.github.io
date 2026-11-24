@@ -2392,7 +2392,7 @@
         "descricao": "Após ser perseguido por 40/35/30s, a próxima vez que você atordoar o Assassino com uma Barricada, ele é atordoado por uma duração 75% maior.",
         "descricao_en": "Valkyrie's Rage activates after being chased for 40/35/30 seconds:\n- The next time you Pallet-stun the Killer, they are stunned for +75% longer.\n- Valkyrie's Rage then deactivates.",
         "classe_rpg": "Tank",
-        "ptb": true,
+        "ptb": false,
         "character_ptb": false,
         "tags": [
           "perseguicao",
@@ -2407,7 +2407,7 @@
         "descricao": "Sempre que você receber um acerto de proteção, todos os Sobreviventes dentro de 12m se recuperam de Exaustão enquanto correm por 30/35/40s.\n\nDentro de 32m, você vê as auras de Sobreviventes Exaustos.",
         "descricao_en": "Taking a protection hit causes you and all Survivors within 12 metres to recover from Exhausted while running for 30/35/40 seconds.\n\nYou also see auras of Survivors suffering from Exhausted within 32 metres.",
         "classe_rpg": "Suporte",
-        "ptb": true,
+        "ptb": false,
         "character_ptb": false,
         "tags": [
           "exaustao",
@@ -2422,7 +2422,7 @@
         "descricao": "No começo da Partida, você recebe 4/5/6 Fichas.\nA primeira vez que você derrubar um Item de qualquer tipo, gaste 1 Ficha, e o Item derrubado será consumido (pela Entidade). Então, baseado no tipo de item:\n- Lanterna: sempre que você atordoar o Assassino, ele também é cegado por 2s.\n- Frasco de Névoa: sempre que você realizar um Salto rápido, por 5s, suas Marcas de Arranhão desaparecem 50% mais rapidamente.\n- Chave: você pode vasculhar +1 vez em cada Baú.\n- Mapa: Auras que você ver duram mais +1s.\n- Kit Médico: enquanto curando outro Sobrevivente, você também ganha progresso de cura em 25% da velocidade.\n- Caixa de Ferramentas: você vê a aura dos 3 geradores mais próximos uns dos outros.",
         "descricao_en": "Best Gift Ever starts the Trial with 4/5/6 Tokens.\nThe first time you drop an Item of each type, spend 1 Token to cause the dropped item to be consumed by The Entity and benefit from an effect based on the Item:\n- Flashlights: stunning the Killer causes them to be blinded for 2 seconds.\n- Fog Vials: fast-vaulting causes your Scratch Marks to disappear +50% faster for 5 seconds.\n- Keys: you can rummage each Chest once.\n- Maps: you see auras that last for a duration for +1 second longer.\n- Med-Kits: healing a Survivor causes you to gain healing progress at 25% speed.\n- Toolboxes: you see auras of the 3 closest Generators.",
         "classe_rpg": "Suporte",
-        "ptb": true,
+        "ptb": false,
         "character_ptb": false,
         "tags": [
           "item",
