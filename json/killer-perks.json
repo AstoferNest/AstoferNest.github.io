@@ -2145,7 +2145,7 @@
         "descricao_en": "Survivors within 12 metres of a completed Generator suffer from:\n- Exhausted\n- and Oblivious\nStatus Effects\n\nThese effects linger for 3/4/5 seconds after leaving the range.\n\nYou also see auras of completed Generators.",
         "classe_rpg": "Batedor",
         "ptb": true,
-        "character_ptb": true,
+        "character_ptb": false,
         "tags": [
           "aura",
           "gerador",
@@ -2163,7 +2163,7 @@
         "descricao_en": "When all Survivors have reached the second Hook Stage and all Generators have been completed, you can kill Survivors.\n\nWhile killing a Survivor, Exit Gate Switches are blocked by The Entity and for 6/8/10 seconds after.",
         "classe_rpg": "Assassino",
         "ptb": true,
-        "character_ptb": true,
+        "character_ptb": false,
         "tags": [
           "gancho",
           "gerador",
@@ -2181,7 +2181,7 @@
         "descricao_en": "Damaging a Generator grants +10% Haste Status Effect for 10 seconds and triggers one random effect:\n- Retain the Haste effect for 5 seconds longer.\n- Get stunned for 2 seconds.\n- Block the Generator for 30 seconds.\n- The Generator spews out confetti! But nothing actually happens.\n\nThe same effect cannot happen twice in a row.\n\nThis perk then goes on a 60/50/40 seconds cool-down.",
         "classe_rpg": "Controlador",
         "ptb": true,
-        "character_ptb": true,
+        "character_ptb": false,
         "tags": [
           "gerador",
           "regressao",
