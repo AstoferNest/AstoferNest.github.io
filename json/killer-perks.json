@@ -740,13 +740,13 @@
         "furtividade"
       ]
     },
-    {
+{
       "perk_name": "Gancho do Tormento: Santuário Monstruoso",
       "character": "Perk ensinável Geral",
       "character_en": "Teachable perk General",
       "perk_name_en": "Monstrous Shrine",
-      "descricao": "Sempre que você estiver a pelo menos 24 m de um Sobrevivente em um Gancho do Tormento, qualquer gerador que não estiver sendo reparado regredirá a 150/175/200% da velocidade.",
-      "descricao_en": "While you are at least 24m away from a Survivor on a Scourge Hook, any Generator that isn't being repaired regresses at 150/175/200% speed.",
+      "descricao": "Quando a partida começa:\n- 4 ganchos aleatórios se tornam Ganchos do Tormento.\n- Os ganchos do Porão se tornam Ganchos do Tormento.\nEnquanto você estiver a pelo menos 24 m de um Sobrevivente em um Gancho do Tormento, geradores que não estiverem sendo reparados regredirão a 200% da velocidade.\nQuando o Sobrevivente não estiver mais no gancho, esse efeito termina em 20/25/30 s.",
+      "descricao_en": "When the trial starts:\n- 4 random hooks become Scourge Hooks.\n- The Basement Hooks become Scourge Hooks.\nWhile you are at least 24m away from a Survivor on a Scourge Hook, Generators not being repaired regress at 200% speed.\nWhen the Survivor is no longer hooked, this effect ends in 20/25/30s.",
       "classe_rpg": "Controlador",
       "tags": [
         "gerador",
@@ -1098,8 +1098,8 @@
       "character": "Perk ensinável Geral",
       "character_en": "Teachable perk General",
       "perk_name_en": "Whispers",
-      "descricao": "Enquanto estiver a até 28/26/24 m de um Sobrevivente, você ouvirá sussurros aleatórios.\n\nEnquanto estiver a mais de 28/26/24 m de um Sobrevivente, receba 5% de Celeridade.",
-      "descricao_en": "While within 28/26/24m of a Survivor, you randomly hear whispers.\n\nWhile more than 28/26/24m away from a Survivor, gain 5% Haste.",
+      "descricao": "Enquanto estiver a até 28/26/24 m de um Sobrevivente, você ouvirá sussurros aleatórios.\n\nEnquanto estiver a mais de 28/26/24 m de um Sobrevivente, receba 7% de Celeridade.",
+      "descricao_en": "While within 28/26/24m of a Survivor, you randomly hear whispers.\n\nWhile more than 28/26/24m away from a Survivor, gain 7% Haste.",
       "classe_rpg": "Batedor",
       "tags": [
         "celeridade",
@@ -1731,13 +1731,13 @@
         "furtividade"
       ]
     },
-    {
+{
       "perk_name": "Arrogância Sombria",
       "character": "Perk ensinável de O Lich",
       "character_en": "Teachable perk of The Lich",
       "perk_name_en": "Dark Arrogance",
-      "descricao": "Aumenta em 25% a duração do efeito do estado Cegueira por qualquer meio e a duração do atordoamento causado por barricadas.\n\nAumenta em 15/20/25% a velocidade do salto normal.",
-      "descricao_en": "Increases the duration you are blinded by any means and the duration of pallet stuns by 25%.\n\nIncreases regular vault speed by 15/20/25%.",
+      "descricao": "Você faz saltos normais em janelas 15% mais rápido.\nO tempo de recarga de seus ataques básicos bem-sucedidos é 13/14/15% menor.\nSempre que você for cegado ou atordoado por barricadas, a duração é 15% maior.",
+      "descricao_en": "You basic-vault Windows 15% faster.\nYour successful basic-attack cooldown is 13/14/15% shorter.\nWhenever you are blinded or Pallet-stunned, the duration is 15% longer.",
       "classe_rpg": "Tank",
       "tags": [
         "janela"
@@ -1949,13 +1949,13 @@
         "tempo de recarga"
       ]
     },
-    {
+{
       "perk_name": "Voraz",
       "character": "Perk ensinável de A Krasue",
       "character_en": "Teachable perk of The Krasue",
       "perk_name_en": "Ravenous",
-      "descricao": "Sempre que você enganchar um Sobrevivente pela primeira vez, ganhe 1 ponto de progressão, até um máximo de 4.\n\nQuando tiver 4 pontos de progressão, todos os Sobreviventes gritam e são afetados por Exposto por 80/85/90 s.\n\nExposto faz os Sobreviventes serem derrubados por ataques básicos mesmo que não estejam feridos.",
-      "descricao_en": "Whenever you hook a Survivor for the first time, gain 1 token, up to a maximum of 4.\n\nWhen you have 4 tokens, all Survivors scream and are inflicted with Exposed for 80/85/90 seconds.\n\nExposed Survivors are downed by basic attacks, even if uninjured.",
+      "descricao": "Na primeira vez que você enganchar cada Sobrevivente, você ganha 1 Ficha. Para cada Ficha:\n- Ganha 4% de Pressa enquanto carrega Sobreviventes.\n- Engancha Sobreviventes 4% mais rápido.\nQuando você tiver 4 Fichas, todos os Sobreviventes:\n- Gritam.\n- Ficam Expostos por 60/65/70 s.",
+      "descricao_en": "The first time you hook each Survivor, you earn 1 Token. For each Token:\n- Gain 4% Haste while carrying Survivors.\n- Hook Survivors 4% faster.\nWhen you have 4 Tokens, all Survivors:\n- Scream.\n- Gain Exposed for 60/65/70s.",
       "classe_rpg": "Assassino",
       "tags": [
         "exposto",
