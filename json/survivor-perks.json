@@ -250,8 +250,8 @@
       "perk_name": "Espírito Calmo",
       "character": "Perk ensinável de Jake Park",
       "perk_name_en": "Calm Spirit",
-      "descricao": "Você abençoa e purifica totens e destranca baús silenciosamente e 8/9/10% mais rapidamente.",
-      "descricao_en": "You bless and cleanse Totems, and unlock Chests silently, and 8/9/10% faster.",
+      "descricao": "Você não espanta corvos ou grita.\nVocê abençoa e purifica totens e destranca baús silenciosamente e 23/24/25% mais rapidamente.",
+      "descricao_en": "You do not scare Crows or scream.\nYou bless and cleanse Totems, and unlock Chests silently, and 8/9/10% faster.",
       "classe_rpg": "Suporte",
       "tags": [
         "totem",
@@ -284,12 +284,12 @@
         "rastro"
       ]
     },
-    {
+{
       "perk_name": "Sentido Obscuro",
       "character": "Perk ensinável Geral",
       "perk_name_en": "Dark Sense",
-      "descricao": "Sempre que um gerador é concluído, quando o Assassino chegar a 20 m de você, por 13/14/15 s:\n- Você vê as auras de barricadas e janelas a 32 m.\n- Você vê as auras de outros Sobreviventes.\n- Você vê a aura do Assassino.",
-      "descricao_en": "Whenever a Generator is completed, when the Killer gets within 20m of you, for 13/14/15s:\n- You see the Auras of Pallets and Windows within 32m.\n- You see the Auras of other Survivors.\n- You see the Killer's Aura.",
+      "descricao": "Quando a partida começa e após um gerador ser concluído, você ganha 1 Ficha, até o máximo de 5.\nQuando o Assassino chegar a 20 m de você, gaste 1 Ficha. Então, pelos próximos 13/14/15 s:\n- Você vê as auras de barricadas e janelas a 32 m.\n- Você vê as auras de outros Sobreviventes.\n- Você vê a aura do Assassino.",
+      "descricao_en": "When the trial starts, and after a Generator is completed, you earn 1 Token, up to 5.\nWhen the Killer gets within 20m of you, spend 1 Token. Then, for the next 13/14/15s:\n- You see the Aura of Pallets and Windows within 32m.\n- You see the Auras of other Survivors.\n- You see the Killer's Aura.",
       "classe_rpg": "Suporte",
       "tags": [
         "aura",
@@ -873,8 +873,8 @@
       "perk_name": "Carne Escorregadia",
       "character": "Perk ensinável Geral",
       "perk_name_en": "Slippery Meat",
-      "descricao": "Outros Sobreviventes desengancham você 90/95/100% mais rápido.\n\nSempre que você é desenganchado, recebe 5% mais Celeridade.",
-      "descricao_en": "Other Survivors unhook you 90/95/100% faster.\n\nWhenever you are unhooked, you gain 5% more Haste.",
+      "descricao": "Outros Sobreviventes desengancham você 60/70/75% mais rápido.\n\nSempre que você é desenganchado, recebe 7% mais Celeridade.",
+      "descricao_en": "Other Survivors unhook you 60/70/75% faster.\n\nWhenever you are unhooked, you gain 7% more Haste.",
       "classe_rpg": "Tank",
       "tags": [
         "celeridade",
